@@ -60,7 +60,7 @@ public class ObjectPrototype_ : MonoBehaviour
     private void UpdatePricetag()
     {
         float price = calculatePrice();
-        pricetags = price.ToString("F2");
+        pricetags.text = price.ToString("F2");
     }
 
     private bool checkIsFruit() { return IsFruit; }
