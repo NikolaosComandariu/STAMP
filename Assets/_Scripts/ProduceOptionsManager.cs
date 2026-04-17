@@ -1,17 +1,16 @@
 using System.Collections.Generic;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
 public class ProduceOptionsManager : MonoBehaviour
 {
     [Header("Left Option Game Objects")]
-    [SerializeField] private GameObject leftOption1;
-    [SerializeField] private GameObject leftOption2;
-    [SerializeField] private GameObject leftOption3;
-
+    [SerializeField] private GameObject leftOptionsHolder;
+    [SerializeField] private GameObject[] leftOptions;
+    
     [Header("Right Option Game Objects")]
-    [SerializeField] private GameObject rightOption1;
-    [SerializeField] private GameObject rightOption2;
-    [SerializeField] private GameObject rightOption3;
+    [SerializeField] private GameObject rightOptionsHolder;
+    [SerializeField] private GameObject[] rightOptions;
 
     [Header("Arrow Game Objects")]
     [SerializeField] private GameObject leftArrow;
@@ -20,14 +19,43 @@ public class ProduceOptionsManager : MonoBehaviour
     [Header("Criteria")]
     [SerializeField] private Dictionary<int, string> criteria = new Dictionary<int, string>();
 
-    private string randomCriteria1;
+    [Header("Variables")]
+    [SerializeField] private float timeBetweenOptions;
+
+    // Random criteria selected for each player.
+    private string leftCriteria;
+    private string rightCriteria;
+
+    // Keep track of current selected option for each player.
+    private GameObject currentLeftOption;
+    private GameObject currentRightOption;
+
+    // Keep track of current option index.
+    private int currentLeftIndex;
+    private int currentRightIndex;
 
     private void Start()
     {
+        // Set current options to starting values.
+        currentLeftOption = leftOptions[0];
+        currentRightOption = rightOptions[rightOptions.Length - 1];
+
+        // Set current index to starting values.
+        currentLeftIndex = 0;
+        currentRightIndex = rightOptions.Length - 1;
+
         RepopulateCriteriaDictionary();
         SelectCriteria();
     }
 
+    private void Update()
+    {
+        ChangeCurrentSelectedOption();
+    }
+
+    /// <summary>
+    /// Adds all criteria to the dictionary.
+    /// </summary>
     private void RepopulateCriteriaDictionary()
     {
         criteria.Clear();
@@ -51,6 +79,25 @@ public class ProduceOptionsManager : MonoBehaviour
         criteria.Add(15, "Single");
     }
 
+    /// <summary>
+    /// Populates the options containers
+    /// </summary>
+    private void PopulateOptionsContainers()
+    {
+        int leftChildCount = leftOptionsHolder.transform.childCount;
+        int rightChildCount = rightOptionsHolder.transform.childCount;
+
+        for (int i = 0; i < leftChildCount; i++)
+        {
+            Transform child = leftOptionsHolder.transform.GetChild(i);
+            //leftOptions.
+        }
+    }
+
+    /// <summary>
+    /// Returns a float between 0.05 and 10.
+    /// </summary>
+    /// <returns></returns>
     private float CalculatePrice()
     {
         float randomPrice = 0;
@@ -60,12 +107,76 @@ public class ProduceOptionsManager : MonoBehaviour
         return randomPrice;
     }
 
+    /// <summary>
+    /// Selects random criteria from the dictionary.
+    /// </summary>
     private void SelectCriteria()
     {
         int randNumber = Random.Range(0, criteria.Count);
-        randomCriteria1 = criteria[randNumber];
+        leftCriteria = criteria[randNumber];
+    }
 
-        Vector3 pos = new Vector3(leftOption1.transform.position.x, 1.0f, 0.0f);
-        
+    /// <summary>
+    /// Changes sprite colour to parameter's colour.
+    /// This will be used to tell the player if they got something wrong
+    /// or right.
+    /// </summary>
+    /// <param name="colour"></param>
+    private void ChangeLeftOptionColour(Color colour)
+    {
+        var LeftSpriteRender = currentLeftOption.GetComponent<SpriteRenderer>();
+
+        LeftSpriteRender.material.color = colour;
+    }
+
+    /// <summary>
+    /// Changes sprite colour to parameter's colour.
+    /// This will be used to tell the player if they got something wrong
+    /// or right.
+    /// </summary>
+    /// <param name="colour"></param>
+    private void ChangeRightOptionColour(Color colour)
+    {
+        var RightSpriteRender = currentLeftOption.GetComponent<SpriteRenderer>();
+
+        RightSpriteRender.material.color = colour;
+    }
+
+    private void MoveArrow()
+    {
+        Debug.Log("Move Arrow");
+        leftArrow.transform.position = new Vector3(currentLeftOption.transform.position.x,
+            leftArrow.transform.position.y, leftArrow.transform.position.z);
+        rightArrow.transform.position = new Vector3(currentRightOption.transform.position.x,
+            rightArrow.transform.position.y, rightArrow.transform.position.z);
+    }
+
+    /// <summary>
+    /// Change currently selected option every x seconds.
+    /// </summary>
+    private void ChangeCurrentSelectedOption()
+    {
+        timeBetweenOptions = timeBetweenOptions - Time.deltaTime;
+
+        if (timeBetweenOptions < 0)
+        {
+            Debug.Log("Test");
+            currentLeftIndex++;
+            currentRightIndex--;
+
+            // Change back to starting position.
+            if (currentLeftIndex > leftOptions.Length - 1)
+                currentLeftIndex = 0;
+
+            // Change back to starting position.
+            if(currentRightIndex < 0)
+                currentRightIndex = rightOptions.Length - 1;
+
+            currentLeftOption = leftOptions[currentLeftIndex];
+            currentRightOption = rightOptions[currentRightIndex];
+
+            timeBetweenOptions = 1;
+            MoveArrow();
+        }
     }
 }
