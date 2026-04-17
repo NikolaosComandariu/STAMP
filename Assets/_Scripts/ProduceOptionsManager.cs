@@ -48,7 +48,7 @@ public class ProduceOptionsManager : MonoBehaviour
     {
         // Set current options to starting values.
         currentLeftOption = leftOptions[0];
-        currentRightOption = rightOptions[rightOptions.Length - 1];
+        currentRightOption = rightOptions[^1]; // Index operator allows you to access things from the end.
 
         // Set current index to starting values.
         currentLeftIndex = 0;
@@ -74,17 +74,23 @@ public class ProduceOptionsManager : MonoBehaviour
 
         criteria.Add(1, "Fruit");
         criteria.Add(2, "Not Fruit");
+
         criteria.Add(3, "<" + randomPrice);
         criteria.Add(4, "=" + randomPrice);
         criteria.Add(5, ">" + randomPrice);
+
         criteria.Add(6, "Not Red");
         criteria.Add(7, "Not Yellow");
         criteria.Add(8, "Not Green");
+
         criteria.Add(9, "Not Drink");
+
         criteria.Add(10, "Red");
         criteria.Add(11, "Yellow");
         criteria.Add(12, "Green");
+
         criteria.Add(13, "Drink");
+
         criteria.Add(14, "Not single");
         criteria.Add(15, "Single");
     }
