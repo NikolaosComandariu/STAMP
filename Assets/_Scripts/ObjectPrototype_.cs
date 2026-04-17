@@ -7,7 +7,7 @@ using Unity.VisualScripting;
 public class ObjectPrototype_ : MonoBehaviour
 {
 
-    [SerializeField]private float speed = 1.0f;
+    [SerializeField]private float speed;
     private Transform transform;
     [SerializeField]private float timer = 0.0f;
     [SerializeField] private Text pricetags;
@@ -44,8 +44,12 @@ public class ObjectPrototype_ : MonoBehaviour
 
     private void moveRight()
     {
-        Vector3 pos = new Vector3(transform.position.x + speed,transform.position.y,transform.position.z);
-        transform.position = pos;
+        //transform.position = new Vector3((transform.position.x 
+        // + speed) * Time.deltaTime, transform.position.y,
+        //transform.position.z);
+        //transform.position = pos;
+
+        transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
     }
 
     private float calculatePrice()
