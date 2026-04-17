@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using TMPro;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ProduceOptionsManager : MonoBehaviour
 {
@@ -21,6 +23,14 @@ public class ProduceOptionsManager : MonoBehaviour
 
     [Header("Variables")]
     [SerializeField] private float timeBetweenOptions;
+
+    [Header("Text")]
+    [SerializeField] private TMP_Text leftText1;
+    [SerializeField] private TMP_Text leftText2;
+    [SerializeField] private TMP_Text leftText3;
+    [SerializeField] private TMP_Text rightText1;
+    [SerializeField] private TMP_Text rightText2;
+    [SerializeField] private TMP_Text rightText3;
 
     // Random criteria selected for each player.
     private string leftCriteria;
@@ -109,11 +119,37 @@ public class ProduceOptionsManager : MonoBehaviour
 
     /// <summary>
     /// Selects random criteria from the dictionary.
+    /// TODO: Replace this, this is hardcoded currently.
     /// </summary>
     private void SelectCriteria()
     {
-        int randNumber = Random.Range(0, criteria.Count);
-        leftCriteria = criteria[randNumber];
+        for(int i = 0; i < 6; i++)
+        {
+            int randNumber = Random.Range(1, criteria.Count);
+            leftCriteria = criteria[randNumber];
+
+            switch (i)
+            {
+                case 0:
+                    leftText1.text = leftCriteria.ToString();
+                    break;
+                case 1:
+                    leftText2.text = leftCriteria.ToString();
+                    break;
+                case 2:
+                    leftText3.text = leftCriteria.ToString();
+                    break;
+                case 3:
+                    rightText1.text = leftCriteria.ToString();
+                    break;
+                case 4:
+                    rightText2.text = rightCriteria.ToString();
+                    break;
+                case 5:
+                    rightText3.text = rightCriteria.ToString();
+                    break;
+            }
+        }
     }
 
     /// <summary>
@@ -160,7 +196,6 @@ public class ProduceOptionsManager : MonoBehaviour
 
         if (timeBetweenOptions < 0)
         {
-            Debug.Log("Test");
             currentLeftIndex++;
             currentRightIndex--;
 
