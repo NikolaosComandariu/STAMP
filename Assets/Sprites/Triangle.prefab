@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1747230655607805111}
   - component: {fileID: 5952469319828720300}
   - component: {fileID: -1654510237817451229}
+  - component: {fileID: -8260079836988376212}
   m_Layer: 0
   m_Name: Triangle
   m_TagString: Untagged
@@ -119,3 +120,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-8260079836988376212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2970808725048940319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 167d4e0182e249241b951c65160d3168, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoveToTarget

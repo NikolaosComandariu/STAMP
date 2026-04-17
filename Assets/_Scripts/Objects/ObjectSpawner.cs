@@ -2,83 +2,79 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 using Random = UnityEngine.Random;
+using UnityEngine.UI;
 
 public class ObjectSpawner : MonoBehaviour
 {
+    [SerializeField] private float spawnDelay = 1.5f;
+    [SerializeField] private float MoveForce;
+    [SerializeField] private List<GameObject> ObjectsPool = new List<GameObject>();
+    [SerializeField] private Transform EndOfConveyor;
+    [SerializeField] private Transform SpawnPos;
 
-    public Transform pos;
-    public GameObject[] objectsToInstatiate;
-    public GameObject[] objectsToOutstantiate;
-    public List<GameObject> spawnedObjectsList = new List<GameObject>();
-    public float MoveForce;
+    private Button Accept;
+    private Button Decline;
+
+    private int NumOfObjToSpawn;
     private bool AllowObjSpawn;
 
-    public float spawnDelay = 1.5f;
 
-    private bool firstObjSpawned;
 
     Rigidbody2D rb2D;
 
     void Start()
     {
+        NumOfObjToSpawn = ObjectsPool.Count;
 
         AllowObjSpawn = true;
         StartCoroutine(SpawnObject());
-
-
-
     }
 
-    // Update is called once per frame
     void Update()
     {
-
+        if (NumOfObjToSpawn == 0)
+        {
+            AllowObjSpawn = false;
+        }
     }
 
     IEnumerator SpawnObject()
     {
-        while (AllowObjSpawn)
+        for (int i = 0; i < ObjectsPool.Count; i++)
         {
-            int n = Random.Range(0, objectsToInstatiate.Length);
+            while (AllowObjSpawn)
+            {
+                int n = Random.Range(0, ObjectsPool.Count);
 
-            GameObject g = Instantiate(objectsToInstatiate[n], pos.position, objectsToInstatiate[n].transform.rotation);
-            Rigidbody2D rb = g.GetComponent<Rigidbody2D>();
-            rb.linearVelocity = transform.right * MoveForce;
+                GameObject g = Instantiate(ObjectsPool[n], SpawnPos.position, ObjectsPool[n].transform.rotation);
+                ObjectsPool.RemoveAt(n);
+                NumOfObjToSpawn--;
 
-            spawnedObjectsList.Add(g);
+                MoveToTarget mover = g.GetComponent<MoveToTarget>();
+                mover.target= EndOfConveyor;
+                mover.speed =MoveForce;
 
-            yield return new WaitForSeconds(spawnDelay);
+                Rigidbody2D rb = g.GetComponent<Rigidbody2D>();
+                //rb.linearVelocity = transform.right * MoveForce;
+                rb.transform.position = Vector2.MoveTowards(SpawnPos.position, EndOfConveyor.position, MoveForce * Time.deltaTime);
+
+                yield return new WaitForSeconds(spawnDelay);
+            }
         }
     }
 
+
+    //spawn one item then once button pressed then move item and only then spawn the next one and repeat
+
+    // on click of either button item is then destroyed, when first object is instantiated set a variable to signify an obj is present and the destroy on button press then set variable back to allow next obj to spawn
+
+
+    void AcceptOrDeclinePressed()
+    {
+        if (Accept == true)
+        {
+
+        }
+    }
 }
-
-
-//public IEnumerator WaitUntilTrue(bool AllowObjSpawn)
-//{
-//    while (AllowObjSpawn == false)
-//    {
-//        yield return null;
-//    }
-//}
-
-//void SpawnObject()
-//{
-//    for (int i = 0; i < objectsToInstatiate.Length; i++)
-//    {
-//        if (AllowObjSpawn == true)
-//        {
-//            yield return WaitUntilTrue(AllowObjSpawn);
-//            int n = Random.Range(0, objectsToInstatiate.Length);
-//            GameObject g = Instantiate(objectsToInstatiate[n], pos.position, objectsToInstatiate[n].transform.rotation);
-//            Rigidbody2D rb = g.GetComponent<Rigidbody2D>();
-
-//            rb.linearVelocity = transform.right * MoveForce;
-
-//            spawnedObjectsList.Add(g);
-//        }
-//    }
-//}
-
