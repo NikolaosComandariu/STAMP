@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,14 +12,26 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float roundCountdown;
 
     [Header("Game Objects")]
-    [SerializeField] private GameObject startCountdownTimer;
-    [SerializeField] private GameObject roundTimer;
+    [SerializeField] private GameObject startCountdownGO;
+    [SerializeField] private GameObject roundTimerGO;
+
+    // Text components.
+    private TextMeshProUGUI startCountdownText;
+    private TextMeshProUGUI roundTimerText;
 
     private int maxRoundNumber = 16;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        roundCountdown = 30.0f;
+
+        startCountdownText = startCountdownGO.GetComponent<TextMeshProUGUI>();
+        startCountdownText.text = startCountdown.ToString();
+
+        //roundTimerText = roundTimerGO.GetComponent<TextMeshProUGUI>();
+        //roundTimerText.text = roundCountdown.ToString();
+
         StartCoroutine(StartGameCountdown());
     }
 
@@ -38,8 +51,10 @@ public class GameManager : MonoBehaviour
     {
         while (startCountdown > 0)
         {
+          
             yield return new WaitForSeconds(1.0f);
             startCountdown--;
+            startCountdownGO.GetComponent<TextMeshProUGUI>().text = startCountdown.ToString();
         }
 
         PauseGame(false);
@@ -57,8 +72,10 @@ public class GameManager : MonoBehaviour
     {
         while (startCountdown > 0)
         {
+            
             yield return new WaitForSeconds(1.0f);
             roundCountdown--;
+            roundTimerGO.GetComponent<TextMeshProUGUI>().text = startCountdown.ToString();
         }
 
         yield return null;
@@ -66,7 +83,7 @@ public class GameManager : MonoBehaviour
 
     private void IncreaseDifficulty()
     {
-
+        // TODO: Implement only when other scripts are finished/relatively finished.
     }
 
     /// <summary>
