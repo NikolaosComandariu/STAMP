@@ -75,6 +75,9 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
+    //testing stuff
+    [SerializeField] private Transform DeclinedP1;
+
     public void AcceptObject()
     {
         if (currentObject != null)
@@ -88,7 +91,10 @@ public class ObjectSpawner : MonoBehaviour
     {
         if (currentObject != null)
         {
-            Destroy(currentObject);
+            //edited testing
+            Rigidbody2D testrb = currentObject.GetComponent<Rigidbody2D>();
+            testrb.transform.position = Vector3.MoveTowards(EndOfConveyor.position,DeclinedP1.position, MoveForce * Time.deltaTime);
+           // Destroy(currentObject);
             AllowObjSpawn = true;
             StartCoroutine(SpawnObject());
         }
