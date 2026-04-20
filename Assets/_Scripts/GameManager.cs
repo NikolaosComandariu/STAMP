@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
             startCountdown--;
         }
 
-        PauseGame();
+        PauseGame(false);
 
         yield return null;
     }
@@ -50,8 +50,16 @@ public class GameManager : MonoBehaviour
     {
 
     }
-    private void PauseGame()
+    private void PauseGame(bool isPaused)
     {
-        Debug.Log("Game Paused!");
+        Debug.Log("Game paused: " + isPaused);
+        if(isPaused)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
     }    
 }
