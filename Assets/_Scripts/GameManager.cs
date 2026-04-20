@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEditor.Toolbars;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,14 +25,18 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        // Set default values to round number and countdown.
+        currentRoundNumber = 1;
         roundCountdown = 30.0f;
 
+        // Get text components for countdown timers.
         startCountdownText = startCountdownGO.GetComponent<TextMeshProUGUI>();
         startCountdownText.text = startCountdown.ToString();
 
         roundTimerText = roundTimerGO.GetComponent<TextMeshProUGUI>();
         roundTimerText.text = roundCountdown.ToString();
 
+        // Start countdown.
         StartCoroutine(StartGameCountdown());
     }
 
@@ -104,8 +109,21 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game paused: " + isPaused);
     }
 
+    /// <summary>
+    /// Start a new round! 
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator NextRound()
     {
+        if(currentRoundNumber < 16)
+            currentRoundNumber++;
+
+        // TODO: If round is 5, 10 or 15, increase difficulty.
+
+        StartCoroutine(StartGameCountdown());
+
+        // TODO: Add more logic once every script is linked.
+
         yield return null;
     }
 }
