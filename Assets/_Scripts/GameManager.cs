@@ -29,8 +29,8 @@ public class GameManager : MonoBehaviour
         startCountdownText = startCountdownGO.GetComponent<TextMeshProUGUI>();
         startCountdownText.text = startCountdown.ToString();
 
-        //roundTimerText = roundTimerGO.GetComponent<TextMeshProUGUI>();
-        //roundTimerText.text = roundCountdown.ToString();
+        roundTimerText = roundTimerGO.GetComponent<TextMeshProUGUI>();
+        roundTimerText.text = roundCountdown.ToString();
 
         StartCoroutine(StartGameCountdown());
     }
@@ -51,10 +51,10 @@ public class GameManager : MonoBehaviour
     {
         while (startCountdown > 0)
         {
-          
             yield return new WaitForSeconds(1.0f);
+
             startCountdown--;
-            startCountdownGO.GetComponent<TextMeshProUGUI>().text = startCountdown.ToString();
+            startCountdownText.text = startCountdown.ToString();
         }
 
         PauseGame(false);
@@ -70,12 +70,12 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     private IEnumerator StartRoundCountdown()
     {
-        while (startCountdown > 0)
+        while (roundCountdown > 0)
         {
-            
             yield return new WaitForSeconds(1.0f);
+
             roundCountdown--;
-            roundTimerGO.GetComponent<TextMeshProUGUI>().text = startCountdown.ToString();
+            roundTimerText.text = roundCountdown.ToString();
         }
 
         yield return null;
@@ -92,8 +92,6 @@ public class GameManager : MonoBehaviour
     /// <param name="isPaused"></param>
     private void PauseGame(bool isPaused)
     {
-        Debug.Log("Game paused: " + isPaused);
-
         if(isPaused)
         {
             Time.timeScale = 0;
@@ -102,6 +100,8 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 1;
         }
+
+        Debug.Log("Game paused: " + isPaused);
     }
 
     private IEnumerator NextRound()
