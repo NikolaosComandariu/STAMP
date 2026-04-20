@@ -22,6 +22,15 @@ public class ObjectSpawner : MonoBehaviour
 
     private GameObject currentObject;
 
+    private float P1points;
+    private int PointsToAdd;
+
+    private bool correctChoice;
+    private bool wrongChoice;
+
+    private int p1Points;
+    private int p2Points;
+
 
 
     Rigidbody2D rb2D;
@@ -83,6 +92,10 @@ public class ObjectSpawner : MonoBehaviour
             AllowObjSpawn = true;
             StartCoroutine(SpawnObject());
         }
+        if (correctChoice)
+        {
+            P1AddCorrectPoints();
+        }
     }
     public void DeclineObject()
     {
@@ -92,5 +105,35 @@ public class ObjectSpawner : MonoBehaviour
             AllowObjSpawn = true;
             StartCoroutine(SpawnObject());
         }
+        if (wrongChoice)
+        {
+            P1DeductWrongPoints();
+        }
+    }
+
+
+
+    public int CalculatePointsToAdd()
+    {
+        //calculate scores based on correct or wrong 
+        //if player 1 finished first then add multiplier to score - when object pool = 0 for either play change a bool to be true
+
+
+
+
+        return PointsToAdd;
+    }
+
+    private int P1DeductWrongPoints()
+    {
+        p1Points -= PointsToAdd;
+        return p1Points;
+    }
+
+    public int P1AddCorrectPoints()
+    {
+        p1Points += PointsToAdd;
+        return p1Points;
     }
 }
+
