@@ -18,6 +18,7 @@ public class ObjectPrototype_ : MonoBehaviour
     [SerializeField] private bool IsGreen;
     [SerializeField] private bool IsYellow;
     [SerializeField] private bool IsSingle;
+    [SerializeField] private bool IsOrange;
 
     //TODO: PRICE VARIABLES
 
