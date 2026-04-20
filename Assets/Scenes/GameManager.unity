@@ -163,6 +163,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57e3d3f58b3038b4d89d2902be640c0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  currentRoundNumber: 0
+  startCountdown: 3
+  roundCountdown: 0
+  startCountdownTimer: {fileID: 0}
+  roundTimer: {fileID: 0}
 --- !u!1 &1698780160
 GameObject:
   m_ObjectHideFlags: 0

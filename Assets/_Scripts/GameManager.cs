@@ -19,7 +19,6 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        startCountdown = 3.0f;
         StartCoroutine(StartGameCountdown());
     }
 
@@ -31,6 +30,14 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator StartGameCountdown()
     {
+        while (startCountdown > 0)
+        {
+            yield return new WaitForSeconds(1.0f);
+            startCountdown--;
+        }
+
+        PauseGame();
+
         yield return null;
     }
 
@@ -43,4 +50,8 @@ public class GameManager : MonoBehaviour
     {
 
     }
+    private void PauseGame()
+    {
+        Debug.Log("Game Paused!");
+    }    
 }
