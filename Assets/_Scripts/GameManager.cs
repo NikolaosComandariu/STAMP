@@ -28,6 +28,12 @@ public class GameManager : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Starts game countdown, decreases the countdown
+    /// every 1s. Unpauses the game once it's down, and
+    /// starts the round countdown.
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator StartGameCountdown()
     {
         while (startCountdown > 0)
@@ -37,22 +43,40 @@ public class GameManager : MonoBehaviour
         }
 
         PauseGame(false);
+        StartCoroutine(StartRoundCountdown());
 
         yield return null;
     }
 
-    private void StartRoundCountdown()
+    /// <summary>
+    /// Starts round countdown, countdown goes down
+    /// gradually by 1 second.
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator StartRoundCountdown()
     {
+        while (startCountdown > 0)
+        {
+            yield return new WaitForSeconds(1.0f);
+            roundCountdown--;
+        }
 
+        yield return null;
     }
 
     private void IncreaseDifficulty()
     {
 
     }
+
+    /// <summary>
+    /// Sets the Time.timeScale based on the boolean.
+    /// </summary>
+    /// <param name="isPaused"></param>
     private void PauseGame(bool isPaused)
     {
         Debug.Log("Game paused: " + isPaused);
+
         if(isPaused)
         {
             Time.timeScale = 0;
@@ -61,5 +85,10 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 1;
         }
-    }    
+    }
+
+    private IEnumerator NextRound()
+    {
+        yield return null;
+    }
 }
