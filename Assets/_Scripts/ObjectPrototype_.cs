@@ -7,7 +7,7 @@ using Unity.VisualScripting;
 public class ObjectPrototype_ : MonoBehaviour
 {
 
-    [SerializeField]private float speed;
+    [SerializeField]private float speed = 1.0f;
     private Transform transform;
     [SerializeField]private float timer = 0.0f;
     [SerializeField] private Text pricetags;
@@ -43,14 +43,12 @@ public class ObjectPrototype_ : MonoBehaviour
         }
     }
 
+    //can be reomved after testing
+    [SerializeField] private float centreDiff = 5.0f;
     private void moveRight()
     {
-        //transform.position = new Vector3((transform.position.x 
-        // + speed) * Time.deltaTime, transform.position.y,
-        //transform.position.z);
-        //transform.position = pos;
-
-        transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
+        Vector3 pos = new Vector3(transform.position.x + speed,transform.position.y,transform.position.z);
+        transform.position = pos;
     }
 
     private float calculatePrice()
@@ -73,5 +71,32 @@ public class ObjectPrototype_ : MonoBehaviour
     private bool checkIsGreen() { return IsGreen; }
     private bool checkIsYellow() { return IsYellow; }
     private bool checkIsSingle() { return IsSingle; }
-    
+
+
+    //trying out movement for rejcted items
+    [SerializeField] private bool isAccepted;
+
+    //these serialised fields can be removed after testing
+    [SerializeField] private float ySpd = 0.03f;
+    [SerializeField] private float xSpd = 0.01f;
+   
+
+    //testing new fucntions
+    private void moveUp()
+    {
+        //needs to see if the object is coming in from the left or the right
+        if (transform.position.x < 0)
+        {
+            xSpd *= 1.0f; //object is moving to the right
+        }
+        else
+        {
+            xSpd *= -1.0f; //object is moving to the left
+        }
+
+        if (isAccepted == false)
+        {
+            Vector3 declinedPos = new Vector3(transform.position.x + xSpd, transform.position.y + ySpd, transform.position.z);
+        }
+    }
 }
