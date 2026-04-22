@@ -90,4 +90,9 @@ public class CountdownManager : MonoBehaviour
 
         Debug.Log("Game paused: " + isPaused);
     }
+
+    public void SetCountdownTimer(float time)
+    {
+        roundCountdown = time;
+    }
 }
