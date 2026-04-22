@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.Toolbars;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -8,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Game Objects")]
     [SerializeField] private GameObject countDownManager;
+    [SerializeField] private GameObject objectSpawner;
 
     private int maxRoundNumber = 16;
 
@@ -20,7 +22,12 @@ public class GameManager : MonoBehaviour
 
     private void IncreaseDifficulty()
     {
+        // These values can be changed!
         countDownManager.GetComponent<CountdownManager>().SetCountdownTimer(30 + currentRoundNumber);
+        objectSpawner.GetComponent<ObjectSpawner>().ChangeNumberOfObjectsSpawned(10 + currentRoundNumber);
+
+        // TODO: Increase criteria spawned once this functionality is in.
+        // TODO (maybe): Increase speed of spawned objects, not necessary anymore.
     }
 
     /// <summary>
