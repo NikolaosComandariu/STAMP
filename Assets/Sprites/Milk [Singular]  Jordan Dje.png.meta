@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 7947089f1ff88bf4f8f6cc5181ea01c6
+guid: cbb7bf1f90f260642adb3b4c5d90dfcf
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 9140337497583767992
-    second: Milk Single_0
+      213: 8702522082570302067
+    second: Milk [Singular]  Jordan Dje_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,17 +96,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Milk Single_0
+      name: Milk [Singular]  Jordan Dje_0
       rect:
         serializedVersion: 2
-        x: 8
+        x: 5
         y: 3
-        width: 48
-        height: 56
+        width: 51
+        height: 51
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8b1d9a6c68009de70800000000000000
-      internalID: 9140337497583767992
+      spriteID: 3727895e9b195c870800000000000000
+      internalID: 8702522082570302067
       vertices: []
       indices: 
       edges: []
@@ -135,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Milk Single_0: 9140337497583767992
+      Milk [Singular]  Jordan Dje_0: 8702522082570302067
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
