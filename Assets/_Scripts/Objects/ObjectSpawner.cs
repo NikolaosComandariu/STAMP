@@ -1,10 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using Random = UnityEngine.Random;
-using UnityEngine.UI;
 using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.UI;
+using static UnityEditor.Progress;
+using Random = UnityEngine.Random;
 
 public class ObjectSpawner : MonoBehaviour
 {
@@ -14,15 +15,19 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] private Transform EndOfConveyor; // Stopping point of objects where they're ready to be accepted / declined
     [SerializeField] private Transform SpawnPos; // Off screen spawnpoint for objects to then scroll onto screen
 
+    [SerializeField] private TMPro.TextMeshProUGUI scoreText;
+
     private Button Accept;
     private Button Decline;
 
     private int NumOfObjToSpawn; // tally of items left to spawn
     private bool AllowObjSpawn;
 
-    private GameObject currentObject;
+    public GameObject currentObject;
 
+    public int score = 0;
 
+    Item item;
 
     Rigidbody2D rb2D;
 
@@ -51,6 +56,7 @@ public class ObjectSpawner : MonoBehaviour
                 int n = Random.Range(0, ObjectsPool.Count);
 
                 currentObject = Instantiate(ObjectsPool[n], SpawnPos.position, ObjectsPool[n].transform.rotation);
+                item = currentObject.GetComponent<Item>();
                 ObjectsPool.RemoveAt(n);
                 NumOfObjToSpawn--;
 
@@ -58,16 +64,12 @@ public class ObjectSpawner : MonoBehaviour
                 mover.target = EndOfConveyor;
                 mover.speed = MoveForce;
 
-
-
                 Rigidbody2D rb = currentObject.GetComponent<Rigidbody2D>();
-                //rb.linearVelocity = transform.right * MoveForce;
                 rb.transform.position = Vector2.MoveTowards(SpawnPos.position, EndOfConveyor.position, MoveForce * Time.deltaTime);
 
                 AllowObjSpawn = false;
 
-                //yield return new WaitForSeconds(spawnDelay);
-                //AllowObjSpawn = false;
+
 
                 yield return null;
 
@@ -75,22 +77,119 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
+    public enum RoundCondition
+    {
+        Fruit,
+        Red,
+        Green,
+        Yellow,
+        Single
+    }
+
+    public RoundCondition currentRoundCondition;
+
     public void AcceptObject()
     {
-        if (currentObject != null)
+        print ("accept clicked");
+        if (currentObject == null)
+            return;
+
+        ObjectPrototype_ proto = currentObject.GetComponent<ObjectPrototype_>();
+
+        bool isMatch = false;
+
+        switch (currentRoundCondition)
         {
-            Destroy(currentObject);
-            AllowObjSpawn = true;
-            StartCoroutine(SpawnObject());
+            case RoundCondition.Fruit:
+                isMatch = proto.checkIsFruit();
+                break;
+            case RoundCondition.Red:
+                isMatch = proto.checkIsRed();
+                break;
+            case RoundCondition.Green:
+                isMatch = proto.checkIsGreen();
+                break;
+            case RoundCondition.Yellow:
+                isMatch = proto.checkIsYellow();
+                break;
+            case RoundCondition.Single:
+                isMatch = proto.checkIsSingle();
+                break;
         }
+
+        if (isMatch)
+        {
+            Debug.Log("ACCEPT: Correct choice!");
+            score += 1;
+            UpdateScoreUI();
+            Debug.Log("Correct! Score is now: " + score);
+        }
+        else
+        {
+            Debug.Log("Wrong choice!");
+            score -= 1;
+            UpdateScoreUI();
+            Debug.Log("Wrong, Score is now: " + score);
+        }
+
+        Destroy(currentObject);
+        AllowObjSpawn = true;
+        StartCoroutine(SpawnObject());
     }
+
+
     public void DeclineObject()
     {
-        if (currentObject != null)
+        print("Decline clicked");
+        if (currentObject == null)
+            return;
+
+        ObjectPrototype_ proto = currentObject.GetComponent<ObjectPrototype_>();
+
+        bool isMatch = false;
+
+        switch (currentRoundCondition)
         {
-            Destroy(currentObject);
-            AllowObjSpawn = true;
-            StartCoroutine(SpawnObject());
+            case RoundCondition.Fruit:
+                isMatch = proto.checkIsFruit();
+                break;
+            case RoundCondition.Red:
+                isMatch = proto.checkIsRed();
+                break;
+            case RoundCondition.Green:
+                isMatch = proto.checkIsGreen();
+                break;
+            case RoundCondition.Yellow:
+                isMatch = proto.checkIsYellow();
+                break;
+            case RoundCondition.Single:
+                isMatch = proto.checkIsSingle();
+                break;
         }
+
+        if (!isMatch)
+        {
+            Debug.Log("Correct choice");
+            score += 1;
+            UpdateScoreUI();
+            Debug.Log("Correct, Score is now: " + score);
+        }
+        else
+        {
+            Debug.Log("Wrong choice!");
+            score -= 1;
+            UpdateScoreUI();
+            Debug.Log("Wrong, Score is now: " + score);
+        }
+
+        Destroy(currentObject);
+        AllowObjSpawn = true;
+        StartCoroutine(SpawnObject());
+    }
+
+    private void UpdateScoreUI()
+    {
+        if (scoreText != null)
+            scoreText.text = "Score: " + score;
     }
 }
