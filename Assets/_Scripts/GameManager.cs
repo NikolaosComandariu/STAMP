@@ -7,11 +7,12 @@ public class GameManager : MonoBehaviour
     [Header("Round Related")]
     [SerializeField] private int currentRoundNumber;
 
-    [Header("Game Objects")]
-    [SerializeField] private GameObject countDownManager;
-    [SerializeField] private GameObject objectSpawner;
+    [Header("Scripts")]
+    [SerializeField] private CountdownManager countDownManager;
+    [SerializeField] private ObjectSpawner objectSpawner;
 
     private int maxRoundNumber = 16;
+    private int spawnCountdown = 3;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -23,8 +24,8 @@ public class GameManager : MonoBehaviour
     private void IncreaseDifficulty()
     {
         // These values can be changed!
-        countDownManager.GetComponent<CountdownManager>().SetCountdownTimer(30 + currentRoundNumber);
-        objectSpawner.GetComponent<ObjectSpawner>().ChangeNumberOfObjectsSpawned(10 + currentRoundNumber);
+        countDownManager.SetCountdownTimer(30 + currentRoundNumber);
+        objectSpawner.ChangeNumberOfObjectsSpawned(10 + currentRoundNumber);
 
         // TODO: Increase criteria spawned once this functionality is in.
         // TODO (maybe): Increase speed of spawned objects, not necessary anymore.
@@ -54,14 +55,33 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     private IEnumerator NextRound()
     {
-        if(currentRoundNumber < 16)
+        PauseGame(true);
+
+        if (currentRoundNumber < 16)
             currentRoundNumber++;
 
-        // TODO: If round is 5, 10 or 15, increase difficulty.
+        // If round number is a multiple of 5, increase difficulty.
+        if(currentRoundNumber % 5 == 0)
+            IncreaseDifficulty();
 
-        //StartCoroutine(StartGameCountdown());
+        // TODO: Reset Criteria and get new ones for the round.
+        StartCoroutine(countDownManager.StartGameCountdown());
 
-        // TODO: Add more logic once every script is linked.
+        // TODO: Start Object spawning.
+
+        yield return null;
+    }
+    private IEnumerator StartGameCountdown()
+    {
+        while (spawnCountdown > 0)
+        {
+            yield return new WaitForSeconds(1.0f);
+
+            spawnCountdown--;
+        }
+
+        // TODO: Re-enable when everything is working.
+        //StartCoroutine(objectSpawner.SpawnObject());
 
         yield return null;
     }

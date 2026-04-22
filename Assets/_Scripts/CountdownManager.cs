@@ -39,7 +39,7 @@ public class CountdownManager : MonoBehaviour
     /// starts the round countdown.
     /// </summary>
     /// <returns></returns>
-    private IEnumerator StartGameCountdown()
+    public IEnumerator StartGameCountdown()
     {
         while (startCountdown > 0)
         {
