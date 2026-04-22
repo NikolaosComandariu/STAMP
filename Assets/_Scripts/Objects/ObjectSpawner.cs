@@ -20,11 +20,15 @@ public class ObjectSpawner : MonoBehaviour
 
     [SerializeField] private TMPro.TextMeshProUGUI scoreText;
 
+    [SerializeField] private List<GameObject> AllPossibleObjects; // All prefabs possible to spawn
+
     private Button Accept;
     private Button Decline;
 
     private int NumOfObjToSpawn; // tally of items left to spawn
     private bool AllowObjSpawn;
+    private bool isSpawning = false;
+    //private int roundNumber = 1;
 
     public GameObject currentObject;
 
@@ -47,8 +51,12 @@ public class ObjectSpawner : MonoBehaviour
     {
         if (NumOfObjToSpawn == 0)
         {
-            AllowObjSpawn = false;
+            //roundNumber++;
+            GenerateObjectsForRound();
+            AllowObjSpawn = true;
+            StartCoroutine(SpawnObject());
         }
+
     }
 
     IEnumerator SpawnObject()
@@ -57,29 +65,50 @@ public class ObjectSpawner : MonoBehaviour
         {
             while (AllowObjSpawn)
             {
-                int n = Random.Range(0, ObjectsPool.Count);
+                if (NumOfObjToSpawn != 0)
+                {
+                    int n = Random.Range(0, ObjectsPool.Count);
 
-                currentObject = Instantiate(ObjectsPool[n], SpawnPos.position, ObjectsPool[n].transform.rotation);
-                item = currentObject.GetComponent<Item>();
-                ObjectsPool.RemoveAt(n);
-                NumOfObjToSpawn--;
+                    currentObject = Instantiate(ObjectsPool[n], SpawnPos.position, ObjectsPool[n].transform.rotation);
+                    print("spawn object");
+                    item = currentObject.GetComponent<Item>();
+                    ObjectsPool.RemoveAt(n);
+                    NumOfObjToSpawn--;
 
-                MoveToTarget mover = currentObject.GetComponent<MoveToTarget>();
-                mover.target = EndOfConveyor;
-                mover.speed = MoveForce;
+                    MoveToTarget mover = currentObject.GetComponent<MoveToTarget>();
+                    mover.target = EndOfConveyor;
+                    mover.speed = MoveForce;
 
-                Rigidbody2D rb = currentObject.GetComponent<Rigidbody2D>();
-                rb.transform.position = Vector2.MoveTowards(SpawnPos.position, EndOfConveyor.position, MoveForce * Time.deltaTime);
+                    Rigidbody2D rb = currentObject.GetComponent<Rigidbody2D>();
+                    rb.transform.position = Vector2.MoveTowards(SpawnPos.position, EndOfConveyor.position, MoveForce * Time.deltaTime);
 
                 AllowDecision = true;
                 AllowObjSpawn = false;
 
 
 
-                yield return null;
-
+                    yield return null;
+                }
             }
         }
+    }
+
+    private void GenerateObjectsForRound()
+    {
+        ObjectsPool.Clear();
+
+        int itemsThisRound = 3 * 2;
+        // round 1 = 3 items
+        // Round 2 = 5 items
+        // etc
+
+        for (int i = 0; i < itemsThisRound; i++)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, AllPossibleObjects.Count);
+            ObjectsPool.Add(AllPossibleObjects[randomIndex]);
+        }
+
+        NumOfObjToSpawn = ObjectsPool.Count;
     }
 
     public enum RoundCondition
@@ -245,7 +274,14 @@ public class ObjectSpawner : MonoBehaviour
 
         Destroy(currentObject);
         AllowObjSpawn = true;
-        StartCoroutine(SpawnObject());
+        if (NumOfObjToSpawn == 0)
+        {
+            return;
+        }
+        else
+        {
+            StartCoroutine(SpawnObject());
+        }
     }
 
     private void UpdateScoreUI()
