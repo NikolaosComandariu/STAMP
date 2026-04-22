@@ -93,4 +93,27 @@ public class ObjectSpawner : MonoBehaviour
             StartCoroutine(SpawnObject());
         }
     }
+
+    // Code from Nikolaos Comandariu.
+
+    /// <summary>
+    /// Changes number of objects spawned, will be used when
+    /// increasing difficulty.
+    /// </summary>
+    /// <param name="num"></param>
+    public void ChangeNumberOfObjectsSpawned(int num)
+    {
+        NumOfObjToSpawn = num;
+    }
+
+    /// <summary>
+    /// Changes boolean to allow objects to spawn.
+    /// </summary>
+    /// <param name="allow"></param>
+    public void ChangeAllowToSpawn(bool allow)
+    {
+        AllowObjSpawn = allow;
+    }
+
+    // End of code from Nikolaos Comandariu.
 }
