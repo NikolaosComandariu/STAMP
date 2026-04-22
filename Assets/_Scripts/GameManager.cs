@@ -6,6 +6,9 @@ public class GameManager : MonoBehaviour
     [Header("Round Related")]
     [SerializeField] private int currentRoundNumber;
 
+    [Header("Game Objects")]
+    [SerializeField] private GameObject countDownManager;
+
     private int maxRoundNumber = 16;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -17,7 +20,7 @@ public class GameManager : MonoBehaviour
 
     private void IncreaseDifficulty()
     {
-        // TODO: Implement only when other scripts are finished/relatively finished.
+        countDownManager.GetComponent<CountdownManager>().SetCountdownTimer(30 + currentRoundNumber);
     }
 
     /// <summary>
