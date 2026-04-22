@@ -102,17 +102,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4792970453830179624}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a4dfbb433c94c549a03624eccbf7027, type: 3}
+  m_Script: {fileID: 11500000, guid: 54b5969e7004f484598a53aba67751ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectPrototype_
-  speed: 0.09
+  speed: 0.01
   timer: 0
-  pricetags: {fileID: 0}
-  IsFruit: 0
-  IsRed: 0
-  IsGreen: 0
-  IsYellow: 0
-  IsSingle: 0
 --- !u!1 &4826505803031131462
 GameObject:
   m_ObjectHideFlags: 0

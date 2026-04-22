@@ -18,6 +18,7 @@ public class ObjectPrototype_ : MonoBehaviour
     [SerializeField] private bool IsGreen;
     [SerializeField] private bool IsYellow;
     [SerializeField] private bool IsSingle;
+    [SerializeField] private bool IsOrange;
 
     //TODO: PRICE VARIABLES
 
@@ -42,6 +43,8 @@ public class ObjectPrototype_ : MonoBehaviour
         }
     }
 
+    //can be reomved after testing
+    [SerializeField] private float centreDiff = 5.0f;
     private void moveRight()
     {
         Vector3 pos = new Vector3(transform.position.x + speed,transform.position.y,transform.position.z);
@@ -68,5 +71,32 @@ public class ObjectPrototype_ : MonoBehaviour
     private bool checkIsGreen() { return IsGreen; }
     private bool checkIsYellow() { return IsYellow; }
     private bool checkIsSingle() { return IsSingle; }
-    
+
+
+    //trying out movement for rejcted items
+    [SerializeField] private bool isAccepted;
+
+    //these serialised fields can be removed after testing
+    [SerializeField] private float ySpd = 0.03f;
+    [SerializeField] private float xSpd = 0.01f;
+   
+
+    //testing new fucntions
+    private void moveUp()
+    {
+        //needs to see if the object is coming in from the left or the right
+        if (transform.position.x < 0)
+        {
+            xSpd *= 1.0f; //object is moving to the right
+        }
+        else
+        {
+            xSpd *= -1.0f; //object is moving to the left
+        }
+
+        if (isAccepted == false)
+        {
+            Vector3 declinedPos = new Vector3(transform.position.x + xSpd, transform.position.y + ySpd, transform.position.z);
+        }
+    }
 }
