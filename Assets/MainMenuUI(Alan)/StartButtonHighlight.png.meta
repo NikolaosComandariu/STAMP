@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f41010d44b3ab7d44b139423046b5808
+guid: 77ace81033015e74eaf2899d37895575
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8655218673132739838
-    second: Wider Shelves Menu_0
+      213: 8832958468135544384
+    second: StartButtonHighlight_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Wider Shelves Menu_0
+      name: StartButtonHighlight_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 128
-        height: 64
+        y: 17
+        width: 64
+        height: 35
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 203689e597c72e780800000000000000
-      internalID: -8655218673132739838
+      spriteID: 0466ff08de8f49a70800000000000000
+      internalID: 8832958468135544384
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Wider Shelves Menu_0: -8655218673132739838
+      StartButtonHighlight_0: 8832958468135544384
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
