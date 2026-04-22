@@ -108,7 +108,7 @@ public class ObjectSpawner : MonoBehaviour
                 //Destroy(currentObject);
                 
                 AllowDecision = false;
-                return;
+
                 //end of code by Smriti
             }
             AllowObjSpawn = true;
@@ -140,7 +140,7 @@ public class ObjectSpawner : MonoBehaviour
                  }*/
                 //Destroy(currentObject);
                 AllowDecision= false;
-                return;
+
                 //end code by smriti
             }
             AllowObjSpawn = true;
