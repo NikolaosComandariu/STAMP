@@ -39,7 +39,7 @@ public class CountdownManager : MonoBehaviour
     /// starts the round countdown.
     /// </summary>
     /// <returns></returns>
-    private IEnumerator StartGameCountdown()
+    public IEnumerator StartGameCountdown()
     {
         while (startCountdown > 0)
         {
@@ -89,5 +89,10 @@ public class CountdownManager : MonoBehaviour
         }
 
         Debug.Log("Game paused: " + isPaused);
+    }
+
+    public void SetCountdownTimer(float time)
+    {
+        roundCountdown = time;
     }
 }
