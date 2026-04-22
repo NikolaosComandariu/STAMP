@@ -5,6 +5,8 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using System.Threading;
+using System.Threading.Tasks;
 
 public class ObjectSpawner : MonoBehaviour
 {
@@ -22,7 +24,7 @@ public class ObjectSpawner : MonoBehaviour
 
     private GameObject currentObject;
 
-
+    private bool AllowDecision = false; //smriti added this
 
     Rigidbody2D rb2D;
 
@@ -64,6 +66,7 @@ public class ObjectSpawner : MonoBehaviour
                 //rb.linearVelocity = transform.right * MoveForce;
                 rb.transform.position = Vector2.MoveTowards(SpawnPos.position, EndOfConveyor.position, MoveForce * Time.deltaTime);
 
+                AllowDecision = true;
                 AllowObjSpawn = false;
 
                 //yield return new WaitForSeconds(spawnDelay);
@@ -75,11 +78,39 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
+    //code by Smriti
+    [SerializeField] private Transform DeclinedP1;
+    [SerializeField] private Transform AcceptedP1;
+    //public DeclinedTrigger trigger;
+    //private Collision2D collision;
+
+    /* public void OnCollisionEnter2D(Collision2D collision)
+     {
+         if(collision.gameObject.CompareTag("DeclinedTrigger"))
+         {
+             Debug.Log("Collision");
+             //currentObject.SetActive(false);
+         }
+     }*/
+    //end off code by Smriti
+
     public void AcceptObject()
     {
         if (currentObject != null)
         {
-            Destroy(currentObject);
+            //code by Smriti
+            if (AllowDecision)
+            {
+                MoveToTarget acceptedP1 = currentObject.GetComponent<MoveToTarget>();
+                acceptedP1.target = AcceptedP1;
+                acceptedP1.speed = MoveForce;
+                currentObject.transform.position = Vector2.MoveTowards(EndOfConveyor.position, AcceptedP1.position, MoveForce * Time.deltaTime);
+                //Destroy(currentObject);
+                
+                AllowDecision = false;
+
+                //end of code by Smriti
+            }
             AllowObjSpawn = true;
             StartCoroutine(SpawnObject());
         }
@@ -88,7 +119,30 @@ public class ObjectSpawner : MonoBehaviour
     {
         if (currentObject != null)
         {
-            Destroy(currentObject);
+            if (AllowDecision)
+            {
+                //code by smriti
+                MoveToTarget declinedP1 = currentObject.GetComponent<MoveToTarget>();
+                declinedP1.target = DeclinedP1;
+                declinedP1.speed = MoveForce;
+                // Rigidbody2D testrb = currentObject.GetComponent<Rigidbody2D>();
+                //testrb.transform.position = Vector2.MoveTowards(EndOfConveyor.position,DeclinedP1.position, MoveForce * Time.deltaTime);
+                currentObject.transform.position = Vector2.MoveTowards(EndOfConveyor.position, DeclinedP1.position, MoveForce * Time.deltaTime);
+                //OnCollisionEnter2D(collision);
+                //trigger.
+                //GameObject oldObject = currentObject;
+                //Thread.Sleep(5000);
+                //currentObject.SetActive(false);
+
+                /* if (currentObject.transform.position == DeclinedP1.position)
+                 {
+                     currentObject.SetActive(false);
+                 }*/
+                //Destroy(currentObject);
+                AllowDecision= false;
+
+                //end code by smriti
+            }
             AllowObjSpawn = true;
             StartCoroutine(SpawnObject());
         }
