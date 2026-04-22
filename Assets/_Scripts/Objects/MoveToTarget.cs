@@ -7,6 +7,6 @@ public class MoveToTarget : MonoBehaviour
 
     void Update()
     {
-        transform.position = Vector2.MoveTowards( transform.position,target.position,speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position,target.position,speed * Time.deltaTime);
     }
 }

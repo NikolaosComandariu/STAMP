@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 119561677471760145}
   - component: {fileID: 4667158885890505078}
   - component: {fileID: 42117740987840110}
+  - component: {fileID: 5791918849006907059}
+  - component: {fileID: -5565349234246914684}
+  - component: {fileID: 1436107628776409881}
   m_Layer: 0
   m_Name: Green lime Single_0
   m_TagString: Untagged
@@ -112,3 +115,64 @@ MonoBehaviour:
   IsGreen: 1
   IsYellow: 0
   IsSingle: 1
+  IsOrange: 0
+  centreDiff: 5
+  isAccepted: 0
+  ySpd: 0.03
+  xSpd: 0.01
+--- !u!114 &5791918849006907059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2897875707308853417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814262f286a355d47aa95b05fc1d547c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  spawner: {fileID: 0}
+  condition: 0
+  currentRoundCondition: 1
+--- !u!114 &-5565349234246914684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2897875707308853417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 167d4e0182e249241b951c65160d3168, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoveToTarget
+  target: {fileID: 0}
+  speed: 0
+--- !u!50 &1436107628776409881
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2897875707308853417}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
