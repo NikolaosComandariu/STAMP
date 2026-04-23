@@ -48,6 +48,7 @@ public class ObjectSpawner : MonoBehaviour
 
     void Update()
     {
+        /*
         // If number of objects to spawn is 0, restart spawning.
         if (NumOfObjToSpawn == 0)
         {
@@ -55,7 +56,7 @@ public class ObjectSpawner : MonoBehaviour
             GenerateObjectsForRound();
             AllowObjSpawn = true;
             StartCoroutine(SpawnObject());
-        }
+        }*/
 
     }
 
