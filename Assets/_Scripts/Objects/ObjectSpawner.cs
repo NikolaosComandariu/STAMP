@@ -270,6 +270,7 @@ public class ObjectSpawner : MonoBehaviour
             //end code by smriti
         }
 
+        Destroy(currentObject);
         AllowObjSpawn = true;
         StartCoroutine(SpawnObject());
 
@@ -287,9 +288,8 @@ public class ObjectSpawner : MonoBehaviour
             UpdateScoreUI();
             Debug.Log("Wrong, Score is now: " + score);
         }
-
-        Destroy(currentObject);
-        AllowObjSpawn = true;
+        
+        //AllowObjSpawn = true;
         if (NumOfObjToSpawn == 0) // Can be turned into an inverted if statement.
         {
             return;

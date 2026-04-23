@@ -49,7 +49,7 @@ public class CountdownManager : MonoBehaviour
             startCountdownText.text = startCountdown.ToString();
         }
 
-        PauseGame(false);
+        //PauseGame(false);
         StartCoroutine(StartRoundCountdown());
 
         yield return null;

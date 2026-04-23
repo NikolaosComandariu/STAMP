@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     private IEnumerator NextRound()
     {
-        PauseGame(true);
+        //PauseGame(true);
 
         if (currentRoundNumber < 16)
             currentRoundNumber++;
