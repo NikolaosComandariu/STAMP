@@ -18,7 +18,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         // Set default values to round number and countdown.
-        currentRoundNumber = 1;
+        currentRoundNumber = 0;
+        StartCoroutine(NextRound());
     }
 
     private void IncreaseDifficulty()
@@ -65,15 +66,15 @@ public class GameManager : MonoBehaviour
             IncreaseDifficulty();
 
         // TODO: Reset Criteria and get new ones for the round.
-        StartCoroutine(countDownManager.StartGameCountdown());
-
-        // TODO: Start Object spawning.
+        StartCoroutine(StartRound());
 
         yield return null;
     }
-    private IEnumerator StartGameCountdown()
+
+    private IEnumerator StartRound()
     {
         objectSpawner.GenerateObjectsForRound();
+        StartCoroutine(countDownManager.StartGameCountdown());
 
         while (spawnCountdown > 0)
         {
