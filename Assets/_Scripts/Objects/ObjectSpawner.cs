@@ -1,27 +1,27 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 using Random = UnityEngine.Random;
-using Unity.VisualScripting;
-using System.Threading;
-using System.Threading.Tasks;
+using TMPro;
 
 public class ObjectSpawner : MonoBehaviour
 {
+    [Header("Variables")] 
     [SerializeField] private float spawnDelay = 1.5f;
     [SerializeField] private float MoveForce;
+
+    [Header("Game Objects")]
     [SerializeField] private List<GameObject> ObjectsPool = new List<GameObject>(); // Amount of objects in the round
+    [SerializeField] private List<GameObject> AllPossibleObjects; // All prefabs possible to spawn
+
+    [Header("Transforms")]
     [SerializeField] private Transform EndOfConveyor; // Stopping point of objects where they're ready to be accepted / declined
     [SerializeField] private Transform SpawnPos; // Off screen spawnpoint for objects to then scroll onto screen
 
-    [SerializeField] private TMPro.TextMeshProUGUI scoreText;
-
-    [SerializeField] private List<GameObject> AllPossibleObjects; // All prefabs possible to spawn
-
+    [Header("Text")] 
+    [SerializeField] private TextMeshProUGUI scoreText;
+    
     private Button Accept;
     private Button Decline;
 
@@ -49,6 +49,7 @@ public class ObjectSpawner : MonoBehaviour
 
     void Update()
     {
+        // If number of objects to spawn is 0, restart spawning.
         if (NumOfObjToSpawn == 0)
         {
             //roundNumber++;
@@ -82,10 +83,8 @@ public class ObjectSpawner : MonoBehaviour
                     Rigidbody2D rb = currentObject.GetComponent<Rigidbody2D>();
                     rb.transform.position = Vector2.MoveTowards(SpawnPos.position, EndOfConveyor.position, MoveForce * Time.deltaTime);
 
-                AllowDecision = true;
-                AllowObjSpawn = false;
-
-
+                    AllowDecision = true;
+                    AllowObjSpawn = false;
 
                     yield return null;
                 }
@@ -201,7 +200,6 @@ public class ObjectSpawner : MonoBehaviour
         StartCoroutine(SpawnObject());
     }
 
-
     public void DeclineObject()
     {
         print("Decline clicked");
@@ -228,34 +226,36 @@ public class ObjectSpawner : MonoBehaviour
                 break;
             case RoundCondition.Single:
                 isMatch = proto.checkIsSingle();
-                break;
-            if (AllowDecision)
-            {
-                //code by smriti
-                MoveToTarget declinedP1 = currentObject.GetComponent<MoveToTarget>();
-                declinedP1.target = DeclinedP1;
-                declinedP1.speed = MoveForce;
-                // Rigidbody2D testrb = currentObject.GetComponent<Rigidbody2D>();
-                //testrb.transform.position = Vector2.MoveTowards(EndOfConveyor.position,DeclinedP1.position, MoveForce * Time.deltaTime);
-                currentObject.transform.position = Vector2.MoveTowards(EndOfConveyor.position, DeclinedP1.position, MoveForce * Time.deltaTime);
-                //OnCollisionEnter2D(collision);
-                //trigger.
-                //GameObject oldObject = currentObject;
-                //Thread.Sleep(5000);
-                //currentObject.SetActive(false);
-
-                /* if (currentObject.transform.position == DeclinedP1.position)
-                 {
-                     currentObject.SetActive(false);
-                 }*/
-                //Destroy(currentObject);
-                AllowDecision= false;
-
-                //end code by smriti
-            }
-            AllowObjSpawn = true;
-            StartCoroutine(SpawnObject());
+                break;          
         }
+
+        if (AllowDecision)
+        {
+            //code by smriti
+            MoveToTarget declinedP1 = currentObject.GetComponent<MoveToTarget>();
+            declinedP1.target = DeclinedP1;
+            declinedP1.speed = MoveForce;
+            // Rigidbody2D testrb = currentObject.GetComponent<Rigidbody2D>();
+            //testrb.transform.position = Vector2.MoveTowards(EndOfConveyor.position,DeclinedP1.position, MoveForce * Time.deltaTime);
+            currentObject.transform.position = Vector2.MoveTowards(EndOfConveyor.position, DeclinedP1.position, MoveForce * Time.deltaTime);
+            //OnCollisionEnter2D(collision);
+            //trigger.
+            //GameObject oldObject = currentObject;
+            //Thread.Sleep(5000);
+            //currentObject.SetActive(false);
+
+            /* if (currentObject.transform.position == DeclinedP1.position)
+             {
+                 currentObject.SetActive(false);
+             }*/
+            //Destroy(currentObject);
+            AllowDecision = false;
+
+            //end code by smriti
+        }
+
+        AllowObjSpawn = true;
+        StartCoroutine(SpawnObject());
 
         if (!isMatch)
         {
@@ -312,5 +312,4 @@ public class ObjectSpawner : MonoBehaviour
     }
 
     // End of code from Nikolaos Comandariu.
-}
 }
