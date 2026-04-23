@@ -43,7 +43,7 @@ public class ObjectSpawner : MonoBehaviour
         NumOfObjToSpawn = ObjectsPool.Count;
 
         AllowObjSpawn = true;
-        StartCoroutine(SpawnObject());
+        //StartCoroutine(SpawnObject());
     }
 
     void Update()
@@ -66,7 +66,7 @@ public class ObjectSpawner : MonoBehaviour
     /// and apply force to the last spawned object to move it down the conveyor belt.
     /// </summary>
     /// <returns></returns>
-    IEnumerator SpawnObject()
+    public IEnumerator SpawnObject()
     {
         for (int i = 0; i < ObjectsPool.Count; i++)
         {
@@ -98,7 +98,7 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
-    private void GenerateObjectsForRound() // Might need to use in GameManager.
+    public void GenerateObjectsForRound() // Might need to use in GameManager.
     {
         ObjectsPool.Clear();
 
