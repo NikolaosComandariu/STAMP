@@ -17,7 +17,7 @@ public class CountdownManager : MonoBehaviour
     private TextMeshProUGUI roundTimerText;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
         // Set default values to round number and countdown.
         roundCountdown = 30.0f;
@@ -30,7 +30,7 @@ public class CountdownManager : MonoBehaviour
         roundTimerText.text = roundCountdown.ToString();
 
         // Start countdown.
-        StartCoroutine(StartGameCountdown());
+        //StartCoroutine(StartGameCountdown());
     }
 
     /// <summary>
