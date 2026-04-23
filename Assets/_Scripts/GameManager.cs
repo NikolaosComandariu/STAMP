@@ -73,6 +73,8 @@ public class GameManager : MonoBehaviour
     }
     private IEnumerator StartGameCountdown()
     {
+        objectSpawner.GenerateObjectsForRound();
+
         while (spawnCountdown > 0)
         {
             yield return new WaitForSeconds(1.0f);
@@ -80,8 +82,7 @@ public class GameManager : MonoBehaviour
             spawnCountdown--;
         }
 
-        // TODO: Re-enable when everything is working.
-        //StartCoroutine(objectSpawner.SpawnObject());
+        StartCoroutine(objectSpawner.SpawnObject());
 
         yield return null;
     }
