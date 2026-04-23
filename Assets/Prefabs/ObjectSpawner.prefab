@@ -174,7 +174,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSpawner
   spawnDelay: 1.5
   MoveForce: 10
-  ObjectsPool:
+  ObjectsPool: []
+  AllPossibleObjects:
   - {fileID: 2042571549739291648, guid: 4a7a240ed2918464399441c3ebc727f5, type: 3}
   - {fileID: 3728405437139922707, guid: c40ab71281b52d947bb593a978b6c237, type: 3}
   - {fileID: 8685417703861665877, guid: 4103c77c8c537b2409ef6263c66e6263, type: 3}
@@ -200,7 +201,6 @@ MonoBehaviour:
   - {fileID: 5121118951159904940, guid: 00a0048905663684ea763a2b9685b3ca, type: 3}
   - {fileID: 1276032107387973570, guid: c6092a176a2a835428c4c165ac398662, type: 3}
   - {fileID: 5663447305687192481, guid: 2f3987a06a1325a469cb84b0a40e37ee, type: 3}
-  AllPossibleObjects: []
   EndOfConveyor: {fileID: 892401974335288398}
   SpawnPos: {fileID: 8378324042327506257}
   scoreText: {fileID: 0}
