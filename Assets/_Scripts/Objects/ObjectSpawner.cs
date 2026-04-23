@@ -21,6 +21,9 @@ public class ObjectSpawner : MonoBehaviour
 
     [Header("Text")] 
     [SerializeField] private TextMeshProUGUI scoreText;
+
+    [Header("Events")]
+    public System.Action onAllObjectsProcessed; // Nikolaos Comandariu.
     
     private Button Accept;
     private Button Decline;
@@ -203,13 +206,16 @@ public class ObjectSpawner : MonoBehaviour
         }
 
         Destroy(currentObject);
+        currentObject = null;
         AllowObjSpawn = true;
         //StartCoroutine(SpawnObject());
 
-        if (NumOfObjToSpawn == 0) // Can be turned into an inverted if statement.
+        // Nikolaos Comandariu
+        if (NumOfObjToSpawn <= 0 && currentObject == null) // Can be turned into an inverted if statement.
         {
-            return;
-        }
+            Debug.Log("All Objects Processed Event");
+            onAllObjectsProcessed?.Invoke();
+        } // End of code added.
         else
         {
             StartCoroutine(SpawnObject());
@@ -271,8 +277,9 @@ public class ObjectSpawner : MonoBehaviour
         }
 
         Destroy(currentObject);
+        currentObject = null;
         AllowObjSpawn = true;
-        StartCoroutine(SpawnObject());
+        //StartCoroutine(SpawnObject());
 
         if (!isMatch)
         {
@@ -288,12 +295,13 @@ public class ObjectSpawner : MonoBehaviour
             UpdateScoreUI();
             Debug.Log("Wrong, Score is now: " + score);
         }
-        
+
         //AllowObjSpawn = true;
-        if (NumOfObjToSpawn == 0) // Can be turned into an inverted if statement.
+        // Nikolaos Comandariu
+        if (NumOfObjToSpawn <= 0 && currentObject == null) // Can be turned into an inverted if statement.
         {
-            return;
-        }
+            onAllObjectsProcessed?.Invoke();
+        } // End of code added.
         else
         {
             StartCoroutine(SpawnObject());
@@ -325,6 +333,13 @@ public class ObjectSpawner : MonoBehaviour
     public void ChangeAllowToSpawn(bool allow)
     {
         AllowObjSpawn = allow;
+    }
+
+    public void ResetObjects()
+    {
+        Destroy(currentObject);
+        currentObject = null;
+        GenerateObjectsForRound();
     }
 
     // End of code from Nikolaos Comandariu.
