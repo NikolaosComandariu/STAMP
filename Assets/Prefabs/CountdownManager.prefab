@@ -324,7 +324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ed883cbcdfc49345925ef89f0ae8af5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  startCountdown: 0
-  roundCountdown: 0
+  startCountdown: 3
+  roundCountdown: 30
   startCountdownGO: {fileID: 1276893349512664056}
   roundTimerGO: {fileID: 2320184179236184263}

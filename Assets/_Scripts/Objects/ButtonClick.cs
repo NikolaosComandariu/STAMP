@@ -4,17 +4,51 @@ using UnityEngine.InputSystem;
 
 public class ButtonClick : MonoBehaviour
 {
+    //[SerializeField] private char acceptKey;
+    //[SerializeField] private char declineKey;
+    //[SerializeField] private bool isPlayer1;
+    [SerializeField] private KeyCode acceptKey;
+    [SerializeField] private KeyCode declineKey;
 
     private void Update()
     {
-        if (Keyboard.current.eKey.wasPressedThisFrame)
+        if (Input.GetKeyDown(acceptKey))
         {
+            Debug.Log("Accept");
             OnAcceptPressed();
         }
-        if (Keyboard.current.qKey.wasPressedThisFrame)
+        if (Input.GetKeyDown(declineKey))
         {
+            Debug.Log("Decline");
             OnDeclinePressed();
         }    
+
+        /*if(isPlayer1)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Debug.Log("Accept");
+                OnAcceptPressed();
+            }
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                Debug.Log("Decline");
+                OnDeclinePressed();
+            }
+        }
+        else if (!isPlayer1)
+        {
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                Debug.Log("Accept");
+                OnAcceptPressed();
+            }
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                Debug.Log("Decline");
+                OnDeclinePressed();
+            }
+        }*/
     }
 
     public void OnAcceptPressed()
