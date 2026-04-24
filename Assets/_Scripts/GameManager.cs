@@ -14,11 +14,19 @@ public class GameManager : MonoBehaviour
     private int maxRoundNumber = 16;
     private int spawnCountdown = 3;
 
+    private bool roundEnding = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
         // Set default values to round number and countdown.
-        currentRoundNumber = 1;
+        currentRoundNumber = 0;
+
+        // Call HandleRoundEnd() when these events are called.
+        countDownManager.onRoundTimerFinished += HandleRoundEnd;
+        objectSpawner.onAllObjectsProcessed += HandleRoundEnd;
+
+        StartCoroutine(NextRound());
     }
 
     private void IncreaseDifficulty()
@@ -55,7 +63,8 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     private IEnumerator NextRound()
     {
-        PauseGame(true);
+        //PauseGame(true);
+        roundEnding = false;
 
         if (currentRoundNumber < 16)
             currentRoundNumber++;
@@ -65,14 +74,17 @@ public class GameManager : MonoBehaviour
             IncreaseDifficulty();
 
         // TODO: Reset Criteria and get new ones for the round.
-        StartCoroutine(countDownManager.StartGameCountdown());
-
-        // TODO: Start Object spawning.
-
-        yield return null;
+        yield return StartCoroutine(StartRound());
     }
-    private IEnumerator StartGameCountdown()
+
+    private IEnumerator StartRound()
     {
+        spawnCountdown = 3;
+
+        objectSpawner.GenerateObjectsForRound();
+        countDownManager.SetCountdownTimer(30f);
+        //StartCoroutine(countDownManager.StartGameCountdown());
+
         while (spawnCountdown > 0)
         {
             yield return new WaitForSeconds(1.0f);
@@ -80,9 +92,17 @@ public class GameManager : MonoBehaviour
             spawnCountdown--;
         }
 
-        // TODO: Re-enable when everything is working.
-        //StartCoroutine(objectSpawner.SpawnObject());
+        StartCoroutine(objectSpawner.SpawnObject());
 
         yield return null;
+    }
+
+    private void HandleRoundEnd()
+    {
+        if (roundEnding) return;
+
+        roundEnding = true;
+        objectSpawner.ResetObjects();
+        StartCoroutine(NextRound());
     }
 }

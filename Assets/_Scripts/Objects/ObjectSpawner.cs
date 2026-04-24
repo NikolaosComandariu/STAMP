@@ -1,27 +1,30 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 using Random = UnityEngine.Random;
-using Unity.VisualScripting;
-using System.Threading;
-using System.Threading.Tasks;
+using TMPro;
 
 public class ObjectSpawner : MonoBehaviour
 {
+    [Header("Variables")] 
     [SerializeField] private float spawnDelay = 1.5f;
     [SerializeField] private float MoveForce;
+
+    [Header("Game Objects")]
     [SerializeField] private List<GameObject> ObjectsPool = new List<GameObject>(); // Amount of objects in the round
+    [SerializeField] private List<GameObject> AllPossibleObjects; // All prefabs possible to spawn
+
+    [Header("Transforms")]
     [SerializeField] private Transform EndOfConveyor; // Stopping point of objects where they're ready to be accepted / declined
     [SerializeField] private Transform SpawnPos; // Off screen spawnpoint for objects to then scroll onto screen
 
-    [SerializeField] private TMPro.TextMeshProUGUI scoreText;
+    [Header("Text")] 
+    [SerializeField] private TextMeshProUGUI scoreText;
 
-    [SerializeField] private List<GameObject> AllPossibleObjects; // All prefabs possible to spawn
-
+    [Header("Events")]
+    public System.Action onAllObjectsProcessed; // Nikolaos Comandariu.
+    
     private Button Accept;
     private Button Decline;
 
@@ -30,11 +33,10 @@ public class ObjectSpawner : MonoBehaviour
     private bool isSpawning = false;
     //private int roundNumber = 1;
 
-    public GameObject currentObject;
-
+    public GameObject currentObject; // Do these need to be public?
     public int score = 0;
 
-    Item item;
+    Item item; // This isn't used anywhere, can be removed.
     private bool AllowDecision = false; //smriti added this
 
     Rigidbody2D rb2D;
@@ -44,34 +46,42 @@ public class ObjectSpawner : MonoBehaviour
         NumOfObjToSpawn = ObjectsPool.Count;
 
         AllowObjSpawn = true;
-        StartCoroutine(SpawnObject());
+        //StartCoroutine(SpawnObject());
     }
 
     void Update()
     {
+        /*
+        // If number of objects to spawn is 0, restart spawning.
         if (NumOfObjToSpawn == 0)
         {
             //roundNumber++;
             GenerateObjectsForRound();
             AllowObjSpawn = true;
             StartCoroutine(SpawnObject());
-        }
+        }*/
 
     }
 
-    IEnumerator SpawnObject()
+    /// <summary>
+    /// While objects can spawn and there are still some objects that need to spawn,
+    /// Get a random object from the object pool. Reduce number of objects to spawn
+    /// and apply force to the last spawned object to move it down the conveyor belt.
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerator SpawnObject()
     {
         for (int i = 0; i < ObjectsPool.Count; i++)
         {
-            while (AllowObjSpawn)
+            while (AllowObjSpawn) // Can be turned into a reverse if statement instead.
             {
                 if (NumOfObjToSpawn != 0)
                 {
                     int n = Random.Range(0, ObjectsPool.Count);
 
                     currentObject = Instantiate(ObjectsPool[n], SpawnPos.position, ObjectsPool[n].transform.rotation);
-                    print("spawn object");
-                    item = currentObject.GetComponent<Item>();
+                    print("spawn object"); // Can be turned to a Debug.Log() instead!
+                    item = currentObject.GetComponent<Item>(); // Can be removed, item does not seem to be used anywhere.
                     ObjectsPool.RemoveAt(n);
                     NumOfObjToSpawn--;
 
@@ -82,10 +92,8 @@ public class ObjectSpawner : MonoBehaviour
                     Rigidbody2D rb = currentObject.GetComponent<Rigidbody2D>();
                     rb.transform.position = Vector2.MoveTowards(SpawnPos.position, EndOfConveyor.position, MoveForce * Time.deltaTime);
 
-                AllowDecision = true;
-                AllowObjSpawn = false;
-
-
+                    AllowDecision = true;
+                    AllowObjSpawn = false;
 
                     yield return null;
                 }
@@ -93,15 +101,16 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
-    private void GenerateObjectsForRound()
+    public void GenerateObjectsForRound() // Might need to use in GameManager.
     {
         ObjectsPool.Clear();
 
-        int itemsThisRound = 3 * 2;
+        int itemsThisRound = 3 * 2; // Will need to be expandable, could be done through GameManager.
         // round 1 = 3 items
         // Round 2 = 5 items
         // etc
 
+        // Repopulate ObjectsPool.
         for (int i = 0; i < itemsThisRound; i++)
         {
             int randomIndex = UnityEngine.Random.Range(0, AllPossibleObjects.Count);
@@ -111,7 +120,7 @@ public class ObjectSpawner : MonoBehaviour
         NumOfObjToSpawn = ObjectsPool.Count;
     }
 
-    public enum RoundCondition
+    public enum RoundCondition // Should be moved near the top of the code.
     {
         Fruit,
         Red,
@@ -120,7 +129,7 @@ public class ObjectSpawner : MonoBehaviour
         Single
     }
 
-    public RoundCondition currentRoundCondition;
+    public RoundCondition currentRoundCondition; // These should be moved to the top of the file.
     //code by Smriti
     [SerializeField] private Transform DeclinedP1;
     [SerializeField] private Transform AcceptedP1;
@@ -139,8 +148,8 @@ public class ObjectSpawner : MonoBehaviour
 
     public void AcceptObject()
     {
-        print ("accept clicked");
-        if (currentObject == null)
+        print ("accept clicked"); // Debug.Log()!
+        if (currentObject == null) // Good use of reverse if statement!
             return;
 
         ObjectPrototype_ proto = currentObject.GetComponent<ObjectPrototype_>();
@@ -169,7 +178,7 @@ public class ObjectSpawner : MonoBehaviour
         if (isMatch)
         {
             Debug.Log("ACCEPT: Correct choice!");
-            score += 1;
+            score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
             UpdateScoreUI();
             Debug.Log("Correct! Score is now: " + score);
         }
@@ -192,15 +201,26 @@ public class ObjectSpawner : MonoBehaviour
 
                 //end of code by Smriti
             }
-            AllowObjSpawn = true;
-            StartCoroutine(SpawnObject());
+            //AllowObjSpawn = true;
+            //StartCoroutine(SpawnObject());
         }
 
         Destroy(currentObject);
+        currentObject = null;
         AllowObjSpawn = true;
-        StartCoroutine(SpawnObject());
-    }
+        //StartCoroutine(SpawnObject());
 
+        // Nikolaos Comandariu
+        if (NumOfObjToSpawn <= 0 && currentObject == null) // Can be turned into an inverted if statement.
+        {
+            Debug.Log("All Objects Processed Event");
+            onAllObjectsProcessed?.Invoke();
+        } // End of code added.
+        else
+        {
+            StartCoroutine(SpawnObject());
+        }
+    }
 
     public void DeclineObject()
     {
@@ -228,34 +248,38 @@ public class ObjectSpawner : MonoBehaviour
                 break;
             case RoundCondition.Single:
                 isMatch = proto.checkIsSingle();
-                break;
-            if (AllowDecision)
-            {
-                //code by smriti
-                MoveToTarget declinedP1 = currentObject.GetComponent<MoveToTarget>();
-                declinedP1.target = DeclinedP1;
-                declinedP1.speed = MoveForce;
-                // Rigidbody2D testrb = currentObject.GetComponent<Rigidbody2D>();
-                //testrb.transform.position = Vector2.MoveTowards(EndOfConveyor.position,DeclinedP1.position, MoveForce * Time.deltaTime);
-                currentObject.transform.position = Vector2.MoveTowards(EndOfConveyor.position, DeclinedP1.position, MoveForce * Time.deltaTime);
-                //OnCollisionEnter2D(collision);
-                //trigger.
-                //GameObject oldObject = currentObject;
-                //Thread.Sleep(5000);
-                //currentObject.SetActive(false);
-
-                /* if (currentObject.transform.position == DeclinedP1.position)
-                 {
-                     currentObject.SetActive(false);
-                 }*/
-                //Destroy(currentObject);
-                AllowDecision= false;
-
-                //end code by smriti
-            }
-            AllowObjSpawn = true;
-            StartCoroutine(SpawnObject());
+                break;          
         }
+
+        if (AllowDecision)
+        {
+            //code by smriti
+            MoveToTarget declinedP1 = currentObject.GetComponent<MoveToTarget>();
+            declinedP1.target = DeclinedP1;
+            declinedP1.speed = MoveForce;
+            // Rigidbody2D testrb = currentObject.GetComponent<Rigidbody2D>();
+            //testrb.transform.position = Vector2.MoveTowards(EndOfConveyor.position,DeclinedP1.position, MoveForce * Time.deltaTime);
+            currentObject.transform.position = Vector2.MoveTowards(EndOfConveyor.position, DeclinedP1.position, MoveForce * Time.deltaTime);
+            //OnCollisionEnter2D(collision);
+            //trigger.
+            //GameObject oldObject = currentObject;
+            //Thread.Sleep(5000);
+            //currentObject.SetActive(false);
+
+            /* if (currentObject.transform.position == DeclinedP1.position)
+             {
+                 currentObject.SetActive(false);
+             }*/
+            //Destroy(currentObject);
+            AllowDecision = false;
+
+            //end code by smriti
+        }
+
+        Destroy(currentObject);
+        currentObject = null;
+        AllowObjSpawn = true;
+        //StartCoroutine(SpawnObject());
 
         if (!isMatch)
         {
@@ -272,12 +296,12 @@ public class ObjectSpawner : MonoBehaviour
             Debug.Log("Wrong, Score is now: " + score);
         }
 
-        Destroy(currentObject);
-        AllowObjSpawn = true;
-        if (NumOfObjToSpawn == 0)
+        //AllowObjSpawn = true;
+        // Nikolaos Comandariu
+        if (NumOfObjToSpawn <= 0 && currentObject == null) // Can be turned into an inverted if statement.
         {
-            return;
-        }
+            onAllObjectsProcessed?.Invoke();
+        } // End of code added.
         else
         {
             StartCoroutine(SpawnObject());
@@ -311,6 +335,12 @@ public class ObjectSpawner : MonoBehaviour
         AllowObjSpawn = allow;
     }
 
+    public void ResetObjects()
+    {
+        Destroy(currentObject);
+        currentObject = null;
+        GenerateObjectsForRound();
+    }
+
     // End of code from Nikolaos Comandariu.
-}
 }
