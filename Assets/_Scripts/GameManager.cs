@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [Header("Scripts")]
     [SerializeField] private CountdownManager countDownManager;
     [SerializeField] private ObjectSpawner objectSpawner;
+    [SerializeField] private ObjectSpawner rightObjSpawner;
 
     [Header("Variables")]
     [SerializeField] private int roundCountdownIncrease; // How many seconds a round increases by when difficulty increases.
@@ -33,8 +34,10 @@ public class GameManager : MonoBehaviour
         // Call HandleRoundEnd() when these events are called.
         countDownManager.onRoundTimerFinished += HandleRoundEnd;
         objectSpawner.onAllObjectsProcessed += HandleRoundEnd;
+        rightObjSpawner.onAllObjectsProcessed += HandleRoundEnd;
 
         objectSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
+        rightObjSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
 
         StartCoroutine(NextRound());
     }
@@ -46,6 +49,7 @@ public class GameManager : MonoBehaviour
 
         countDownManager.SetCountdownTimer(roundTimer);
         objectSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
+        rightObjSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
 
         // TODO: Increase criteria spawned once this functionality is in.
         // TODO (maybe): Increase speed of spawned objects, not necessary anymore.
@@ -94,6 +98,7 @@ public class GameManager : MonoBehaviour
         spawnCountdown = 3;
 
         objectSpawner.GenerateObjectsForRound();
+        rightObjSpawner.GenerateObjectsForRound();
         countDownManager.SetCountdownTimer(roundTimer);
         //StartCoroutine(countDownManager.StartGameCountdown());
 
@@ -105,6 +110,7 @@ public class GameManager : MonoBehaviour
         }
 
         StartCoroutine(objectSpawner.SpawnObject());
+        StartCoroutine(rightObjSpawner.SpawnObject());
 
         yield return null;
     }
@@ -115,6 +121,7 @@ public class GameManager : MonoBehaviour
 
         roundEnding = true;
         objectSpawner.ResetObjects();
+        rightObjSpawner.ResetObjects();
         StartCoroutine(NextRound());
     }
 }
