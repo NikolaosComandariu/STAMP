@@ -454,14 +454,6 @@ PrefabInstance:
       propertyPath: countDownManager
       value: 
       objectReference: {fileID: 1099089887}
-    - target: {fileID: 1075409072344600490, guid: b1d708b8fd166964d8fc70de33bfd0b1, type: 3}
-      propertyPath: roundItemsIncrease
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1075409072344600490, guid: b1d708b8fd166964d8fc70de33bfd0b1, type: 3}
-      propertyPath: roundCountdownIncrease
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 5499813433577307650, guid: b1d708b8fd166964d8fc70de33bfd0b1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.074441686

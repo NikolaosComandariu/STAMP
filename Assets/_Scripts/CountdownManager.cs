@@ -6,8 +6,7 @@ public class CountdownManager : MonoBehaviour
 {
     [Header("Timers")]
     [SerializeField] private float startCountdown;
-    [SerializeField] private float roundCountdown;
-
+    
     [Header("Game Objects")]
     [SerializeField] private GameObject startCountdownGO;
     [SerializeField] private GameObject roundTimerGO;
@@ -23,6 +22,8 @@ public class CountdownManager : MonoBehaviour
     private Coroutine startCountdownRoutine;
     private Coroutine roundCountdownRoutine;
 
+    private float roundCountdown;
+
     private void Awake()
     {
         startCountdownText = startCountdownGO.GetComponent<TextMeshProUGUI>();
@@ -33,7 +34,7 @@ public class CountdownManager : MonoBehaviour
     private void Start()
     {
         // Set default values to round number and countdown.
-        roundCountdown = 30.0f;
+        //roundCountdown = 30.0f;
         
         if(startCountdownText != null)
             startCountdownText.text = startCountdown.ToString();

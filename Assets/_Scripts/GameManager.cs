@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
 
     private int maxRoundNumber = 16;
     private int spawnCountdown = 3;
+    private int roundTimer;
 
     private bool roundEnding = false;
 
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
     {
         // Set default values to round number and countdown.
         currentRoundNumber = 0;
+        roundTimer = 20;
 
         // Call HandleRoundEnd() when these events are called.
         countDownManager.onRoundTimerFinished += HandleRoundEnd;
@@ -36,8 +38,10 @@ public class GameManager : MonoBehaviour
     private void IncreaseDifficulty()
     {
         // These values can be changed!
-        countDownManager.SetCountdownTimer(20 + currentRoundNumber);
-        objectSpawner.ChangeNumberOfObjectsSpawned(5 + currentRoundNumber);
+        countDownManager.SetCountdownTimer(20 + roundCountdownIncrease);
+        objectSpawner.ChangeNumberOfObjectsSpawned(5 + roundItemsIncrease);
+
+        roundTimer += roundCountdownIncrease;
 
         // TODO: Increase criteria spawned once this functionality is in.
         // TODO (maybe): Increase speed of spawned objects, not necessary anymore.
@@ -86,7 +90,7 @@ public class GameManager : MonoBehaviour
         spawnCountdown = 3;
 
         objectSpawner.GenerateObjectsForRound();
-        countDownManager.SetCountdownTimer(30f);
+        countDownManager.SetCountdownTimer(roundTimer);
         //StartCoroutine(countDownManager.StartGameCountdown());
 
         while (spawnCountdown > 0)
