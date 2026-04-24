@@ -11,6 +11,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CountdownManager countDownManager;
     [SerializeField] private ObjectSpawner objectSpawner;
 
+    [Header("Variables")]
+    [SerializeField] private int roundCountdownIncrease; // How many seconds a round increases by when difficulty increases.
+    [SerializeField] private int roundItemsIncrease; // How many additional items spawn when difficulty increases.
+
     private int maxRoundNumber = 16;
     private int spawnCountdown = 3;
 
@@ -32,8 +36,8 @@ public class GameManager : MonoBehaviour
     private void IncreaseDifficulty()
     {
         // These values can be changed!
-        countDownManager.SetCountdownTimer(30 + currentRoundNumber);
-        objectSpawner.ChangeNumberOfObjectsSpawned(10 + currentRoundNumber);
+        countDownManager.SetCountdownTimer(20 + currentRoundNumber);
+        objectSpawner.ChangeNumberOfObjectsSpawned(5 + currentRoundNumber);
 
         // TODO: Increase criteria spawned once this functionality is in.
         // TODO (maybe): Increase speed of spawned objects, not necessary anymore.
