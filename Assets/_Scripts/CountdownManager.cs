@@ -53,6 +53,8 @@ public class CountdownManager : MonoBehaviour
     /// <returns></returns>
     public IEnumerator StartGameCountdown()
     {
+        startCountdownGO.transform.gameObject.SetActive(true);
+
         while (startCountdown > 0)
         {
             yield return new WaitForSeconds(1.0f);
@@ -61,6 +63,7 @@ public class CountdownManager : MonoBehaviour
             startCountdownText.text = startCountdown.ToString();
         }
 
+        startCountdownGO.transform.gameObject.SetActive(false);
         //PauseGame(false);
 
         // Start round countdown and store it.
