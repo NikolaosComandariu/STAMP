@@ -8,17 +8,24 @@ using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
-    public ObjectPrototype_ myObjPrototype;
-    public ProduceOptionsManager myPOManager;
-    [Header("Criteria")]
-    [SerializeField] private Dictionary<int, string> criteria = new Dictionary<int, string>();
-
     private int Player1Score;
     private int Player2Score;
 
     [Header("TextGameObject")]
     [SerializeField] private TextMeshProUGUI p1Score;
     [SerializeField] private TextMeshProUGUI p2Score;
+
+    [Header("Spawners")]
+    [SerializeField] private ObjectSpawner leftSpawner;
+    [SerializeField] private ObjectSpawner rightSpawner;
+
+    private void Start()
+    {
+        leftSpawner.onScoreDecreased += decreasePlayer1Score;
+        rightSpawner.onScoreDecreased += decreasePlayer2Score;
+        leftSpawner.onScoreIncreased += increasePlayer1Score;
+        rightSpawner.onScoreIncreased += increasePlayer2Score;
+    }
 
     //getters
     public int getPlayer1Score()
@@ -31,15 +38,38 @@ public class ScoreManager : MonoBehaviour
     }
 
     //changes scores
-    public void changePlayer1Score(int score)
+   /* public void changePlayer1Score()
     {
         Player1Score += score;
         p1Score.text = Player1Score.ToString();
     }
 
-    public void changePlayer2Score(int score)
+    public void changePlayer2Score()
     {
         Player2Score += score;
         p2Score.text = "Player 2 Score : " + Player2Score.ToString();
+    }*/
+
+    public void increasePlayer1Score()
+    {
+        Player1Score++;
+        p1Score.text = "Player1 Score: " + Player1Score.ToString();
+    }
+    public void increasePlayer2Score()
+    {
+        Player2Score++;
+        p2Score.text = "Player2 Score: " + Player2Score.ToString();
+    }
+
+    public void decreasePlayer1Score()
+    {
+        Player1Score--;
+        p1Score.text = "Player1 Score: " + Player1Score.ToString();
+    }
+
+    public void decreasePlayer2Score()
+    {
+        Player2Score--;
+        p2Score.text= "Player2 Score: " + Player2Score.ToString();
     }
 }

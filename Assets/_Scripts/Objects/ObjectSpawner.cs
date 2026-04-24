@@ -24,6 +24,9 @@ public class ObjectSpawner : MonoBehaviour
 
     [Header("Events")]
     public System.Action onAllObjectsProcessed; // Nikolaos Comandariu.
+    public System.Action onScoreIncreased; //Smriti
+    public System.Action onScoreDecreased; //Smriti
+
     
     private Button Accept;
     private Button Decline;
@@ -183,6 +186,7 @@ public class ObjectSpawner : MonoBehaviour
         {
             Debug.Log("ACCEPT: Correct choice!");
             score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
+            onScoreIncreased.Invoke();//Smriti
             UpdateScoreUI();
             Debug.Log("Correct! Score is now: " + score);
         }
@@ -190,6 +194,7 @@ public class ObjectSpawner : MonoBehaviour
         {
             Debug.Log("Wrong choice!");
             score -= 1;
+            onScoreDecreased.Invoke(); //Smriti
             UpdateScoreUI();
             Debug.Log("Wrong, Score is now: " + score);
             //code by Smriti
