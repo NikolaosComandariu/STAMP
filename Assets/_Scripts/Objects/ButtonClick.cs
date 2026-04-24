@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 public class ButtonClick : MonoBehaviour
 {
+    // Code by Nikolaos Comandariu.
     //[SerializeField] private char acceptKey;
     //[SerializeField] private char declineKey;
     //[SerializeField] private bool isPlayer1;
@@ -49,6 +50,7 @@ public class ButtonClick : MonoBehaviour
                 OnDeclinePressed();
             }
         }*/
+        // End of code by Nikolaos Comandariu.
     }
 
     public void OnAcceptPressed()
