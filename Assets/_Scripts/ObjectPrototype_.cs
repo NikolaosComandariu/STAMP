@@ -7,7 +7,7 @@ using Unity.VisualScripting;
 public class ObjectPrototype_ : MonoBehaviour
 {
 
-    [SerializeField]private float speed = 1.0f;
+    [SerializeField]private float speed = 1.0f; // Organise with Headers.
     private Transform transform2;
     [SerializeField]private float timer = 0.0f;
     [SerializeField] private Text pricetags;
@@ -46,7 +46,7 @@ public class ObjectPrototype_ : MonoBehaviour
     }
 
     //can be reomved after testing
-    [SerializeField] private float centreDiff = 5.0f;
+    [SerializeField] private float centreDiff = 5.0f; // Move to other serializeFields.
     private void moveRight()
     {
         Vector3 pos = new Vector3(transform.position.x + speed,transform.position.y,transform.position.z);
@@ -76,7 +76,7 @@ public class ObjectPrototype_ : MonoBehaviour
 
 
     //trying out movement for rejcted items
-    [SerializeField] private bool isAccepted;
+    [SerializeField] private bool isAccepted; // Move these to other serializeFields.
 
     //these serialised fields can be removed after testing
     [SerializeField] private float ySpd = 0.03f;
