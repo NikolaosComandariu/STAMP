@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 5977312207051157060}
   - component: {fileID: 6461238496217733846}
   - component: {fileID: 1797091944385740628}
+  - component: {fileID: -2076392958093520643}
+  - component: {fileID: 8973099954591793794}
+  - component: {fileID: 4464812559377288379}
   m_Layer: 0
   m_Name: Red Soda Single_0
   m_TagString: Untagged
@@ -113,3 +116,63 @@ MonoBehaviour:
   IsYellow: 0
   IsSingle: 1
   IsOrange: 0
+  centreDiff: 5
+  isAccepted: 0
+  ySpd: 0.03
+  xSpd: 0.01
+--- !u!114 &-2076392958093520643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2589802431215355649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814262f286a355d47aa95b05fc1d547c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  spawner: {fileID: 0}
+  condition: 0
+  currentRoundCondition: 1
+--- !u!114 &8973099954591793794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2589802431215355649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 167d4e0182e249241b951c65160d3168, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoveToTarget
+  target: {fileID: 0}
+  speed: 0
+--- !u!50 &4464812559377288379
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2589802431215355649}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
