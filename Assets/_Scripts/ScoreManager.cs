@@ -8,7 +8,7 @@ using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
-    public ObjectPrototype_ myObjPrototype;
+    public ObjectPrototype_ myObjPrototype; // Organise order of variables, turn to SerializeField privates.
     public ProduceOptionsManager myPOManager;
     [Header("Criteria")]
     [SerializeField] private Dictionary<int, string> criteria = new Dictionary<int, string>();
