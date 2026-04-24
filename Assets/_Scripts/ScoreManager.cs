@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class ScoreManager : MonoBehaviour
 
     private int Player1Score;
     private int Player2Score;
+
+    [Header("TextGameObject")]
+    [SerializeField] private TextMeshProUGUI p1Score;
+    [SerializeField] private TextMeshProUGUI p2Score;
 
     //getters
     public int getPlayer1Score()
@@ -29,10 +34,12 @@ public class ScoreManager : MonoBehaviour
     public void changePlayer1Score(int score)
     {
         Player1Score += score;
+        p1Score.text = Player1Score.ToString();
     }
 
     public void changePlayer2Score(int score)
     {
         Player2Score += score;
+        p2Score.text = "Player 2 Score : " + Player2Score.ToString();
     }
 }

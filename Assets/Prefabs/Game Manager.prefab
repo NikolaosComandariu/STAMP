@@ -45,3 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   currentRoundNumber: 0
+  countDownManager: {fileID: 0}
+  objectSpawner: {fileID: 0}
+  roundCountdownIncrease: 10
+  roundItemsIncrease: 3

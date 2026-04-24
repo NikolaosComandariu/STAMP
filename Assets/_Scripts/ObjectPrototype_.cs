@@ -8,7 +8,7 @@ public class ObjectPrototype_ : MonoBehaviour
 {
 
     [SerializeField]private float speed = 1.0f;
-    private Transform transform;
+    private Transform transform2;
     [SerializeField]private float timer = 0.0f;
     [SerializeField] private Text pricetags;
 
@@ -20,12 +20,14 @@ public class ObjectPrototype_ : MonoBehaviour
     [SerializeField] private bool IsSingle;
     [SerializeField] private bool IsOrange;
 
+
+
     //TODO: PRICE VARIABLES
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        transform = GetComponent<Transform>();
+        transform2 = GetComponent<Transform>();
     }
 
     // Update is called once per frame
@@ -66,11 +68,11 @@ public class ObjectPrototype_ : MonoBehaviour
         pricetags.text = price.ToString("F2");
     }
 
-    private bool checkIsFruit() { return IsFruit; }
-    private bool checkIsRed() { return IsRed; }
-    private bool checkIsGreen() { return IsGreen; }
-    private bool checkIsYellow() { return IsYellow; }
-    private bool checkIsSingle() { return IsSingle; }
+    public bool checkIsFruit() { return IsFruit; }
+    public bool checkIsRed() { return IsRed; }
+    public bool checkIsGreen() { return IsGreen; }
+    public bool checkIsYellow() { return IsYellow; }
+    public bool checkIsSingle() { return IsSingle; }
 
 
     //trying out movement for rejcted items
