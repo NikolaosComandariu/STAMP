@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     private int objectsToSpawn;
 
     private bool roundEnding = false;
+    private bool p1Finished;
+    private bool p2Finished;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
@@ -31,10 +33,13 @@ public class GameManager : MonoBehaviour
         roundTimer = 20;
         objectsToSpawn = 5;
 
+        p1Finished = false;
+        p2Finished = false;
+
         // Call HandleRoundEnd() when these events are called.
-        countDownManager.onRoundTimerFinished += HandleRoundEnd;
-        objectSpawner.onAllObjectsProcessed += HandleRoundEnd;
-        rightObjSpawner.onAllObjectsProcessed += HandleRoundEnd;
+        countDownManager.onRoundTimerFinished += HandleTimeRunningOut;
+        objectSpawner.onAllObjectsProcessed += HandleLeftPlayerFinish;
+        rightObjSpawner.onAllObjectsProcessed += HandleRightPlayerFinish;
 
         objectSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
         rightObjSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
@@ -79,6 +84,8 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     private IEnumerator NextRound()
     {
+        if (!p1Finished && !p2Finished) yield return null;
+
         //PauseGame(true);
         roundEnding = false;
 
@@ -96,6 +103,9 @@ public class GameManager : MonoBehaviour
     private IEnumerator StartRound()
     {
         spawnCountdown = 3;
+
+        p1Finished = false;
+        p2Finished = false;
 
         objectSpawner.GenerateObjectsForRound();
         rightObjSpawner.GenerateObjectsForRound();
@@ -115,11 +125,33 @@ public class GameManager : MonoBehaviour
         yield return null;
     }
 
+    private void HandleLeftPlayerFinish()
+    {
+        p1Finished = true;
+        HandleRoundEnd();
+    }
+
+    private void HandleRightPlayerFinish()
+    {
+        p2Finished = true;
+        HandleRoundEnd();
+    }
+
+    private void HandleTimeRunningOut()
+    {
+        p1Finished = true;
+        p2Finished = true;
+        HandleRoundEnd();
+    }
+
     private void HandleRoundEnd()
     {
-        if (roundEnding) return;
+        if (roundEnding || !p1Finished || !p2Finished) return;
 
+        p1Finished = false;
+        p2Finished = false;
         roundEnding = true;
+
         objectSpawner.ResetObjects();
         rightObjSpawner.ResetObjects();
         StartCoroutine(NextRound());
