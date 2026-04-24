@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MoveToTarget : MonoBehaviour
 {
-    public Transform target;
+    public Transform target; // Can be turned to [SerializeField] private
     public float speed;
 
     void Update()
