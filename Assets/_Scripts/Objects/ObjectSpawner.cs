@@ -103,7 +103,7 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
-    public void GenerateObjectsForRound() // Might need to use in GameManager.
+    public void GenerateObjectsForRound() // Add summaries!
     {
         ObjectsPool.Clear();
 
@@ -150,7 +150,7 @@ public class ObjectSpawner : MonoBehaviour
      }*/
     //end off code by Smriti
 
-    public void AcceptObject()
+    public void AcceptObject() // Summary
     {
         print ("accept clicked"); // Debug.Log()!
         if (currentObject == null) // Good use of reverse if statement!
@@ -226,9 +226,9 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
-    public void DeclineObject()
+    public void DeclineObject() // Summary.
     {
-        print("Decline clicked");
+        print("Decline clicked"); // Debug.Log()!
         if (currentObject == null)
             return;
 
@@ -302,7 +302,7 @@ public class ObjectSpawner : MonoBehaviour
 
         //AllowObjSpawn = true;
         // Nikolaos Comandariu
-        if (NumOfObjToSpawn <= 0 && currentObject == null) // Can be turned into an inverted if statement.
+        if (NumOfObjToSpawn <= 0 && currentObject == null)
         {
             onAllObjectsProcessed?.Invoke();
         } // End of code added.
