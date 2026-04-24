@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 7947089f1ff88bf4f8f6cc5181ea01c6
+guid: 0ed54eadca4877e40b650e537026ef97
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 9140337497583767992
-    second: Milk Single_0
+      213: -7353153749941980171
+    second: RundownBackground_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Milk Single_0
+      name: RundownBackground_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 3
-        width: 48
-        height: 56
+        x: 0
+        y: 0
+        width: 128
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8b1d9a6c68009de70800000000000000
-      internalID: 9140337497583767992
+      spriteID: 5f370e38f9954f990800000000000000
+      internalID: -7353153749941980171
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Milk Single_0: 9140337497583767992
+      RundownBackground_0: -7353153749941980171
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

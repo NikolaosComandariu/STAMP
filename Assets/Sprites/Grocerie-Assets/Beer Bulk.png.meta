@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6a1a0947fdbeceb42b59b927f81cac83
+guid: 80623cb53b57feb4fb10ded5589b2016
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7746117052125591228
-    second: Beer Bulk_0
+      213: -2834816866031520189
+    second: StartButton_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Beer Bulk_0
+      name: StartButton_0
       rect:
         serializedVersion: 2
-        x: 7
+        x: 0
         y: 17
-        width: 52
-        height: 36
+        width: 64
+        height: 35
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cb6ba801b6cbf7b60800000000000000
-      internalID: 7746117052125591228
+      spriteID: 346b7e07415b8a8d0800000000000000
+      internalID: -2834816866031520189
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Beer Bulk_0: 7746117052125591228
+      StartButton_0: -2834816866031520189
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
