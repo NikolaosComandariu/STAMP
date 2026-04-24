@@ -47,6 +47,11 @@ public class GameManager : MonoBehaviour
         StartCoroutine(NextRound());
     }
 
+    /// <summary>
+    /// Increases the round timer and objects to spawn.
+    /// Sets the countdown timer and sets the variables for
+    /// the two spawners.
+    /// </summary>
     private void IncreaseDifficulty()
     {
         roundTimer += roundCountdownIncrease;
@@ -79,7 +84,9 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Start a new round! 
+    /// If both players are finished, increase the round number.
+    /// Increase difficulty of the round if it's round 5, 10 or 15.
+    /// Calls StartRound() coroutine.
     /// </summary>
     /// <returns></returns>
     private IEnumerator NextRound()
@@ -100,6 +107,12 @@ public class GameManager : MonoBehaviour
         yield return StartCoroutine(StartRound());
     }
 
+    /// <summary>
+    /// Set spawn countdown, reset relevant variables.
+    /// Generates objects for round and begins the spawn countdown.
+    /// After the spawn countdown, it spawns objects.
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator StartRound()
     {
         spawnCountdown = 3;
@@ -125,18 +138,30 @@ public class GameManager : MonoBehaviour
         yield return null;
     }
 
+    /// <summary>
+    /// Turns bool for p1Finished to true.
+    /// Calls HandleRoundEnd();
+    /// </summary>
     private void HandleLeftPlayerFinish()
     {
         p1Finished = true;
         HandleRoundEnd();
     }
 
+    /// <summary>
+    /// Turns bool for p2Finished to true.
+    /// Calls HandleRoundEnd();
+    /// </summary>
     private void HandleRightPlayerFinish()
     {
         p2Finished = true;
         HandleRoundEnd();
     }
 
+    /// <summary>
+    /// Turns both p1 and p2 finishes bools to true.
+    /// Calls HandleRoundEnd().
+    /// </summary>
     private void HandleTimeRunningOut()
     {
         p1Finished = true;
@@ -144,6 +169,11 @@ public class GameManager : MonoBehaviour
         HandleRoundEnd();
     }
 
+    /// <summary>
+    /// If both the players are finished, resets
+    /// relevant variables, resets objects and triggers the
+    /// NextRound() coroutine.
+    /// </summary>
     private void HandleRoundEnd()
     {
         if (roundEnding || !p1Finished || !p2Finished) return;
