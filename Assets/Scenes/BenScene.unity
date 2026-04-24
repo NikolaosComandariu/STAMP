@@ -221,6 +221,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: CountdownManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5233077572206848482, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5233077572206848482, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5622183171295855035, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5622183171295855035, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5622183171295855035, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 101.6
+      objectReference: {fileID: 0}
     - target: {fileID: 5957446995533372631, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -316,6 +336,38 @@ PrefabInstance:
     - target: {fileID: 5957446995533372631, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6344236507917586600, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
+      propertyPath: m_text
+      value: RoundTimer
+      objectReference: {fileID: 0}
+    - target: {fileID: 6344236507917586600, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
+      propertyPath: m_fontSize
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 6344236507917586600, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
+      propertyPath: m_margin.w
+      value: 23.557251
+      objectReference: {fileID: 0}
+    - target: {fileID: 6344236507917586600, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 6344236507917586600, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7886399669339473410, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7886399669339473410, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7886399669339473410, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 192.9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -521,7 +573,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!224 &1508393244
 RectTransform:
