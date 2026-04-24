@@ -41,10 +41,12 @@ public class ObjectSpawner : MonoBehaviour
 
     Rigidbody2D rb2D;
 
+    private int objToSpawn;
+
     void Start()
     {
-        NumOfObjToSpawn = ObjectsPool.Count;
-
+        //NumOfObjToSpawn = ObjectsPool.Count;
+        objToSpawn = 5;
         AllowObjSpawn = true;
         //StartCoroutine(SpawnObject());
     }
@@ -105,19 +107,21 @@ public class ObjectSpawner : MonoBehaviour
     {
         ObjectsPool.Clear();
 
-        int itemsThisRound = 3 * 2; // Will need to be expandable, could be done through GameManager.
+        //int itemsThisRound = objToSpawn; // Will need to be expandable, could be done through GameManager.
         // round 1 = 3 items
         // Round 2 = 5 items
         // etc
-
+        Debug.Log("Obj to spawn: " + objToSpawn);
         // Repopulate ObjectsPool.
-        for (int i = 0; i < itemsThisRound; i++)
+        for (int i = 0; i < objToSpawn; i++)
         {
+            Debug.Log("Generating Objects for round");
             int randomIndex = UnityEngine.Random.Range(0, AllPossibleObjects.Count);
             ObjectsPool.Add(AllPossibleObjects[randomIndex]);
         }
 
         NumOfObjToSpawn = ObjectsPool.Count;
+        Debug.Log("Num of obj to spawn: " + NumOfObjToSpawn);
     }
 
     public enum RoundCondition // Should be moved near the top of the code.
@@ -323,7 +327,7 @@ public class ObjectSpawner : MonoBehaviour
     /// <param name="num"></param>
     public void ChangeNumberOfObjectsSpawned(int num)
     {
-        NumOfObjToSpawn = num;
+        objToSpawn = num;
     }
 
     /// <summary>
