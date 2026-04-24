@@ -38,11 +38,11 @@ public class ObjectPrototype_ : MonoBehaviour
 
     private void Update()
     {
-        timer += Time.deltaTime;
-        if (timer > 10.0f)
-        {
-            Destroy(gameObject);
-        }
+        //timer += Time.deltaTime;
+        //if (timer > 10.0f)
+        //{
+            //Destroy(gameObject);
+        //}
     }
 
     //can be reomved after testing

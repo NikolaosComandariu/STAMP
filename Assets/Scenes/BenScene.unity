@@ -135,6 +135,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -10.57
       objectReference: {fileID: 0}
+    - target: {fileID: 1204680668893109160, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: acceptKey
+      value: 105
+      objectReference: {fileID: 0}
+    - target: {fileID: 1204680668893109160, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: declineKey
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 3701250182288645087, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10.92
@@ -687,6 +695,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6d2aa76d0dc11a4ba704b57abbfebbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonClick
+  acceptKey: 0
+  declineKey: 0
 --- !u!1001 &1563995632
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -890,6 +900,22 @@ PrefabInstance:
     - target: {fileID: 892401974335288398, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
       propertyPath: m_LocalPosition.x
       value: 14.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1204680668893109160, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: test
+      value: 113
+      objectReference: {fileID: 0}
+    - target: {fileID: 1204680668893109160, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: acceptKey
+      value: 113
+      objectReference: {fileID: 0}
+    - target: {fileID: 1204680668893109160, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: isPlayer1
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1204680668893109160, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: declineKey
+      value: 101
       objectReference: {fileID: 0}
     - target: {fileID: 7464752900714267715, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
       propertyPath: m_Name
