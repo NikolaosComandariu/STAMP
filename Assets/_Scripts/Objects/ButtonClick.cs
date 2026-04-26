@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class ButtonClick : MonoBehaviour
-{
+{ // Nikolaos Comandariu.
     //[SerializeField] private char acceptKey;
     //[SerializeField] private char declineKey;
     //[SerializeField] private bool isPlayer1;
@@ -49,7 +49,7 @@ public class ButtonClick : MonoBehaviour
                 OnDeclinePressed();
             }
         }*/
-    }
+    } // End of Nikolaos Comandariu.
 
     public void OnAcceptPressed()
     {
