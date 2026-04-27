@@ -2,11 +2,7 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-<<<<<<< Updated upstream
     [Header ("------ Audio Source -----")]
-=======
-    [Header("------ Audio Source -----")]
->>>>>>> Stashed changes
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource SFXSource;
 
@@ -24,8 +20,4 @@ public class AudioManager : MonoBehaviour
     {
         SFXSource.PlayOneShot(clip);
     }
-<<<<<<< Updated upstream
 }
-=======
-}
->>>>>>> Stashed changes

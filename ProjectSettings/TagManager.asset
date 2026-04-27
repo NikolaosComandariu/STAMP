@@ -6,7 +6,6 @@ TagManager:
   tags:
   - DeclinedTrigger
   - ProduceObj
-  - Audio
   layers:
   - Default
   - TransparentFX
