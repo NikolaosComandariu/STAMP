@@ -1,8 +1,5 @@
 using UnityEngine;
-using System;
 using UnityEngine.UI;
-using Unity.VisualScripting;
-
 
 public class ObjectPrototype_ : MonoBehaviour
 {
@@ -41,18 +38,19 @@ public class ObjectPrototype_ : MonoBehaviour
         moveRight();
     }
 
-    private void Update()
+    /*private void Update()
     {
         //timer += Time.deltaTime;
         //if (timer > 10.0f)
         //{
             //Destroy(gameObject);
         //}
-    }
+    }*/
 
     private void moveRight()
     {
-        Vector3 pos = new Vector3(transform.position.x + speed,transform.position.y,transform.position.z);
+        Vector3 pos = new Vector3(transform.position.x + speed,transform.position.y,
+            transform.position.z);
         transform.position = pos;
     }
 
@@ -90,9 +88,9 @@ public class ObjectPrototype_ : MonoBehaviour
             xSpd *= -1.0f; //object is moving to the left
         }
 
-        if (isAccepted == false)
-        {
-            Vector3 declinedPos = new Vector3(transform.position.x + xSpd, transform.position.y + ySpd, transform.position.z);
-        }
+        if (!isAccepted) return;
+
+        Vector3 declinedPos = new Vector3(transform.position.x + xSpd, transform.position.y 
+            + ySpd, transform.position.z);
     }
 }
