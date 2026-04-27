@@ -1,24 +1,22 @@
-using JetBrains.Annotations;
-using System;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
-    public ObjectPrototype_ myObjPrototype;
-    public ProduceOptionsManager myPOManager;
+    [Header("Scripts")]
+    [SerializeField] private ObjectPrototype_ myObjPrototype;
+    [SerializeField] private ProduceOptionsManager myPOManager;
+
     [Header("Criteria")]
     [SerializeField] private Dictionary<int, string> criteria = new Dictionary<int, string>();
-
-    private int Player1Score;
-    private int Player2Score;
 
     [Header("TextGameObject")]
     [SerializeField] private TextMeshProUGUI p1Score;
     [SerializeField] private TextMeshProUGUI p2Score;
+
+    private int Player1Score;
+    private int Player2Score;
 
     //getters
     public int getPlayer1Score()
