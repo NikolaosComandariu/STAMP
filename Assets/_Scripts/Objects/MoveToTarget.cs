@@ -2,11 +2,15 @@ using UnityEngine;
 
 public class MoveToTarget : MonoBehaviour
 {
-    public Transform target;
-    public float speed;
+    [Header("Position")]
+    [SerializeField] private Transform target; // Target position of item.
 
-    void Update()
+    [Header("Speed")]
+    [SerializeField] private float speed; // Travel speed of item.
+
+    // Update is called once per frame
+    private void Update()
     {
-        transform.position = Vector2.MoveTowards(transform.position,target.position,speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
     }
 }
