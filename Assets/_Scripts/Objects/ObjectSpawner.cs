@@ -46,6 +46,10 @@ public class ObjectSpawner : MonoBehaviour
     private Item item; // This isn't used anywhere, can be removed.
     private Rigidbody2D rb2D;
 
+    /// <summary>
+    /// Used to compare the criteria to the object to see if the
+    /// player has gotten their choice right.
+    /// </summary>
     public enum RoundCondition
     {
         Fruit,
@@ -87,15 +91,15 @@ public class ObjectSpawner : MonoBehaviour
     {
         for (int i = 0; i < ObjectsPool.Count; i++)
         {
-            while (AllowObjSpawn) // Can be turned into a reverse if statement instead.
+            while (AllowObjSpawn)
             {
                 if (NumOfObjToSpawn != 0)
                 {
                     int n = Random.Range(0, ObjectsPool.Count);
 
                     currentObject = Instantiate(ObjectsPool[n], SpawnPos.position, ObjectsPool[n].transform.rotation);
-                    print("spawn object"); // Can be turned to a Debug.Log() instead!
-                    item = currentObject.GetComponent<Item>(); // Can be removed, item does not seem to be used anywhere.
+                    Debug.Log("spawn object");
+                    //item = currentObject.GetComponent<Item>(); // Can be removed, item does not seem to be used anywhere.
                     ObjectsPool.RemoveAt(n);
                     NumOfObjToSpawn--;
 
@@ -115,11 +119,15 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
-    public void GenerateObjectsForRound() // Might need to use in GameManager.
+    /// <summary>
+    /// Clears object pool, gets random objects from
+    /// all possible objects to spawn.
+    /// </summary>
+    public void GenerateObjectsForRound() 
     {
         ObjectsPool.Clear();
 
-        //int itemsThisRound = objToSpawn; // Will need to be expandable, could be done through GameManager.
+        //int itemsThisRound = objToSpawn;
         // round 1 = 3 items
         // Round 2 = 5 items
         // etc
@@ -149,10 +157,17 @@ public class ObjectSpawner : MonoBehaviour
      }*/
     //end off code by Smriti
 
+    /// <summary>
+    /// It compares the object that was accepted against the criteria,
+    /// if it's a match it increases the score by 1, otherwise it decreases
+    /// the score by 1. It then destroys the object and either spawns another one
+    /// or tells the GameManager that the round is over through a Unity Action.
+    /// </summary>
     public void AcceptObject()
     {
-        print ("accept clicked"); // Debug.Log()!
-        if (currentObject == null) // Good use of reverse if statement!
+        Debug.Log("accept clicked");
+
+        if (currentObject == null) 
             return;
 
         ObjectPrototype_ proto = currentObject.GetComponent<ObjectPrototype_>();
@@ -226,6 +241,12 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// It compares the object that was declined against the criteria,
+    /// if it's a match it increases the score by 1, otherwise it decreases
+    /// the score by 1. It then destroys the object and either spawns another one
+    /// or tells the GameManager that the round is over through a Unity Action.
+    /// </summary>
     public void DeclineObject()
     {
         print("Decline clicked");
@@ -316,6 +337,9 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Updates scoreText to show the current score.
+    /// </summary>
     private void UpdateScoreUI()
     {
         if (scoreText != null)
