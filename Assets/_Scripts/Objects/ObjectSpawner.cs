@@ -26,6 +26,7 @@ public class ObjectSpawner : MonoBehaviour
 
     [Header("Text")] 
     [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI productPrice;
 
     [Header("Events")]
     public System.Action onAllObjectsProcessed; // Nikolaos Comandariu.
@@ -97,7 +98,10 @@ public class ObjectSpawner : MonoBehaviour
                 {
                     int n = Random.Range(0, ObjectsPool.Count);
 
-                    currentObject = Instantiate(ObjectsPool[n], SpawnPos.position, ObjectsPool[n].transform.rotation);
+                    currentObject = Instantiate(ObjectsPool[n], SpawnPos.position, 
+                        ObjectsPool[n].transform.rotation, gameObject.transform);
+                    productPrice.text = "£" + 
+                        currentObject.GetComponent<ObjectPrototype_>().GetPrice().ToString();
                     Debug.Log("spawn object");
                     //item = currentObject.GetComponent<Item>(); // Can be removed, item does not seem to be used anywhere.
                     ObjectsPool.RemoveAt(n);
