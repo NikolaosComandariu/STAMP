@@ -13,4 +13,26 @@ public class MoveToTarget : MonoBehaviour
     {
         transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
     }
+
+    // Added by Nikolaos Comandariu.
+    public float GetSpeed()
+    {
+        return speed;
+    }
+
+    public Transform GetTarget()
+    {
+        return target;
+    }
+
+    public void SetTarget(Transform Target)
+    {
+        target = Target;
+    }
+
+    public void SetSpeed(float Speed)
+    {
+        speed = Speed;
+    }
+    // End of code added by Nikolaos Comandariu.
 }
