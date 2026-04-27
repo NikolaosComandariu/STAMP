@@ -1,16 +1,19 @@
-using JetBrains.Annotations;
-using System;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
-    public ObjectPrototype_ myObjPrototype;
-    public ProduceOptionsManager myPOManager;
+    [Header("Scripts")]
+    [SerializeField] private ObjectPrototype_ myObjPrototype;
+    [SerializeField] private ProduceOptionsManager myPOManager;
+
     [Header("Criteria")]
     [SerializeField] private Dictionary<int, string> criteria = new Dictionary<int, string>();
+
+    [Header("TextGameObject")]
+    [SerializeField] private TextMeshProUGUI p1Score;
+    [SerializeField] private TextMeshProUGUI p2Score;
 
     private int Player1Score;
     private int Player2Score;
@@ -29,10 +32,12 @@ public class ScoreManager : MonoBehaviour
     public void changePlayer1Score(int score)
     {
         Player1Score += score;
+        p1Score.text = Player1Score.ToString();
     }
 
     public void changePlayer2Score(int score)
     {
         Player2Score += score;
+        p2Score.text = "Player 2 Score : " + Player2Score.ToString();
     }
 }

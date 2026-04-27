@@ -6,31 +6,44 @@ public class CountdownManager : MonoBehaviour
 {
     [Header("Timers")]
     [SerializeField] private float startCountdown;
-    [SerializeField] private float roundCountdown;
-
+    
     [Header("Game Objects")]
     [SerializeField] private GameObject startCountdownGO;
     [SerializeField] private GameObject roundTimerGO;
+
+    [Header("Events")]
+    public System.Action onRoundTimerFinished;
 
     // Text components.
     private TextMeshProUGUI startCountdownText;
     private TextMeshProUGUI roundTimerText;
 
+    // Coroutines, needed to stop a specific coroutine.
+    private Coroutine startCountdownRoutine;
+    private Coroutine roundCountdownRoutine;
+
+    private float roundCountdown;
+
+    private void Awake()
+    {
+        startCountdownText = startCountdownGO.GetComponent<TextMeshProUGUI>();
+        roundTimerText = roundTimerGO.GetComponent<TextMeshProUGUI>();
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
         // Set default values to round number and countdown.
-        roundCountdown = 30.0f;
+        //roundCountdown = 30.0f;
+        
+        if(startCountdownText != null)
+            startCountdownText.text = startCountdown.ToString();
 
-        // Get text components for countdown timers.
-        startCountdownText = startCountdownGO.GetComponent<TextMeshProUGUI>();
-        startCountdownText.text = startCountdown.ToString();
-
-        roundTimerText = roundTimerGO.GetComponent<TextMeshProUGUI>();
-        roundTimerText.text = roundCountdown.ToString();
+        if(roundTimerText != null)
+            roundTimerText.text = roundCountdown.ToString();
 
         // Start countdown.
-        StartCoroutine(StartGameCountdown());
+        //StartCoroutine(StartGameCountdown());
     }
 
     /// <summary>
@@ -39,8 +52,10 @@ public class CountdownManager : MonoBehaviour
     /// starts the round countdown.
     /// </summary>
     /// <returns></returns>
-    private IEnumerator StartGameCountdown()
+    public IEnumerator StartGameCountdown()
     {
+        startCountdownGO.transform.gameObject.SetActive(true);
+
         while (startCountdown > 0)
         {
             yield return new WaitForSeconds(1.0f);
@@ -49,8 +64,11 @@ public class CountdownManager : MonoBehaviour
             startCountdownText.text = startCountdown.ToString();
         }
 
-        PauseGame(false);
-        StartCoroutine(StartRoundCountdown());
+        startCountdownGO.transform.gameObject.SetActive(false);
+        //PauseGame(false);
+
+        // Start round countdown and store it.
+        roundCountdownRoutine = StartCoroutine(StartRoundCountdown());
 
         yield return null;
     }
@@ -70,6 +88,8 @@ public class CountdownManager : MonoBehaviour
             roundTimerText.text = roundCountdown.ToString();
         }
 
+        Debug.Log("Round Countdown Expired!");
+        onRoundTimerFinished?.Invoke();
         yield return null;
     }
 
@@ -89,5 +109,22 @@ public class CountdownManager : MonoBehaviour
         }
 
         Debug.Log("Game paused: " + isPaused);
+    }
+
+    public void SetCountdownTimer(float time)
+    {
+        if (startCountdownRoutine != null)
+            StopCoroutine(startCountdownRoutine);
+
+        if (roundCountdownRoutine != null)
+            StopCoroutine(roundCountdownRoutine);
+
+        startCountdown = 3;
+        roundCountdown = time;
+
+        startCountdownText.text = startCountdown.ToString();
+        roundTimerText.text = roundCountdown.ToString();
+
+        startCountdownRoutine = StartCoroutine(StartGameCountdown());
     }
 }
