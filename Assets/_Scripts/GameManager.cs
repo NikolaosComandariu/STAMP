@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CountdownManager countDownManager;
     [SerializeField] private ObjectSpawner objectSpawner;
     [SerializeField] private ObjectSpawner rightObjSpawner;
+    [SerializeField] private roundManager roundManager;
 
     [Header("Variables")]
     [SerializeField] private int roundCountdownIncrease; // How many seconds a round increases by when difficulty increases.
@@ -90,6 +91,9 @@ public class GameManager : MonoBehaviour
 
         if (currentRoundNumber < 16)
             currentRoundNumber++;
+
+        // Update text displaying current round number.
+        roundManager.UpdateRound(currentRoundNumber);
 
         // If round number is a multiple of 5, increase difficulty.
         if(currentRoundNumber % 5 == 0)
