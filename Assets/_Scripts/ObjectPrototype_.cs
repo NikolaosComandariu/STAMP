@@ -13,8 +13,8 @@ public class ObjectPrototype_ : MonoBehaviour
     [SerializeField] private bool isAccepted; //trying out movement for rejcted items
     [SerializeField] private float price;
 
-    [Header("Text")]
-    [SerializeField] private TextMeshProUGUI priceTag;
+    //[Header("Text")]
+    //[SerializeField] private TextMeshProUGUI priceTag;
 
     [Header("GDD Variables")]
     [SerializeField] private bool IsFruit;
@@ -26,11 +26,10 @@ public class ObjectPrototype_ : MonoBehaviour
 
     private Transform transform2;
 
-    //TODO: PRICE VARIABLES
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
+        //priceTag.text = "£" + price.ToString();
         transform2 = GetComponent<Transform>();
     }
 
@@ -68,7 +67,7 @@ public class ObjectPrototype_ : MonoBehaviour
     private void UpdatePricetag()
     {
         float price = calculatePrice();
-        priceTag.text = price.ToString("F2");
+       // priceTag.text = price.ToString("F2");
     }
 
     public bool checkIsFruit() { return IsFruit; }
@@ -94,5 +93,10 @@ public class ObjectPrototype_ : MonoBehaviour
 
         Vector3 declinedPos = new Vector3(transform.position.x + xSpd, transform.position.y 
             + ySpd, transform.position.z);
+    }
+
+    public float GetPrice()
+    {
+        return price;
     }
 }
