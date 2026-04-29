@@ -1,18 +1,22 @@
 using UnityEngine;
-using System;
 using UnityEngine.UI;
-using Unity.VisualScripting;
-
+using TMPro;
 
 public class ObjectPrototype_ : MonoBehaviour
 {
-
+    [Header("Variables")]
     [SerializeField]private float speed = 1.0f;
-    private Transform transform2;
     [SerializeField]private float timer = 0.0f;
-    [SerializeField] private Text pricetags;
+    [SerializeField] private float centreDiff = 5.0f; //can be reomved after testing
+    [SerializeField] private float ySpd = 0.03f; //these serialised fields can be removed after testing
+    [SerializeField] private float xSpd = 0.01f; //these serialised fields can be removed after testing
+    [SerializeField] private bool isAccepted; //trying out movement for rejcted items
+    [SerializeField] private float price;
 
-    //GDD variables
+    //[Header("Text")]
+    //[SerializeField] private TextMeshProUGUI priceTag;
+
+    [Header("GDD Variables")]
     [SerializeField] private bool IsFruit;
     [SerializeField] private bool IsRed;
     [SerializeField] private bool IsGreen;
@@ -20,36 +24,34 @@ public class ObjectPrototype_ : MonoBehaviour
     [SerializeField] private bool IsSingle;
     [SerializeField] private bool IsOrange;
 
-
-
-    //TODO: PRICE VARIABLES
+    private Transform transform2;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
+        //priceTag.text = "£" + price.ToString();
         transform2 = GetComponent<Transform>();
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         moveRight();
     }
 
-    private void Update()
+    /*private void Update()
     {
         //timer += Time.deltaTime;
         //if (timer > 10.0f)
         //{
             //Destroy(gameObject);
         //}
-    }
+    }*/
 
-    //can be reomved after testing
-    [SerializeField] private float centreDiff = 5.0f;
     private void moveRight()
     {
-        Vector3 pos = new Vector3(transform.position.x + speed,transform.position.y,transform.position.z);
+        Vector3 pos = new Vector3(transform.position.x + speed,transform.position.y,
+            transform.position.z);
         transform.position = pos;
     }
 
@@ -65,7 +67,7 @@ public class ObjectPrototype_ : MonoBehaviour
     private void UpdatePricetag()
     {
         float price = calculatePrice();
-        pricetags.text = price.ToString("F2");
+       // priceTag.text = price.ToString("F2");
     }
 
     public bool checkIsFruit() { return IsFruit; }
@@ -73,15 +75,6 @@ public class ObjectPrototype_ : MonoBehaviour
     public bool checkIsGreen() { return IsGreen; }
     public bool checkIsYellow() { return IsYellow; }
     public bool checkIsSingle() { return IsSingle; }
-
-
-    //trying out movement for rejcted items
-    [SerializeField] private bool isAccepted;
-
-    //these serialised fields can be removed after testing
-    [SerializeField] private float ySpd = 0.03f;
-    [SerializeField] private float xSpd = 0.01f;
-   
 
     //testing new fucntions
     private void moveUp()
@@ -96,9 +89,14 @@ public class ObjectPrototype_ : MonoBehaviour
             xSpd *= -1.0f; //object is moving to the left
         }
 
-        if (isAccepted == false)
-        {
-            Vector3 declinedPos = new Vector3(transform.position.x + xSpd, transform.position.y + ySpd, transform.position.z);
-        }
+        if (!isAccepted) return;
+
+        Vector3 declinedPos = new Vector3(transform.position.x + xSpd, transform.position.y 
+            + ySpd, transform.position.z);
+    }
+
+    public float GetPrice()
+    {
+        return price;
     }
 }

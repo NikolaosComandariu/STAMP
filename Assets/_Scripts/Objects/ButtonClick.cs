@@ -3,19 +3,28 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class ButtonClick : MonoBehaviour
-{
+{ // Nikolaos Comandariu.
     //[SerializeField] private char acceptKey;
     //[SerializeField] private char declineKey;
     //[SerializeField] private bool isPlayer1;
     [SerializeField] private KeyCode acceptKey;
     [SerializeField] private KeyCode declineKey;
 
+    AudioManager audioManager;
+
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
     private void Update()
     {
         if (Input.GetKeyDown(acceptKey))
         {
             Debug.Log("Accept");
             OnAcceptPressed();
+
+
         }
         if (Input.GetKeyDown(declineKey))
         {
@@ -49,13 +58,14 @@ public class ButtonClick : MonoBehaviour
                 OnDeclinePressed();
             }
         }*/
-    }
+    } // End of Nikolaos Comandariu.
 
     public void OnAcceptPressed()
     {
         Debug.Log("accepted");
         ObjectSpawner spawner = GetComponent<ObjectSpawner>();
         spawner.AcceptObject();
+        audioManager.PlaySFX(audioManager.correctChoiceSFX);
         
     }
 
