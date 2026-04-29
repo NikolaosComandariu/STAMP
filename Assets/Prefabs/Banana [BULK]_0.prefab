@@ -114,8 +114,7 @@ MonoBehaviour:
   ySpd: 0.03
   xSpd: 0.01
   isAccepted: 0
-  price: 1.4
-  priceTag: {fileID: 2162090915976875535}
+  price: 2.19
   IsFruit: 1
   IsRed: 0
   IsGreen: 0
