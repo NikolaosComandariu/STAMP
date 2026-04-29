@@ -16,6 +16,7 @@ public class ObjectSpawner : MonoBehaviour
 
     [Header("Game Objects")]
     [SerializeField] private List<GameObject> ObjectsPool = new List<GameObject>(); // Amount of objects in the round
+    [SerializeField] private List<GameObject> GlitchedItemsPool = new List<GameObject>(); // Amount of glitched objects 
     [SerializeField] private List<GameObject> AllPossibleObjects; // All prefabs possible to spawn
 
     [Header("Transforms")]
@@ -43,6 +44,8 @@ public class ObjectSpawner : MonoBehaviour
     private bool AllowObjSpawn;
     private bool isSpawning = false;
     private bool AllowDecision = false; //smriti added this
+    private bool SpawnGlitchedItem = false;
+
 
     private Item item; // This isn't used anywhere, can be removed.
     private Rigidbody2D rb2D;
@@ -123,6 +126,19 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
+    private void ChanceToSpawnGlitchedItem()
+    {
+        int chance = Random.Range(1, 5);
+        if (chance == 1)
+        {
+            SpawnGlitchedItem = true;
+        }
+        else
+        {
+            return;
+        }
+    }
+
     /// <summary>
     /// Clears object pool, gets random objects from
     /// all possible objects to spawn.
@@ -142,7 +158,16 @@ public class ObjectSpawner : MonoBehaviour
             Debug.Log("Generating Objects for round");
             int randomIndex = Random.Range(0, AllPossibleObjects.Count);
             ObjectsPool.Add(AllPossibleObjects[randomIndex]);
+            ChanceToSpawnGlitchedItem();
         }
+        if (SpawnGlitchedItem == true)
+        {
+            int index = Random.Range(0, ObjectsPool.Count);
+            int index2 = Random.Range(0, GlitchedItemsPool.Count);
+
+            ObjectsPool[index] = GlitchedItemsPool[index2];
+            SpawnGlitchedItem = false;
+        }    
 
         NumOfObjToSpawn = ObjectsPool.Count;
         Debug.Log("Num of obj to spawn: " + NumOfObjToSpawn);
