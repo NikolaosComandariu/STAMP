@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 257358075836942361}
   - component: {fileID: -3700466883406141987}
   m_Layer: 0
-  m_Name: Banana [SINGLE]_0
+  m_Name: Yellow Banana [SINGLE]_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 8545670857543205389, guid: ffd8ac52ff011eb4396fa9b14edad594, type: 3}
+  m_Sprite: {fileID: 1544837391616517372, guid: 3bae31e2c1b948748ba347c8411d3e46, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

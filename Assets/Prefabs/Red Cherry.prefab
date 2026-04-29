@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8685417703861665877
+--- !u!1 &3678597855159233827
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,26 +8,26 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 405880837798989668}
-  - component: {fileID: 646450299968212157}
-  - component: {fileID: 6798945516825105366}
-  - component: {fileID: -7663246534317231309}
-  - component: {fileID: -6343847375376632150}
-  - component: {fileID: 683385863632396771}
+  - component: {fileID: 8593535016061815149}
+  - component: {fileID: 6260811183791366099}
+  - component: {fileID: 8066807288160397606}
+  - component: {fileID: 5757206656453545780}
+  - component: {fileID: 6982389566214088452}
+  - component: {fileID: -6689815501922744194}
   m_Layer: 0
-  m_Name: Cheese [BULK]_0
+  m_Name: Red Cherry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &405880837798989668
+--- !u!4 &8593535016061815149
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8685417703861665877}
+  m_GameObject: {fileID: 3678597855159233827}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -36,14 +36,14 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &646450299968212157
+--- !u!212 &6260811183791366099
 SpriteRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8685417703861665877}
+  m_GameObject: {fileID: 3678597855159233827}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -85,23 +85,23 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 3025924400515240566, guid: c4e62d8cedba83e4fa640f147138fe75, type: 3}
+  m_Sprite: {fileID: -1435901459259225544, guid: b183effc405a3d74180552232fc55e19, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.57, y: 0.5}
+  m_Size: {x: 0.6, y: 0.62}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &6798945516825105366
+--- !u!114 &8066807288160397606
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8685417703861665877}
+  m_GameObject: {fileID: 3678597855159233827}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 54b5969e7004f484598a53aba67751ae, type: 3}
@@ -113,32 +113,32 @@ MonoBehaviour:
   ySpd: 0.03
   xSpd: 0.01
   isAccepted: 0
-  price: 5.41
-  IsFruit: 0
-  IsRed: 0
+  price: 0.3
+  IsFruit: 1
+  IsRed: 1
   IsGreen: 0
-  IsYellow: 1
+  IsYellow: 0
   IsSingle: 0
   IsOrange: 0
---- !u!114 &-7663246534317231309
+--- !u!114 &5757206656453545780
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8685417703861665877}
+  m_GameObject: {fileID: 3678597855159233827}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 814262f286a355d47aa95b05fc1d547c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
---- !u!114 &-6343847375376632150
+--- !u!114 &6982389566214088452
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8685417703861665877}
+  m_GameObject: {fileID: 3678597855159233827}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 167d4e0182e249241b951c65160d3168, type: 3}
@@ -146,14 +146,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MoveToTarget
   target: {fileID: 0}
   speed: 0
---- !u!50 &683385863632396771
+--- !u!50 &-6689815501922744194
 Rigidbody2D:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8685417703861665877}
+  m_GameObject: {fileID: 3678597855159233827}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
