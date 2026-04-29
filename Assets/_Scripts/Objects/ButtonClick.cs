@@ -9,13 +9,14 @@ public class ButtonClick : MonoBehaviour
     //[SerializeField] private bool isPlayer1;
     [SerializeField] private KeyCode acceptKey;
     [SerializeField] private KeyCode declineKey;
+    [SerializeField] private AudioManager audioManager;
 
-    AudioManager audioManager;
+    //AudioManager audioManager;
 
 
     private void Awake()
     {
-        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+       // audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
     private void Update()
     {
@@ -23,13 +24,13 @@ public class ButtonClick : MonoBehaviour
         {
             Debug.Log("Accept");
             OnAcceptPressed();
-
-
+            audioManager.PlaySFX(audioManager.correctChoiceSFX);
         }
         if (Input.GetKeyDown(declineKey))
         {
             Debug.Log("Decline");
             OnDeclinePressed();
+
         }    
 
         /*if(isPlayer1)
