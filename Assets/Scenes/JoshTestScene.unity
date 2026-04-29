@@ -601,7 +601,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 867174019}
         m_TargetAssemblyTypeName: VolumeSettings, Assembly-CSharp
-        m_MethodName: SetSFXVolume
+        m_MethodName: SetEnvironmentalVolume
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1409,7 +1409,7 @@ MonoBehaviour:
   myMixer: {fileID: 24100000, guid: 31598afdd423cfd4fafb3446911d0edd, type: 2}
   musicSlider: {fileID: 969434144}
   SFXSlider: {fileID: 555443329}
-  EnvironmentalSlider: {fileID: 0}
+  EnvironmentalSlider: {fileID: 187684015}
 --- !u!1 &875255747
 GameObject:
   m_ObjectHideFlags: 0
