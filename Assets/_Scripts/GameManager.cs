@@ -43,16 +43,32 @@ public class GameManager : MonoBehaviour
         p2Finished = false;
         activateGameChanger = false;
 
-        // Call HandleRoundEnd() when these events are called.
-        countDownManager.onRoundTimerFinished += HandleTimeRunningOut;
-        objectSpawner.onAllObjectsProcessed += HandleLeftPlayerFinish;
-        rightObjSpawner.onAllObjectsProcessed += HandleRightPlayerFinish;
-        changerManager.onGameChangerActivated += ActivateGameChanger;
-
         objectSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
         rightObjSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
 
         StartCoroutine(NextRound());
+    }
+
+    /// <summary>
+    /// Subscribes to necessary events.
+    /// </summary>
+    private void OnEnable()
+    {
+        countDownManager.onRoundTimerFinished += HandleTimeRunningOut;
+        objectSpawner.onAllObjectsProcessed += HandleLeftPlayerFinish;
+        rightObjSpawner.onAllObjectsProcessed += HandleRightPlayerFinish;
+        changerManager.onGameChangerActivated += ActivateGameChanger;
+    }
+
+    /// <summary>
+    /// Unsubscribes from events to avoid errors.
+    /// </summary>
+    private void OnDisable()
+    {
+        countDownManager.onRoundTimerFinished -= HandleTimeRunningOut;
+        objectSpawner.onAllObjectsProcessed -= HandleLeftPlayerFinish;
+        rightObjSpawner.onAllObjectsProcessed -= HandleRightPlayerFinish;
+        changerManager.onGameChangerActivated -= ActivateGameChanger;
     }
 
     private void IncreaseDifficulty()
