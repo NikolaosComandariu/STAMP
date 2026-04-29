@@ -29,6 +29,9 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI productPrice;
 
+    [Header("Probability - Glitched items")]
+    [SerializeField] private int upperLimit;
+
     [Header("Events")]
     public System.Action onAllObjectsProcessed; // Nikolaos Comandariu.
 
@@ -128,7 +131,7 @@ public class ObjectSpawner : MonoBehaviour
 
     private void ChanceToSpawnGlitchedItem()
     {
-        int chance = Random.Range(1, 5);
+        int chance = Random.Range(1, upperLimit);
         if (chance == 1)
         {
             SpawnGlitchedItem = true;
