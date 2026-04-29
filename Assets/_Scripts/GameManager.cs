@@ -17,6 +17,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int roundCountdownIncrease; // How many seconds a round increases by when difficulty increases.
     [SerializeField] private int roundItemsIncrease; // How many additional items spawn when difficulty increases.
 
+    // Delegates.
+    public delegate void OnGameOver();
+    public static OnGameOver onGameOver;
+
     private int maxRoundNumber = 16;
     private int spawnCountdown = 3;
     private int roundTimer;
@@ -94,7 +98,13 @@ public class GameManager : MonoBehaviour
         roundEnding = false;
 
         if (currentRoundNumber < 16)
+        {
             currentRoundNumber++;
+        }
+        else
+        {
+            onGameOver?.Invoke();
+        }
 
         // Update text displaying current round number.
         roundManager.UpdateRound(currentRoundNumber);
