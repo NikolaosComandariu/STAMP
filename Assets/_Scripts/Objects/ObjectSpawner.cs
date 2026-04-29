@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 using TMPro;
+using System;
+using Unity.VisualScripting;
+using System.Linq;
 
 public class ObjectSpawner : MonoBehaviour
 {
@@ -45,6 +48,8 @@ public class ObjectSpawner : MonoBehaviour
 
     private Item item; // This isn't used anywhere, can be removed.
     private Rigidbody2D rb2D;
+    private int[] CriteriaGenerated;//smriti added this; possible to remove if not used
+    private bool generatingNumber; //smriti added this; possible to remove if not used
 
     /// <summary>
     /// Used to compare the criteria to the object to see if the
@@ -56,7 +61,16 @@ public class ObjectSpawner : MonoBehaviour
         Red,
         Green,
         Yellow,
-        Single
+        Single,
+        Orange, //options added by smriti
+        Drink,
+        NotFruit,
+        NotRed,
+        NotGreen,
+        NotYellow,
+        NotSingle,
+        NotOrange,
+        NotDrink //end of options added by smrti
     }
 
     private void Start()
@@ -191,6 +205,14 @@ public class ObjectSpawner : MonoBehaviour
             case RoundCondition.Single:
                 isMatch = proto.checkIsSingle();
                 break;
+            //added code by smriti
+            case RoundCondition.Orange:
+                isMatch = proto.checkIsOrange();
+                break;
+            case RoundCondition.Drink:
+                isMatch = proto.checkIsDrink();
+                break;
+            //end of added code by smriti
         }
 
         if (isMatch)
@@ -273,7 +295,15 @@ public class ObjectSpawner : MonoBehaviour
                 break;
             case RoundCondition.Single:
                 isMatch = proto.checkIsSingle();
-                break;          
+                break;
+            //added code by smriti
+            case RoundCondition.Orange:
+                isMatch = proto.checkIsOrange();
+                break;
+            case RoundCondition.Drink:
+                isMatch = proto.checkIsDrink();
+                break;
+            //end of added code by smriti
         }
 
         if (AllowDecision)
