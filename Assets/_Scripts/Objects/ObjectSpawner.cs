@@ -1,9 +1,13 @@
+using NUnit.Framework;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
-using TMPro;
 
 public class ObjectSpawner : MonoBehaviour
 {
@@ -17,6 +21,7 @@ public class ObjectSpawner : MonoBehaviour
     [Header("Game Objects")]
     [SerializeField] private List<GameObject> ObjectsPool = new List<GameObject>(); // Amount of objects in the round
     [SerializeField] private List<GameObject> AllPossibleObjects; // All prefabs possible to spawn
+    [SerializeField] private List<GameObject> AllGlitchedObjects; // All prefabs possible to spawn
 
     [Header("Transforms")]
     [SerializeField] private Transform EndOfConveyor; // Stopping point of objects where they're ready to be accepted / declined
@@ -38,11 +43,14 @@ public class ObjectSpawner : MonoBehaviour
     // Int
     private int NumOfObjToSpawn; // tally of items left to spawn
     private int objToSpawn;
+    private int TotalItemsSpawned; // Amount of items spawned in current game in totality - never resets
 
     // Booleans
     private bool AllowObjSpawn;
     private bool isSpawning = false;
     private bool AllowDecision = false; //smriti added this
+    private bool P2LastGlitchedItem = false;
+    private bool P1LastGlitchedItem = false;
 
     private Item item; // This isn't used anywhere, can be removed.
     private Rigidbody2D rb2D;
@@ -96,6 +104,8 @@ public class ObjectSpawner : MonoBehaviour
             {
                 if (NumOfObjToSpawn != 0)
                 {
+                    TotalItemsSpawned++;
+
                     int n = Random.Range(0, ObjectsPool.Count);
 
                     currentObject = Instantiate(ObjectsPool[n], SpawnPos.position, 
@@ -143,11 +153,76 @@ public class ObjectSpawner : MonoBehaviour
             int randomIndex = Random.Range(0, AllPossibleObjects.Count);
             ObjectsPool.Add(AllPossibleObjects[randomIndex]);
         }
+        if (TotalItemsSpawned == 5)
+        {
+            Debug.Log("Attempting to spawn glitched item");
+            DecidePlayerForGlitchedItem();
+        }
 
-        NumOfObjToSpawn = ObjectsPool.Count;
+            NumOfObjToSpawn = ObjectsPool.Count;
         Debug.Log("Num of obj to spawn: " + NumOfObjToSpawn);
     }
-    
+
+    private void DecidePlayerForGlitchedItem()
+    {
+        if (!P1LastGlitchedItem && !P2LastGlitchedItem)
+        {
+            int random5050 = Random.Range(0, 1);
+
+
+            if (random5050 > .5)
+            {
+                //GivePlayer1GlitchedItem();
+            }
+            else
+            {
+                GivePlayer2GlitchedItem();
+            }
+
+
+        }
+    }
+
+    private void GivePlayer2GlitchedItem()
+    {
+
+        if (AllGlitchedObjects.Count == 0)
+        {
+            Debug.LogError("No objects with tag 'Glitched' found in the scene!");
+            return;
+        }
+
+        int ranGlitchedItem = Random.Range(0, AllGlitchedObjects.Count);
+        GameObject glitchedItem = AllGlitchedObjects[ranGlitchedItem];
+
+
+        int randomListIndex = Random.Range(0, ObjectsPool.Count);
+        var removed = ObjectsPool[randomListIndex];
+        //ObjectsPool.Remove(removed);
+        ObjectsPool[randomListIndex] = glitchedItem;
+
+    }
+
+    //private void GivePlayer1GlitchedItem()
+    //{
+    //    GameObject[] glitchedObjects = GameObject.FindGameObjectsWithTag("Glitched");
+
+    //    int ranGlitchedItem = Random.Range(0, glitchedObjects.Length);
+    //    GameObject glitchedItem = glitchedObjects[ranGlitchedItem];
+
+
+    //    int randomListIndex = Random.Range(0, ObjectsPool.Count);
+    //    var removed = ObjectsPool[randomListIndex];
+    //    //ObjectsPool.Remove(removed);
+    //    ObjectsPool[randomListIndex] = glitchedItem;
+    //}
+
+
+
+
+       // optional: store removed item
+
+
     //public DeclinedTrigger trigger;
     //private Collision2D collision;
 
@@ -216,8 +291,9 @@ public class ObjectSpawner : MonoBehaviour
                 MoveToTarget acceptedP1 = currentObject.GetComponent<MoveToTarget>();
                 acceptedP1.SetTarget(AcceptedP1);
                 acceptedP1.SetSpeed(MoveForce);
-                currentObject.transform.position = Vector2.MoveTowards(EndOfConveyor.position, 
-                    AcceptedP1.position, MoveForce * Time.deltaTime);
+                //currentObject.transform.position = Vector2.MoveTowards(EndOfConveyor.position, 
+                    //AcceptedP1.position, MoveForce * Time.deltaTime);
+
                 //Destroy(currentObject);
                 
                 AllowDecision = false;
