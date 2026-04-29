@@ -1,36 +1,43 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class ButtonClick : MonoBehaviour
-{ // Nikolaos Comandariu.
+{ 
+    // Nikolaos Comandariu.
+
     //[SerializeField] private char acceptKey;
     //[SerializeField] private char declineKey;
     //[SerializeField] private bool isPlayer1;
+
+    [Header("Input")]
     [SerializeField] private KeyCode acceptKey;
     [SerializeField] private KeyCode declineKey;
 
-    AudioManager audioManager;
+    [Header("Events")]
+    public System.Action onBothInputsPressed;
 
+    AudioManager audioManager;
 
     private void Awake()
     {
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
+
     private void Update()
     {
         if (Input.GetKeyDown(acceptKey))
         {
             Debug.Log("Accept");
             OnAcceptPressed();
-
-
         }
         if (Input.GetKeyDown(declineKey))
         {
             Debug.Log("Decline");
             OnDeclinePressed();
-        }    
+        }
+        if (Input.GetKeyDown(acceptKey) && Input.GetKeyDown(declineKey))
+        {
+            onBothInputsPressed.Invoke();
+        }
 
         /*if(isPlayer1)
         {

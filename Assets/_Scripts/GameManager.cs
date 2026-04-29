@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ObjectSpawner objectSpawner;
     [SerializeField] private ObjectSpawner rightObjSpawner;
     [SerializeField] private roundManager roundManager;
+    [SerializeField] private GameChangerManager changerManager;
 
     [Header("Variables")]
     [SerializeField] private int roundCountdownIncrease; // How many seconds a round increases by when difficulty increases.
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
     private bool roundEnding = false;
     private bool p1Finished;
     private bool p2Finished;
+    private bool activateGameChanger;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
@@ -35,11 +37,13 @@ public class GameManager : MonoBehaviour
 
         p1Finished = false;
         p2Finished = false;
+        activateGameChanger = false;
 
         // Call HandleRoundEnd() when these events are called.
         countDownManager.onRoundTimerFinished += HandleTimeRunningOut;
         objectSpawner.onAllObjectsProcessed += HandleLeftPlayerFinish;
         rightObjSpawner.onAllObjectsProcessed += HandleRightPlayerFinish;
+        changerManager.onGameChangerActivated += ActivateGameChanger;
 
         objectSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
         rightObjSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
@@ -98,6 +102,11 @@ public class GameManager : MonoBehaviour
         // If round number is a multiple of 5, increase difficulty.
         if(currentRoundNumber % 5 == 0)
             IncreaseDifficulty();
+
+        if(activateGameChanger)
+        {
+            changerManager.StartGameChanger();
+        }
 
         // TODO: Reset Criteria and get new ones for the round.
         yield return StartCoroutine(StartRound());
@@ -158,5 +167,10 @@ public class GameManager : MonoBehaviour
         objectSpawner.ResetObjects();
         rightObjSpawner.ResetObjects();
         StartCoroutine(NextRound());
+    }
+
+    private void ActivateGameChanger()
+    {
+        activateGameChanger = true;
     }
 }
