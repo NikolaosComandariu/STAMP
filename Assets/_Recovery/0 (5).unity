@@ -119,17 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &195689338 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6734761824227079153, guid: d7d180083b9796b4ba32b31e7b266647, type: 3}
-  m_PrefabInstance: {fileID: 7043746792830242226}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &436240112
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -286,17 +275,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &482798151 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4090438961271107480, guid: d7d180083b9796b4ba32b31e7b266647, type: 3}
-  m_PrefabInstance: {fileID: 7043746792830242226}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!114 &522474986 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
@@ -856,17 +834,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1d708b8fd166964d8fc70de33bfd0b1, type: 3}
---- !u!114 &1866884501 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3694801835983915855, guid: d7d180083b9796b4ba32b31e7b266647, type: 3}
-  m_PrefabInstance: {fileID: 7043746792830242226}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &1882764967
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1147,66 +1114,50 @@ PrefabInstance:
       propertyPath: m_Name
       value: CriteriaManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2097656037737162773, guid: d7d180083b9796b4ba32b31e7b266647, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3559472379130252246, guid: d7d180083b9796b4ba32b31e7b266647, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -923
+      value: -829
+      objectReference: {fileID: 0}
+    - target: {fileID: 3559472379130252246, guid: d7d180083b9796b4ba32b31e7b266647, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 91
+      objectReference: {fileID: 0}
+    - target: {fileID: 7624215563688607869, guid: d7d180083b9796b4ba32b31e7b266647, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7624215563688607869, guid: d7d180083b9796b4ba32b31e7b266647, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7624215563688607869, guid: d7d180083b9796b4ba32b31e7b266647, type: 3}
+      propertyPath: m_fontSize
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 7624215563688607869, guid: d7d180083b9796b4ba32b31e7b266647, type: 3}
       propertyPath: m_margin.w
-      value: -11.269409
+      value: -385.66144
       objectReference: {fileID: 0}
     - target: {fileID: 7624215563688607869, guid: d7d180083b9796b4ba32b31e7b266647, type: 3}
       propertyPath: m_margin.z
-      value: -187.57718
+      value: -420.72137
       objectReference: {fileID: 0}
     - target: {fileID: 7624215563688607869, guid: d7d180083b9796b4ba32b31e7b266647, type: 3}
       propertyPath: m_enableAutoSizing
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9024887764627332713, guid: d7d180083b9796b4ba32b31e7b266647, type: 3}
       propertyPath: _criteria
       value: 
       objectReference: {fileID: 783303769}
     - target: {fileID: 9024887764627332713, guid: d7d180083b9796b4ba32b31e7b266647, type: 3}
-      propertyPath: _criteria1
-      value: 
-      objectReference: {fileID: 783303769}
-    - target: {fileID: 9024887764627332713, guid: d7d180083b9796b4ba32b31e7b266647, type: 3}
-      propertyPath: _criteria2
-      value: 
-      objectReference: {fileID: 1866884501}
-    - target: {fileID: 9024887764627332713, guid: d7d180083b9796b4ba32b31e7b266647, type: 3}
-      propertyPath: _criteria3
-      value: 
-      objectReference: {fileID: 482798151}
-    - target: {fileID: 9024887764627332713, guid: d7d180083b9796b4ba32b31e7b266647, type: 3}
-      propertyPath: _criteria4
-      value: 
-      objectReference: {fileID: 195689338}
-    - target: {fileID: 9024887764627332713, guid: d7d180083b9796b4ba32b31e7b266647, type: 3}
       propertyPath: criteriaNumber
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 9024887764627332713, guid: d7d180083b9796b4ba32b31e7b266647, type: 3}
-      propertyPath: criteriaTextList.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 9024887764627332713, guid: d7d180083b9796b4ba32b31e7b266647, type: 3}
-      propertyPath: 'criteriaTextList.Array.data[0]'
-      value: 
-      objectReference: {fileID: 783303769}
-    - target: {fileID: 9024887764627332713, guid: d7d180083b9796b4ba32b31e7b266647, type: 3}
-      propertyPath: 'criteriaTextList.Array.data[1]'
-      value: 
-      objectReference: {fileID: 1866884501}
-    - target: {fileID: 9024887764627332713, guid: d7d180083b9796b4ba32b31e7b266647, type: 3}
-      propertyPath: 'criteriaTextList.Array.data[2]'
-      value: 
-      objectReference: {fileID: 482798151}
-    - target: {fileID: 9024887764627332713, guid: d7d180083b9796b4ba32b31e7b266647, type: 3}
-      propertyPath: 'criteriaTextList.Array.data[3]'
-      value: 
-      objectReference: {fileID: 195689338}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -4,8 +4,15 @@ using TMPro;
 
 public class CriteriaManager : MonoBehaviour
 {
+    [SerializeField] private List <TextMeshProUGUI> criteriaTextList = new List<TextMeshProUGUI>();
 
-    [SerializeField] private TextMeshProUGUI _criteria;
+    /*[SerializeField] private TextMeshProUGUI _criteria1;
+    [SerializeField] private TextMeshProUGUI _criteria2;
+    [SerializeField] private TextMeshProUGUI _criteria3;
+    [SerializeField] private TextMeshProUGUI _criteria4;*/
+
+
+
     public enum RoundCondition
     {
         Fruit,
@@ -23,6 +30,14 @@ public class CriteriaManager : MonoBehaviour
         NotOrange,
         NotDrink 
     }
+
+    /*public enum CriteriaOnScreen
+    {
+        One,
+        Two,
+        Three,
+        Four
+    }*/
  
     private Dictionary<int, RoundCondition> CriteriaList = new Dictionary<int, RoundCondition>();
     public int criteriaNumber = 1;
@@ -53,21 +68,31 @@ public class CriteriaManager : MonoBehaviour
 
     public void selectCriteria()
     {
-        int q; 
+        for (int i =  0; i < criteriaNumber; i++)
+        {
+            int q;
+            q = Random.Range(0, CriteriaList.Count);
+            RoundCondition qRC = CriteriaList[key: q];
+            Debug.Log(qRC.ToString());
+            //_criteria1.text = "Criteria: " + qRC.ToString();
+            criteriaTextList[i].text = "Criteria: " + qRC.ToString();
+        }
+        /*int q; 
         q = Random.Range(0, CriteriaList.Count);
         RoundCondition qRC = CriteriaList[key: q];
         Debug.Log(qRC.ToString());
-        _criteria.text = qRC.ToString() + "\n";
+        _criteria1.text = "Criteria: " + qRC.ToString(); */
+        
  
     }
 
     public void displayCriteria()
     {
-        for (int i = 0; i < criteriaNumber; i++)
-        {
+        //for (int i = 0; i <= criteriaNumber; i++)
+        //{
             populateDict();
             selectCriteria();
-            i++;
-        }
+            //i++;
+        //}
     }
 }
