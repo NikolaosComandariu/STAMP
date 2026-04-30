@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 using TMPro;
+using System;
 
 public class ObjectSpawner : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class ObjectSpawner : MonoBehaviour
 
     [Header("Events")]
     public System.Action onAllObjectsProcessed; // Nikolaos Comandariu.
+    public static event Action<int> OnTallyUpScores;
 
     // Buttons
     private Button Accept;
@@ -59,6 +61,25 @@ public class ObjectSpawner : MonoBehaviour
         Yellow,
         Single
     }
+    
+    // Nikolaos Comandariu.
+    /// <summary>
+    /// Subscribe to delegates.
+    /// </summary>
+    private void OnEnable()
+    {
+        GameManager.onGameOver += TallyUpScores;
+    }
+
+    /// <summary>
+    /// Unsubscribe from delegates.
+    /// </summary>
+    private void OnDisable()
+    {
+        GameManager.onGameOver -= TallyUpScores;
+    }
+
+    // End of Nikolaos Comandariu.
 
     private void Start()
     {
@@ -376,6 +397,11 @@ public class ObjectSpawner : MonoBehaviour
         Destroy(currentObject);
         currentObject = null;
         GenerateObjectsForRound();
+    }
+
+    private void TallyUpScores()
+    {
+        OnTallyUpScores?.Invoke(score);
     }
 
     // End of code from Nikolaos Comandariu.

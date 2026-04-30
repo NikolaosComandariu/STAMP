@@ -1,10 +1,23 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class EndCanvas : MonoBehaviour
 {
+    [Header("Text Game Objects")]
+    [SerializeField] private TextMeshProUGUI summary;
+
+    // Scores.
+    private int p1Score;
+    private int p2Score;
+
+    // Text.
+    private string whoWon;
+
     private void Start()
     {
+        p1Score = 0;
+        p2Score = 0;
         gameObject.GetComponent<Canvas>().enabled = false;
     }
 
@@ -14,6 +27,7 @@ public class EndCanvas : MonoBehaviour
     private void OnEnable()
     {
         GameManager.onGameOver += EnableCanvas;
+        ObjectSpawner.OnTallyUpScores += CompareScores;
     }
 
     /// <summary>
@@ -51,5 +65,35 @@ public class EndCanvas : MonoBehaviour
         Time.timeScale = 1.0f;
         gameObject.GetComponent<Canvas>().enabled = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void CompareScores(int score)
+    {
+        // 2 scores get sent, this is needed for now.
+        if(p1Score == 0)
+        {
+            p1Score = score;
+        }    
+        else if(p2Score == 0)
+        {
+            p2Score = score;
+        }
+
+        if (p1Score > p2Score)
+        {
+            whoWon = "Player 1 Won!";
+        }
+        else if (p1Score < p2Score)
+        {
+            whoWon = "Player 2 Won!";
+        }
+        else
+        {
+            whoWon = "Players Tied!";
+        }
+
+        summary.text = "Player 1 Score: " + p1Score + "\n"
+                        + "Player 2 Score: " + p2Score + "\n"
+                        + whoWon;
     }
 }
