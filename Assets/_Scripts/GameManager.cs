@@ -106,6 +106,7 @@ public class GameManager : MonoBehaviour
 
         if (currentRoundNumber < 16)
             currentRoundNumber++;
+            criteriaManager.displayCriteria(); // added by smriti
 
         // Update text displaying current round number.
         roundManager.UpdateRound(currentRoundNumber);
@@ -114,6 +115,7 @@ public class GameManager : MonoBehaviour
         if(currentRoundNumber % 5 == 0)
             IncreaseDifficulty();
 
+        
         // TODO: Reset Criteria and get new ones for the round.
         yield return StartCoroutine(StartRound());
     }

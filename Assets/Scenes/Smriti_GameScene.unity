@@ -1185,7 +1185,7 @@ PrefabInstance:
       objectReference: {fileID: 195689338}
     - target: {fileID: 9024887764627332713, guid: d7d180083b9796b4ba32b31e7b266647, type: 3}
       propertyPath: criteriaNumber
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9024887764627332713, guid: d7d180083b9796b4ba32b31e7b266647, type: 3}
       propertyPath: criteriaTextList.Array.size
