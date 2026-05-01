@@ -198,6 +198,26 @@ PrefabInstance:
       propertyPath: productPrice
       value: 
       objectReference: {fileID: 1023588116}
+    - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: GlitchedItemsPool.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: 'GlitchedItemsPool.Array.data[0]'
+      value: 
+      objectReference: {fileID: 6025924260261163396, guid: 40d477f1ffc6c0c4aa40d0c2112a16aa, type: 3}
+    - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: 'GlitchedItemsPool.Array.data[1]'
+      value: 
+      objectReference: {fileID: 4803452460780126536, guid: 530a045fef5b43248b5589882202e448, type: 3}
+    - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: 'GlitchedItemsPool.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1116057322112019674, guid: 6d6788709618c0f4e871fee3c8149a8e, type: 3}
+    - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: 'GlitchedItemsPool.Array.data[3]'
+      value: 
+      objectReference: {fileID: 4785273044838676147, guid: 2649ee5862ab62f41bed292200019be0, type: 3}
     - target: {fileID: 3701250182288645087, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10.92
@@ -373,6 +393,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectSpawner
 --- !u!1001 &682032323
+--- !u!1001 &866817987
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -407,6 +428,13 @@ PrefabInstance:
     - target: {fileID: 4413837593367839622, guid: 0cf7ee79c43725b4984178f79de7e01c, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
+    - target: {fileID: 4413837593367839622, guid: 0cf7ee79c43725b4984178f79de7e01c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.48814
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413837593367839622, guid: 0cf7ee79c43725b4984178f79de7e01c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.24917
       objectReference: {fileID: 0}
     - target: {fileID: 4413837593367839622, guid: 0cf7ee79c43725b4984178f79de7e01c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1032,7 +1060,6 @@ GameObject:
   - component: {fileID: 1508393243}
   - component: {fileID: 1508393242}
   - component: {fileID: 1508393241}
-  - component: {fileID: 1508393245}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1536,6 +1563,26 @@ PrefabInstance:
       propertyPath: productPrice
       value: 
       objectReference: {fileID: 1189657449}
+    - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: GlitchedItemsPool.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: 'GlitchedItemsPool.Array.data[0]'
+      value: 
+      objectReference: {fileID: 4803452460780126536, guid: 530a045fef5b43248b5589882202e448, type: 3}
+    - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: 'GlitchedItemsPool.Array.data[1]'
+      value: 
+      objectReference: {fileID: 6025924260261163396, guid: 40d477f1ffc6c0c4aa40d0c2112a16aa, type: 3}
+    - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: 'GlitchedItemsPool.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1116057322112019674, guid: 6d6788709618c0f4e871fee3c8149a8e, type: 3}
+    - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: 'GlitchedItemsPool.Array.data[3]'
+      value: 
+      objectReference: {fileID: 4785273044838676147, guid: 2649ee5862ab62f41bed292200019be0, type: 3}
     - target: {fileID: 7464752900714267715, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
       propertyPath: m_Name
       value: ObjectSpawner
@@ -1611,3 +1658,4 @@ SceneRoots:
   - {fileID: 2112348035}
   - {fileID: 1386928577}
   - {fileID: 682032323}
+  - {fileID: 866817987}

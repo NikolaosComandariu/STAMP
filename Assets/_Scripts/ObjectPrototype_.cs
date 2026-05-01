@@ -23,6 +23,7 @@ public class ObjectPrototype_ : MonoBehaviour
     [SerializeField] private bool IsYellow;
     [SerializeField] private bool IsSingle;
     [SerializeField] private bool IsOrange;
+    [SerializeField] private bool IsDrink;
 
     private Transform transform2;
 
@@ -75,6 +76,8 @@ public class ObjectPrototype_ : MonoBehaviour
     public bool checkIsGreen() { return IsGreen; }
     public bool checkIsYellow() { return IsYellow; }
     public bool checkIsSingle() { return IsSingle; }
+    public bool checkIsOrange() {  return IsOrange; }
+    public bool checkIsDrink() {  return IsDrink; }
 
     //testing new fucntions
     private void moveUp()
