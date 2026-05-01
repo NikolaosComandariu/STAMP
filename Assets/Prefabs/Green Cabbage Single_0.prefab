@@ -109,17 +109,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectPrototype_
   speed: 0
   timer: 0
-  pricetags: {fileID: 0}
+  centreDiff: 5
+  ySpd: 0.03
+  xSpd: 0.01
+  isAccepted: 0
+  price: 2.11
   IsFruit: 0
   IsRed: 0
   IsGreen: 1
   IsYellow: 0
   IsSingle: 1
   IsOrange: 0
-  centreDiff: 5
-  isAccepted: 0
-  ySpd: 0.03
-  xSpd: 0.01
 --- !u!114 &1837557334774006351
 MonoBehaviour:
   m_ObjectHideFlags: 0

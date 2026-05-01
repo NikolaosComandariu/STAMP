@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ObjectPrototype_ : MonoBehaviour
 {
@@ -10,9 +11,10 @@ public class ObjectPrototype_ : MonoBehaviour
     [SerializeField] private float ySpd = 0.03f; //these serialised fields can be removed after testing
     [SerializeField] private float xSpd = 0.01f; //these serialised fields can be removed after testing
     [SerializeField] private bool isAccepted; //trying out movement for rejcted items
+    [SerializeField] private float price;
 
-    [Header("Text")]
-    [SerializeField] private Text pricetags;
+    //[Header("Text")]
+    //[SerializeField] private TextMeshProUGUI priceTag;
 
     [Header("GDD Variables")]
     [SerializeField] private bool IsFruit;
@@ -25,11 +27,10 @@ public class ObjectPrototype_ : MonoBehaviour
 
     private Transform transform2;
 
-    //TODO: PRICE VARIABLES
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
+        //priceTag.text = "£" + price.ToString();
         transform2 = GetComponent<Transform>();
     }
 
@@ -67,7 +68,7 @@ public class ObjectPrototype_ : MonoBehaviour
     private void UpdatePricetag()
     {
         float price = calculatePrice();
-        pricetags.text = price.ToString("F2");
+       // priceTag.text = price.ToString("F2");
     }
 
     public bool checkIsFruit() { return IsFruit; }
@@ -95,5 +96,10 @@ public class ObjectPrototype_ : MonoBehaviour
 
         Vector3 declinedPos = new Vector3(transform.position.x + xSpd, transform.position.y 
             + ySpd, transform.position.z);
+    }
+
+    public float GetPrice()
+    {
+        return price;
     }
 }
