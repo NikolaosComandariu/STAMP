@@ -11,7 +11,7 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] private float spawnDelay = 1.5f;
     [SerializeField] private float MoveForce;
     [SerializeField] private RoundCondition currentRoundCondition;
-    [SerializeField] private GameObject currentObject;
+    [SerializeField] public GameObject currentObject;
     [SerializeField] private int score = 0;
 
     [Header("Game Objects")]
@@ -49,6 +49,8 @@ public class ObjectSpawner : MonoBehaviour
     private bool AllowDecision = false; //smriti added this
     private bool SpawnGlitchedItem = false;
 
+    [SerializeField] private GameObject ScoreTextFeedback;
+    private Vector3 CurrentObjLoc;
 
     private Item item; // This isn't used anywhere, can be removed.
     private Rigidbody2D rb2D;
@@ -76,6 +78,10 @@ public class ObjectSpawner : MonoBehaviour
 
     private void Update()
     {
+        if (currentObject != null)
+        {
+            CurrentObjLoc = currentObject.transform.position;
+        }
         /*
         // If number of objects to spawn is 0, restart spawning.
         if (NumOfObjToSpawn == 0)
@@ -106,6 +112,7 @@ public class ObjectSpawner : MonoBehaviour
 
                     currentObject = Instantiate(ObjectsPool[n], SpawnPos.position, 
                         ObjectsPool[n].transform.rotation, gameObject.transform);
+
                     productPrice.text = "£" + 
                         currentObject.GetComponent<ObjectPrototype_>().GetPrice().ToString();
                     Debug.Log("spawn object");
@@ -141,6 +148,41 @@ public class ObjectSpawner : MonoBehaviour
             return;
         }
     }
+
+    //public void DisplayTextFeedback( int amount, Transform currentObject)
+    //{
+    //    TextMeshPro scoreTextFeedback = Instantiate (ScoreTextFeedback);
+    //    scoreTextFeedback.transform.position = currentObject.position;
+
+    //}
+
+    //public void DisplayTextFeedback(int amount, Vector3 CurrentObject)
+    //{
+    //    GameObject instance = Instantiate(ScoreTextFeedback, currentObject.transform.position, Quaternion.identity);
+    //    TextMeshProUGUI tmp = instance.GetComponent<TextMeshProUGUI>();
+    //    tmp.text = "+" + amount;
+    //}
+
+    //public void DisplayTextFeedback(int amount, Vector3 position)
+    //{
+    //    GameObject instance = Instantiate(ScoreTextFeedback, position, Quaternion.identity);
+
+    //    TextMeshProUGUI tmp = instance.GetComponent<TextMeshProUGUI>();
+    //    tmp.text = "+" + amount;
+    //}
+
+    public void DisplayTextFeedback(int amount, Vector3 position, Color color)
+    {
+        GameObject instance = Instantiate(ScoreTextFeedback, position, Quaternion.identity);
+
+        TextMeshPro tmp = instance.GetComponent<TextMeshPro>();
+        tmp.text = "+" + amount;
+        tmp.color = color;
+    }
+
+
+
+
 
     /// <summary>
     /// Clears object pool, gets random objects from
@@ -227,6 +269,7 @@ public class ObjectSpawner : MonoBehaviour
 
         if (isMatch)
         {
+            DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
             Debug.Log("ACCEPT: Correct choice!");
             score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
             UpdateScoreUI();
@@ -234,6 +277,7 @@ public class ObjectSpawner : MonoBehaviour
         }
         else
         {
+            DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
             Debug.Log("Wrong choice!");
             score -= 1;
             UpdateScoreUI();
@@ -256,9 +300,12 @@ public class ObjectSpawner : MonoBehaviour
             //StartCoroutine(SpawnObject());
         }
 
+
         Destroy(currentObject);
         currentObject = null;
         AllowObjSpawn = true;
+
+
         //StartCoroutine(SpawnObject());
 
         // Nikolaos Comandariu
@@ -345,6 +392,7 @@ public class ObjectSpawner : MonoBehaviour
         if (!isMatch)
         {
             Debug.Log("Correct choice");
+            DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
             score += 1;
             UpdateScoreUI();
             Debug.Log("Correct, Score is now: " + score);
@@ -352,6 +400,7 @@ public class ObjectSpawner : MonoBehaviour
         else
         {
             Debug.Log("Wrong choice!");
+            DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
             score -= 1;
             UpdateScoreUI();
             Debug.Log("Wrong, Score is now: " + score);
