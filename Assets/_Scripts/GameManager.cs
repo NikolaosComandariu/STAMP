@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ObjectSpawner objectSpawner;
     [SerializeField] private ObjectSpawner rightObjSpawner;
     [SerializeField] private roundManager roundManager;
-    [SerializeField] private CriteriaManager criteriaManager; //added by smriti
 
     [Header("Variables")]
     [SerializeField] private int roundCountdownIncrease; // How many seconds a round increases by when difficulty increases.
@@ -45,18 +44,7 @@ public class GameManager : MonoBehaviour
         objectSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
         rightObjSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
 
-       // criteriaManager.populateDict(); //code added by smriti
-        //rightObjSpawner.populateDict();
-        /*for (int i = 0; i <= criteriaManager.criteriaNumber; i++) 
-        { 
-            criteriaManager.selectCriteria(); 
-        }*/
-
-        criteriaManager.displayCriteria();
-
-         //rightObjSpawner.selectCriteria(); //end of code added by smriti
-
-         StartCoroutine(NextRound());
+        StartCoroutine(NextRound());
     }
 
     private void IncreaseDifficulty()
@@ -67,9 +55,6 @@ public class GameManager : MonoBehaviour
         countDownManager.SetCountdownTimer(roundTimer);
         objectSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
         rightObjSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
-
-        criteriaManager.IncreaseAmountOfCriteria(); //smriti added this
-       // rightObjSpawner.IncreaseAmountOfCriteria(); //smriti added this
 
         // TODO: Increase criteria spawned once this functionality is in.
         // TODO (maybe): Increase speed of spawned objects, not necessary anymore.
@@ -106,7 +91,6 @@ public class GameManager : MonoBehaviour
 
         if (currentRoundNumber < 16)
             currentRoundNumber++;
-            criteriaManager.displayCriteria(); // added by smriti
 
         // Update text displaying current round number.
         roundManager.UpdateRound(currentRoundNumber);
@@ -115,7 +99,6 @@ public class GameManager : MonoBehaviour
         if(currentRoundNumber % 5 == 0)
             IncreaseDifficulty();
 
-        
         // TODO: Reset Criteria and get new ones for the round.
         yield return StartCoroutine(StartRound());
     }

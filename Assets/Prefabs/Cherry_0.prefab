@@ -113,7 +113,7 @@ MonoBehaviour:
   ySpd: 0.03
   xSpd: 0.01
   isAccepted: 0
-  price: 0.3
+  price: 1
   IsFruit: 1
   IsRed: 1
   IsGreen: 0
