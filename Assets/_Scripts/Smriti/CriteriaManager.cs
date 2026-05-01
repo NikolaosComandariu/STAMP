@@ -93,10 +93,10 @@ public class CriteriaManager : MonoBehaviour
             _criteria2.text = "Criteria 2: " + CriteriaList[key: criteriaTextList[1]].ToString() + "\n";
 
         if (criteriaTextList[2] != 0)
-            _criteria2.text = "Criteria 2: " + CriteriaList[key: criteriaTextList[2]].ToString() + "\n";
+            _criteria3.text = "Criteria 3: " + CriteriaList[key: criteriaTextList[2]].ToString() + "\n";
 
         if (criteriaTextList[3] != 0)
-            _criteria2.text = "Criteria 2: " + CriteriaList[key: criteriaTextList[2]].ToString() + "\n";
+            _criteria4.text = "Criteria 4: " + CriteriaList[key: criteriaTextList[3]].ToString() + "\n";
             
         OnCriteriaDecided.Invoke(criteriaTextList[0], criteriaTextList[1],
             criteriaTextList[2], criteriaTextList[3]);
