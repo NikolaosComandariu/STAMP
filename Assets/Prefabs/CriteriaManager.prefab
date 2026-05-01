@@ -463,8 +463,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e9d7f857a0ac44d8deef74267e2a42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CriteriaManager
-  _criteria: {fileID: 7624215563688607869}
-  criteriaNumber: 4
+  criteriaTextList: 00000000000000000000000000000000
+  _criteria1: {fileID: 7624215563688607869}
+  _criteria2: {fileID: 3694801835983915855}
+  _criteria3: {fileID: 4090438961271107480}
+  _criteria4: {fileID: 6734761824227079153}
+  criteriaNumber: 1
 --- !u!1 &6843186616645468871
 GameObject:
   m_ObjectHideFlags: 0
