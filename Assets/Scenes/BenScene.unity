@@ -710,6 +710,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6344236507917586600, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
+      propertyPath: m_text
+      value: RoundTimer
+      objectReference: {fileID: 0}
+    - target: {fileID: 6344236507917586600, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6344236507917586600, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6344236507917586600, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6344236507917586600, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.32812494
+      objectReference: {fileID: 0}
+    - target: {fileID: 6344236507917586600, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278255444
+      objectReference: {fileID: 0}
     - target: {fileID: 7886399669339473410, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 232.4
