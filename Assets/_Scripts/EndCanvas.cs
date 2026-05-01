@@ -67,6 +67,11 @@ public class EndCanvas : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    /// <summary>
+    /// Gets player scores and compares them.
+    /// Says who won at the end of the game.
+    /// </summary>
+    /// <param name="score"></param>
     private void CompareScores(int score)
     {
         // 2 scores get sent, this is needed for now.
