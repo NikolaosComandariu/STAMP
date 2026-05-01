@@ -365,13 +365,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2308971056412265451, guid: 0cf7ee79c43725b4984178f79de7e01c, type: 3}
+      propertyPath: gameStartSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 042a3400cd8a9f142b01258881718b96, type: 3}
+    - target: {fileID: 2308971056412265451, guid: 0cf7ee79c43725b4984178f79de7e01c, type: 3}
+      propertyPath: correctChoiceSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 898c7593b60471c43a82d9612146d549, type: 3}
+    - target: {fileID: 2308971056412265451, guid: 0cf7ee79c43725b4984178f79de7e01c, type: 3}
+      propertyPath: incorrectChoiceSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: ab7a998d02bd6f146a2c05f0c37f01d6, type: 3}
+    - target: {fileID: 2308971056412265451, guid: 0cf7ee79c43725b4984178f79de7e01c, type: 3}
+      propertyPath: backgroundButtonClickUISFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 8d7c976e5ce6dde4980c995e97cfbaed, type: 3}
     - target: {fileID: 4413837593367839622, guid: 0cf7ee79c43725b4984178f79de7e01c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.48814
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4413837593367839622, guid: 0cf7ee79c43725b4984178f79de7e01c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.24917
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4413837593367839622, guid: 0cf7ee79c43725b4984178f79de7e01c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -409,6 +425,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7436832744059345970, guid: 0cf7ee79c43725b4984178f79de7e01c, type: 3}
+      propertyPath: m_Volume
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7436832744059345970, guid: 0cf7ee79c43725b4984178f79de7e01c, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 7b7ed715e86ce764a8b3a6768b7b2106, type: 3}
+    - target: {fileID: 9149017957274466870, guid: 0cf7ee79c43725b4984178f79de7e01c, type: 3}
+      propertyPath: m_Volume
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9149017957274466870, guid: 0cf7ee79c43725b4984178f79de7e01c, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 8a37eef45cc33904f9a09ff504115ef2, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -559,6 +591,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1508393244}
     m_Modifications:
+    - target: {fileID: 578413114169282147, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
+      propertyPath: audioManager
+      value: 
+      objectReference: {fileID: 2032119404}
     - target: {fileID: 4934134779144860067, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
       propertyPath: m_Name
       value: CountdownManager
@@ -642,6 +678,26 @@ PrefabInstance:
     - target: {fileID: 5957446995533372631, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6344236507917586600, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6344236507917586600, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6344236507917586600, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6344236507917586600, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.13919193
+      objectReference: {fileID: 0}
+    - target: {fileID: 6344236507917586600, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278255395
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1353,6 +1409,17 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &2032119404 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2308971056412265451, guid: 0cf7ee79c43725b4984178f79de7e01c, type: 3}
+  m_PrefabInstance: {fileID: 866817987}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3fe877096d75914ca676ba8f428f203, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
 --- !u!1 &2112348034
 GameObject:
   m_ObjectHideFlags: 0
