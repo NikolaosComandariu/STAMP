@@ -30,7 +30,7 @@ public class ButtonClick : MonoBehaviour
         {
             Debug.Log("Decline");
             OnDeclinePressed();
-
+            audioManager.PlaySFX(audioManager.incorrectChoiceSFX);
         }    
 
         /*if(isPlayer1)

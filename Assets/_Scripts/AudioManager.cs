@@ -13,8 +13,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip incorrectChoiceSFX;
     public AudioClip roundChangeSFX;
     public AudioClip background;
-
-    AudioManager audioManager;
+    public AudioClip startTimer;
 
     private void Start()
     {
@@ -26,7 +25,7 @@ public class AudioManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            PlaySFX(audioManager.correctChoiceSFX);
+            //PlaySFX(audioManager.correctChoiceSFX);
         }
     }
 

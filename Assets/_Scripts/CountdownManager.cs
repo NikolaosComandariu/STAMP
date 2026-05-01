@@ -13,6 +13,11 @@ public class CountdownManager : MonoBehaviour
 
     [Header("Events")]
     public System.Action onRoundTimerFinished;
+    
+    //BenAshton
+    [Header("Audio")]
+    [SerializeField] private AudioManager audioManager;
+
 
     // Text components.
     private TextMeshProUGUI startCountdownText;
@@ -35,13 +40,15 @@ public class CountdownManager : MonoBehaviour
     {
         // Set default values to round number and countdown.
         //roundCountdown = 30.0f;
-        
-        if(startCountdownText != null)
+        if (startCountdownText != null)
             startCountdownText.text = startCountdown.ToString();
 
-        if(roundTimerText != null)
+        if (roundTimerText != null)
             roundTimerText.text = roundCountdown.ToString();
-
+       
+        //BenAshton
+        audioManager.PlaySFX(audioManager.startTimer);
+       
         // Start countdown.
         //StartCoroutine(StartGameCountdown());
     }
