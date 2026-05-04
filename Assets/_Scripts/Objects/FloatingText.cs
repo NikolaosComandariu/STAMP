@@ -3,23 +3,22 @@ using TMPro;
 
 public class FloatingText : MonoBehaviour
 {
-    public float floatSpeed = 1f;
-    public float lifetime = 1f;
+    [Header("Variables")]
+    [SerializeField] private float floatSpeed = 1f;
+    [SerializeField] private float lifetime = 1f;
 
     private TextMeshPro tmp;
     private Color startColor;
     private float timer = 0f;
 
-    void Start()
+    private void Start()
     {
         tmp = GetComponent<TextMeshPro>();
         startColor = tmp.color;
-
     }
 
-    void Update()
+    private void Update()
     {
-
         transform.position += Vector3.up * floatSpeed * Time.deltaTime;
 
         timer += Time.deltaTime;
@@ -31,4 +30,3 @@ public class FloatingText : MonoBehaviour
             Destroy(gameObject);
     }
 }
-
