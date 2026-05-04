@@ -11,11 +11,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ObjectSpawner objectSpawner;
     [SerializeField] private ObjectSpawner rightObjSpawner;
     [SerializeField] private roundManager roundManager;
+    [SerializeField] private GameChangerManager changerManager;
     [SerializeField] private CriteriaManager criteriaManager; //added by smriti
 
     [Header("Variables")]
     [SerializeField] private int roundCountdownIncrease; // How many seconds a round increases by when difficulty increases.
     [SerializeField] private int roundItemsIncrease; // How many additional items spawn when difficulty increases.
+
+    // Delegates.
+    public delegate void OnGameOver();
+    public static OnGameOver onGameOver;
 
     private int maxRoundNumber = 16;
     private int spawnCountdown = 3;
@@ -25,6 +30,7 @@ public class GameManager : MonoBehaviour
     private bool roundEnding = false;
     private bool p1Finished;
     private bool p2Finished;
+    private bool activateGameChanger;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
@@ -36,11 +42,7 @@ public class GameManager : MonoBehaviour
 
         p1Finished = false;
         p2Finished = false;
-
-        // Call HandleRoundEnd() when these events are called.
-        countDownManager.onRoundTimerFinished += HandleTimeRunningOut;
-        objectSpawner.onAllObjectsProcessed += HandleLeftPlayerFinish;
-        rightObjSpawner.onAllObjectsProcessed += HandleRightPlayerFinish;
+        activateGameChanger = false;
 
         objectSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
         rightObjSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
@@ -57,6 +59,28 @@ public class GameManager : MonoBehaviour
          //rightObjSpawner.selectCriteria(); //end of code added by smriti
 
          StartCoroutine(NextRound());
+    }
+
+    /// <summary>
+    /// Subscribes to necessary events.
+    /// </summary>
+    private void OnEnable()
+    {
+        countDownManager.onRoundTimerFinished += HandleTimeRunningOut;
+        objectSpawner.onAllObjectsProcessed += HandleLeftPlayerFinish;
+        rightObjSpawner.onAllObjectsProcessed += HandleRightPlayerFinish;
+        changerManager.onGameChangerActivated += ActivateGameChanger;
+    }
+
+    /// <summary>
+    /// Unsubscribes from events to avoid errors.
+    /// </summary>
+    private void OnDisable()
+    {
+        countDownManager.onRoundTimerFinished -= HandleTimeRunningOut;
+        objectSpawner.onAllObjectsProcessed -= HandleLeftPlayerFinish;
+        rightObjSpawner.onAllObjectsProcessed -= HandleRightPlayerFinish;
+        changerManager.onGameChangerActivated -= ActivateGameChanger;
     }
 
     private void IncreaseDifficulty()
@@ -105,7 +129,13 @@ public class GameManager : MonoBehaviour
         roundEnding = false;
 
         if (currentRoundNumber < 16)
+        {
             currentRoundNumber++;
+        }
+        else
+        {
+            onGameOver?.Invoke();
+        }
 
         criteriaManager.displayCriteria(); // added by smriti
 
@@ -116,6 +146,12 @@ public class GameManager : MonoBehaviour
         if(currentRoundNumber % 5 == 0)
             IncreaseDifficulty();
 
+        if(activateGameChanger)
+        {
+            changerManager.StartGameChanger();
+        }
+
+        // TODO: Reset Criteria and get new ones for the round.
         yield return StartCoroutine(StartRound());
     }
 
@@ -174,5 +210,10 @@ public class GameManager : MonoBehaviour
         objectSpawner.ResetObjects();
         rightObjSpawner.ResetObjects();
         StartCoroutine(NextRound());
+    }
+
+    private void ActivateGameChanger()
+    {
+        activateGameChanger = true;
     }
 }

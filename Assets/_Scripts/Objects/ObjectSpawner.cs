@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 using TMPro;
+using System;
 
 public class ObjectSpawner : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] private RoundCondition roundCondition;
     //[SerializeField] private GameObject currentObject;
     [SerializeField] private int score = 0;
+    [SerializeField] private bool IsPlayer1; //smriti added this
 
     [Header("Game Objects")]
     [SerializeField] private List<GameObject> ObjectsPool = new List<GameObject>(); // Amount of objects in the round
@@ -39,6 +41,7 @@ public class ObjectSpawner : MonoBehaviour
 
     [Header("Events")]
     public System.Action onAllObjectsProcessed; // Nikolaos Comandariu.
+    public static event Action<int> OnTallyUpScores;
 
     // Buttons
     private Button Accept;
@@ -53,8 +56,7 @@ public class ObjectSpawner : MonoBehaviour
     private bool isSpawning = false;
     private bool AllowDecision = false; //smriti added this
     private bool SpawnGlitchedItem = false;
-    [SerializeField ]private bool IsPlayer1; //smriti added this
-
+    
     private Vector3 CurrentObjLoc;
 
     private Item item; // This isn't used anywhere, can be removed.
@@ -83,6 +85,25 @@ public class ObjectSpawner : MonoBehaviour
         NotOrange,
         NotDrink //end of options added by smrti
     }
+    
+    // Nikolaos Comandariu.
+    /// <summary>
+    /// Subscribe to delegates.
+    /// </summary>
+    private void OnEnable()
+    {
+        GameManager.onGameOver += TallyUpScores;
+    }
+
+    /// <summary>
+    /// Unsubscribe from delegates.
+    /// </summary>
+    private void OnDisable()
+    {
+        GameManager.onGameOver -= TallyUpScores;
+    }
+
+    // End of Nikolaos Comandariu.
 
     private void Start()
     {
@@ -90,16 +111,6 @@ public class ObjectSpawner : MonoBehaviour
         objToSpawn = 5;
         AllowObjSpawn = true;
         //StartCoroutine(SpawnObject());
-    }
-
-    private void OnEnable()
-    {
-        CriteriaManager.OnCriteriaDecided += SetCriteria;
-    }
-
-    private void OnDisable()
-    {
-        CriteriaManager.OnCriteriaDecided -= SetCriteria;
     }
 
     private void Update()
@@ -161,7 +172,6 @@ public class ObjectSpawner : MonoBehaviour
             }
         }
     }
-
     private void ChanceToSpawnGlitchedItem()
     {
         int chance = Random.Range(1, upperLimit);
@@ -611,6 +621,11 @@ public class ObjectSpawner : MonoBehaviour
         GenerateObjectsForRound();
     }
 
+    private void TallyUpScores()
+    {
+        OnTallyUpScores?.Invoke(score);
+    }
+    
     private void SetCriteria(int crit1, int crit2, int crit3, int crit4)
     {
         criteriaList.Add(crit1);
