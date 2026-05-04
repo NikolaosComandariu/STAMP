@@ -6,9 +6,8 @@ public class GameChangerManager : MonoBehaviour
     [Header("Canvas")]
     [SerializeField] private Canvas canvas;
 
-    [Header("Colliders")]
-    [SerializeField] private BoxCollider2D leftCollider;
-    [SerializeField] private BoxCollider2D rightCollider;
+    [Header("Game Objects")]
+    [SerializeField] private GameObject hitboxParent;
 
     // Events.
     public static event Action onGameChangerActivated;
@@ -36,6 +35,7 @@ public class GameChangerManager : MonoBehaviour
         canActivate = false;
 
         canvas.enabled = false;
+        hitboxParent.SetActive(false);
     }
 
     private void ActivateGameChanger()
@@ -55,5 +55,6 @@ public class GameChangerManager : MonoBehaviour
         if (!canActivate) return;
 
         canvas.enabled = true;
+        hitboxParent.SetActive(true);
     }
 }

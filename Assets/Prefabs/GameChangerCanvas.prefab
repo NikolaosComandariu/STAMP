@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f177b7a46cb99949bc8d8d63be95c81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  isLeft: 0
+  isLeft: 1
 --- !u!1 &4743259902282175483
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,6 +163,7 @@ GameObject:
   - component: {fileID: 7704369201171858976}
   - component: {fileID: 6109180555053860849}
   - component: {fileID: 7329761453625376676}
+  - component: {fileID: 5792622674880649311}
   m_Layer: 0
   m_Name: RightRhythmHitbox
   m_TagString: Untagged
@@ -290,6 +291,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &5792622674880649311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4743259902282175483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f177b7a46cb99949bc8d8d63be95c81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RhythmHitbox
+  isLeft: 0
 --- !u!1 &7028353931061453924
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,7 +351,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7028353931061453924}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 0}
@@ -407,8 +421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameChangerManager
   canvas: {fileID: 6444691230523915145}
-  leftCollider: {fileID: 7072197653998621195}
-  rightCollider: {fileID: 7329761453625376676}
+  hitboxParent: {fileID: 8872363451374117618}
 --- !u!1 &8872363451374117618
 GameObject:
   m_ObjectHideFlags: 0
