@@ -27,16 +27,17 @@ public class ButtonClick : MonoBehaviour
     {
         if (Input.GetKeyDown(acceptKey))
         {
-            Debug.Log("Accept");
+            //Debug.Log("Accept");
             OnAcceptPressed();
         }
         if (Input.GetKeyDown(declineKey))
         {
-            Debug.Log("Decline");
+            //Debug.Log("Decline");
             OnDeclinePressed();
         }
         if (Input.GetKeyDown(acceptKey) && Input.GetKeyDown(declineKey))
         {
+            Debug.Log("Both input keys were pressed: Activating round changer!");
             onBothInputsPressed?.Invoke();
         }
 
