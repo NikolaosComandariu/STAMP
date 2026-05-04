@@ -10,7 +10,7 @@ public class RhythmHitbox : MonoBehaviour
     public static event Action<bool> onColliderEnteredP1;
     public static event Action<bool> onColliderEnteredP2;
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    public void OnTriggerEnter2D(Collider2D collider)
     {
         if(isLeft)
         {
@@ -22,7 +22,7 @@ public class RhythmHitbox : MonoBehaviour
         }
     }
 
-    public void OnCollisionExit2D(Collision2D collision)
+    public void OnTriggerExit2D(Collider2D collider)
     {
         if (isLeft)
         {

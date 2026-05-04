@@ -375,6 +375,7 @@ public class ObjectSpawner : MonoBehaviour
                 if(rhythmPoints) // Nikolaos Comandariu.
                 {
                     score += 1;
+                    DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
                 }
 
                 score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
@@ -509,10 +510,11 @@ public class ObjectSpawner : MonoBehaviour
             if (isMatch)
             {
                 //Debug.Log("ACCEPT: Correct choice!");
-
+                Debug.Log("Rhythm Points: " + rhythmPoints);
                 if (rhythmPoints) // Nikolaos Comandariu.
                 {
                     score += 1;
+                    DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
                 }
 
                 score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.

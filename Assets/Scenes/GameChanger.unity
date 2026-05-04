@@ -1748,6 +1748,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameChangerCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7072197653998621195, guid: 73ccf40466fbe0145962a07f9c7f694b, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7329761453625376676, guid: 73ccf40466fbe0145962a07f9c7f694b, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
