@@ -65,6 +65,8 @@ public class CriteriaManager : MonoBehaviour
         CriteriaList.Add(12, RoundCondition.NotSingle);
         CriteriaList.Add(13, RoundCondition.NotOrange);
         CriteriaList.Add(14, RoundCondition.NotDrink);
+
+        selectCriteria();
     }
 
     public void IncreaseAmountOfCriteria() { criteriaNumber++; }
@@ -100,6 +102,8 @@ public class CriteriaManager : MonoBehaviour
             
         OnCriteriaDecided.Invoke(criteriaTextList[0], criteriaTextList[1],
             criteriaTextList[2], criteriaTextList[3]);
+
+        Debug.Log("CriteriaManager: Criterias are: " +  criteriaTextList[0] + ", " + criteriaTextList[1] + ", " + criteriaTextList[2] + ", " + criteriaTextList[3]);
     }
 
     public void displayCriteria()
@@ -107,7 +111,6 @@ public class CriteriaManager : MonoBehaviour
         //for (int i = 0; i <= criteriaNumber; i++)
         //{
             populateDict();
-            selectCriteria();
             //i++;
         //}
     }
