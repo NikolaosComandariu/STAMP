@@ -17,6 +17,7 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] private RoundCondition roundCondition;
     //[SerializeField] private GameObject currentObject;
     [SerializeField] private int score = 0;
+    [SerializeField] private bool IsPlayer1; //smriti added this
 
     [Header("Game Objects")]
     [SerializeField] private List<GameObject> ObjectsPool = new List<GameObject>(); // Amount of objects in the round
@@ -55,8 +56,7 @@ public class ObjectSpawner : MonoBehaviour
     private bool isSpawning = false;
     private bool AllowDecision = false; //smriti added this
     private bool SpawnGlitchedItem = false;
-    [SerializeField ]private bool IsPlayer1; //smriti added this
-
+    
     private Vector3 CurrentObjLoc;
 
     private Item item; // This isn't used anywhere, can be removed.
@@ -111,16 +111,6 @@ public class ObjectSpawner : MonoBehaviour
         objToSpawn = 5;
         AllowObjSpawn = true;
         //StartCoroutine(SpawnObject());
-    }
-
-    private void OnEnable()
-    {
-        CriteriaManager.OnCriteriaDecided += SetCriteria;
-    }
-
-    private void OnDisable()
-    {
-        CriteriaManager.OnCriteriaDecided -= SetCriteria;
     }
 
     private void Update()
@@ -182,7 +172,6 @@ public class ObjectSpawner : MonoBehaviour
             }
         }
     }
-
     private void ChanceToSpawnGlitchedItem()
     {
         int chance = Random.Range(1, upperLimit);
