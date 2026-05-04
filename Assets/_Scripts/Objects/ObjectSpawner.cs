@@ -307,6 +307,7 @@ public class ObjectSpawner : MonoBehaviour
             int x = criteriaList[i];
             Debug.Log("X: " + x);
             if (x < 0) break;
+            Debug.Log("X is not <= 0");
 
             // Set current round condition
             roundCondition = (RoundCondition)x-1;
@@ -358,8 +359,8 @@ public class ObjectSpawner : MonoBehaviour
                     break;
             }
 
-            //Debug.Log("Is match: " + isMatch);
-            //Debug.Log("Round condition: " + roundCondition);
+            Debug.Log("Is match: " + isMatch);
+            Debug.Log("Round condition: " + roundCondition);
 
             if (isMatch)
             {
@@ -441,7 +442,7 @@ public class ObjectSpawner : MonoBehaviour
             int x = criteriaList[i];
 
             if (x <= 0) break;
-
+            Debug.Log("X is not <= 0");
             // Set current round condition
             roundCondition = (RoundCondition)x-1;
 
