@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class GameChangerManager : MonoBehaviour
 {
-    [Header("Scripts")]
-    [SerializeField] private ButtonClick ButtonClick;
-
     [Header("Events")]
     public System.Action onGameChangerActivated;
 

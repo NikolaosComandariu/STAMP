@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ButtonClick : MonoBehaviour
@@ -12,8 +13,7 @@ public class ButtonClick : MonoBehaviour
     [SerializeField] private KeyCode acceptKey;
     [SerializeField] private KeyCode declineKey;
 
-    [Header("Events")]
-    public System.Action onBothInputsPressed;
+    public static event Action onBothInputsPressed;
     //AudioManager audioManager;
 
     AudioManager audioManager;
@@ -37,7 +37,7 @@ public class ButtonClick : MonoBehaviour
         }
         if (Input.GetKeyDown(acceptKey) && Input.GetKeyDown(declineKey))
         {
-            onBothInputsPressed.Invoke();
+            onBothInputsPressed?.Invoke();
         }
 
         /*if(isPlayer1)
