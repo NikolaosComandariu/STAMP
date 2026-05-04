@@ -325,15 +325,17 @@ public class ObjectSpawner : MonoBehaviour
                     isMatch = !proto.checkIsDrink();
                     break;
             }
-            Debug.Log("Is match: " + isMatch);
-            Debug.Log("Round condition: " + roundCondition);
+
+            //Debug.Log("Is match: " + isMatch);
+            //Debug.Log("Round condition: " + roundCondition);
+
             if (isMatch)
             {
                 //Debug.Log("ACCEPT: Correct choice!");
                 score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
                 DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
                 UpdateScoreUI();
-                //Debug.Log("Correct! Score is now: " + score);
+                Debug.Log("Correct! Score is now: " + score);
             }
             else if(!isMatch)
             {
@@ -452,8 +454,8 @@ public class ObjectSpawner : MonoBehaviour
                     break;
             } //end of added code by smriti
 
-            Debug.Log("Is match: " + isMatch);
-            Debug.Log("Round condition: " + roundCondition);
+            //Debug.Log("Is match: " + isMatch);
+            //Debug.Log("Round condition: " + roundCondition);
 
             if (isMatch)
             {
@@ -461,7 +463,7 @@ public class ObjectSpawner : MonoBehaviour
                 score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
                 DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
                 UpdateScoreUI();
-                //Debug.Log("Correct! Score is now: " + score);
+                Debug.Log("Correct! Score is now: " + score);
             }
             else if (!isMatch)
             {
