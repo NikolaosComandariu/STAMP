@@ -21,6 +21,7 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] private List<GameObject> ObjectsPool = new List<GameObject>(); // Amount of objects in the round
     [SerializeField] private List<GameObject> GlitchedItemsPool = new List<GameObject>(); // Amount of glitched objects 
     [SerializeField] private List<GameObject> AllPossibleObjects; // All prefabs possible to spawn
+    [SerializeField] private GameObject ScoreTextFeedback;
 
     [Header("Transforms")]
     [SerializeField] private Transform EndOfConveyor; // Stopping point of objects where they're ready to be accepted / declined
@@ -52,7 +53,6 @@ public class ObjectSpawner : MonoBehaviour
     private bool AllowDecision = false; //smriti added this
     private bool SpawnGlitchedItem = false;
 
-    [SerializeField] private GameObject ScoreTextFeedback;
     private Vector3 CurrentObjLoc;
 
     private Item item; // This isn't used anywhere, can be removed.
@@ -203,10 +203,6 @@ public class ObjectSpawner : MonoBehaviour
         tmp.text = "+" + amount;
         tmp.color = color;
     }
-
-
-
-
 
     /// <summary>
     /// Clears object pool, gets random objects from

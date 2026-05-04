@@ -1,24 +1,26 @@
 using UnityEngine;
 using TMPro;
 
-
 public class ScoreFeedback : MonoBehaviour
 {
-    [SerializeField] private ObjectSpawner objectSpawner;
-    [SerializeField] private ObjectSpawner objectSpawner2;
+    //[SerializeField] private ObjectSpawner objectSpawner;
+    //[SerializeField] private ObjectSpawner objectSpawner2;
 
-    public float floatSpeed = 1f;
-    public float lifetime = 1f;
-    public TextMeshProUGUI text;
-    public GameObject floatingTextPrefab;
-    private TextMeshProUGUI floatingText;
+    [Header("Speed")]
+    [SerializeField] private float floatSpeed = 1f;
 
-    void Start()
-    {
+    //public float lifetime = 1f;
+
+    [Header("Text")]
+    [SerializeField] private TextMeshProUGUI text;
+
+    //public GameObject floatingTextPrefab;
+    //private TextMeshProUGUI floatingText;
+
+    //void Start()
+    //{
         //Destroy(gameObject, lifetime);
-    }
-
-
+    //}
 
     //public void SpawnText()
     //{
@@ -31,8 +33,7 @@ public class ScoreFeedback : MonoBehaviour
     //    floatingText = floatText.GetComponent<TextMeshProUGUI>;
     //}
 
-
-    void Update()
+    private void Update()
     {
         transform.position += Vector3.up * floatSpeed * Time.deltaTime;
     }
