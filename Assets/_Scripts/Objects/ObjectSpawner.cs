@@ -21,6 +21,7 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] private List<GameObject> ObjectsPool = new List<GameObject>(); // Amount of objects in the round
     [SerializeField] private List<GameObject> GlitchedItemsPool = new List<GameObject>(); // Amount of glitched objects 
     [SerializeField] private List<GameObject> AllPossibleObjects; // All prefabs possible to spawn
+    [SerializeField] private ScoreManager scoreManager; //smriti added this
     [SerializeField] private GameObject ScoreTextFeedback;
 
     [Header("Transforms")]
@@ -52,6 +53,7 @@ public class ObjectSpawner : MonoBehaviour
     private bool isSpawning = false;
     private bool AllowDecision = false; //smriti added this
     private bool SpawnGlitchedItem = false;
+    [SerializeField ]private bool IsPlayer1; //smriti added this
 
     private Vector3 CurrentObjLoc;
 
@@ -558,10 +560,27 @@ public class ObjectSpawner : MonoBehaviour
     /// <summary>
     /// Updates scoreText to show the current score.
     /// </summary>
-    private void UpdateScoreUI()
+    public void UpdateScoreUI()
     {
         if (scoreText != null)
-            scoreText.text = "Score: " + score;
+        {
+            //code added by smriti
+            if (IsPlayer1)
+            {
+                scoreText.text = "Score: " + score;
+                scoreManager.changePlayer1Score(score);
+            }
+            else
+            {
+                scoreText.text = "Score: " + score;
+                scoreManager.changePlayer2Score(score);
+            }
+            //scoreText.text = "Score: " + score;
+            //scoreManager.changePlayer1Score(score); //smriti added this
+            //scoreManager.changePlayer2Score(score); // smriti added this
+        }
+            //scoreText.text = "Score: " + score;
+            //end of code added by smriti
     }
 
     // Code from Nikolaos Comandariu.
