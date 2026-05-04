@@ -128,11 +128,9 @@ public class ObjectSpawner : MonoBehaviour
 
     private void Start()
     {
-        //NumOfObjToSpawn = ObjectsPool.Count;
         objToSpawn = 5;
         AllowObjSpawn = true;
         rhythmPoints = false;
-        //StartCoroutine(SpawnObject());
     }
 
     private void Update()
@@ -141,6 +139,7 @@ public class ObjectSpawner : MonoBehaviour
         {
             CurrentObjLoc = currentObject.transform.position;
         }
+
         /*
         // If number of objects to spawn is 0, restart spawning.
         if (NumOfObjToSpawn == 0)
@@ -150,7 +149,6 @@ public class ObjectSpawner : MonoBehaviour
             AllowObjSpawn = true;
             StartCoroutine(SpawnObject());
         }*/
-
     }
 
     /// <summary>
@@ -194,6 +192,7 @@ public class ObjectSpawner : MonoBehaviour
             }
         }
     }
+
     private void ChanceToSpawnGlitchedItem()
     {
         int chance = Random.Range(1, upperLimit);
@@ -313,7 +312,7 @@ public class ObjectSpawner : MonoBehaviour
             //Debug.Log("Start of for loop");
             int x = criteriaList[i];
             //Debug.Log("X: " + x);
-            if (x < 0) break;
+            if (x <= 0) break;
             //Debug.Log("X is not <= 0");
 
             // Set current round condition

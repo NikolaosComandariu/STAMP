@@ -20,12 +20,14 @@ public class GameChangerManager : MonoBehaviour
     {
         GameManager.onGameChangerRound += StartGameChanger;
         ButtonClick.onBothInputsPressed += ActivateGameChanger;
+        GameManager.onNextRound += Reset;
     }
 
     private void OnDisable()
     {
         GameManager.onGameChangerRound -= StartGameChanger;
         ButtonClick.onBothInputsPressed -= ActivateGameChanger;
+        GameManager.onNextRound -= Reset;
     }
 
     private void Start()
@@ -56,5 +58,11 @@ public class GameChangerManager : MonoBehaviour
 
         canvas.enabled = true;
         hitboxParent.SetActive(true);
+    }
+
+    private void Reset()
+    {
+        canvas.enabled = false;
+        hitboxParent.SetActive(false);
     }
 }
