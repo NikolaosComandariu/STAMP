@@ -14,7 +14,7 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] public GameObject currentObject;
     [SerializeField] private List<int> criteriaList = new List<int>();
     [SerializeField] private RoundCondition roundCondition;
-    [SerializeField] private GameObject currentObject;
+    //[SerializeField] private GameObject currentObject;
     [SerializeField] private int score = 0;
 
     [Header("Game Objects")]
@@ -272,34 +272,6 @@ public class ObjectSpawner : MonoBehaviour
 
         bool isMatch = false;
 
-        /*
-        switch (currentRoundCondition)
-        {
-            case RoundCondition.Fruit:
-                isMatch = proto.checkIsFruit();
-                break;
-            case RoundCondition.Red:
-                isMatch = proto.checkIsRed();
-                break;
-            case RoundCondition.Green:
-                isMatch = proto.checkIsGreen();
-                break;
-            case RoundCondition.Yellow:
-                isMatch = proto.checkIsYellow();
-                break;
-            case RoundCondition.Single:
-                isMatch = proto.checkIsSingle();
-                break;
-            //added code by smriti
-            case RoundCondition.Orange:
-                isMatch = proto.checkIsOrange();
-                break;
-            case RoundCondition.Drink:
-                isMatch = proto.checkIsDrink();
-                break;
-            //end of added code by smriti
-        }*/
-
         if (isMatch)
         {
             DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
@@ -315,8 +287,10 @@ public class ObjectSpawner : MonoBehaviour
             score -= 1;
             UpdateScoreUI();
             Debug.Log("Wrong, Score is now: " + score);
-            //code by Smriti
-            if (AllowDecision)
+        }
+
+        //code by Smriti
+
         for (int i = 0; i < criteriaList.Count; i++)
         {
             int x = criteriaList[i];
@@ -383,7 +357,6 @@ public class ObjectSpawner : MonoBehaviour
                 //StartCoroutine(SpawnObject());
             }
         }
-
 
         Destroy(currentObject);
         currentObject = null;
