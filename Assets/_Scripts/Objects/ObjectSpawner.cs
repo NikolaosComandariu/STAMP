@@ -94,8 +94,9 @@ public class ObjectSpawner : MonoBehaviour
     private void OnEnable()
     {
         GameManager.onGameOver += TallyUpScores;
+        CriteriaManager.OnCriteriaDecided += SetCriteria;
 
-        if(IsPlayer1)
+        if (IsPlayer1)
         {
             RhythmHitbox.onColliderEnteredP1 += AcceptRhythmPoints;
         }
@@ -302,7 +303,7 @@ public class ObjectSpawner : MonoBehaviour
         bool isMatch = false;
         Debug.Log("Is match: " + isMatch);
         //code by Smriti
-
+        Debug.Log("Criteria list count: " + criteriaList.Count);
         for (int i = 0; i < criteriaList.Count; i++)
         {
             Debug.Log("Start of for loop");
