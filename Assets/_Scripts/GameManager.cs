@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
             criteriaManager.selectCriteria(); 
         }*/
 
-        criteriaManager.displayCriteria();
+        //criteriaManager.displayCriteria();
 
          //rightObjSpawner.selectCriteria(); //end of code added by smriti
 
@@ -106,7 +106,8 @@ public class GameManager : MonoBehaviour
 
         if (currentRoundNumber < 16)
             currentRoundNumber++;
-            criteriaManager.displayCriteria(); // added by smriti
+
+        criteriaManager.displayCriteria(); // added by smriti
 
         // Update text displaying current round number.
         roundManager.UpdateRound(currentRoundNumber);
@@ -115,8 +116,6 @@ public class GameManager : MonoBehaviour
         if(currentRoundNumber % 5 == 0)
             IncreaseDifficulty();
 
-        
-        // TODO: Reset Criteria and get new ones for the round.
         yield return StartCoroutine(StartRound());
     }
 

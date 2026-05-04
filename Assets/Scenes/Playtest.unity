@@ -164,6 +164,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1023588116}
     - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: ScoreTextFeedback
+      value: 
+      objectReference: {fileID: 5908191868816001383, guid: 0140a42e25fc954409e02fa1714685e9, type: 3}
+    - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
       propertyPath: GlitchedItemsPool.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -1533,6 +1537,10 @@ PrefabInstance:
       propertyPath: productPrice
       value: 
       objectReference: {fileID: 1189657449}
+    - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: ScoreTextFeedback
+      value: 
+      objectReference: {fileID: 5908191868816001383, guid: 0140a42e25fc954409e02fa1714685e9, type: 3}
     - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
       propertyPath: GlitchedItemsPool.Array.size
       value: 4
