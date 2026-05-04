@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public delegate void OnGameOver();
     public static OnGameOver onGameOver;
     public static event Action onGameChangerRound;
+    public static event Action onNextRound;
 
     private int maxRoundNumber = 16;
     private int spawnCountdown = 3;
@@ -139,6 +140,7 @@ public class GameManager : MonoBehaviour
             onGameOver?.Invoke();
         }
 
+        onNextRound?.Invoke();
         criteriaManager.displayCriteria(); // added by smriti
 
         // Update text displaying current round number.
@@ -148,10 +150,9 @@ public class GameManager : MonoBehaviour
         if(currentRoundNumber % 5 == 0)
             IncreaseDifficulty();
 
-        if(activateGameChanger)
-        {
+        // If round number is a multiple of 3, activate round changer.
+        if(currentRoundNumber % 3 == 0)
             onGameChangerRound?.Invoke();
-        }
 
         // TODO: Reset Criteria and get new ones for the round.
         yield return StartCoroutine(StartRound());
