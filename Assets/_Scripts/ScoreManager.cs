@@ -34,14 +34,14 @@ public class ScoreManager : MonoBehaviour
     public void changePlayer1Score(int score)
     {
         //objectSpawner.UpdateScoreUI();
-        Player1Score += score;
+        Player1Score = score;
         p1Score.text = "Player 1 Score: " + Player1Score.ToString();
     }
 
     public void changePlayer2Score(int score)
     {
         //objectSpawner.UpdateScoreUI();
-        Player2Score += score;
+        Player2Score = score;
         p2Score.text = "Player 2 Score : " + Player2Score.ToString();
     }
 
