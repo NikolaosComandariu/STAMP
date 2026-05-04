@@ -120,6 +120,7 @@ MonoBehaviour:
   IsYellow: 0
   IsSingle: 0
   IsOrange: 0
+  IsDrink: 1
 --- !u!114 &-4333417377148117249
 MonoBehaviour:
   m_ObjectHideFlags: 0

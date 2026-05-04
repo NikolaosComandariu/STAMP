@@ -14,6 +14,9 @@ public class CountdownManager : MonoBehaviour
     [Header("Events")]
     public System.Action onRoundTimerFinished;
 
+    [Header("Audio")]
+    [SerializeField] private AudioManager audioManager;
+
     // Text components.
     private TextMeshProUGUI startCountdownText;
     private TextMeshProUGUI roundTimerText;
@@ -42,6 +45,8 @@ public class CountdownManager : MonoBehaviour
         if(roundTimerText != null)
             roundTimerText.text = roundCountdown.ToString();
 
+        //Ben
+        audioManager.PlaySFX(audioManager.gameStartSFX);
         // Start countdown.
         //StartCoroutine(StartGameCountdown());
     }
