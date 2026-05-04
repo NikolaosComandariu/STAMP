@@ -542,12 +542,12 @@ public class ObjectSpawner : MonoBehaviour
         GenerateObjectsForRound();
     }
 
-    private void SetCriteria(int crit1, int crit2, int crit3, int crit4)
+    private void SetCriteria(int crit1, int crit2, int crit3)
     {
         criteriaList.Add(crit1);
         criteriaList.Add(crit2);
         criteriaList.Add(crit3);
-        criteriaList.Add(crit4);
+        //criteriaList.Add(crit4);
     }
 
     // End of code from Nikolaos Comandariu.
