@@ -14,13 +14,14 @@ public class ButtonClick : MonoBehaviour
 
     [Header("Events")]
     public System.Action onBothInputsPressed;
+    //AudioManager audioManager;
 
     AudioManager audioManager;
 
-    private void Awake()
-    {
-        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
-    }
+    //private void Awake()
+    //{
+        //audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    //}
 
     private void Update()
     {
@@ -72,7 +73,7 @@ public class ButtonClick : MonoBehaviour
         Debug.Log("accepted");
         ObjectSpawner spawner = GetComponent<ObjectSpawner>();
         spawner.AcceptObject();
-        audioManager.PlaySFX(audioManager.correctChoiceSFX);
+        //audioManager.PlaySFX(audioManager.correctChoiceSFX);
         
     }
 

@@ -11,10 +11,10 @@ public class AudioManager : MonoBehaviour
     [Header("------ Audio Clip -----")]
     public AudioClip correctChoiceSFX;
     public AudioClip incorrectChoiceSFX;
-    public AudioClip roundChangeSFX;
-    public AudioClip background;
+    public AudioClip gameStartSFX;
+    public AudioClip backgroundButtonClickUISFX;
 
-    AudioManager audioManager;
+    //AudioManager audioManager;
 
     private void Start()
     {
@@ -26,7 +26,7 @@ public class AudioManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            PlaySFX(audioManager.correctChoiceSFX);
+            //PlaySFX(audioManager.correctChoiceSFX);
         }
     }
 

@@ -10,6 +10,8 @@ public class ScoreManager : MonoBehaviour
 
     [Header("Criteria")]
     [SerializeField] private Dictionary<int, string> criteria = new Dictionary<int, string>();
+    //[SerializeField] private ObjectSpawner objectSpawner; // can remove if not used
+    //[SerializeField] private CriteriaManager criteriaManager; // can remove if not used;
 
     [Header("TextGameObject")]
     [SerializeField] private TextMeshProUGUI p1Score;
@@ -31,13 +33,17 @@ public class ScoreManager : MonoBehaviour
     //changes scores
     public void changePlayer1Score(int score)
     {
+        //objectSpawner.UpdateScoreUI();
         Player1Score += score;
-        p1Score.text = Player1Score.ToString();
+        p1Score.text = "Player 1 Score: " + Player1Score.ToString();
     }
 
     public void changePlayer2Score(int score)
     {
+        //objectSpawner.UpdateScoreUI();
         Player2Score += score;
         p2Score.text = "Player 2 Score : " + Player2Score.ToString();
     }
+
+
 }

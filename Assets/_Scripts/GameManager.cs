@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ObjectSpawner rightObjSpawner;
     [SerializeField] private roundManager roundManager;
     [SerializeField] private GameChangerManager changerManager;
+    [SerializeField] private CriteriaManager criteriaManager; //added by smriti
 
     [Header("Variables")]
     [SerializeField] private int roundCountdownIncrease; // How many seconds a round increases by when difficulty increases.
@@ -46,7 +47,18 @@ public class GameManager : MonoBehaviour
         objectSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
         rightObjSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
 
-        StartCoroutine(NextRound());
+       // criteriaManager.populateDict(); //code added by smriti
+        //rightObjSpawner.populateDict();
+        /*for (int i = 0; i <= criteriaManager.criteriaNumber; i++) 
+        { 
+            criteriaManager.selectCriteria(); 
+        }*/
+
+        //criteriaManager.displayCriteria();
+
+         //rightObjSpawner.selectCriteria(); //end of code added by smriti
+
+         StartCoroutine(NextRound());
     }
 
     /// <summary>
@@ -79,6 +91,9 @@ public class GameManager : MonoBehaviour
         countDownManager.SetCountdownTimer(roundTimer);
         objectSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
         rightObjSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
+
+        criteriaManager.IncreaseAmountOfCriteria(); //smriti added this
+       // rightObjSpawner.IncreaseAmountOfCriteria(); //smriti added this
 
         // TODO: Increase criteria spawned once this functionality is in.
         // TODO (maybe): Increase speed of spawned objects, not necessary anymore.
@@ -121,6 +136,8 @@ public class GameManager : MonoBehaviour
         {
             onGameOver?.Invoke();
         }
+
+        criteriaManager.displayCriteria(); // added by smriti
 
         // Update text displaying current round number.
         roundManager.UpdateRound(currentRoundNumber);

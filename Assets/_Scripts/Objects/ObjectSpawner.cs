@@ -12,12 +12,18 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] private float spawnDelay = 1.5f;
     [SerializeField] private float MoveForce;
     [SerializeField] private RoundCondition currentRoundCondition;
-    [SerializeField] private GameObject currentObject;
+    [SerializeField] public GameObject currentObject;
+    [SerializeField] private List<int> criteriaList = new List<int>();
+    [SerializeField] private RoundCondition roundCondition;
+    //[SerializeField] private GameObject currentObject;
     [SerializeField] private int score = 0;
 
     [Header("Game Objects")]
     [SerializeField] private List<GameObject> ObjectsPool = new List<GameObject>(); // Amount of objects in the round
+    [SerializeField] private List<GameObject> GlitchedItemsPool = new List<GameObject>(); // Amount of glitched objects 
     [SerializeField] private List<GameObject> AllPossibleObjects; // All prefabs possible to spawn
+    [SerializeField] private ScoreManager scoreManager; //smriti added this
+    [SerializeField] private GameObject ScoreTextFeedback;
 
     [Header("Transforms")]
     [SerializeField] private Transform EndOfConveyor; // Stopping point of objects where they're ready to be accepted / declined
@@ -28,6 +34,9 @@ public class ObjectSpawner : MonoBehaviour
     [Header("Text")] 
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI productPrice;
+
+    [Header("Probability - Glitched items")]
+    [SerializeField] private int upperLimit;
 
     [Header("Events")]
     public System.Action onAllObjectsProcessed; // Nikolaos Comandariu.
@@ -45,9 +54,15 @@ public class ObjectSpawner : MonoBehaviour
     private bool AllowObjSpawn;
     private bool isSpawning = false;
     private bool AllowDecision = false; //smriti added this
+    private bool SpawnGlitchedItem = false;
+    [SerializeField ]private bool IsPlayer1; //smriti added this
+
+    private Vector3 CurrentObjLoc;
 
     private Item item; // This isn't used anywhere, can be removed.
     private Rigidbody2D rb2D;
+    private int[] CriteriaGenerated;//smriti added this; possible to remove if not used
+    private bool generatingNumber; //smriti added this; possible to remove if not used
 
     /// <summary>
     /// Used to compare the criteria to the object to see if the
@@ -59,7 +74,16 @@ public class ObjectSpawner : MonoBehaviour
         Red,
         Green,
         Yellow,
-        Single
+        Single,
+        Orange, //options added by smriti
+        Drink,
+        NotFruit,
+        NotRed,
+        NotGreen,
+        NotYellow,
+        NotSingle,
+        NotOrange,
+        NotDrink //end of options added by smrti
     }
     
     // Nikolaos Comandariu.
@@ -89,8 +113,22 @@ public class ObjectSpawner : MonoBehaviour
         //StartCoroutine(SpawnObject());
     }
 
+    private void OnEnable()
+    {
+        CriteriaManager.OnCriteriaDecided += SetCriteria;
+    }
+
+    private void OnDisable()
+    {
+        CriteriaManager.OnCriteriaDecided -= SetCriteria;
+    }
+
     private void Update()
     {
+        if (currentObject != null)
+        {
+            CurrentObjLoc = currentObject.transform.position;
+        }
         /*
         // If number of objects to spawn is 0, restart spawning.
         if (NumOfObjToSpawn == 0)
@@ -121,9 +159,10 @@ public class ObjectSpawner : MonoBehaviour
 
                     currentObject = Instantiate(ObjectsPool[n], SpawnPos.position, 
                         ObjectsPool[n].transform.rotation, gameObject.transform);
-                    productPrice.text = "£" + 
+
+                    productPrice.text = "Â£" + 
                         currentObject.GetComponent<ObjectPrototype_>().GetPrice().ToString();
-                    Debug.Log("spawn object");
+                    //Debug.Log("spawn object");
                     //item = currentObject.GetComponent<Item>(); // Can be removed, item does not seem to be used anywhere.
                     ObjectsPool.RemoveAt(n);
                     NumOfObjToSpawn--;
@@ -144,6 +183,50 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
+    private void ChanceToSpawnGlitchedItem()
+    {
+        int chance = Random.Range(1, upperLimit);
+        if (chance == 1)
+        {
+            SpawnGlitchedItem = true;
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    //public void DisplayTextFeedback( int amount, Transform currentObject)
+    //{
+    //    TextMeshPro scoreTextFeedback = Instantiate (ScoreTextFeedback);
+    //    scoreTextFeedback.transform.position = currentObject.position;
+
+    //}
+
+    //public void DisplayTextFeedback(int amount, Vector3 CurrentObject)
+    //{
+    //    GameObject instance = Instantiate(ScoreTextFeedback, currentObject.transform.position, Quaternion.identity);
+    //    TextMeshProUGUI tmp = instance.GetComponent<TextMeshProUGUI>();
+    //    tmp.text = "+" + amount;
+    //}
+
+    //public void DisplayTextFeedback(int amount, Vector3 position)
+    //{
+    //    GameObject instance = Instantiate(ScoreTextFeedback, position, Quaternion.identity);
+
+    //    TextMeshProUGUI tmp = instance.GetComponent<TextMeshProUGUI>();
+    //    tmp.text = "+" + amount;
+    //}
+
+    public void DisplayTextFeedback(int amount, Vector3 position, Color color)
+    {
+        GameObject instance = Instantiate(ScoreTextFeedback, position, Quaternion.identity);
+
+        TextMeshPro tmp = instance.GetComponent<TextMeshPro>();
+        tmp.text = "+" + amount;
+        tmp.color = color;
+    }
+
     /// <summary>
     /// Clears object pool, gets random objects from
     /// all possible objects to spawn.
@@ -156,17 +239,26 @@ public class ObjectSpawner : MonoBehaviour
         // round 1 = 3 items
         // Round 2 = 5 items
         // etc
-        Debug.Log("Obj to spawn: " + objToSpawn);
+        //Debug.Log("Obj to spawn: " + objToSpawn);
         // Repopulate ObjectsPool.
         for (int i = 0; i < objToSpawn; i++)
         {
-            Debug.Log("Generating Objects for round");
+            //Debug.Log("Generating Objects for round");
             int randomIndex = Random.Range(0, AllPossibleObjects.Count);
             ObjectsPool.Add(AllPossibleObjects[randomIndex]);
+            ChanceToSpawnGlitchedItem();
         }
+        if (SpawnGlitchedItem == true)
+        {
+            int index = Random.Range(0, ObjectsPool.Count);
+            int index2 = Random.Range(0, GlitchedItemsPool.Count);
+
+            ObjectsPool[index] = GlitchedItemsPool[index2];
+            SpawnGlitchedItem = false;
+        }    
 
         NumOfObjToSpawn = ObjectsPool.Count;
-        Debug.Log("Num of obj to spawn: " + NumOfObjToSpawn);
+        //Debug.Log("Num of obj to spawn: " + NumOfObjToSpawn);
     }
     
     //public DeclinedTrigger trigger;
@@ -190,7 +282,7 @@ public class ObjectSpawner : MonoBehaviour
     /// </summary>
     public void AcceptObject()
     {
-        Debug.Log("accept clicked");
+        //Debug.Log("accept clicked");
 
         if (currentObject == null) 
             return;
@@ -199,65 +291,112 @@ public class ObjectSpawner : MonoBehaviour
 
         bool isMatch = false;
 
-        switch (currentRoundCondition)
-        {
-            case RoundCondition.Fruit:
-                isMatch = proto.checkIsFruit();
-                break;
-            case RoundCondition.Red:
-                isMatch = proto.checkIsRed();
-                break;
-            case RoundCondition.Green:
-                isMatch = proto.checkIsGreen();
-                break;
-            case RoundCondition.Yellow:
-                isMatch = proto.checkIsYellow();
-                break;
-            case RoundCondition.Single:
-                isMatch = proto.checkIsSingle();
-                break;
-        }
+        //code by Smriti
 
-        if (isMatch)
+        for (int i = 0; i < criteriaList.Count; i++)
         {
-            Debug.Log("ACCEPT: Correct choice!");
-            score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
-            UpdateScoreUI();
-            Debug.Log("Correct! Score is now: " + score);
-        }
-        else
-        {
-            Debug.Log("Wrong choice!");
-            score -= 1;
-            UpdateScoreUI();
-            Debug.Log("Wrong, Score is now: " + score);
-            //code by Smriti
-            if (AllowDecision)
+            int x = criteriaList[i];
+            Debug.Log("X: " + x);
+            if (x < 0) break;
+
+            // Set current round condition
+            roundCondition = (RoundCondition)x-1;
+
+            switch (roundCondition)
             {
-                MoveToTarget acceptedP1 = currentObject.GetComponent<MoveToTarget>();
-                acceptedP1.SetTarget(AcceptedP1);
-                acceptedP1.SetSpeed(MoveForce);
-                currentObject.transform.position = Vector2.MoveTowards(EndOfConveyor.position, 
-                    AcceptedP1.position, MoveForce * Time.deltaTime);
-                //Destroy(currentObject);
-                
-                AllowDecision = false;
-
-                //end of code by Smriti
+                case RoundCondition.Fruit:
+                    isMatch = proto.checkIsFruit();
+                    break;
+                case RoundCondition.Red:
+                    isMatch = proto.checkIsRed();
+                    break;
+                case RoundCondition.Green:
+                    isMatch = proto.checkIsGreen();
+                    break;
+                case RoundCondition.Yellow:
+                    isMatch = proto.checkIsYellow();
+                    break;
+                case RoundCondition.Single:
+                    isMatch = proto.checkIsSingle(); 
+                    break;
+                //added code by smriti
+                case RoundCondition.Orange:
+                    isMatch = proto.checkIsOrange();
+                    break;
+                case RoundCondition.Drink:
+                    isMatch = proto.checkIsDrink();
+                    break;
+                case RoundCondition.NotFruit:
+                    isMatch = !proto.checkIsFruit();
+                    break;
+                case RoundCondition.NotRed:
+                    isMatch = !proto.checkIsRed();
+                    break;
+                case RoundCondition.NotGreen:
+                    isMatch = !proto.checkIsGreen();
+                    break;
+                case RoundCondition.NotYellow:
+                    isMatch = !proto.checkIsYellow();
+                    break;
+                case RoundCondition.NotSingle:
+                    isMatch = !proto.checkIsSingle();
+                    break;
+                case RoundCondition.NotOrange:
+                    isMatch = !proto.checkIsOrange();
+                    break;
+                case RoundCondition.NotDrink:
+                    isMatch = !proto.checkIsDrink();
+                    break;
             }
-            //AllowObjSpawn = true;
-            //StartCoroutine(SpawnObject());
+
+            //Debug.Log("Is match: " + isMatch);
+            //Debug.Log("Round condition: " + roundCondition);
+
+            if (isMatch)
+            {
+                //Debug.Log("ACCEPT: Correct choice!");
+                score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
+                DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+                UpdateScoreUI();
+                Debug.Log("Correct! Score is now: " + score);
+            }
+            else if(!isMatch)
+            {
+                //Debug.Log("Wrong choice!");
+                score -= 1;
+                DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
+                UpdateScoreUI();
+                //Debug.Log("Wrong, Score is now: " + score);
+                //code by Smriti
+                if (AllowDecision)
+                {
+                    MoveToTarget acceptedP1 = currentObject.GetComponent<MoveToTarget>();
+                    acceptedP1.SetTarget(AcceptedP1);
+                    acceptedP1.SetSpeed(MoveForce);
+                    currentObject.transform.position = Vector2.MoveTowards(EndOfConveyor.position,
+                        AcceptedP1.position, MoveForce * Time.deltaTime);
+                    //Destroy(currentObject);
+
+                    AllowDecision = false;
+
+                    //end of code by Smriti
+                }
+                //AllowObjSpawn = true;
+                //StartCoroutine(SpawnObject());
+            }
         }
 
         Destroy(currentObject);
         currentObject = null;
         AllowObjSpawn = true;
+
         //StartCoroutine(SpawnObject());
+        //Debug.Log("Object should be destroyed");
 
         // Nikolaos Comandariu
         if (NumOfObjToSpawn <= 0 && currentObject == null) // Can be turned into an inverted if statement.
         {
-            Debug.Log("All Objects Processed Event");
+            //Debug.Log("All Objects Processed Event");
             onAllObjectsProcessed?.Invoke();
         } // End of code added.
         else
@@ -274,34 +413,108 @@ public class ObjectSpawner : MonoBehaviour
     /// </summary>
     public void DeclineObject()
     {
-        print("Decline clicked");
+        //print("Decline clicked");
         if (currentObject == null)
             return;
 
         ObjectPrototype_ proto = currentObject.GetComponent<ObjectPrototype_>();
 
         bool isMatch = false;
-
-        switch (currentRoundCondition)
+      
+        for (int i = 0; i < criteriaList.Count; i++)
         {
-            case RoundCondition.Fruit:
-                isMatch = proto.checkIsFruit();
-                break;
-            case RoundCondition.Red:
-                isMatch = proto.checkIsRed();
-                break;
-            case RoundCondition.Green:
-                isMatch = proto.checkIsGreen();
-                break;
-            case RoundCondition.Yellow:
-                isMatch = proto.checkIsYellow();
-                break;
-            case RoundCondition.Single:
-                isMatch = proto.checkIsSingle();
-                break;          
+            int x = criteriaList[i];
+
+            if (x <= 0) break;
+
+            // Set current round condition
+            roundCondition = (RoundCondition)x-1;
+
+            switch (roundCondition)
+            {
+                case RoundCondition.Fruit:
+                    isMatch = !proto.checkIsFruit();
+                    break;
+                case RoundCondition.Red:
+                    isMatch = !proto.checkIsRed();
+                    break;
+                case RoundCondition.Green:
+                    isMatch = !proto.checkIsGreen();
+                    break;
+                case RoundCondition.Yellow:
+                    isMatch = !proto.checkIsYellow();
+                    break;
+                case RoundCondition.Single:
+                    isMatch = !proto.checkIsSingle();
+                    break;
+                //added code by smriti
+                case RoundCondition.Orange:
+                    isMatch = !proto.checkIsOrange();
+                    break;
+                case RoundCondition.Drink:
+                    isMatch = !proto.checkIsDrink();
+                    break;
+                case RoundCondition.NotFruit:
+                    isMatch = proto.checkIsFruit();
+                    break;
+                case RoundCondition.NotRed:
+                    isMatch = proto.checkIsRed();
+                    break;
+                case RoundCondition.NotGreen:
+                    isMatch = proto.checkIsGreen();
+                    break;
+                case RoundCondition.NotYellow:
+                    isMatch = proto.checkIsYellow();
+                    break;
+                case RoundCondition.NotSingle:
+                    isMatch = proto.checkIsSingle();
+                    break;
+                case RoundCondition.NotOrange:
+                    isMatch = proto.checkIsOrange();
+                    break;
+                case RoundCondition.NotDrink:
+                    isMatch = proto.checkIsDrink();
+                    break;
+            } //end of added code by smriti
+
+            //Debug.Log("Is match: " + isMatch);
+            //Debug.Log("Round condition: " + roundCondition);
+
+            if (isMatch)
+            {
+                //Debug.Log("ACCEPT: Correct choice!");
+                score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
+                DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+                UpdateScoreUI();
+                Debug.Log("Correct! Score is now: " + score);
+            }
+            else if (!isMatch)
+            {
+                //Debug.Log("Wrong choice!");
+                score -= 1;
+                DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
+                UpdateScoreUI();
+                //Debug.Log("Wrong, Score is now: " + score);
+                //code by Smriti
+                if (AllowDecision)
+                {
+                    MoveToTarget acceptedP1 = currentObject.GetComponent<MoveToTarget>();
+                    acceptedP1.SetTarget(AcceptedP1);
+                    acceptedP1.SetSpeed(MoveForce);
+                    currentObject.transform.position = Vector2.MoveTowards(EndOfConveyor.position,
+                        AcceptedP1.position, MoveForce * Time.deltaTime);
+                    //Destroy(currentObject);
+
+                    AllowDecision = false;
+
+                    //end of code by Smriti
+                }
+                //AllowObjSpawn = true;
+                //StartCoroutine(SpawnObject());
+            }
         }
 
-        if (AllowDecision)
+        /*if (AllowDecision)
         {
             //code by smriti
             MoveToTarget declinedP1 = currentObject.GetComponent<MoveToTarget>();
@@ -320,24 +533,26 @@ public class ObjectSpawner : MonoBehaviour
             //Thread.Sleep(5000);
             //currentObject.SetActive(false);
 
-            /* if (currentObject.transform.position == DeclinedP1.position)
+             if (currentObject.transform.position == DeclinedP1.position)
              {
                  currentObject.SetActive(false);
-             }*/
+             }
             //Destroy(currentObject);
             AllowDecision = false;
 
             //end code by smriti
-        }
+        } */
 
         Destroy(currentObject);
         currentObject = null;
         AllowObjSpawn = true;
         //StartCoroutine(SpawnObject());
 
+        /*
         if (!isMatch)
         {
             Debug.Log("Correct choice");
+            DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
             score += 1;
             UpdateScoreUI();
             Debug.Log("Correct, Score is now: " + score);
@@ -345,10 +560,11 @@ public class ObjectSpawner : MonoBehaviour
         else
         {
             Debug.Log("Wrong choice!");
+            DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
             score -= 1;
             UpdateScoreUI();
             Debug.Log("Wrong, Score is now: " + score);
-        }
+        }*/
 
         //AllowObjSpawn = true;
         // Nikolaos Comandariu
@@ -365,10 +581,27 @@ public class ObjectSpawner : MonoBehaviour
     /// <summary>
     /// Updates scoreText to show the current score.
     /// </summary>
-    private void UpdateScoreUI()
+    public void UpdateScoreUI()
     {
         if (scoreText != null)
-            scoreText.text = "Score: " + score;
+        {
+            //code added by smriti
+            if (IsPlayer1)
+            {
+                scoreText.text = "Score: " + score;
+                scoreManager.changePlayer1Score(score);
+            }
+            else
+            {
+                scoreText.text = "Score: " + score;
+                scoreManager.changePlayer2Score(score);
+            }
+            //scoreText.text = "Score: " + score;
+            //scoreManager.changePlayer1Score(score); //smriti added this
+            //scoreManager.changePlayer2Score(score); // smriti added this
+        }
+            //scoreText.text = "Score: " + score;
+            //end of code added by smriti
     }
 
     // Code from Nikolaos Comandariu.
@@ -402,6 +635,16 @@ public class ObjectSpawner : MonoBehaviour
     private void TallyUpScores()
     {
         OnTallyUpScores?.Invoke(score);
+    }
+    
+    private void SetCriteria(int crit1, int crit2, int crit3, int crit4)
+    {
+        criteriaList.Add(crit1);
+        criteriaList.Add(crit2);
+        criteriaList.Add(crit3);
+        criteriaList.Add(crit4);
+
+        Debug.Log("Criterias: " + crit1 + crit2 + crit3 + crit4);
     }
 
     // End of code from Nikolaos Comandariu.
