@@ -112,6 +112,7 @@ public class ObjectSpawner : MonoBehaviour
     private void OnDisable()
     {
         GameManager.onGameOver -= TallyUpScores;
+        CriteriaManager.OnCriteriaDecided -= SetCriteria;
 
         if (IsPlayer1)
         {
@@ -292,25 +293,28 @@ public class ObjectSpawner : MonoBehaviour
     /// </summary>
     public void AcceptObject()
     {
-        Debug.Log("accept clicked");
+        //Debug.Log("accept clicked");
 
         if (currentObject == null) 
             return;
-        Debug.Log("Current obj is not null");
+
+        //Debug.Log("Current obj is not null");
 
         ObjectPrototype_ proto = currentObject.GetComponent<ObjectPrototype_>();
 
         bool isMatch = false;
-        Debug.Log("Is match: " + isMatch);
+
+        //Debug.Log("Is match: " + isMatch);
         //code by Smriti
-        Debug.Log("Criteria list count: " + criteriaList.Count);
+        //Debug.Log("Criteria list count: " + criteriaList.Count);
+
         for (int i = 0; i < criteriaList.Count; i++)
         {
-            Debug.Log("Start of for loop");
+            //Debug.Log("Start of for loop");
             int x = criteriaList[i];
-            Debug.Log("X: " + x);
+            //Debug.Log("X: " + x);
             if (x < 0) break;
-            Debug.Log("X is not <= 0");
+            //Debug.Log("X is not <= 0");
 
             // Set current round condition
             roundCondition = (RoundCondition)x-1;
@@ -432,20 +436,24 @@ public class ObjectSpawner : MonoBehaviour
     /// </summary>
     public void DeclineObject()
     {
-        Debug.Log("Decline clicked");
+        //Debug.Log("Decline clicked");
+
         if (currentObject == null)
             return;
-        Debug.Log("Current obj is not null");
+
+        //Debug.Log("Current obj is not null");
+
         ObjectPrototype_ proto = currentObject.GetComponent<ObjectPrototype_>();
 
         bool isMatch = false;
-        Debug.Log("Is match: " + isMatch);
+        //Debug.Log("Is match: " + isMatch);
+
         for (int i = 0; i < criteriaList.Count; i++)
         {
             int x = criteriaList[i];
-            Debug.Log("Start of for loop");
+            //Debug.Log("Start of for loop");
             if (x <= 0) break;
-            Debug.Log("X is not <= 0");
+            //Debug.Log("X is not <= 0");
             // Set current round condition
             roundCondition = (RoundCondition)x-1;
 
