@@ -139,7 +139,7 @@ public class ObjectSpawner : MonoBehaviour
 
                     productPrice.text = "£" + 
                         currentObject.GetComponent<ObjectPrototype_>().GetPrice().ToString();
-                    Debug.Log("spawn object");
+                    //Debug.Log("spawn object");
                     //item = currentObject.GetComponent<Item>(); // Can be removed, item does not seem to be used anywhere.
                     ObjectsPool.RemoveAt(n);
                     NumOfObjToSpawn--;
@@ -216,11 +216,11 @@ public class ObjectSpawner : MonoBehaviour
         // round 1 = 3 items
         // Round 2 = 5 items
         // etc
-        Debug.Log("Obj to spawn: " + objToSpawn);
+        //Debug.Log("Obj to spawn: " + objToSpawn);
         // Repopulate ObjectsPool.
         for (int i = 0; i < objToSpawn; i++)
         {
-            Debug.Log("Generating Objects for round");
+            //Debug.Log("Generating Objects for round");
             int randomIndex = Random.Range(0, AllPossibleObjects.Count);
             ObjectsPool.Add(AllPossibleObjects[randomIndex]);
             ChanceToSpawnGlitchedItem();
@@ -235,7 +235,7 @@ public class ObjectSpawner : MonoBehaviour
         }    
 
         NumOfObjToSpawn = ObjectsPool.Count;
-        Debug.Log("Num of obj to spawn: " + NumOfObjToSpawn);
+        //Debug.Log("Num of obj to spawn: " + NumOfObjToSpawn);
     }
     
     //public DeclinedTrigger trigger;
@@ -259,7 +259,7 @@ public class ObjectSpawner : MonoBehaviour
     /// </summary>
     public void AcceptObject()
     {
-        Debug.Log("accept clicked");
+        //Debug.Log("accept clicked");
 
         if (currentObject == null) 
             return;
@@ -268,33 +268,16 @@ public class ObjectSpawner : MonoBehaviour
 
         bool isMatch = false;
 
-        if (isMatch)
-        {
-            DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
-            Debug.Log("ACCEPT: Correct choice!");
-            score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
-            UpdateScoreUI();
-            Debug.Log("Correct! Score is now: " + score);
-        }
-        else
-        {
-            DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
-            Debug.Log("Wrong choice!");
-            score -= 1;
-            UpdateScoreUI();
-            Debug.Log("Wrong, Score is now: " + score);
-        }
-
         //code by Smriti
 
         for (int i = 0; i < criteriaList.Count; i++)
         {
             int x = criteriaList[i];
-
-            if (x <= 0) break;
+            Debug.Log("X: " + x);
+            if (x < 0) break;
 
             // Set current round condition
-            roundCondition = (RoundCondition)x;
+            roundCondition = (RoundCondition)x-1;
 
             switch (roundCondition)
             {
@@ -311,7 +294,7 @@ public class ObjectSpawner : MonoBehaviour
                     isMatch = proto.checkIsYellow();
                     break;
                 case RoundCondition.Single:
-                    isMatch = proto.checkIsSingle();
+                    isMatch = proto.checkIsSingle(); 
                     break;
                 //added code by smriti
                 case RoundCondition.Orange:
@@ -320,21 +303,45 @@ public class ObjectSpawner : MonoBehaviour
                 case RoundCondition.Drink:
                     isMatch = proto.checkIsDrink();
                     break;
+                case RoundCondition.NotFruit:
+                    isMatch = !proto.checkIsFruit();
+                    break;
+                case RoundCondition.NotRed:
+                    isMatch = !proto.checkIsRed();
+                    break;
+                case RoundCondition.NotGreen:
+                    isMatch = !proto.checkIsGreen();
+                    break;
+                case RoundCondition.NotYellow:
+                    isMatch = !proto.checkIsYellow();
+                    break;
+                case RoundCondition.NotSingle:
+                    isMatch = !proto.checkIsSingle();
+                    break;
+                case RoundCondition.NotOrange:
+                    isMatch = !proto.checkIsOrange();
+                    break;
+                case RoundCondition.NotDrink:
+                    isMatch = !proto.checkIsDrink();
+                    break;
             }
-
+            Debug.Log("Is match: " + isMatch);
+            Debug.Log("Round condition: " + roundCondition);
             if (isMatch)
             {
-                Debug.Log("ACCEPT: Correct choice!");
+                //Debug.Log("ACCEPT: Correct choice!");
                 score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
+                DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
                 UpdateScoreUI();
-                Debug.Log("Correct! Score is now: " + score);
+                //Debug.Log("Correct! Score is now: " + score);
             }
-            else
+            else if(!isMatch)
             {
-                Debug.Log("Wrong choice!");
+                //Debug.Log("Wrong choice!");
                 score -= 1;
+                DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
                 UpdateScoreUI();
-                Debug.Log("Wrong, Score is now: " + score);
+                //Debug.Log("Wrong, Score is now: " + score);
                 //code by Smriti
                 if (AllowDecision)
                 {
@@ -358,14 +365,13 @@ public class ObjectSpawner : MonoBehaviour
         currentObject = null;
         AllowObjSpawn = true;
 
-
         //StartCoroutine(SpawnObject());
-        Debug.Log("Object should be destroyed");
+        //Debug.Log("Object should be destroyed");
 
         // Nikolaos Comandariu
         if (NumOfObjToSpawn <= 0 && currentObject == null) // Can be turned into an inverted if statement.
         {
-            Debug.Log("All Objects Processed Event");
+            //Debug.Log("All Objects Processed Event");
             onAllObjectsProcessed?.Invoke();
         } // End of code added.
         else
@@ -382,7 +388,7 @@ public class ObjectSpawner : MonoBehaviour
     /// </summary>
     public void DeclineObject()
     {
-        print("Decline clicked");
+        //print("Decline clicked");
         if (currentObject == null)
             return;
 
@@ -397,47 +403,73 @@ public class ObjectSpawner : MonoBehaviour
             if (x <= 0) break;
 
             // Set current round condition
-            roundCondition = (RoundCondition)x;
+            roundCondition = (RoundCondition)x-1;
 
             switch (roundCondition)
             {
                 case RoundCondition.Fruit:
-                    isMatch = proto.checkIsFruit();
+                    isMatch = !proto.checkIsFruit();
                     break;
                 case RoundCondition.Red:
-                    isMatch = proto.checkIsRed();
+                    isMatch = !proto.checkIsRed();
                     break;
                 case RoundCondition.Green:
-                    isMatch = proto.checkIsGreen();
+                    isMatch = !proto.checkIsGreen();
                     break;
                 case RoundCondition.Yellow:
-                    isMatch = proto.checkIsYellow();
+                    isMatch = !proto.checkIsYellow();
                     break;
                 case RoundCondition.Single:
-                    isMatch = proto.checkIsSingle();
+                    isMatch = !proto.checkIsSingle();
                     break;
                 //added code by smriti
                 case RoundCondition.Orange:
-                    isMatch = proto.checkIsOrange();
+                    isMatch = !proto.checkIsOrange();
                     break;
                 case RoundCondition.Drink:
+                    isMatch = !proto.checkIsDrink();
+                    break;
+                case RoundCondition.NotFruit:
+                    isMatch = proto.checkIsFruit();
+                    break;
+                case RoundCondition.NotRed:
+                    isMatch = proto.checkIsRed();
+                    break;
+                case RoundCondition.NotGreen:
+                    isMatch = proto.checkIsGreen();
+                    break;
+                case RoundCondition.NotYellow:
+                    isMatch = proto.checkIsYellow();
+                    break;
+                case RoundCondition.NotSingle:
+                    isMatch = proto.checkIsSingle();
+                    break;
+                case RoundCondition.NotOrange:
+                    isMatch = proto.checkIsOrange();
+                    break;
+                case RoundCondition.NotDrink:
                     isMatch = proto.checkIsDrink();
                     break;
             } //end of added code by smriti
 
+            Debug.Log("Is match: " + isMatch);
+            Debug.Log("Round condition: " + roundCondition);
+
             if (isMatch)
             {
-                Debug.Log("ACCEPT: Correct choice!");
+                //Debug.Log("ACCEPT: Correct choice!");
                 score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
+                DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
                 UpdateScoreUI();
-                Debug.Log("Correct! Score is now: " + score);
+                //Debug.Log("Correct! Score is now: " + score);
             }
-            else
+            else if (!isMatch)
             {
-                Debug.Log("Wrong choice!");
+                //Debug.Log("Wrong choice!");
                 score -= 1;
+                DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
                 UpdateScoreUI();
-                Debug.Log("Wrong, Score is now: " + score);
+                //Debug.Log("Wrong, Score is now: " + score);
                 //code by Smriti
                 if (AllowDecision)
                 {
@@ -564,6 +596,8 @@ public class ObjectSpawner : MonoBehaviour
         criteriaList.Add(crit2);
         criteriaList.Add(crit3);
         criteriaList.Add(crit4);
+
+        Debug.Log("Criterias: " + crit1 + crit2 + crit3 + crit4);
     }
 
     // End of code from Nikolaos Comandariu.
