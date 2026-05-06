@@ -1,16 +1,23 @@
 using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameChangerManager : MonoBehaviour
 {
-    [Header("Canvas")]
-    [SerializeField] private Canvas[] canvases;
+    [Header("Canvases")]
+    [SerializeField] private Canvas rhythmCanvas;
+    [SerializeField] private Canvas oppositeDayCanvas;
 
-    [Header("Game Objects")]
-    [SerializeField] private GameObject hitboxParent;
+    [Header("Variables")]
+    [SerializeField] private int numOfGameChangers;
+
+    //[Header("Game Objects")]
+    //[SerializeField] private GameObject hitboxParent;
 
     // Events.
     public static event Action onGameChangerActivated;
+    public static event Action onOppositeDayActivated;
+    public static event Action onRhythmActivated;
 
     private bool isActive;
     private bool onCooldown;
@@ -18,17 +25,21 @@ public class GameChangerManager : MonoBehaviour
 
     private int activeCanvas;
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.T)) // TODO: Remove after testing!
+            StartGameChanger();
+    }
+
     private void OnEnable()
     {
         GameManager.onGameChangerRound += StartGameChanger;
-        //ButtonClick.onBothInputsPressed += ActivateGameChanger;
         GameManager.onNextRound += Reset;
     }
 
     private void OnDisable()
     {
         GameManager.onGameChangerRound -= StartGameChanger;
-        //ButtonClick.onBothInputsPressed -= ActivateGameChanger;
         GameManager.onNextRound -= Reset;
     }
 
@@ -38,8 +49,8 @@ public class GameChangerManager : MonoBehaviour
         onCooldown = false;
         canActivate = false;
 
-        canvases[activeCanvas].enabled = false;
-        hitboxParent.SetActive(false);
+        rhythmCanvas.enabled = false;
+        oppositeDayCanvas.enabled = false;
     }
 
     private void ActivateGameChanger()
@@ -54,15 +65,29 @@ public class GameChangerManager : MonoBehaviour
         onGameChangerActivated.Invoke(); // To let game manager know.
     }
 
+    /// <summary>
+    /// Starts a random game changer and sets its canvas to active.
+    /// </summary>
     public void StartGameChanger()
     {
-        canvases[activeCanvas].enabled = true;
-        hitboxParent.SetActive(true);
+        activeCanvas = Random.Range(0, numOfGameChangers);
+
+        switch(activeCanvas)
+        {
+            case 0:
+                onRhythmActivated?.Invoke();
+                rhythmCanvas.enabled = true;
+                break;
+            case 1:
+                onOppositeDayActivated?.Invoke();
+                oppositeDayCanvas.enabled = true;
+                break;
+        }
     }
 
     private void Reset()
     {
-        canvases[activeCanvas].enabled = false;
-        hitboxParent.SetActive(false);
+        //canvases[activeCanvas].enabled = false;
+        //hitboxParent.SetActive(false);
     }
 }
