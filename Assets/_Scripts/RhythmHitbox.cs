@@ -10,6 +10,18 @@ public class RhythmHitbox : MonoBehaviour
     public static event Action<bool> onColliderEnteredP1;
     public static event Action<bool> onColliderEnteredP2;
 
+    private void OnEnable()
+    {
+        GameManager.onNextRound += DisableHitbox;
+        GameChangerManager.onRhythmActivated += EnableHitbox;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.onNextRound -= DisableHitbox;
+        GameChangerManager.onRhythmActivated -= EnableHitbox;
+    }
+
     public void OnTriggerEnter2D(Collider2D collider)
     {
         if(isLeft)
@@ -34,5 +46,17 @@ public class RhythmHitbox : MonoBehaviour
         {
             onColliderEnteredP2.Invoke(false);
         }
+    }
+
+    private void DisableHitbox()
+    {
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+    }
+
+    private void EnableHitbox()
+    {
+        gameObject.GetComponent<BoxCollider2D>().enabled = true;
+        gameObject.GetComponent<SpriteRenderer>().enabled = true;
     }
 }
