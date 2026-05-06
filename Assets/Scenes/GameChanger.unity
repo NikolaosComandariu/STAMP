@@ -1740,10 +1740,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3807459852473750736, guid: 73ccf40466fbe0145962a07f9c7f694b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 3807459852473750736, guid: 73ccf40466fbe0145962a07f9c7f694b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 85
+      objectReference: {fileID: 0}
+    - target: {fileID: 3807459852473750736, guid: 73ccf40466fbe0145962a07f9c7f694b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3807459852473750736, guid: 73ccf40466fbe0145962a07f9c7f694b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -450
+      objectReference: {fileID: 0}
     - target: {fileID: 6444691230523915145, guid: 73ccf40466fbe0145962a07f9c7f694b, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1967051820}
+    - target: {fileID: 6444691230523915145, guid: 73ccf40466fbe0145962a07f9c7f694b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7028353931061453924, guid: 73ccf40466fbe0145962a07f9c7f694b, type: 3}
       propertyPath: m_Name
       value: GameChangerCanvas
@@ -1755,6 +1775,22 @@ PrefabInstance:
     - target: {fileID: 7329761453625376676, guid: 73ccf40466fbe0145962a07f9c7f694b, type: 3}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7704369201171858976, guid: 73ccf40466fbe0145962a07f9c7f694b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7704369201171858976, guid: 73ccf40466fbe0145962a07f9c7f694b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 85
+      objectReference: {fileID: 0}
+    - target: {fileID: 7704369201171858976, guid: 73ccf40466fbe0145962a07f9c7f694b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 85
+      objectReference: {fileID: 0}
+    - target: {fileID: 7704369201171858976, guid: 73ccf40466fbe0145962a07f9c7f694b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 450
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

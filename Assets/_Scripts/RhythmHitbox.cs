@@ -14,6 +14,7 @@ public class RhythmHitbox : MonoBehaviour
     {
         if(isLeft)
         {
+            //Debug.Log("Player 1 entered");
             onColliderEnteredP1.Invoke(true);
         }
         else
@@ -26,6 +27,7 @@ public class RhythmHitbox : MonoBehaviour
     {
         if (isLeft)
         {
+           // Debug.Log("Player 1 exited");
             onColliderEnteredP1.Invoke(false);
         }
         else
