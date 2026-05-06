@@ -56,13 +56,14 @@ public class ObjectSpawner : MonoBehaviour
     private bool isSpawning = false;
     private bool AllowDecision = false; //smriti added this
     private bool SpawnGlitchedItem = false;
-    
+    private bool rhythmPoints; // Nikolaos Comandariu.
+    private bool generatingNumber; //smriti added this; possible to remove if not used
+
     private Vector3 CurrentObjLoc;
 
     private Item item; // This isn't used anywhere, can be removed.
     private Rigidbody2D rb2D;
     private int[] CriteriaGenerated;//smriti added this; possible to remove if not used
-    private bool generatingNumber; //smriti added this; possible to remove if not used
 
     /// <summary>
     /// Used to compare the criteria to the object to see if the
@@ -88,29 +89,48 @@ public class ObjectSpawner : MonoBehaviour
     
     // Nikolaos Comandariu.
     /// <summary>
-    /// Subscribe to delegates.
+    /// Subscribe to events.
     /// </summary>
     private void OnEnable()
     {
         GameManager.onGameOver += TallyUpScores;
+        CriteriaManager.OnCriteriaDecided += SetCriteria;
+
+        if (IsPlayer1)
+        {
+            RhythmHitbox.onColliderEnteredP1 += AcceptRhythmPoints;
+        }
+        else
+        {
+            RhythmHitbox.onColliderEnteredP2 += AcceptRhythmPoints;
+        }
     }
 
     /// <summary>
-    /// Unsubscribe from delegates.
+    /// Unsubscribe from events.
     /// </summary>
     private void OnDisable()
     {
         GameManager.onGameOver -= TallyUpScores;
+        CriteriaManager.OnCriteriaDecided -= SetCriteria;
+
+        if (IsPlayer1)
+        {
+            RhythmHitbox.onColliderEnteredP1 -= AcceptRhythmPoints;
+        }
+        else
+        {
+            RhythmHitbox.onColliderEnteredP2 -= AcceptRhythmPoints;
+        }
     }
 
     // End of Nikolaos Comandariu.
 
     private void Start()
     {
-        //NumOfObjToSpawn = ObjectsPool.Count;
         objToSpawn = 5;
         AllowObjSpawn = true;
-        //StartCoroutine(SpawnObject());
+        rhythmPoints = false;
     }
 
     private void Update()
@@ -119,6 +139,7 @@ public class ObjectSpawner : MonoBehaviour
         {
             CurrentObjLoc = currentObject.transform.position;
         }
+
         /*
         // If number of objects to spawn is 0, restart spawning.
         if (NumOfObjToSpawn == 0)
@@ -128,7 +149,6 @@ public class ObjectSpawner : MonoBehaviour
             AllowObjSpawn = true;
             StartCoroutine(SpawnObject());
         }*/
-
     }
 
     /// <summary>
@@ -172,6 +192,7 @@ public class ObjectSpawner : MonoBehaviour
             }
         }
     }
+
     private void ChanceToSpawnGlitchedItem()
     {
         int chance = Random.Range(1, upperLimit);
@@ -276,17 +297,23 @@ public class ObjectSpawner : MonoBehaviour
         if (currentObject == null) 
             return;
 
+        //Debug.Log("Current obj is not null");
+
         ObjectPrototype_ proto = currentObject.GetComponent<ObjectPrototype_>();
 
         bool isMatch = false;
 
+        //Debug.Log("Is match: " + isMatch);
         //code by Smriti
+        //Debug.Log("Criteria list count: " + criteriaList.Count);
 
         for (int i = 0; i < criteriaList.Count; i++)
         {
+            //Debug.Log("Start of for loop");
             int x = criteriaList[i];
-            Debug.Log("X: " + x);
-            if (x < 0) break;
+            //Debug.Log("X: " + x);
+            if (x <= 0) break;
+            //Debug.Log("X is not <= 0");
 
             // Set current round condition
             roundCondition = (RoundCondition)x-1;
@@ -338,12 +365,19 @@ public class ObjectSpawner : MonoBehaviour
                     break;
             }
 
-            //Debug.Log("Is match: " + isMatch);
-            //Debug.Log("Round condition: " + roundCondition);
+            Debug.Log("Is match: " + isMatch);
+            Debug.Log("Round condition: " + roundCondition);
 
             if (isMatch)
             {
                 //Debug.Log("ACCEPT: Correct choice!");
+
+                if(rhythmPoints) // Nikolaos Comandariu.
+                {
+                    score += 1;
+                    DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+                }
+
                 score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
                 DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
                 UpdateScoreUI();
@@ -355,7 +389,7 @@ public class ObjectSpawner : MonoBehaviour
                 score -= 1;
                 DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
                 UpdateScoreUI();
-                //Debug.Log("Wrong, Score is now: " + score);
+                Debug.Log("Wrong, Score is now: " + score);
                 //code by Smriti
                 if (AllowDecision)
                 {
@@ -383,7 +417,7 @@ public class ObjectSpawner : MonoBehaviour
         //Debug.Log("Object should be destroyed");
 
         // Nikolaos Comandariu
-        if (NumOfObjToSpawn <= 0 && currentObject == null) // Can be turned into an inverted if statement.
+        if (NumOfObjToSpawn <= 0 && currentObject == null)
         {
             //Debug.Log("All Objects Processed Event");
             onAllObjectsProcessed?.Invoke();
@@ -402,20 +436,24 @@ public class ObjectSpawner : MonoBehaviour
     /// </summary>
     public void DeclineObject()
     {
-        //print("Decline clicked");
+        //Debug.Log("Decline clicked");
+
         if (currentObject == null)
             return;
+
+        //Debug.Log("Current obj is not null");
 
         ObjectPrototype_ proto = currentObject.GetComponent<ObjectPrototype_>();
 
         bool isMatch = false;
-      
+        //Debug.Log("Is match: " + isMatch);
+
         for (int i = 0; i < criteriaList.Count; i++)
         {
             int x = criteriaList[i];
-
+            //Debug.Log("Start of for loop");
             if (x <= 0) break;
-
+            //Debug.Log("X is not <= 0");
             // Set current round condition
             roundCondition = (RoundCondition)x-1;
 
@@ -466,12 +504,19 @@ public class ObjectSpawner : MonoBehaviour
                     break;
             } //end of added code by smriti
 
-            //Debug.Log("Is match: " + isMatch);
-            //Debug.Log("Round condition: " + roundCondition);
+            Debug.Log("Is match: " + isMatch);
+            Debug.Log("Round condition: " + roundCondition);
 
             if (isMatch)
             {
                 //Debug.Log("ACCEPT: Correct choice!");
+                Debug.Log("Rhythm Points: " + rhythmPoints);
+                if (rhythmPoints) // Nikolaos Comandariu.
+                {
+                    score += 1;
+                    DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+                }
+
                 score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
                 DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
                 UpdateScoreUI();
@@ -483,7 +528,7 @@ public class ObjectSpawner : MonoBehaviour
                 score -= 1;
                 DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
                 UpdateScoreUI();
-                //Debug.Log("Wrong, Score is now: " + score);
+                Debug.Log("Wrong, Score is now: " + score);
                 //code by Smriti
                 if (AllowDecision)
                 {
@@ -625,9 +670,16 @@ public class ObjectSpawner : MonoBehaviour
     {
         OnTallyUpScores?.Invoke(score);
     }
+
+    private void AcceptRhythmPoints(bool canAccept)
+    {
+        rhythmPoints = canAccept;
+    }
     
     private void SetCriteria(int crit1, int crit2, int crit3, int crit4)
     {
+        criteriaList.Clear();
+
         criteriaList.Add(crit1);
         criteriaList.Add(crit2);
         criteriaList.Add(crit3);

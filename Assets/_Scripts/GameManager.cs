@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -11,16 +12,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ObjectSpawner objectSpawner;
     [SerializeField] private ObjectSpawner rightObjSpawner;
     [SerializeField] private roundManager roundManager;
-    [SerializeField] private GameChangerManager changerManager;
+    //[SerializeField] private GameChangerManager changerManager;
     [SerializeField] private CriteriaManager criteriaManager; //added by smriti
 
     [Header("Variables")]
     [SerializeField] private int roundCountdownIncrease; // How many seconds a round increases by when difficulty increases.
     [SerializeField] private int roundItemsIncrease; // How many additional items spawn when difficulty increases.
 
-    // Delegates.
+    // Delegates & Events.
     public delegate void OnGameOver();
     public static OnGameOver onGameOver;
+    public static event Action onGameChangerRound;
+    public static event Action onNextRound;
 
     private int maxRoundNumber = 16;
     private int spawnCountdown = 3;
@@ -69,7 +72,7 @@ public class GameManager : MonoBehaviour
         countDownManager.onRoundTimerFinished += HandleTimeRunningOut;
         objectSpawner.onAllObjectsProcessed += HandleLeftPlayerFinish;
         rightObjSpawner.onAllObjectsProcessed += HandleRightPlayerFinish;
-        changerManager.onGameChangerActivated += ActivateGameChanger;
+        GameChangerManager.onGameChangerActivated += ActivateGameChanger;
     }
 
     /// <summary>
@@ -80,7 +83,7 @@ public class GameManager : MonoBehaviour
         countDownManager.onRoundTimerFinished -= HandleTimeRunningOut;
         objectSpawner.onAllObjectsProcessed -= HandleLeftPlayerFinish;
         rightObjSpawner.onAllObjectsProcessed -= HandleRightPlayerFinish;
-        changerManager.onGameChangerActivated -= ActivateGameChanger;
+        GameChangerManager.onGameChangerActivated -= ActivateGameChanger;
     }
 
     private void IncreaseDifficulty()
@@ -137,6 +140,7 @@ public class GameManager : MonoBehaviour
             onGameOver?.Invoke();
         }
 
+        onNextRound?.Invoke();
         criteriaManager.displayCriteria(); // added by smriti
 
         // Update text displaying current round number.
@@ -146,10 +150,9 @@ public class GameManager : MonoBehaviour
         if(currentRoundNumber % 5 == 0)
             IncreaseDifficulty();
 
-        if(activateGameChanger)
-        {
-            changerManager.StartGameChanger();
-        }
+        // If round number is a multiple of 3, activate round changer.
+        if(currentRoundNumber % 3 == 0)
+            onGameChangerRound?.Invoke();
 
         // TODO: Reset Criteria and get new ones for the round.
         yield return StartCoroutine(StartRound());

@@ -1,25 +1,43 @@
+using System;
 using UnityEngine;
 
 public class GameChangerManager : MonoBehaviour
 {
-    [Header("Scripts")]
-    [SerializeField] private ButtonClick ButtonClick;
+    [Header("Canvas")]
+    [SerializeField] private Canvas canvas;
 
-    [Header("Events")]
-    public System.Action onGameChangerActivated;
+    [Header("Game Objects")]
+    [SerializeField] private GameObject hitboxParent;
+
+    // Events.
+    public static event Action onGameChangerActivated;
 
     private bool isActive;
     private bool onCooldown;
     private bool canActivate;
 
+    private void OnEnable()
+    {
+        GameManager.onGameChangerRound += StartGameChanger;
+        //ButtonClick.onBothInputsPressed += ActivateGameChanger;
+        GameManager.onNextRound += Reset;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.onGameChangerRound -= StartGameChanger;
+        //ButtonClick.onBothInputsPressed -= ActivateGameChanger;
+        GameManager.onNextRound -= Reset;
+    }
+
     private void Start()
     {
-        // Subscribe to both inputs pressed event.
-        ButtonClick.onBothInputsPressed += ActivateGameChanger;
-
         isActive = false;
         onCooldown = false;
         canActivate = false;
+
+        canvas.enabled = false;
+        hitboxParent.SetActive(false);
     }
 
     private void ActivateGameChanger()
@@ -36,7 +54,13 @@ public class GameChangerManager : MonoBehaviour
 
     public void StartGameChanger()
     {
-        if (!canActivate) return;
+        canvas.enabled = true;
+        hitboxParent.SetActive(true);
+    }
 
+    private void Reset()
+    {
+        canvas.enabled = false;
+        hitboxParent.SetActive(false);
     }
 }

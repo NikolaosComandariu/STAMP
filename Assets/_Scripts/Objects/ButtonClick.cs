@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ButtonClick : MonoBehaviour
@@ -12,8 +13,7 @@ public class ButtonClick : MonoBehaviour
     [SerializeField] private KeyCode acceptKey;
     [SerializeField] private KeyCode declineKey;
 
-    [Header("Events")]
-    public System.Action onBothInputsPressed;
+    public static event Action onBothInputsPressed;
     //AudioManager audioManager;
 
     AudioManager audioManager;
@@ -27,18 +27,19 @@ public class ButtonClick : MonoBehaviour
     {
         if (Input.GetKeyDown(acceptKey))
         {
-            Debug.Log("Accept");
+            //Debug.Log("Accept");
             OnAcceptPressed();
         }
         if (Input.GetKeyDown(declineKey))
         {
-            Debug.Log("Decline");
+            //Debug.Log("Decline");
             OnDeclinePressed();
         }
-        if (Input.GetKeyDown(acceptKey) && Input.GetKeyDown(declineKey))
+        /*if (Input.GetKeyDown(acceptKey) && Input.GetKeyDown(declineKey))
         {
-            onBothInputsPressed.Invoke();
-        }
+            Debug.Log("Both input keys were pressed: Activating round changer!");
+            onBothInputsPressed?.Invoke();
+        }*/
 
         /*if(isPlayer1)
         {
