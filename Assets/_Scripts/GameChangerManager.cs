@@ -4,7 +4,7 @@ using UnityEngine;
 public class GameChangerManager : MonoBehaviour
 {
     [Header("Canvas")]
-    [SerializeField] private Canvas canvas;
+    [SerializeField] private Canvas[] canvases;
 
     [Header("Game Objects")]
     [SerializeField] private GameObject hitboxParent;
@@ -15,6 +15,8 @@ public class GameChangerManager : MonoBehaviour
     private bool isActive;
     private bool onCooldown;
     private bool canActivate;
+
+    private int activeCanvas;
 
     private void OnEnable()
     {
@@ -36,7 +38,7 @@ public class GameChangerManager : MonoBehaviour
         onCooldown = false;
         canActivate = false;
 
-        canvas.enabled = false;
+        canvases[activeCanvas].enabled = false;
         hitboxParent.SetActive(false);
     }
 
@@ -54,13 +56,13 @@ public class GameChangerManager : MonoBehaviour
 
     public void StartGameChanger()
     {
-        canvas.enabled = true;
+        canvases[activeCanvas].enabled = true;
         hitboxParent.SetActive(true);
     }
 
     private void Reset()
     {
-        canvas.enabled = false;
+        canvases[activeCanvas].enabled = false;
         hitboxParent.SetActive(false);
     }
 }
