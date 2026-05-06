@@ -211,6 +211,7 @@ public class GameManager : MonoBehaviour
         p1Finished = false;
         p2Finished = false;
         roundEnding = true;
+        timeRanOut = false;
 
         objectSpawner.ResetObjects();
         rightObjSpawner.ResetObjects();
@@ -225,6 +226,10 @@ public class GameManager : MonoBehaviour
     private void TimeRanOut()
     {
         timeRanOut = true;
+        roundEnding = false;
+        p1Finished = true;
+        p2Finished = true;
+
         HandleRoundEnd();
     }
 }
