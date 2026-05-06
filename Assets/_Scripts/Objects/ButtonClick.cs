@@ -13,6 +13,8 @@ public class ButtonClick : MonoBehaviour
     [SerializeField] private KeyCode acceptKey;
     [SerializeField] private KeyCode declineKey;
 
+    private bool oppositeDay;
+
     public static event Action onBothInputsPressed;
     //AudioManager audioManager;
 
@@ -20,8 +22,25 @@ public class ButtonClick : MonoBehaviour
 
     //private void Awake()
     //{
-        //audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    //audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     //}
+
+    private void OnEnable()
+    {
+        GameChangerManager.onOppositeDayActivated += OppositeDayActivated;
+        GameManager.onNextRound += OppositeDayOver;
+    }
+
+    private void OnDisable()
+    {
+        GameChangerManager.onOppositeDayActivated -= OppositeDayActivated;
+        GameManager.onNextRound -= OppositeDayOver;
+    }
+
+    private void Start()
+    {
+        oppositeDay = false;
+    }
 
     private void Update()
     {
@@ -35,54 +54,48 @@ public class ButtonClick : MonoBehaviour
             //Debug.Log("Decline");
             OnDeclinePressed();
         }
-        /*if (Input.GetKeyDown(acceptKey) && Input.GetKeyDown(declineKey))
-        {
-            Debug.Log("Both input keys were pressed: Activating round changer!");
-            onBothInputsPressed?.Invoke();
-        }*/
-
-        /*if(isPlayer1)
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                Debug.Log("Accept");
-                OnAcceptPressed();
-            }
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                Debug.Log("Decline");
-                OnDeclinePressed();
-            }
-        }
-        else if (!isPlayer1)
-        {
-            if (Input.GetKeyDown(KeyCode.I))
-            {
-                Debug.Log("Accept");
-                OnAcceptPressed();
-            }
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                Debug.Log("Decline");
-                OnDeclinePressed();
-            }
-        }*/
     } // End of Nikolaos Comandariu.
 
     public void OnAcceptPressed()
     {
         Debug.Log("accepted");
         ObjectSpawner spawner = GetComponent<ObjectSpawner>();
-        spawner.AcceptObject();
+
+        if(oppositeDay)
+        {
+            spawner.DeclineObject();
+            //Debug.Log("Declined! TEST");
+        }
+        else
+        {
+            spawner.AcceptObject();
+        }
+
         //audioManager.PlaySFX(audioManager.correctChoiceSFX);
-        
     }
 
     public void OnDeclinePressed() 
     {
         Debug.Log("Declined");
         ObjectSpawner spawner = GetComponent<ObjectSpawner>();
-        spawner.DeclineObject();
+
+        if (oppositeDay)
+        {
+            spawner.AcceptObject();
+        }
+        else
+        {
+            spawner.DeclineObject();
+        }
     }
 
+    private void OppositeDayActivated()
+    {
+        oppositeDay = true;
+    }
+
+    private void OppositeDayOver()
+    {
+        oppositeDay = false;
+    }
 }
