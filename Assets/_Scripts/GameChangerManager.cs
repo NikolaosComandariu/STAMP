@@ -87,7 +87,7 @@ public class GameChangerManager : MonoBehaviour
 
     private void Reset()
     {
-        //canvases[activeCanvas].enabled = false;
-        //hitboxParent.SetActive(false);
+        rhythmCanvas.enabled = false;
+        oppositeDayCanvas.enabled = false;
     }
 }
