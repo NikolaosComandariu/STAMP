@@ -678,6 +678,8 @@ public class ObjectSpawner : MonoBehaviour
     
     private void SetCriteria(int crit1, int crit2, int crit3, int crit4)
     {
+        criteriaList.Clear();
+
         criteriaList.Add(crit1);
         criteriaList.Add(crit2);
         criteriaList.Add(crit3);
