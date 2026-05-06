@@ -45,6 +45,7 @@ public class ObjectSpawner : MonoBehaviour
     [Header("Events")]
     public System.Action onAllObjectsProcessed; // Nikolaos Comandariu.
     public static event Action<int> OnTallyUpScores;
+    public static Action<bool> onInputAllowed;
 
     // Buttons
     private Button Accept;
@@ -105,11 +106,11 @@ public class ObjectSpawner : MonoBehaviour
 
         if (IsPlayer1)
         {
-            RhythmHitbox.onColliderEnteredP1 += AcceptRhythmPoints;
+           // RhythmHitbox.onColliderEnteredP1 += AcceptRhythmPoints;
         }
         else
         {
-            RhythmHitbox.onColliderEnteredP2 += AcceptRhythmPoints;
+            //RhythmHitbox.onColliderEnteredP2 += AcceptRhythmPoints;
         }
     }
 
@@ -123,11 +124,11 @@ public class ObjectSpawner : MonoBehaviour
 
         if (IsPlayer1)
         {
-            RhythmHitbox.onColliderEnteredP1 -= AcceptRhythmPoints;
+            //RhythmHitbox.onColliderEnteredP1 -= AcceptRhythmPoints;
         }
         else
         {
-            RhythmHitbox.onColliderEnteredP2 -= AcceptRhythmPoints;
+            //RhythmHitbox.onColliderEnteredP2 -= AcceptRhythmPoints;
         }
     }
 
@@ -178,6 +179,7 @@ public class ObjectSpawner : MonoBehaviour
                         ObjectsPool[n].transform.rotation, gameObject.transform);
 
                     InputAllowed = false;
+                    onInputAllowed?.Invoke(InputAllowed);
 
                     productPrice.text = "£" + 
                         currentObject.GetComponent<ObjectPrototype_>().GetPrice().ToString();
@@ -199,6 +201,7 @@ public class ObjectSpawner : MonoBehaviour
                     yield return new WaitForSeconds(InputDelayTime);
 
                     InputAllowed = true;
+                    onInputAllowed?.Invoke(InputAllowed);
 
                     yield return null;
                 }
