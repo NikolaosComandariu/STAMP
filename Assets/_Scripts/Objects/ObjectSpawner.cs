@@ -55,6 +55,8 @@ public class ObjectSpawner : MonoBehaviour
     private bool isSpawning = false;
     private bool AllowDecision = false; //smriti added this
     private bool SpawnGlitchedItem = false;
+    private bool NotMatch = false;
+    private bool IsMatch = false;
 
     public bool InputAllowed;
 
@@ -208,11 +210,11 @@ public class ObjectSpawner : MonoBehaviour
 
     public void DisplayTextFeedback(int amount, Vector3 position, Color color)
     {
-        GameObject instance = Instantiate(ScoreTextFeedback, position, Quaternion.identity);
+            GameObject instance = Instantiate(ScoreTextFeedback, position, Quaternion.identity);
 
-        TextMeshPro tmp = instance.GetComponent<TextMeshPro>();
-        tmp.text = "+" + amount;
-        tmp.color = color;
+            TextMeshPro tmp = instance.GetComponent<TextMeshPro>();
+            tmp.text = "+" + amount;
+            tmp.color = color;
     }
 
     /// <summary>
@@ -344,7 +346,7 @@ public class ObjectSpawner : MonoBehaviour
             {
                 //Debug.Log("ACCEPT: Correct choice!");
                 score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
-                DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+                //DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
                 UpdateScoreUI();
                 Debug.Log("Correct! Score is now: " + score);
             }
@@ -352,8 +354,9 @@ public class ObjectSpawner : MonoBehaviour
             {
                 //Debug.Log("Wrong choice!");
                 score -= 1;
-                DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
+                //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
                 UpdateScoreUI();
+                NotMatch = true;
                 //Debug.Log("Wrong, Score is now: " + score);
                 //code by Smriti
                 if (AllowDecision)
@@ -372,11 +375,25 @@ public class ObjectSpawner : MonoBehaviour
                 //AllowObjSpawn = true;
                 //StartCoroutine(SpawnObject());
             }
+            if (isMatch && NotMatch)
+            {
+                DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
+            }
+            else if (isMatch && !NotMatch)
+            {
+                DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+            }
+            else if (!isMatch && NotMatch)
+            {
+                DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
+            }
         }
 
         Destroy(currentObject);
         currentObject = null;
         AllowObjSpawn = true;
+        isMatch = false;
+        NotMatch = false;
 
         //StartCoroutine(SpawnObject());
         //Debug.Log("Object should be destroyed");
@@ -472,7 +489,8 @@ public class ObjectSpawner : MonoBehaviour
             {
                 //Debug.Log("ACCEPT: Correct choice!");
                 score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
-                DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+                isMatch = true;
+                //DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
                 UpdateScoreUI();
                 Debug.Log("Correct! Score is now: " + score);
             }
@@ -480,8 +498,9 @@ public class ObjectSpawner : MonoBehaviour
             {
                 //Debug.Log("Wrong choice!");
                 score -= 1;
-                DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
+                //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
                 UpdateScoreUI();
+                NotMatch = true;
                 //Debug.Log("Wrong, Score is now: " + score);
                 //code by Smriti
                 if (AllowDecision)
@@ -499,6 +518,22 @@ public class ObjectSpawner : MonoBehaviour
                 }
                 //AllowObjSpawn = true;
                 //StartCoroutine(SpawnObject());
+            }
+            if (isMatch && NotMatch)
+            {
+                DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
+            }
+            else if (isMatch && !NotMatch)
+            {
+                DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+            }
+            else if (!isMatch && NotMatch)
+            {
+                DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
+            }
+            else if (!isMatch || !NotMatch)
+            {
+                break;
             }
         }
 
@@ -534,6 +569,8 @@ public class ObjectSpawner : MonoBehaviour
         Destroy(currentObject);
         currentObject = null;
         AllowObjSpawn = true;
+        isMatch = false;
+        NotMatch = false;
         //StartCoroutine(SpawnObject());
 
         /*
