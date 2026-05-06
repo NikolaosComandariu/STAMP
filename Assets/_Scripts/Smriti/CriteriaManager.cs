@@ -107,6 +107,7 @@ public class CriteriaManager : MonoBehaviour
 
     public void populateItemDict()
     {
+<<<<<<< Smriti_CriteriaManagerRework
         ItemList.Clear();
 
         ItemList.Add(1, ItemCondition.Fruit);
@@ -132,6 +133,26 @@ public class CriteriaManager : MonoBehaviour
 
 
         //TO BE ADDED
+=======
+        CriteriaList.Clear();
+
+        CriteriaList.Add(1, RoundCondition.Fruit);
+        CriteriaList.Add(2, RoundCondition.Red);
+        CriteriaList.Add(3, RoundCondition.Green);
+        CriteriaList.Add(4, RoundCondition.Yellow);
+        CriteriaList.Add(5, RoundCondition.Single);
+        CriteriaList.Add(6, RoundCondition.Orange);
+        CriteriaList.Add(7, RoundCondition.Drink);
+        CriteriaList.Add(8, RoundCondition.NotFruit);
+        CriteriaList.Add(9, RoundCondition.NotRed);
+        CriteriaList.Add(10, RoundCondition.NotGreen);
+        CriteriaList.Add(11, RoundCondition.NotYellow);
+        CriteriaList.Add(12, RoundCondition.NotSingle);
+        CriteriaList.Add(13, RoundCondition.NotOrange);
+        CriteriaList.Add(14, RoundCondition.NotDrink);
+
+        selectCriteria();
+>>>>>>> main
     }
 
     public void IncreaseAmountOfCriteria() { criteriaNumber++; }
@@ -242,18 +263,29 @@ public class CriteriaManager : MonoBehaviour
         //if (criteriaTextList[3] != 0)
            // _criteria4.text = "Criteria 4: " + CriteriaList[key: criteriaTextList[3]].ToString() + "\n";
             
+<<<<<<< Smriti_CriteriaManagerRework
         OnCriteriaDecided.Invoke(criteriaTextList[0], criteriaTextList[1],
             criteriaTextList[2]);
+=======
+        OnCriteriaDecided?.Invoke(criteriaTextList[0], criteriaTextList[1],
+            criteriaTextList[2], criteriaTextList[3]);
+
+        Debug.Log("CriteriaManager: Criterias are: " +  criteriaTextList[0] + ", " + criteriaTextList[1] + ", " + criteriaTextList[2] + ", " + criteriaTextList[3]);
+>>>>>>> main
     }
 
     public void displayCriteria()
     {
         //for (int i = 0; i <= criteriaNumber; i++)
         //{
+<<<<<<< Smriti_CriteriaManagerRework
             populateColourDict();
             populateItemDict();
             populatePriceDict();
             selectCriteria();
+=======
+            populateDict();
+>>>>>>> main
             //i++;
         //}
     }

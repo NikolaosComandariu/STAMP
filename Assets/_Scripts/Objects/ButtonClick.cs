@@ -1,17 +1,22 @@
-using Unity.VisualScripting;
+using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class ButtonClick : MonoBehaviour
-{ // Nikolaos Comandariu.
+{ 
+    // Nikolaos Comandariu.
+
     //[SerializeField] private char acceptKey;
     //[SerializeField] private char declineKey;
     //[SerializeField] private bool isPlayer1;
+
+    [Header("Input")]
     [SerializeField] private KeyCode acceptKey;
     [SerializeField] private KeyCode declineKey;
 
+    public static event Action onBothInputsPressed;
     //AudioManager audioManager;
 
+    AudioManager audioManager;
 
     //private void Awake()
     //{
@@ -22,16 +27,19 @@ public class ButtonClick : MonoBehaviour
     {
         if (Input.GetKeyDown(acceptKey))
         {
-            Debug.Log("Accept");
+            //Debug.Log("Accept");
             OnAcceptPressed();
-
-
         }
         if (Input.GetKeyDown(declineKey))
         {
-            Debug.Log("Decline");
+            //Debug.Log("Decline");
             OnDeclinePressed();
-        }    
+        }
+        /*if (Input.GetKeyDown(acceptKey) && Input.GetKeyDown(declineKey))
+        {
+            Debug.Log("Both input keys were pressed: Activating round changer!");
+            onBothInputsPressed?.Invoke();
+        }*/
 
         /*if(isPlayer1)
         {
