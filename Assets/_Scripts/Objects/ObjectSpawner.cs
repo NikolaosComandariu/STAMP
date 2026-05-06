@@ -45,7 +45,8 @@ public class ObjectSpawner : MonoBehaviour
     [Header("Events")]
     public System.Action onAllObjectsProcessed; // Nikolaos Comandariu.
     public static event Action<int> OnTallyUpScores;
-    public static Action<bool> onInputAllowed;
+    public static Action<bool> onInputAllowedP1;
+    public static Action<bool> onInputAllowedP2;
 
     // Buttons
     private Button Accept;
@@ -179,7 +180,15 @@ public class ObjectSpawner : MonoBehaviour
                         ObjectsPool[n].transform.rotation, gameObject.transform);
 
                     InputAllowed = false;
-                    onInputAllowed?.Invoke(InputAllowed);
+
+                    if(IsPlayer1)
+                    {
+                        onInputAllowedP1?.Invoke(InputAllowed);
+                    }
+                    else
+                    {
+                        onInputAllowedP2?.Invoke(InputAllowed);
+                    } 
 
                     productPrice.text = "£" + 
                         currentObject.GetComponent<ObjectPrototype_>().GetPrice().ToString();
@@ -201,7 +210,15 @@ public class ObjectSpawner : MonoBehaviour
                     yield return new WaitForSeconds(InputDelayTime);
 
                     InputAllowed = true;
-                    onInputAllowed?.Invoke(InputAllowed);
+
+                    if (IsPlayer1)
+                    {
+                        onInputAllowedP1?.Invoke(InputAllowed);
+                    }
+                    else
+                    {
+                        onInputAllowedP2?.Invoke(InputAllowed);
+                    }
 
                     yield return null;
                 }
@@ -308,7 +325,7 @@ public class ObjectSpawner : MonoBehaviour
     /// </summary>
     public void AcceptObject()
     {
-        //Debug.Log("accept clicked");
+        Debug.Log("accept clicked");
 
         if (currentObject == null) 
             return;
@@ -395,7 +412,7 @@ public class ObjectSpawner : MonoBehaviour
                 }
 
                 score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
-                //DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+                DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
                 UpdateScoreUI();
                 Debug.Log("Correct! Score is now: " + score);
             }
@@ -425,25 +442,11 @@ public class ObjectSpawner : MonoBehaviour
                 //AllowObjSpawn = true;
                 //StartCoroutine(SpawnObject());
             }
-            if (isMatch && NotMatch)
-            {
-                DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
-            }
-            else if (isMatch && !NotMatch)
-            {
-                DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
-            }
-            else if (!isMatch && NotMatch)
-            {
-                DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
-            }
         }
 
         Destroy(currentObject);
         currentObject = null;
         AllowObjSpawn = true;
-        isMatch = false;
-        NotMatch = false;
 
         //StartCoroutine(SpawnObject());
         //Debug.Log("Object should be destroyed");
@@ -551,7 +554,7 @@ public class ObjectSpawner : MonoBehaviour
 
                 score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
                 isMatch = true;
-                //DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+                DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
                 UpdateScoreUI();
                 Debug.Log("Correct! Score is now: " + score);
             }
@@ -580,22 +583,6 @@ public class ObjectSpawner : MonoBehaviour
                 }
                 //AllowObjSpawn = true;
                 //StartCoroutine(SpawnObject());
-            }
-            if (isMatch && NotMatch)
-            {
-                DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
-            }
-            else if (isMatch && !NotMatch)
-            {
-                DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
-            }
-            else if (!isMatch && NotMatch)
-            {
-                DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
-            }
-            else if (!isMatch || !NotMatch)
-            {
-                break;
             }
         }
 
@@ -631,8 +618,6 @@ public class ObjectSpawner : MonoBehaviour
         Destroy(currentObject);
         currentObject = null;
         AllowObjSpawn = true;
-        isMatch = false;
-        NotMatch = false;
         //StartCoroutine(SpawnObject());
 
         /*
