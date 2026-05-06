@@ -12,6 +12,8 @@ public class ButtonClick : MonoBehaviour
 
     //AudioManager audioManager;
 
+    [SerializeField] public ObjectSpawner objectSpawner;
+    AudioManager audioManager;
 
     //private void Awake()
     //{
@@ -22,16 +24,33 @@ public class ButtonClick : MonoBehaviour
     {
         if (Input.GetKeyDown(acceptKey))
         {
-            Debug.Log("Accept");
-            OnAcceptPressed();
-
-
+            if ( objectSpawner.InputAllowed)
+            {
+                //Debug.Log("Accept");
+                OnAcceptPressed();
+            }
+            else
+            {
+                //play audio to signify decision blocked and player needs to wait
+            }
         }
         if (Input.GetKeyDown(declineKey))
         {
-            Debug.Log("Decline");
-            OnDeclinePressed();
-        }    
+            if ( objectSpawner.InputAllowed)
+            {
+                //Debug.Log("Decline");
+                OnDeclinePressed();
+            }
+            else
+            {
+                //play audio to signify decision blocked and player needs to wait
+            }
+        }
+        /*if (Input.GetKeyDown(acceptKey) && Input.GetKeyDown(declineKey))
+        {
+            Debug.Log("Both input keys were pressed: Activating round changer!");
+            onBothInputsPressed?.Invoke();
+        }*/
 
         /*if(isPlayer1)
         {

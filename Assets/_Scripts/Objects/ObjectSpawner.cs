@@ -36,6 +36,9 @@ public class ObjectSpawner : MonoBehaviour
     [Header("Probability - Glitched items")]
     [SerializeField] private int upperLimit;
 
+    [Header("Input Delay")]
+    [SerializeField] private int InputDelayTime;
+
     [Header("Events")]
     public System.Action onAllObjectsProcessed; // Nikolaos Comandariu.
 
@@ -52,6 +55,8 @@ public class ObjectSpawner : MonoBehaviour
     private bool isSpawning = false;
     private bool AllowDecision = false; //smriti added this
     private bool SpawnGlitchedItem = false;
+
+    public bool InputAllowed;
 
     private Vector3 CurrentObjLoc;
 
@@ -137,6 +142,8 @@ public class ObjectSpawner : MonoBehaviour
                     currentObject = Instantiate(ObjectsPool[n], SpawnPos.position, 
                         ObjectsPool[n].transform.rotation, gameObject.transform);
 
+                    InputAllowed = false;
+
                     productPrice.text = "£" + 
                         currentObject.GetComponent<ObjectPrototype_>().GetPrice().ToString();
                     //Debug.Log("spawn object");
@@ -153,6 +160,10 @@ public class ObjectSpawner : MonoBehaviour
 
                     AllowDecision = true;
                     AllowObjSpawn = false;
+
+                    yield return new WaitForSeconds(InputDelayTime);
+
+                    InputAllowed = true;
 
                     yield return null;
                 }
