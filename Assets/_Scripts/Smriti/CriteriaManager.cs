@@ -100,7 +100,7 @@ public class CriteriaManager : MonoBehaviour
         if (criteriaTextList[3] != 0)
             _criteria4.text = "Criteria 4: " + CriteriaList[key: criteriaTextList[3]].ToString() + "\n";
             
-        OnCriteriaDecided.Invoke(criteriaTextList[0], criteriaTextList[1],
+        OnCriteriaDecided?.Invoke(criteriaTextList[0], criteriaTextList[1],
             criteriaTextList[2], criteriaTextList[3]);
 
         Debug.Log("CriteriaManager: Criterias are: " +  criteriaTextList[0] + ", " + criteriaTextList[1] + ", " + criteriaTextList[2] + ", " + criteriaTextList[3]);

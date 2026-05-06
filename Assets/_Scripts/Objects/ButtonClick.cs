@@ -1,15 +1,19 @@
-using Unity.VisualScripting;
+using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class ButtonClick : MonoBehaviour
-{ // Nikolaos Comandariu.
+{ 
+    // Nikolaos Comandariu.
+
     //[SerializeField] private char acceptKey;
     //[SerializeField] private char declineKey;
     //[SerializeField] private bool isPlayer1;
+
+    [Header("Input")]
     [SerializeField] private KeyCode acceptKey;
     [SerializeField] private KeyCode declineKey;
 
+    public static event Action onBothInputsPressed;
     //AudioManager audioManager;
 
     [SerializeField] public ObjectSpawner objectSpawner;
@@ -45,6 +49,13 @@ public class ButtonClick : MonoBehaviour
             {
                 //play audio to signify decision blocked and player needs to wait
             }
+            //Debug.Log("Accept");
+            OnAcceptPressed();
+        }
+        if (Input.GetKeyDown(declineKey))
+        {
+            //Debug.Log("Decline");
+            OnDeclinePressed();
         }
         /*if (Input.GetKeyDown(acceptKey) && Input.GetKeyDown(declineKey))
         {
