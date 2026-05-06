@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        countDownManager.onRoundTimerFinished += HandleTimeRunningOut;
+        CountdownManager.onRoundTimerFinished += HandleTimeRunningOut;
         objectSpawner.onAllObjectsProcessed += HandleLeftPlayerFinish;
         rightObjSpawner.onAllObjectsProcessed += HandleRightPlayerFinish;
         GameChangerManager.onGameChangerActivated += ActivateGameChanger;
@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void OnDisable()
     {
-        countDownManager.onRoundTimerFinished -= HandleTimeRunningOut;
+        CountdownManager.onRoundTimerFinished -= HandleTimeRunningOut;
         objectSpawner.onAllObjectsProcessed -= HandleLeftPlayerFinish;
         rightObjSpawner.onAllObjectsProcessed -= HandleRightPlayerFinish;
         GameChangerManager.onGameChangerActivated -= ActivateGameChanger;
