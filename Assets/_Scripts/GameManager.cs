@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     private bool p1Finished;
     private bool p2Finished;
     private bool activateGameChanger;
+    private bool timeRanOut;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
@@ -46,6 +47,7 @@ public class GameManager : MonoBehaviour
         p1Finished = false;
         p2Finished = false;
         activateGameChanger = false;
+        timeRanOut = false;
 
         objectSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
         rightObjSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
@@ -69,7 +71,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        CountdownManager.onRoundTimerFinished += HandleTimeRunningOut;
+        CountdownManager.onRoundTimerFinished += TimeRanOut;
         objectSpawner.onAllObjectsProcessed += HandleLeftPlayerFinish;
         rightObjSpawner.onAllObjectsProcessed += HandleRightPlayerFinish;
         GameChangerManager.onGameChangerActivated += ActivateGameChanger;
@@ -80,7 +82,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void OnDisable()
     {
-        CountdownManager.onRoundTimerFinished -= HandleTimeRunningOut;
+        CountdownManager.onRoundTimerFinished -= TimeRanOut;
         objectSpawner.onAllObjectsProcessed -= HandleLeftPlayerFinish;
         rightObjSpawner.onAllObjectsProcessed -= HandleRightPlayerFinish;
         GameChangerManager.onGameChangerActivated -= ActivateGameChanger;
@@ -204,7 +206,7 @@ public class GameManager : MonoBehaviour
 
     private void HandleRoundEnd()
     {
-        if (roundEnding || !p1Finished || !p2Finished) return;
+        if (roundEnding || !p1Finished || !p2Finished || !timeRanOut) return;
 
         p1Finished = false;
         p2Finished = false;
@@ -218,5 +220,11 @@ public class GameManager : MonoBehaviour
     private void ActivateGameChanger()
     {
         activateGameChanger = true;
+    }
+
+    private void TimeRanOut()
+    {
+        timeRanOut = true;
+        HandleRoundEnd();
     }
 }
