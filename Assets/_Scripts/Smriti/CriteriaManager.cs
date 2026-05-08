@@ -118,7 +118,8 @@ public class CriteriaManager : MonoBehaviour
 
         colourKey = Random.Range(1, ColourList.Count);
         itemKey = Random.Range(1, ItemList.Count);
-        priceKey = Random.Range(1, PriceList.Count);
+        //priceKey = Random.Range(1, PriceList.Count);
+        priceKey = Random.Range(1, ColourList.Count);
 
         switch (criteriaNumber)
         {
