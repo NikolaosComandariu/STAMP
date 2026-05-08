@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     private bool p1Finished;
     private bool p2Finished;
     private bool activateGameChanger;
+    private bool timeRanOut;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
@@ -46,6 +47,7 @@ public class GameManager : MonoBehaviour
         p1Finished = false;
         p2Finished = false;
         activateGameChanger = false;
+        timeRanOut = false;
 
         objectSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
         rightObjSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
@@ -69,7 +71,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        countDownManager.onRoundTimerFinished += HandleTimeRunningOut;
+        CountdownManager.onRoundTimerFinished += TimeRanOut;
         objectSpawner.onAllObjectsProcessed += HandleLeftPlayerFinish;
         rightObjSpawner.onAllObjectsProcessed += HandleRightPlayerFinish;
         GameChangerManager.onGameChangerActivated += ActivateGameChanger;
@@ -80,7 +82,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void OnDisable()
     {
-        countDownManager.onRoundTimerFinished -= HandleTimeRunningOut;
+        CountdownManager.onRoundTimerFinished -= TimeRanOut;
         objectSpawner.onAllObjectsProcessed -= HandleLeftPlayerFinish;
         rightObjSpawner.onAllObjectsProcessed -= HandleRightPlayerFinish;
         GameChangerManager.onGameChangerActivated -= ActivateGameChanger;
@@ -186,37 +188,49 @@ public class GameManager : MonoBehaviour
     private void HandleLeftPlayerFinish()
     {
         p1Finished = true;
-        HandleRoundEnd();
+        StartCoroutine(HandleRoundEnd());
     }
 
     private void HandleRightPlayerFinish()
     {
         p2Finished = true;
-        HandleRoundEnd();
+        StartCoroutine(HandleRoundEnd());
     }
 
     private void HandleTimeRunningOut()
     {
         p1Finished = true;
         p2Finished = true;
-        HandleRoundEnd();
+        StartCoroutine(HandleRoundEnd());
     }
 
-    private void HandleRoundEnd()
+    private IEnumerator HandleRoundEnd()
     {
-        if (roundEnding || !p1Finished || !p2Finished) return;
+        if (roundEnding || !p1Finished || !p2Finished || !timeRanOut) yield return null;
 
         p1Finished = false;
         p2Finished = false;
         roundEnding = true;
+        timeRanOut = false;
 
         objectSpawner.ResetObjects();
         rightObjSpawner.ResetObjects();
-        StartCoroutine(NextRound());
+
+        yield return StartCoroutine(NextRound());
     }
 
     private void ActivateGameChanger()
     {
         activateGameChanger = true;
+    }
+
+    private void TimeRanOut()
+    {
+        timeRanOut = true;
+        roundEnding = false;
+        p1Finished = true;
+        p2Finished = true;
+
+        StartCoroutine(HandleRoundEnd());
     }
 }

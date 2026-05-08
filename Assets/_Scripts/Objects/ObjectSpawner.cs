@@ -699,9 +699,12 @@ public class ObjectSpawner : MonoBehaviour
 
     public void ResetObjects()
     {
+        ObjectsPool.Clear();
+        NumOfObjToSpawn = 0;
+        AllowObjSpawn = true;
+    
         Destroy(currentObject);
         currentObject = null;
-        GenerateObjectsForRound();
     }
     private void TallyUpScores()
     {

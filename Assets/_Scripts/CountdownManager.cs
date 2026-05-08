@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using System;
 
 public class CountdownManager : MonoBehaviour
 {
@@ -10,9 +11,6 @@ public class CountdownManager : MonoBehaviour
     [Header("Game Objects")]
     [SerializeField] private GameObject startCountdownGO;
     [SerializeField] private GameObject roundTimerGO;
-
-    [Header("Events")]
-    public System.Action onRoundTimerFinished;
 
     [Header("Audio")]
     [SerializeField] private AudioManager audioManager;
@@ -24,6 +22,9 @@ public class CountdownManager : MonoBehaviour
     // Coroutines, needed to stop a specific coroutine.
     private Coroutine startCountdownRoutine;
     private Coroutine roundCountdownRoutine;
+
+    // Events.
+    public static Action onRoundTimerFinished;
 
     private float roundCountdown;
 
