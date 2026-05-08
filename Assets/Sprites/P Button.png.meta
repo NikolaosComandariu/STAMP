@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d7fefdfb0138b714691a4147d4e6346e
+guid: 10a1d64ef2ef93147a4a1917c9f163c5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1347816161679852662
-    second: Glitched Orange_0
+      213: 4091726785045013599
+    second: P Button_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Glitched Orange_0
+      name: P Button_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 8
-        width: 63
-        height: 51
+        x: 20
+        y: 31
+        width: 58
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a8bba8c87589b4de0800000000000000
-      internalID: -1347816161679852662
+      spriteID: f542f8405dbb8c830800000000000000
+      internalID: 4091726785045013599
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Glitched Orange_0: -1347816161679852662
+      P Button_0: 4091726785045013599
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

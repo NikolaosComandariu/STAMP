@@ -139,21 +139,21 @@ public class CriteriaManager : MonoBehaviour
 
         if (criteriaTextList[0] != 0)
         {
-            _criteriaP1_1.text = "Criteria 1: " + ColourList[key: criteriaTextList[0]].ToString() + "\n";
-            _criteriaP2_1.text = "Criteria 1: " + ColourList[key: criteriaTextList[0]].ToString() + "\n";
+            _criteriaP1_1.text = ColourList[key: criteriaTextList[0]].ToString() + "\n";
+            _criteriaP2_1.text = ColourList[key: criteriaTextList[0]].ToString() + "\n";
         }
 
         if (criteriaTextList[1] != 0)
         {
-            _criteriaP1_2.text = "Criteria 2: " + ItemList[key: criteriaTextList[1]].ToString() + "\n";
-            _criteriaP2_2.text = "Criteria 2: " + ItemList[key: criteriaTextList[1]].ToString() + "\n";
+            _criteriaP1_2.text = ItemList[key: criteriaTextList[1]].ToString() + "\n";
+            _criteriaP2_2.text = ItemList[key: criteriaTextList[1]].ToString() + "\n";
         }
             
 
         if (criteriaTextList[2] != 0)
         {
-            _criteriaP1_3.text = "Criteria 3: " + PriceList[key: criteriaTextList[2]].ToString() + "\n";
-            _criteriaP2_3.text = "Criteria 3: " + PriceList[key: criteriaTextList[2]].ToString() + "\n";
+            _criteriaP1_3.text = PriceList[key: criteriaTextList[2]].ToString() + "\n";
+            _criteriaP2_3.text = PriceList[key: criteriaTextList[2]].ToString() + "\n";
         }
             
         OnCriteriaDecided.Invoke(criteriaTextList[0], criteriaTextList[1],

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d7fefdfb0138b714691a4147d4e6346e
+guid: c0763c9ac1eee2f4592e4f4a8f3d80a9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1347816161679852662
-    second: Glitched Orange_0
+      213: -349136673274432311
+    second: DECLINE BUTTON_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Glitched Orange_0
+      name: DECLINE BUTTON_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 8
+        y: 29
         width: 63
-        height: 51
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a8bba8c87589b4de0800000000000000
-      internalID: -1347816161679852662
+      spriteID: 9c47a63ab0e972bf0800000000000000
+      internalID: -349136673274432311
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Glitched Orange_0: -1347816161679852662
+      DECLINE BUTTON_0: -349136673274432311
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
