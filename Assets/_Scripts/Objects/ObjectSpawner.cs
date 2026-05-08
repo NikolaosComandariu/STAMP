@@ -42,6 +42,10 @@ public class ObjectSpawner : MonoBehaviour
     [Header("Input Delay")]
     [SerializeField] private int InputDelayTime;
 
+    [Header("Particles")]
+    [SerializeField] private GameObject correctParticles;
+    [SerializeField] private GameObject wrongParticles;
+
     [Header("Events")]
     public System.Action onAllObjectsProcessed; // Nikolaos Comandariu.
     public static event Action<int> OnTallyUpScores;
@@ -266,7 +270,7 @@ public class ObjectSpawner : MonoBehaviour
             GameObject instance = Instantiate(ScoreTextFeedback, position, Quaternion.identity);
 
             TextMeshPro tmp = instance.GetComponent<TextMeshPro>();
-            tmp.text = "+" + amount;
+            tmp.text = amount;
             tmp.color = color;
     }
 

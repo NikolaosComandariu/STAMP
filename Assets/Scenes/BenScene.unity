@@ -536,6 +536,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: wrongParticles
+      value: 
+      objectReference: {fileID: 6410340489811034738, guid: 223860b91cd4d44438c4eb1937aa93be, type: 3}
+    - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: correctParticles
+      value: 
+      objectReference: {fileID: 6642050233283542100, guid: fdf05b7c3065d5f4799f08ee3c9889fa, type: 3}
+    - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
       propertyPath: ScoreTextFeedback
       value: 
       objectReference: {fileID: 5908191868816001383, guid: 0140a42e25fc954409e02fa1714685e9, type: 3}
@@ -3492,6 +3500,14 @@ PrefabInstance:
       propertyPath: InputDelayTime
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: wrongParticles
+      value: 
+      objectReference: {fileID: 6410340489811034738, guid: 223860b91cd4d44438c4eb1937aa93be, type: 3}
+    - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: correctParticles
+      value: 
+      objectReference: {fileID: 6642050233283542100, guid: fdf05b7c3065d5f4799f08ee3c9889fa, type: 3}
     - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
       propertyPath: ScoreTextFeedback
       value: 
