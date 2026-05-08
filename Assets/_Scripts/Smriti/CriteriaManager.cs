@@ -17,7 +17,7 @@ public class CriteriaManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _criteriaP2_1;
     [SerializeField] private TextMeshProUGUI _criteriaP2_2;
     [SerializeField] private TextMeshProUGUI _criteriaP2_3;
-    // [SerializeField] private TextMeshProUGUI _criteria4;
+
 
     private Dictionary<int, ColourCondition> ColourList = new Dictionary<int, ColourCondition>();
     private Dictionary<int, ItemCondition> ItemList = new Dictionary<int, ItemCondition>();
@@ -25,25 +25,6 @@ public class CriteriaManager : MonoBehaviour
     public int criteriaNumber = 1;
 
     public static event Action<int, int, int> OnCriteriaDecided;
-   // private bool duplicateOccured = false;
-
-   /* public enum RoundCondition
-    {
-        Fruit,
-        Red,
-        Green,
-        Yellow,
-        Single,
-        Orange, 
-        Drink,
-        NotFruit,
-        NotRed,
-        NotGreen,
-        NotYellow,
-        NotSingle,
-        NotOrange,
-        NotDrink 
-    }*/
 
 
     public enum ColourCondition
@@ -81,14 +62,6 @@ public class CriteriaManager : MonoBehaviour
         //More to be added later once properly sorted out
     }
 
-    /*public enum CriteriaOnScreen
-    {
-        One,
-        Two,
-        Three,
-        Four
-    }*/
-
     //populating dictionary
     public void populateColourDict()
     {
@@ -107,7 +80,6 @@ public class CriteriaManager : MonoBehaviour
 
     public void populateItemDict()
     {
-<<<<<<< Smriti_CriteriaManagerRework
         ItemList.Clear();
 
         ItemList.Add(1, ItemCondition.Fruit);
@@ -133,84 +105,13 @@ public class CriteriaManager : MonoBehaviour
 
 
         //TO BE ADDED
-=======
-        CriteriaList.Clear();
 
-        CriteriaList.Add(1, RoundCondition.Fruit);
-        CriteriaList.Add(2, RoundCondition.Red);
-        CriteriaList.Add(3, RoundCondition.Green);
-        CriteriaList.Add(4, RoundCondition.Yellow);
-        CriteriaList.Add(5, RoundCondition.Single);
-        CriteriaList.Add(6, RoundCondition.Orange);
-        CriteriaList.Add(7, RoundCondition.Drink);
-        CriteriaList.Add(8, RoundCondition.NotFruit);
-        CriteriaList.Add(9, RoundCondition.NotRed);
-        CriteriaList.Add(10, RoundCondition.NotGreen);
-        CriteriaList.Add(11, RoundCondition.NotYellow);
-        CriteriaList.Add(12, RoundCondition.NotSingle);
-        CriteriaList.Add(13, RoundCondition.NotOrange);
-        CriteriaList.Add(14, RoundCondition.NotDrink);
-
-        selectCriteria();
->>>>>>> main
     }
 
     public void IncreaseAmountOfCriteria() { criteriaNumber++; }
 
     public void selectCriteria()
     {
-        /*if (duplicateOccured != true)
-       // {
-            for (int i = 0; i < criteriaNumber;)
-            {
-                int criteria;
-                criteria = Random.Range(1, ColourList.Count);
-                //RoundCondition qRC = CriteriaList[key: amountOfCriteria];
-                //Debug.Log(qRC.ToString());
-                //_criteria1.text = "Criteria: " + qRC.ToString();
-
-                criteriaTextList[i] = criteria;
-
-                /*if(i != 0 && criteriaTextList[i] == criteriaTextList[i - 1])
-                {
-                    duplicateOccured = true;
-                }
-                else if(i == 2 && criteriaTextList[i] == criteriaTextList[i - 2])
-                {
-                    duplicateOccured = true;
-                }
-                else
-                {
-                    i++;
-                }
-            }
-       // }
-
-       /* else
-        {
-            duplicateOccured = false;
-            selectCriteria();
-        }*/
-
-        //selectCriteria();
-
-
-        /* for (int i =  0; i < criteriaNumber;)
-         {
-             int criteria;
-             criteria = Random.Range(1, CriteriaList.Count);
-             //RoundCondition qRC = CriteriaList[key: amountOfCriteria];
-             //Debug.Log(qRC.ToString());
-             //_criteria1.text = "Criteria: " + qRC.ToString();
-
-             criteriaTextList[i] = criteria;
-         }
-         int q; 
-         q = Random.Range(0, CriteriaList.Count);
-         RoundCondition qRC = CriteriaList[key: q];
-         Debug.Log(qRC.ToString());
-         _criteria1.text = "Criteria: " + qRC.ToString(); */
-
         int colourKey;
         int itemKey;
         int priceKey;
@@ -219,32 +120,28 @@ public class CriteriaManager : MonoBehaviour
         itemKey = Random.Range(1, ItemList.Count);
         priceKey = Random.Range(1, PriceList.Count);
 
-        if (criteriaNumber == 3)
+        switch (criteriaNumber)
         {
-            criteriaTextList[0] = colourKey;
-            criteriaTextList[1] = itemKey;
-            criteriaTextList[2] = priceKey;
+            case 1:
+                criteriaTextList[0] = colourKey;
+                break;
+            case 2:
+                criteriaTextList[0] = colourKey;
+                criteriaTextList[1] = itemKey;
+                break;
+            case 3:
+                criteriaTextList[0] = colourKey;
+                criteriaTextList[1] = itemKey;
+                criteriaTextList[2] = priceKey;
+                break;
         }
 
-        if (criteriaNumber == 2) 
-        {
-            criteriaTextList[0] = colourKey;
-            criteriaTextList[1] = itemKey;
-        }
-
-        if (criteriaNumber == 1)
-        {
-            criteriaTextList[0] = colourKey;
-        }
 
         if (criteriaTextList[0] != 0)
         {
             _criteriaP1_1.text = "Criteria 1: " + ColourList[key: criteriaTextList[0]].ToString() + "\n";
             _criteriaP2_1.text = "Criteria 1: " + ColourList[key: criteriaTextList[0]].ToString() + "\n";
         }
-
-        //_criteriaP1_1.text = "Criteria 1: " + CriteriaList[key: criteriaTextList[0]].ToString() + "\n";
-       // _criteriaP2_1.text = "Criteria 1: " + CriteriaList[key: criteriaTextList[0]].ToString() + "\n";
 
         if (criteriaTextList[1] != 0)
         {
@@ -258,35 +155,19 @@ public class CriteriaManager : MonoBehaviour
             _criteriaP1_3.text = "Criteria 3: " + PriceList[key: criteriaTextList[2]].ToString() + "\n";
             _criteriaP2_3.text = "Criteria 3: " + PriceList[key: criteriaTextList[2]].ToString() + "\n";
         }
-           // _criteria3.text = "Criteria 3: " + CriteriaList[key: criteriaTextList[2]].ToString() + "\n";
-
-        //if (criteriaTextList[3] != 0)
-           // _criteria4.text = "Criteria 4: " + CriteriaList[key: criteriaTextList[3]].ToString() + "\n";
             
-<<<<<<< Smriti_CriteriaManagerRework
         OnCriteriaDecided.Invoke(criteriaTextList[0], criteriaTextList[1],
             criteriaTextList[2]);
-=======
-        OnCriteriaDecided?.Invoke(criteriaTextList[0], criteriaTextList[1],
-            criteriaTextList[2], criteriaTextList[3]);
 
-        Debug.Log("CriteriaManager: Criterias are: " +  criteriaTextList[0] + ", " + criteriaTextList[1] + ", " + criteriaTextList[2] + ", " + criteriaTextList[3]);
->>>>>>> main
+
+        Debug.Log("CriteriaManager: Criterias are: " +  criteriaTextList[0] + ", " + criteriaTextList[1] + ", " + criteriaTextList[2]);
     }
 
     public void displayCriteria()
     {
-        //for (int i = 0; i <= criteriaNumber; i++)
-        //{
-<<<<<<< Smriti_CriteriaManagerRework
             populateColourDict();
             populateItemDict();
             populatePriceDict();
             selectCriteria();
-=======
-            populateDict();
->>>>>>> main
-            //i++;
-        //}
     }
 }

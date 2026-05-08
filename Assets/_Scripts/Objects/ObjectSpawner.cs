@@ -665,10 +665,6 @@ public class ObjectSpawner : MonoBehaviour
         currentObject = null;
         GenerateObjectsForRound();
     }
-
-<<<<<<< Smriti_CriteriaManagerRework
-    private void SetCriteria(int crit1, int crit2, int crit3)
-=======
     private void TallyUpScores()
     {
         OnTallyUpScores?.Invoke(score);
@@ -679,21 +675,16 @@ public class ObjectSpawner : MonoBehaviour
         rhythmPoints = canAccept;
     }
     
-    private void SetCriteria(int crit1, int crit2, int crit3, int crit4)
->>>>>>> main
+    private void SetCriteria(int crit1, int crit2, int crit3)
+
     {
         criteriaList.Clear();
 
         criteriaList.Add(crit1);
         criteriaList.Add(crit2);
         criteriaList.Add(crit3);
-<<<<<<< Smriti_CriteriaManagerRework
-        //criteriaList.Add(crit4);
-=======
-        criteriaList.Add(crit4);
 
-        Debug.Log("Criterias: " + crit1 + crit2 + crit3 + crit4);
->>>>>>> main
+        Debug.Log("Criterias: " + crit1 + crit2 + crit3);
     }
 
     // End of code from Nikolaos Comandariu.
