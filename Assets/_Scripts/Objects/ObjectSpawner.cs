@@ -40,7 +40,7 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] private int upperLimit;
 
     [Header("Input Delay")]
-    [SerializeField] private int InputDelayTime;
+    [SerializeField] private float InputDelayTime;
 
     [Header("Game Objects")]
     [SerializeField] private GameObject correctParticles;
