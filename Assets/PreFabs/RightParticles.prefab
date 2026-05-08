@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1726139804391462494}
   - component: {fileID: 511927872978337755}
   - component: {fileID: 2262748505600530642}
+  - component: {fileID: 2567056619903469583}
   m_Layer: 0
   m_Name: RightParticles
   m_TagString: Untagged
@@ -4837,3 +4838,15 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
+--- !u!114 &2567056619903469583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6642050233283542100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 169f7e3044efd244cab70dbb8512492c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
