@@ -665,7 +665,6 @@ public class ObjectSpawner : MonoBehaviour
         currentObject = null;
         GenerateObjectsForRound();
     }
-
     private void TallyUpScores()
     {
         OnTallyUpScores?.Invoke(score);
@@ -676,16 +675,16 @@ public class ObjectSpawner : MonoBehaviour
         rhythmPoints = canAccept;
     }
     
-    private void SetCriteria(int crit1, int crit2, int crit3, int crit4)
+    private void SetCriteria(int crit1, int crit2, int crit3)
+
     {
         criteriaList.Clear();
 
         criteriaList.Add(crit1);
         criteriaList.Add(crit2);
         criteriaList.Add(crit3);
-        criteriaList.Add(crit4);
 
-        Debug.Log("Criterias: " + crit1 + crit2 + crit3 + crit4);
+        Debug.Log("Criterias: " + crit1 + crit2 + crit3);
     }
 
     // End of code from Nikolaos Comandariu.
