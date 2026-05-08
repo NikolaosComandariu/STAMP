@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d95b64d6459aa9d4bb4ded54ab0cc778
+guid: a38ba5cf13b9873408c085b4df7d3533
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5691837085277142760
-    second: RundownBackgroundV5_0
+      213: 6668936928697240910
+    second: RundownScene(BlankRules)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: RundownBackgroundV5_0
+      name: RundownScene(BlankRules)_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 81149acd3588201b0800000000000000
-      internalID: -5691837085277142760
+      spriteID: e4dcb789dc2dc8c50800000000000000
+      internalID: 6668936928697240910
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      RundownBackgroundV5_0: -5691837085277142760
+      RundownScene(BlankRules)_0: 6668936928697240910
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
