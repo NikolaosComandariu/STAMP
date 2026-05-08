@@ -43,9 +43,9 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 6853027580889390173, guid: 31598afdd423cfd4fafb3446911d0edd, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 7b7ed715e86ce764a8b3a6768b7b2106, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -172,9 +172,9 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -2183852303809043565, guid: 31598afdd423cfd4fafb3446911d0edd, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 8a37eef45cc33904f9a09ff504115ef2, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -437,7 +437,7 @@ MonoBehaviour:
   musicSource: {fileID: 7436832744059345970}
   SFXSource: {fileID: 2538477969418506426}
   EnvironmentalSource: {fileID: 9149017957274466870}
-  correctChoiceSFX: {fileID: 8300000, guid: a8ca94bb85fc35b428e74fbcfe81d89a, type: 3}
-  incorrectChoiceSFX: {fileID: 0}
-  roundChangeSFX: {fileID: 0}
-  background: {fileID: 8300000, guid: bd021847a4fa7d04e91e8b1fd6004f48, type: 3}
+  correctChoiceSFX: {fileID: 8300000, guid: 898c7593b60471c43a82d9612146d549, type: 3}
+  incorrectChoiceSFX: {fileID: 8300000, guid: ab7a998d02bd6f146a2c05f0c37f01d6, type: 3}
+  gameStartSFX: {fileID: 8300000, guid: 042a3400cd8a9f142b01258881718b96, type: 3}
+  backgroundButtonClickUISFX: {fileID: 8300000, guid: 8d7c976e5ce6dde4980c995e97cfbaed, type: 3}
