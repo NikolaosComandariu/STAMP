@@ -39,9 +39,14 @@ public class ObjectSpawner : MonoBehaviour
     [Header("Probability - Glitched items")]
     [SerializeField] private int upperLimit;
 
+    [Header("Input Delay")]
+    [SerializeField] private int InputDelayTime;
+
     [Header("Events")]
     public System.Action onAllObjectsProcessed; // Nikolaos Comandariu.
     public static event Action<int> OnTallyUpScores;
+    public static Action<bool> onInputAllowedP1;
+    public static Action<bool> onInputAllowedP2;
 
     // Buttons
     private Button Accept;
@@ -56,6 +61,10 @@ public class ObjectSpawner : MonoBehaviour
     private bool isSpawning = false;
     private bool AllowDecision = false; //smriti added this
     private bool SpawnGlitchedItem = false;
+    private bool NotMatch = false;
+    private bool IsMatch = false;
+
+    public bool InputAllowed;
     private bool rhythmPoints; // Nikolaos Comandariu.
     private bool generatingNumber; //smriti added this; possible to remove if not used
 
@@ -98,11 +107,11 @@ public class ObjectSpawner : MonoBehaviour
 
         if (IsPlayer1)
         {
-            RhythmHitbox.onColliderEnteredP1 += AcceptRhythmPoints;
+           // RhythmHitbox.onColliderEnteredP1 += AcceptRhythmPoints;
         }
         else
         {
-            RhythmHitbox.onColliderEnteredP2 += AcceptRhythmPoints;
+            //RhythmHitbox.onColliderEnteredP2 += AcceptRhythmPoints;
         }
     }
 
@@ -116,11 +125,11 @@ public class ObjectSpawner : MonoBehaviour
 
         if (IsPlayer1)
         {
-            RhythmHitbox.onColliderEnteredP1 -= AcceptRhythmPoints;
+            //RhythmHitbox.onColliderEnteredP1 -= AcceptRhythmPoints;
         }
         else
         {
-            RhythmHitbox.onColliderEnteredP2 -= AcceptRhythmPoints;
+            //RhythmHitbox.onColliderEnteredP2 -= AcceptRhythmPoints;
         }
     }
 
@@ -170,6 +179,17 @@ public class ObjectSpawner : MonoBehaviour
                     currentObject = Instantiate(ObjectsPool[n], SpawnPos.position, 
                         ObjectsPool[n].transform.rotation, gameObject.transform);
 
+                    InputAllowed = false;
+
+                    if(IsPlayer1)
+                    {
+                        onInputAllowedP1?.Invoke(InputAllowed);
+                    }
+                    else
+                    {
+                        onInputAllowedP2?.Invoke(InputAllowed);
+                    } 
+
                     productPrice.text = "£" + 
                         currentObject.GetComponent<ObjectPrototype_>().GetPrice().ToString();
                     //Debug.Log("spawn object");
@@ -186,6 +206,19 @@ public class ObjectSpawner : MonoBehaviour
 
                     AllowDecision = true;
                     AllowObjSpawn = false;
+
+                    yield return new WaitForSeconds(InputDelayTime);
+
+                    InputAllowed = true;
+
+                    if (IsPlayer1)
+                    {
+                        onInputAllowedP1?.Invoke(InputAllowed);
+                    }
+                    else
+                    {
+                        onInputAllowedP2?.Invoke(InputAllowed);
+                    }
 
                     yield return null;
                 }
@@ -230,11 +263,11 @@ public class ObjectSpawner : MonoBehaviour
 
     public void DisplayTextFeedback(int amount, Vector3 position, Color color)
     {
-        GameObject instance = Instantiate(ScoreTextFeedback, position, Quaternion.identity);
+            GameObject instance = Instantiate(ScoreTextFeedback, position, Quaternion.identity);
 
-        TextMeshPro tmp = instance.GetComponent<TextMeshPro>();
-        tmp.text = "+" + amount;
-        tmp.color = color;
+            TextMeshPro tmp = instance.GetComponent<TextMeshPro>();
+            tmp.text = "+" + amount;
+            tmp.color = color;
     }
 
     /// <summary>
@@ -292,7 +325,7 @@ public class ObjectSpawner : MonoBehaviour
     /// </summary>
     public void AcceptObject()
     {
-        //Debug.Log("accept clicked");
+        Debug.Log("accept clicked");
 
         if (currentObject == null) 
             return;
@@ -387,8 +420,10 @@ public class ObjectSpawner : MonoBehaviour
             {
                 //Debug.Log("Wrong choice!");
                 score -= 1;
-                DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
+                //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
                 UpdateScoreUI();
+                NotMatch = true;
+                //Debug.Log("Wrong, Score is now: " + score);
                 Debug.Log("Wrong, Score is now: " + score);
                 //code by Smriti
                 if (AllowDecision)
@@ -518,6 +553,7 @@ public class ObjectSpawner : MonoBehaviour
                 }
 
                 score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
+                isMatch = true;
                 DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
                 UpdateScoreUI();
                 Debug.Log("Correct! Score is now: " + score);
@@ -526,8 +562,10 @@ public class ObjectSpawner : MonoBehaviour
             {
                 //Debug.Log("Wrong choice!");
                 score -= 1;
-                DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
+                //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
                 UpdateScoreUI();
+                NotMatch = true;
+                //Debug.Log("Wrong, Score is now: " + score);
                 Debug.Log("Wrong, Score is now: " + score);
                 //code by Smriti
                 if (AllowDecision)
