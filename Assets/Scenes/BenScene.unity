@@ -524,6 +524,10 @@ PrefabInstance:
       value: 112
       objectReference: {fileID: 0}
     - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: audioManager
+      value: 
+      objectReference: {fileID: 2032119404}
+    - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
       propertyPath: productPrice
       value: 
       objectReference: {fileID: 1023588116}
@@ -3488,6 +3492,10 @@ PrefabInstance:
       propertyPath: IsPlayer1
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: audioManager
+      value: 
+      objectReference: {fileID: 2032119404}
     - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
       propertyPath: productPrice
       value: 
