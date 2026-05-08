@@ -663,7 +663,8 @@ public class ObjectSpawner : MonoBehaviour
     {
         ObjectsPool.Clear();
         NumOfObjToSpawn = 0;
-
+        AllowObjSpawn = true;
+    
         Destroy(currentObject);
         currentObject = null;
     }
