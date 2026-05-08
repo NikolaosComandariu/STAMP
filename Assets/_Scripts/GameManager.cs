@@ -188,25 +188,27 @@ public class GameManager : MonoBehaviour
     private void HandleLeftPlayerFinish()
     {
         p1Finished = true;
-        StartCoroutine(HandleRoundEnd());
+        HandleRoundEnd();
     }
 
     private void HandleRightPlayerFinish()
     {
         p2Finished = true;
-        StartCoroutine(HandleRoundEnd());
+        HandleRoundEnd();
     }
 
     private void HandleTimeRunningOut()
     {
         p1Finished = true;
         p2Finished = true;
-        StartCoroutine(HandleRoundEnd());
+        HandleRoundEnd();
     }
 
-    private IEnumerator HandleRoundEnd()
+    private void HandleRoundEnd()
     {
-        if (roundEnding || !p1Finished || !p2Finished || !timeRanOut) yield return null;
+        if (p1Finished && p2Finished) timeRanOut = true;
+
+        if (roundEnding || !p1Finished || !p2Finished || !timeRanOut) return;
 
         p1Finished = false;
         p2Finished = false;
@@ -216,7 +218,7 @@ public class GameManager : MonoBehaviour
         objectSpawner.ResetObjects();
         rightObjSpawner.ResetObjects();
 
-        yield return StartCoroutine(NextRound());
+       StartCoroutine(NextRound());
     }
 
     private void ActivateGameChanger()
@@ -231,6 +233,6 @@ public class GameManager : MonoBehaviour
         p1Finished = true;
         p2Finished = true;
 
-        StartCoroutine(HandleRoundEnd());
+        HandleRoundEnd();
     }
 }

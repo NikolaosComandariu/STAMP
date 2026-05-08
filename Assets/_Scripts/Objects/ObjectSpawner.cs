@@ -40,7 +40,12 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] private int upperLimit;
 
     [Header("Input Delay")]
-    [SerializeField] private int InputDelayTime;
+    [SerializeField] private float InputDelayTime;
+
+    [Header("Game Objects")]
+    [SerializeField] private GameObject correctParticles;
+    [SerializeField] private GameObject wrongParticles;
+    [SerializeField] private AudioManager audioManager;
 
     [Header("Events")]
     public System.Action onAllObjectsProcessed; // Nikolaos Comandariu.
@@ -266,7 +271,7 @@ public class ObjectSpawner : MonoBehaviour
             GameObject instance = Instantiate(ScoreTextFeedback, position, Quaternion.identity);
 
             TextMeshPro tmp = instance.GetComponent<TextMeshPro>();
-            tmp.text = "+" + amount;
+            tmp.text = amount.ToString();
             tmp.color = color;
     }
 
@@ -409,17 +414,22 @@ public class ObjectSpawner : MonoBehaviour
                 {
                     score += 1;
                     DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+                    Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
                 }
 
                 score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
                 DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+                Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
                 UpdateScoreUI();
                 Debug.Log("Correct! Score is now: " + score);
+                audioManager.PlaySFX(audioManager.correctChoiceSFX);
             }
             else if(!isMatch)
             {
                 //Debug.Log("Wrong choice!");
                 score -= 1;
+                Instantiate(wrongParticles, CurrentObjLoc, Quaternion.identity);
+                audioManager.PlaySFX(audioManager.incorrectChoiceSFX);
                 //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
                 UpdateScoreUI();
                 NotMatch = true;
@@ -550,18 +560,23 @@ public class ObjectSpawner : MonoBehaviour
                 {
                     score += 1;
                     DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+                    Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
                 }
 
                 score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
                 isMatch = true;
                 DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+                Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
                 UpdateScoreUI();
                 Debug.Log("Correct! Score is now: " + score);
+                audioManager.PlaySFX(audioManager.correctChoiceSFX);
             }
             else if (!isMatch)
             {
                 //Debug.Log("Wrong choice!");
                 score -= 1;
+                Instantiate(wrongParticles, CurrentObjLoc, Quaternion.identity);
+                audioManager.PlaySFX(audioManager.incorrectChoiceSFX);
                 //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
                 UpdateScoreUI();
                 NotMatch = true;
