@@ -10,13 +10,14 @@ public class ButtonClick : MonoBehaviour
     [SerializeField] private KeyCode acceptKey;
     [SerializeField] private KeyCode declineKey;
 
-    AudioManager audioManager;
+    //AudioManager audioManager;
 
 
-    private void Awake()
-    {
-        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
-    }
+    //private void Awake()
+    //{
+        //audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    //}
+
     private void Update()
     {
         if (Input.GetKeyDown(acceptKey))
@@ -65,7 +66,7 @@ public class ButtonClick : MonoBehaviour
         Debug.Log("accepted");
         ObjectSpawner spawner = GetComponent<ObjectSpawner>();
         spawner.AcceptObject();
-        audioManager.PlaySFX(audioManager.correctChoiceSFX);
+        //audioManager.PlaySFX(audioManager.correctChoiceSFX);
         
     }
 
