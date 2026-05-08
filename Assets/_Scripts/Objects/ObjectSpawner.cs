@@ -85,20 +85,20 @@ public class ObjectSpawner : MonoBehaviour
     /// </summary>
     public enum RoundCondition
     {
-        Fruit,
         Red,
-        Green,
+        Orange,
         Yellow,
-        Single,
-        Orange, //options added by smriti
-        Drink,
-        NotFruit,
+        Green,
         NotRed,
-        NotGreen,
-        NotYellow,
-        NotSingle,
         NotOrange,
-        NotDrink //end of options added by smrti
+        NotYellow,
+        NotGreen,
+        Fruit,
+        Drink,
+        Single,
+        NotFruit,
+        NotDrink,
+        NotSingle
     }
     
     // Nikolaos Comandariu.
@@ -354,7 +354,7 @@ public class ObjectSpawner : MonoBehaviour
             //Debug.Log("X is not <= 0");
 
             // Set current round condition
-            roundCondition = (RoundCondition)x-1;
+            roundCondition = (RoundCondition)x;
 
             switch (roundCondition)
             {
@@ -427,7 +427,7 @@ public class ObjectSpawner : MonoBehaviour
             else if(!isMatch)
             {
                 //Debug.Log("Wrong choice!");
-                score -= 1;
+                //score -= 1;
                 Instantiate(wrongParticles, CurrentObjLoc, Quaternion.identity);
                 audioManager.PlaySFX(audioManager.incorrectChoiceSFX);
                 //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
@@ -500,7 +500,7 @@ public class ObjectSpawner : MonoBehaviour
             if (x <= 0) break;
             //Debug.Log("X is not <= 0");
             // Set current round condition
-            roundCondition = (RoundCondition)x-1;
+            roundCondition = (RoundCondition)x;
 
             switch (roundCondition)
             {
@@ -574,7 +574,7 @@ public class ObjectSpawner : MonoBehaviour
             else if (!isMatch)
             {
                 //Debug.Log("Wrong choice!");
-                score -= 1;
+                //score -= 1;
                 Instantiate(wrongParticles, CurrentObjLoc, Quaternion.identity);
                 audioManager.PlaySFX(audioManager.incorrectChoiceSFX);
                 //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
