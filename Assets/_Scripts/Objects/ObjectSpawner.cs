@@ -91,8 +91,6 @@ public class ObjectSpawner : MonoBehaviour
         Green,
         NotRed,
         NotOrange,
-        NotDrink,
-        Glitched //end of options added by smrti
         NotYellow,
         NotGreen,
         Fruit,
@@ -101,6 +99,7 @@ public class ObjectSpawner : MonoBehaviour
         NotFruit,
         NotDrink,
         NotSingle
+       // Glitched //end of options added by smrti
     }
     
     // Nikolaos Comandariu.
@@ -365,7 +364,12 @@ public class ObjectSpawner : MonoBehaviour
             // Set current round condition
             roundCondition = (RoundCondition)x;
 
-            if(!proto.checkIsGlitched())
+            if (proto.checkIsGlitched())//code added/edited by smriti
+            {
+                isMatch = false;
+            }
+
+            else
             {
                 switch (roundCondition)
                 {
@@ -419,8 +423,9 @@ public class ObjectSpawner : MonoBehaviour
 
                 Debug.Log("Is match: " + isMatch);
                 Debug.Log("Round condition: " + roundCondition);
+            }
 
-                if (isMatch)
+            if (isMatch)
                 {
                     //Debug.Log("ACCEPT: Correct choice!");
 
@@ -432,18 +437,12 @@ public class ObjectSpawner : MonoBehaviour
 
                     score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
                     DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+                    Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
                     UpdateScoreUI();
                     Debug.Log("Correct! Score is now: " + score);
-                }
-
-
-                score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
-                DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
-                Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
-                UpdateScoreUI();
-                Debug.Log("Correct! Score is now: " + score);
-                audioManager.PlaySFX(audioManager.correctChoiceSFX);
+                    audioManager.PlaySFX(audioManager.correctChoiceSFX);
             }
+            
             else if(!isMatch)
             {
                 //Debug.Log("Wrong choice!");
@@ -485,12 +484,12 @@ public class ObjectSpawner : MonoBehaviour
                 //AllowObjSpawn = true;
                 //StartCoroutine(SpawnObject());
             }
-            else
+            /*else
             {
                 score -= 1;
                 Debug.Log("Glitched item; score derement");
-            }
-
+            }*/
+            //end of code added/edited by smriti
         }
 
         Destroy(currentObject);
@@ -549,8 +548,13 @@ public class ObjectSpawner : MonoBehaviour
             // Set current round condition
             roundCondition = (RoundCondition)x;
 
-            if (!proto.checkIsGlitched())
+            if (proto.checkIsGlitched())
             {
+                isMatch = true;
+            }
+
+            else
+            { 
                 switch (roundCondition)
                 {
                     case RoundCondition.Fruit:
@@ -596,15 +600,16 @@ public class ObjectSpawner : MonoBehaviour
                     case RoundCondition.NotDrink:
                         isMatch = proto.checkIsDrink();
                         break;
-                    /*case RoundCondition.Glitched: //code added by smriti
-                        isMatch = proto.checkIsGlitched();
-                        break;*/
+                        /*case RoundCondition.Glitched: //code added by smriti
+                            isMatch = proto.checkIsGlitched();
+                            break;*/
                 } //end of added code by smriti
 
                 Debug.Log("Is match: " + isMatch);
                 Debug.Log("Round condition: " + roundCondition);
+            }
 
-                if (isMatch)
+            if (isMatch)
                 {
                     //Debug.Log("ACCEPT: Correct choice!");
                     Debug.Log("Rhythm Points: " + rhythmPoints);
@@ -617,19 +622,13 @@ public class ObjectSpawner : MonoBehaviour
                     score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
                     isMatch = true;
                     DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+                    Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
                     UpdateScoreUI();
                     Debug.Log("Correct! Score is now: " + score);
+                    audioManager.PlaySFX(audioManager.correctChoiceSFX);
                 }
 
-
-                score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
-                isMatch = true;
-                DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
-                Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
-                UpdateScoreUI();
-                Debug.Log("Correct! Score is now: " + score);
-                audioManager.PlaySFX(audioManager.correctChoiceSFX);
-            }
+            
             else if (!isMatch)
             {
                 //Debug.Log("Wrong choice!");
@@ -669,11 +668,12 @@ public class ObjectSpawner : MonoBehaviour
                     //StartCoroutine(SpawnObject());
                 }
             }
-            else
+           /* else
             {
                 score += 1;
                 Debug.Log("Glitched Item, score increment");
-            }
+            }*/
+           //end of code added/edited by smriti
 
         }
 
