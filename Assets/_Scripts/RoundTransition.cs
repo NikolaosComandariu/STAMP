@@ -11,11 +11,17 @@ public class RoundTransition : MonoBehaviour
     [Header("Game Objects")]
     [SerializeField] private GameObject transitionObj;
 
+    [Header("Variables")]
+    [SerializeField] private float fadeInTime;
+    [SerializeField] private float fadeOutTime;
+    [SerializeField] private float activeTime;
+
     // Events.
     public static event Action onTransitionEnded;
 
     private Animator anim;
     private SpriteRenderer spriteRenderer;
+    private bool gameChangerActive;
 
     /// <summary>
     /// Get relevant components if they aren't there.
@@ -34,8 +40,11 @@ public class RoundTransition : MonoBehaviour
 
     private void Start()
     {
-        canvasComponent.enabled = false;
+        //canvasComponent.enabled = false;
+        //canvasGroup.alpha = 0.0f;
+
         spriteRenderer.enabled = false;
+        gameChangerActive = false;
     }
 
     /// <summary>
@@ -44,6 +53,9 @@ public class RoundTransition : MonoBehaviour
     private void OnEnable()
     {
         GameManager.onNextRound += StartRoundTransition;
+        GameManager.onGameChangerRound += GameChangerRound;
+        //GameChangerManager.onOppositeDayActivated +=;
+        //GameChangerManager.onRhythmActivated +=;
     }
 
     /// <summary>
@@ -52,6 +64,7 @@ public class RoundTransition : MonoBehaviour
     private void OnDisable()
     {
         GameManager.onNextRound -= StartRoundTransition;
+        GameManager.onGameChangerRound -= GameChangerRound;
     }
 
     /// <summary>
@@ -59,7 +72,7 @@ public class RoundTransition : MonoBehaviour
     /// </summary>
     private void StartRoundTransition()
     {
-        canvasComponent.enabled = true;
+        //canvasComponent.enabled = true;
         spriteRenderer.enabled = true;
         StartCoroutine(RoundTransitionCoroutine());
     }
@@ -71,16 +84,50 @@ public class RoundTransition : MonoBehaviour
     /// <returns></returns>
     private IEnumerator RoundTransitionCoroutine()
     {
-        anim.SetTrigger("ShowTransition"); // Triggers: ShowTransition, StopTransition
-        yield return new WaitForSeconds(3.5f);
+        StartCoroutine(FadeIn());
 
-        anim.ResetTrigger("ShowTransition");
-        anim.SetTrigger("StopTransition");
-        yield return new WaitForSeconds(1.0f);
+        //yield return new WaitForSeconds(1.0f);
 
-        anim.ResetTrigger("StopTransition");
-        canvasComponent.enabled = false;
-        spriteRenderer.enabled = false;
-        onTransitionEnded?.Invoke();
+        //anim.SetTrigger("ShowTransition"); // Triggers: ShowTransition, StopTransition
+        //yield return new WaitForSeconds(3.5f);
+
+        //anim.ResetTrigger("ShowTransition");
+        //anim.SetTrigger("StopTransition");
+        //yield return StartCoroutine(FadeOut());
+        //yield return new WaitForSeconds(1.0f);
+
+        //anim.ResetTrigger("StopTransition");
+        //canvasComponent.enabled = false;
+        //spriteRenderer.enabled = false;
+        //onTransitionEnded?.Invoke();
+
+        yield return null;
+    }
+
+    private IEnumerator FadeIn()
+    {
+        while (canvasGroup.alpha < 1)
+        {
+            canvasGroup.alpha += Time.deltaTime / fadeInTime;
+            Debug.Log("Canvas alpha: " + canvasGroup.alpha);
+
+            yield return null;
+        }
+    }
+
+    private IEnumerator FadeOut()
+    {
+        while(canvasGroup.alpha > 0)
+        {
+            canvasGroup.alpha -= Time.deltaTime / fadeInTime;
+
+            yield return null;
+        }
+    }
+
+    private void GameChangerRound()
+    {
+        gameChangerActive = true;
+
     }
 }
