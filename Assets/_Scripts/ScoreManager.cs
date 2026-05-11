@@ -1,49 +1,45 @@
-using System.Collections.Generic;
-using UnityEngine;
+using System;
+using System.Diagnostics;
 using TMPro;
+using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
-    [Header("Scripts")]
-    [SerializeField] private ObjectPrototype_ myObjPrototype;
-    [SerializeField] private ProduceOptionsManager myPOManager;
+    public static ScoreManager Instance;
 
-    [Header("Criteria")]
-    [SerializeField] private Dictionary<int, string> criteria = new Dictionary<int, string>();
-    //[SerializeField] private ObjectSpawner objectSpawner; // can remove if not used
-    //[SerializeField] private CriteriaManager criteriaManager; // can remove if not used;
+    //"encapsulation", private set so only the scores can be set in this script
+    //better way to do get and set methods
+    public int Player1Score { get; private set; }
+    public int Player2Score { get; private set; }
 
-    [Header("TextGameObject")]
-    [SerializeField] private TextMeshProUGUI p1Score;
-    [SerializeField] private TextMeshProUGUI p2Score;
 
-    private int Player1Score;
-    private int Player2Score;
+    // events
+    public event Action<int> OnPlayer1ScoreChanged;
+    public event Action<int> OnPlayer2ScoreChanged;
 
-    //getters
-    public int getPlayer1Score()
+    private void Awake()
     {
-        return Player1Score;
-    }
-    public int getPlayer2Score()
-    {
-        return Player2Score;
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
     }
 
-    //changes scores
-    public void changePlayer1Score(int score)
+    public void AddScore(bool isPlayer1, int amount)
     {
-        //objectSpawner.UpdateScoreUI();
-        Player1Score = score;
-        p1Score.text = "Player 1 Score: " + Player1Score.ToString();
+        UnityEngine.Debug.Log("AddScore called, P1={isPlayer1} , amount={amount}");
+        if (isPlayer1)
+        {
+
+            Player1Score += amount;
+            //UnityEngine.Debug.Log("P1 score Is now: " + Player1Score);
+            OnPlayer1ScoreChanged?.Invoke(Player1Score);
+        }
+        else
+        {
+            Player2Score += amount;
+            //UnityEngine.Debug.Log("P2 score Is now: " + Player2Score);
+            OnPlayer2ScoreChanged?.Invoke(Player2Score);
+        }
     }
-
-    public void changePlayer2Score(int score)
-    {
-        //objectSpawner.UpdateScoreUI();
-        Player2Score = score;
-        p2Score.text = "Player 2 Score : " + Player2Score.ToString();
-    }
-
-
 }

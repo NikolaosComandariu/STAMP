@@ -78,6 +78,7 @@ public class ObjectSpawner : MonoBehaviour
     private Item item; // This isn't used anywhere, can be removed.
     private Rigidbody2D rb2D;
     private int[] CriteriaGenerated;//smriti added this; possible to remove if not used
+    private bool correctChoice = false;
 
     /// <summary>
     /// Used to compare the criteria to the object to see if the
@@ -417,24 +418,40 @@ public class ObjectSpawner : MonoBehaviour
                     Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
                 }
 
-                score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
+                //score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
+
+
+                //scoreManager.plusPlayer1Score();
+
+                //scoreManager.plusPlayer2Score();
+                
                 DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
                 Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
-                UpdateScoreUI();
-                Debug.Log("Correct! Score is now: " + score);
+                ResolveAnswer(true);
+                if (IsPlayer1)
+                    Debug.Log("Correct! Player 1 score is now: " + ScoreManager.Instance.Player1Score);
+                else
+                    Debug.Log("Correct! Player 2 score is now: " + ScoreManager.Instance.Player2Score);
                 audioManager.PlaySFX(audioManager.correctChoiceSFX);
             }
             else if(!isMatch)
             {
                 //Debug.Log("Wrong choice!");
                 //score -= 1;
+                //scoreManager.minusPlayer1Score();
+
+                //scoreManager.minusPlayer2Score();
+                
                 Instantiate(wrongParticles, CurrentObjLoc, Quaternion.identity);
                 audioManager.PlaySFX(audioManager.incorrectChoiceSFX);
                 //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
-                UpdateScoreUI();
+                ResolveAnswer(false);
                 NotMatch = true;
                 //Debug.Log("Wrong, Score is now: " + score);
-                Debug.Log("Wrong, Score is now: " + score);
+                if (IsPlayer1)
+                    Debug.Log("Wrong! Player 1 score is now: " + ScoreManager.Instance.Player1Score);
+                else
+                    Debug.Log("Wrong! Player 2 score is now: " + ScoreManager.Instance.Player2Score);
                 //code by Smriti
                 if (AllowDecision)
                 {
@@ -563,25 +580,37 @@ public class ObjectSpawner : MonoBehaviour
                     Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
                 }
 
-                score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
+                //score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
+                //scoreManager.plusPlayer1Score();
+                //scoreManager.plusPlayer2Score();
+
+
                 isMatch = true;
                 DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
                 Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
-                UpdateScoreUI();
-                Debug.Log("Correct! Score is now: " + score);
+                ResolveAnswer(true);
+                if (IsPlayer1)
+                    Debug.Log("Correct! Player 1 score is now: " + ScoreManager.Instance.Player1Score);
+                else
+                    Debug.Log("Correct! Player 2 score is now: " + ScoreManager.Instance.Player2Score);
                 audioManager.PlaySFX(audioManager.correctChoiceSFX);
             }
             else if (!isMatch)
             {
                 //Debug.Log("Wrong choice!");
                 //score -= 1;
+                //scoreManager.minusPlayer1Score();
                 Instantiate(wrongParticles, CurrentObjLoc, Quaternion.identity);
                 audioManager.PlaySFX(audioManager.incorrectChoiceSFX);
                 //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
-                UpdateScoreUI();
+
+                ResolveAnswer(false);
                 NotMatch = true;
                 //Debug.Log("Wrong, Score is now: " + score);
-                Debug.Log("Wrong, Score is now: " + score);
+                if (IsPlayer1)
+                    Debug.Log("Wrong! Player 1 score is now: " + ScoreManager.Instance.Player1Score);
+                else
+                    Debug.Log("Wrong! Player 2 score is now: " + ScoreManager.Instance.Player2Score);
                 //code by Smriti
                 if (AllowDecision)
                 {
@@ -668,28 +697,60 @@ public class ObjectSpawner : MonoBehaviour
     /// <summary>
     /// Updates scoreText to show the current score.
     /// </summary>
-    public void UpdateScoreUI()
+    //public void UpdateScoreAndUI()
+    //{
+    //    if (scoreText != null)
+    //    {
+    //        //code added by smriti & Josh
+    //        if (IsPlayer1 && correctChoice == true)
+    //        {
+
+    //            scoreText.text = "Score: " + score;
+    //            scoreManager.changePlayer1Score(score);
+    //            correctChoice = false;
+    //        }
+    //        else if (IsPlayer1 && correctChoice == false)
+    //        {
+
+    //            scoreText.text = "Score: " + score;
+    //            scoreManager.changePlayer1Score(score);
+    //        }
+    //        else if (!IsPlayer1 && correctChoice == true)
+    //        {
+
+    //            scoreText.text = "Score: " + score;
+    //            scoreManager.changePlayer2Score(score);
+    //            correctChoice = false;
+    //        }
+    //        else if (!IsPlayer1 && correctChoice == false)
+    //        {
+
+    //            scoreText.text = "Score: " + score;
+    //            scoreManager.changePlayer2Score(score);
+    //        }
+    //        //scoreText.text = "Score: " + score;
+    //        //scoreManager.changePlayer1Score(score); //smriti added this
+    //        //scoreManager.changePlayer2Score(score); // smriti added this
+    //    }
+    //        //scoreText.text = "Score: " + score;
+    //        //end of code added by smriti
+    //}
+
+
+    void ResolveAnswer(bool isCorrect)
     {
-        if (scoreText != null)
+        if (ScoreManager.Instance == null)
         {
-            //code added by smriti
-            if (IsPlayer1)
-            {
-                scoreText.text = "Score: " + score;
-                scoreManager.changePlayer1Score(score);
-            }
-            else
-            {
-                scoreText.text = "Score: " + score;
-                scoreManager.changePlayer2Score(score);
-            }
-            //scoreText.text = "Score: " + score;
-            //scoreManager.changePlayer1Score(score); //smriti added this
-            //scoreManager.changePlayer2Score(score); // smriti added this
+            Debug.LogError("no scoremanager");
+            return;
         }
-            //scoreText.text = "Score: " + score;
-            //end of code added by smriti
+
+        int delta = isCorrect ? 1 : -1;
+        ScoreManager.Instance.AddScore(IsPlayer1, delta);
+
+        Debug.Log("Player1={IsPlayer1} | Correct={isCorrect} | Delta={delta}");
     }
+
 
     // Code from Nikolaos Comandariu.
 
