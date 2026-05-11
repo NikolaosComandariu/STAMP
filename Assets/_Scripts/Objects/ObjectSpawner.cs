@@ -40,7 +40,12 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] private int upperLimit;
 
     [Header("Input Delay")]
-    [SerializeField] private int InputDelayTime;
+    [SerializeField] private float InputDelayTime;
+
+    [Header("Game Objects")]
+    [SerializeField] private GameObject correctParticles;
+    [SerializeField] private GameObject wrongParticles;
+    [SerializeField] private AudioManager audioManager;
 
     [Header("Events")]
     public System.Action onAllObjectsProcessed; // Nikolaos Comandariu.
@@ -80,21 +85,22 @@ public class ObjectSpawner : MonoBehaviour
     /// </summary>
     public enum RoundCondition
     {
-        Fruit,
         Red,
-        Green,
+        Orange,
         Yellow,
-        Single,
-        Orange, //options added by smriti
-        Drink,
-        NotFruit,
+        Green,
         NotRed,
-        NotGreen,
-        NotYellow,
-        NotSingle,
         NotOrange,
         NotDrink,
         Glitched //end of options added by smrti
+        NotYellow,
+        NotGreen,
+        Fruit,
+        Drink,
+        Single,
+        NotFruit,
+        NotDrink,
+        NotSingle
     }
     
     // Nikolaos Comandariu.
@@ -267,7 +273,7 @@ public class ObjectSpawner : MonoBehaviour
             GameObject instance = Instantiate(ScoreTextFeedback, position, Quaternion.identity);
 
             TextMeshPro tmp = instance.GetComponent<TextMeshPro>();
-            tmp.text = "+" + amount;
+            tmp.text = amount.ToString();
             tmp.color = color;
     }
 
@@ -357,7 +363,7 @@ public class ObjectSpawner : MonoBehaviour
             //Debug.Log("X is not <= 0");
 
             // Set current round condition
-            roundCondition = (RoundCondition)x-1;
+            roundCondition = (RoundCondition)x;
 
             if(!proto.checkIsGlitched())
             {
@@ -429,7 +435,28 @@ public class ObjectSpawner : MonoBehaviour
                     UpdateScoreUI();
                     Debug.Log("Correct! Score is now: " + score);
                 }
-                else if (!isMatch)
+
+
+                score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
+                DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+                Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
+                UpdateScoreUI();
+                Debug.Log("Correct! Score is now: " + score);
+                audioManager.PlaySFX(audioManager.correctChoiceSFX);
+            }
+            else if(!isMatch)
+            {
+                //Debug.Log("Wrong choice!");
+                //score -= 1;
+                Instantiate(wrongParticles, CurrentObjLoc, Quaternion.identity);
+                audioManager.PlaySFX(audioManager.incorrectChoiceSFX);
+                //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
+                UpdateScoreUI();
+                NotMatch = true;
+                //Debug.Log("Wrong, Score is now: " + score);
+                Debug.Log("Wrong, Score is now: " + score);
+                //code by Smriti
+                if (AllowDecision)
                 {
                     //Debug.Log("Wrong choice!");
                     score -= 1;
@@ -520,7 +547,7 @@ public class ObjectSpawner : MonoBehaviour
             if (x <= 0) break;
             //Debug.Log("X is not <= 0");
             // Set current round condition
-            roundCondition = (RoundCondition)x-1;
+            roundCondition = (RoundCondition)x;
 
             if (!proto.checkIsGlitched())
             {
@@ -593,7 +620,29 @@ public class ObjectSpawner : MonoBehaviour
                     UpdateScoreUI();
                     Debug.Log("Correct! Score is now: " + score);
                 }
-                else if (!isMatch)
+
+
+                score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
+                isMatch = true;
+                DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+                Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
+                UpdateScoreUI();
+                Debug.Log("Correct! Score is now: " + score);
+                audioManager.PlaySFX(audioManager.correctChoiceSFX);
+            }
+            else if (!isMatch)
+            {
+                //Debug.Log("Wrong choice!");
+                //score -= 1;
+                Instantiate(wrongParticles, CurrentObjLoc, Quaternion.identity);
+                audioManager.PlaySFX(audioManager.incorrectChoiceSFX);
+                //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
+                UpdateScoreUI();
+                NotMatch = true;
+                //Debug.Log("Wrong, Score is now: " + score);
+                Debug.Log("Wrong, Score is now: " + score);
+                //code by Smriti
+                if (AllowDecision)
                 {
                     //Debug.Log("Wrong choice!");
                     score -= 1;

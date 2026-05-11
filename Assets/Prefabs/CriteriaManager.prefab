@@ -575,7 +575,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3559472379130252246}
   - {fileID: 4011633056416190417}
@@ -602,10 +602,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e9d7f857a0ac44d8deef74267e2a42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CriteriaManager
-  criteriaTextList: 00000000000000000000000000000000
-  _criteria1: {fileID: 7624215563688607869}
-  _criteria2: {fileID: 3694801835983915855}
-  _criteria3: {fileID: 4090438961271107480}
+  criteriaTextList: 000000000000000000000000
+  _criteriaP1_1: {fileID: 7624215563688607869}
+  _criteriaP1_2: {fileID: 3694801835983915855}
+  _criteriaP1_3: {fileID: 4090438961271107480}
+  _criteriaP2_1: {fileID: 6734761824227079153}
+  _criteriaP2_2: {fileID: 5635883741243747012}
+  _criteriaP2_3: {fileID: 2093870234309449050}
   criteriaNumber: 1
 --- !u!1 &5257137931507186505
 GameObject:

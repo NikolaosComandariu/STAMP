@@ -85,7 +85,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -6529544787464408928, guid: 2827464e04ecc3d4a9079e0ca110dd02, type: 3}
+  m_Sprite: {fileID: -5147423991132949138, guid: 3252e8eb46666d04cb3e3b7b36127399, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -121,7 +121,6 @@ MonoBehaviour:
   IsSingle: 0
   IsOrange: 0
   IsDrink: 0
-  IsGlitched: 1
 --- !u!114 &8090792380597162969
 MonoBehaviour:
   m_ObjectHideFlags: 0

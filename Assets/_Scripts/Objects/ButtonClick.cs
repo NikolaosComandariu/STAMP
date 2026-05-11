@@ -75,7 +75,7 @@ public class ButtonClick : MonoBehaviour
         if (Input.GetKeyDown(declineKey))
         {
             Debug.Log("Decline - TEST");
-            OnAcceptPressed();
+            OnDeclinePressed();
         }
     } // End of Nikolaos Comandariu.
 
