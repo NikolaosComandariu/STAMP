@@ -198,7 +198,7 @@ public class CriteriaManager : MonoBehaviour
             criteriaTextList[2]);
 
 
-        Debug.Log("CriteriaManager: Criterias are: " +  criteriaTextList[0] + ", " + criteriaTextList[1] + ", " + criteriaTextList[2]);
+        //Debug.Log("CriteriaManager: Criterias are: " +  criteriaTextList[0] + ", " + criteriaTextList[1] + ", " + criteriaTextList[2]);
     }
 
     public void displayCriteria()

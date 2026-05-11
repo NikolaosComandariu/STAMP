@@ -115,13 +115,14 @@ MonoBehaviour:
   xSpd: 0.01
   isAccepted: 0
   price: 0.4
-  IsFruit: 1
+  IsFruit: 0
   IsRed: 0
   IsGreen: 1
   IsYellow: 0
   IsSingle: 1
   IsOrange: 0
   IsDrink: 0
+  IsGlitched: 0
 --- !u!114 &5791918849006907059
 MonoBehaviour:
   m_ObjectHideFlags: 0
