@@ -75,6 +75,7 @@ public class GameManager : MonoBehaviour
         objectSpawner.onAllObjectsProcessed += HandleLeftPlayerFinish;
         rightObjSpawner.onAllObjectsProcessed += HandleRightPlayerFinish;
         GameChangerManager.onGameChangerActivated += ActivateGameChanger;
+        RoundTransition.onTransitionEnded += StartRoundCoroutine;
     }
 
     /// <summary>
@@ -86,6 +87,7 @@ public class GameManager : MonoBehaviour
         objectSpawner.onAllObjectsProcessed -= HandleLeftPlayerFinish;
         rightObjSpawner.onAllObjectsProcessed -= HandleRightPlayerFinish;
         GameChangerManager.onGameChangerActivated -= ActivateGameChanger;
+        RoundTransition.onTransitionEnded -= StartRoundCoroutine;
     }
 
     private void IncreaseDifficulty()
@@ -157,8 +159,10 @@ public class GameManager : MonoBehaviour
         if(currentRoundNumber % 3 == 0)
             onGameChangerRound?.Invoke();
 
+
+
         // TODO: Reset Criteria and get new ones for the round.
-        yield return StartCoroutine(StartRound());
+        //yield return StartCoroutine(StartRound());
     }
 
     private IEnumerator StartRound()
@@ -235,5 +239,10 @@ public class GameManager : MonoBehaviour
         p2Finished = true;
 
         HandleRoundEnd();
+    }
+
+    private void StartRoundCoroutine()
+    {
+        StartCoroutine(StartRound());
     }
 }
