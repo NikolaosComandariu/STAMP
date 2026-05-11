@@ -1,6 +1,8 @@
-using UnityEngine;
 using System;
 using System.Collections;
+using TMPro;
+using UnityEngine;
+using Color = UnityEngine.Color;
 
 public class RoundTransition : MonoBehaviour
 {
@@ -10,6 +12,11 @@ public class RoundTransition : MonoBehaviour
 
     [Header("Game Objects")]
     [SerializeField] private GameObject transitionObj;
+
+    [Header("Text")]
+    [SerializeField] private TextMeshProUGUI scoreText = null;
+    [SerializeField] private TextMeshProUGUI gameChangerText = null;
+    [SerializeField] private TextMeshProUGUI roundText = null;
 
     [Header("Variables")]
     [SerializeField] private float fadeInTime;
@@ -22,6 +29,8 @@ public class RoundTransition : MonoBehaviour
     private Animator anim;
     private SpriteRenderer spriteRenderer;
     private bool gameChangerActive;
+
+    private int roundNum = 0;
 
     /// <summary>
     /// Get relevant components if they aren't there.
@@ -39,11 +48,7 @@ public class RoundTransition : MonoBehaviour
     }
 
     private void Start()
-    {
-        //canvasComponent.enabled = false;
-        //canvasGroup.alpha = 0.0f;
-
-        spriteRenderer.enabled = false;
+    { 
         gameChangerActive = false;
     }
 
@@ -53,9 +58,7 @@ public class RoundTransition : MonoBehaviour
     private void OnEnable()
     {
         GameManager.onNextRound += StartRoundTransition;
-        GameManager.onGameChangerRound += GameChangerRound;
-        //GameChangerManager.onOppositeDayActivated +=;
-        //GameChangerManager.onRhythmActivated +=;
+        GameManager.onGameChangerRound += SetGameChangerText;
     }
 
     /// <summary>
@@ -64,7 +67,7 @@ public class RoundTransition : MonoBehaviour
     private void OnDisable()
     {
         GameManager.onNextRound -= StartRoundTransition;
-        GameManager.onGameChangerRound -= GameChangerRound;
+        //GameManager.onGameChangerRound -= GameChangerRound;
     }
 
     /// <summary>
@@ -72,8 +75,6 @@ public class RoundTransition : MonoBehaviour
     /// </summary>
     private void StartRoundTransition()
     {
-        //canvasComponent.enabled = true;
-        spriteRenderer.enabled = true;
         StartCoroutine(RoundTransitionCoroutine());
     }
 
@@ -86,29 +87,39 @@ public class RoundTransition : MonoBehaviour
     {
         StartCoroutine(FadeIn());
 
-        //yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(fadeInTime);
 
-        //anim.SetTrigger("ShowTransition"); // Triggers: ShowTransition, StopTransition
-        //yield return new WaitForSeconds(3.5f);
+        anim.SetTrigger("ShowTransition"); // Triggers: ShowTransition, StopTransition
+        yield return new WaitForSeconds(activeTime);
 
-        //anim.ResetTrigger("ShowTransition");
-        //anim.SetTrigger("StopTransition");
-        //yield return StartCoroutine(FadeOut());
-        //yield return new WaitForSeconds(1.0f);
+        anim.ResetTrigger("ShowTransition");
+        anim.SetTrigger("StopTransition");
+        yield return StartCoroutine(FadeOut());
+        yield return new WaitForSeconds(fadeOutTime);
 
-        //anim.ResetTrigger("StopTransition");
-        //canvasComponent.enabled = false;
-        //spriteRenderer.enabled = false;
-        //onTransitionEnded?.Invoke();
+        gameChangerText.text = null;
+        anim.ResetTrigger("StopTransition");
+        canvasComponent.enabled = false;
+        onTransitionEnded?.Invoke();
 
         yield return null;
     }
 
     private IEnumerator FadeIn()
     {
+        roundNum++;
+        SetScoreText();
+
+        Color color;
+
         while (canvasGroup.alpha < 1)
         {
             canvasGroup.alpha += Time.deltaTime / fadeInTime;
+
+            color = spriteRenderer.color;
+            color.a += Time.deltaTime / fadeInTime;
+            spriteRenderer.color = color;
+
             Debug.Log("Canvas alpha: " + canvasGroup.alpha);
 
             yield return null;
@@ -117,17 +128,28 @@ public class RoundTransition : MonoBehaviour
 
     private IEnumerator FadeOut()
     {
-        while(canvasGroup.alpha > 0)
+        Color color;
+
+        while (canvasGroup.alpha > 0)
         {
             canvasGroup.alpha -= Time.deltaTime / fadeInTime;
+
+            color = spriteRenderer.color;
+            color.a -= Time.deltaTime / fadeInTime;
+            spriteRenderer.color = color;
 
             yield return null;
         }
     }
 
-    private void GameChangerRound()
+    private void SetScoreText()
     {
-        gameChangerActive = true;
+        //scoreText.text = ;
+        roundText.text = roundNum.ToString();
+    }
 
+    private void SetGameChangerText()
+    {
+        gameChangerText.text = "Game changer active!";
     }
 }
