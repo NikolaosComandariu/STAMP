@@ -8,8 +8,14 @@ public class RoundTransition : MonoBehaviour
     [SerializeField] private Canvas canvasComponent;
     [SerializeField] private CanvasGroup canvasGroup;
 
+    [Header("Game Objects")]
+    [SerializeField] private GameObject transitionObj;
+
     // Events.
     public static event Action onTransitionEnded;
+
+    private Animator anim;
+    private SpriteRenderer spriteRenderer;
 
     /// <summary>
     /// Get relevant components if they aren't there.
@@ -21,11 +27,15 @@ public class RoundTransition : MonoBehaviour
 
         if(canvasGroup == null)
             canvasGroup = GetComponent<CanvasGroup>();
+
+        anim = transitionObj.GetComponent<Animator>();
+        spriteRenderer = transitionObj.GetComponent<SpriteRenderer>();
     }
 
     private void Start()
     {
         canvasComponent.enabled = false;
+        spriteRenderer.enabled = false;
     }
 
     /// <summary>
@@ -44,16 +54,33 @@ public class RoundTransition : MonoBehaviour
         GameManager.onNextRound -= StartRoundTransition;
     }
 
+    /// <summary>
+    /// Enables canvas and starts coroutine for transition.
+    /// </summary>
     private void StartRoundTransition()
     {
         canvasComponent.enabled = true;
+        spriteRenderer.enabled = true;
         StartCoroutine(RoundTransitionCoroutine());
     }
 
+    /// <summary>
+    /// Plays animation for transition, waits for it to end,
+    /// plays stationary animation and starts game afterwards.
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator RoundTransitionCoroutine()
     {
-        yield return new WaitForSeconds(5);
+        anim.SetTrigger("ShowTransition"); // Triggers: ShowTransition, StopTransition
+        yield return new WaitForSeconds(3.5f);
+
+        anim.ResetTrigger("ShowTransition");
+        anim.SetTrigger("StopTransition");
+        yield return new WaitForSeconds(1.0f);
+
+        anim.ResetTrigger("StopTransition");
         canvasComponent.enabled = false;
+        spriteRenderer.enabled = false;
         onTransitionEnded?.Invoke();
     }
 }

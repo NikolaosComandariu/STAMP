@@ -315,6 +315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   canvasComponent: {fileID: 245537394}
   canvasGroup: {fileID: 245537397}
+  transitionObj: {fileID: 325506583}
 --- !u!225 &245537397
 CanvasGroup:
   m_ObjectHideFlags: 0

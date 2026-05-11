@@ -159,8 +159,6 @@ public class GameManager : MonoBehaviour
         if(currentRoundNumber % 3 == 0)
             onGameChangerRound?.Invoke();
 
-
-
         // TODO: Reset Criteria and get new ones for the round.
         //yield return StartCoroutine(StartRound());
     }
