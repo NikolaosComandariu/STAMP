@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     private bool p1Finished;
     private bool p2Finished;
     private bool activateGameChanger;
+    private bool timeRanOut;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
@@ -46,6 +47,7 @@ public class GameManager : MonoBehaviour
         p1Finished = false;
         p2Finished = false;
         activateGameChanger = false;
+        timeRanOut = false;
 
         objectSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
         rightObjSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
@@ -69,7 +71,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        countDownManager.onRoundTimerFinished += HandleTimeRunningOut;
+        CountdownManager.onRoundTimerFinished += TimeRanOut;
         objectSpawner.onAllObjectsProcessed += HandleLeftPlayerFinish;
         rightObjSpawner.onAllObjectsProcessed += HandleRightPlayerFinish;
         GameChangerManager.onGameChangerActivated += ActivateGameChanger;
@@ -80,7 +82,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void OnDisable()
     {
-        countDownManager.onRoundTimerFinished -= HandleTimeRunningOut;
+        CountdownManager.onRoundTimerFinished -= TimeRanOut;
         objectSpawner.onAllObjectsProcessed -= HandleLeftPlayerFinish;
         rightObjSpawner.onAllObjectsProcessed -= HandleRightPlayerFinish;
         GameChangerManager.onGameChangerActivated -= ActivateGameChanger;
@@ -95,7 +97,8 @@ public class GameManager : MonoBehaviour
         objectSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
         rightObjSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
 
-        criteriaManager.IncreaseAmountOfCriteria(); //smriti added this
+        if(currentRoundNumber % 10 == 0)
+            criteriaManager.IncreaseAmountOfCriteria(); //smriti added this
        // rightObjSpawner.IncreaseAmountOfCriteria(); //smriti added this
 
         // TODO: Increase criteria spawned once this functionality is in.
@@ -204,19 +207,33 @@ public class GameManager : MonoBehaviour
 
     private void HandleRoundEnd()
     {
-        if (roundEnding || !p1Finished || !p2Finished) return;
+        if (p1Finished && p2Finished) timeRanOut = true;
+
+        if (roundEnding || !p1Finished || !p2Finished || !timeRanOut) return;
 
         p1Finished = false;
         p2Finished = false;
         roundEnding = true;
+        timeRanOut = false;
 
         objectSpawner.ResetObjects();
         rightObjSpawner.ResetObjects();
-        StartCoroutine(NextRound());
+
+       StartCoroutine(NextRound());
     }
 
     private void ActivateGameChanger()
     {
         activateGameChanger = true;
+    }
+
+    private void TimeRanOut()
+    {
+        timeRanOut = true;
+        roundEnding = false;
+        p1Finished = true;
+        p2Finished = true;
+
+        HandleRoundEnd();
     }
 }

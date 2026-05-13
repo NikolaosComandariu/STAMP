@@ -39,9 +39,19 @@ public class ObjectSpawner : MonoBehaviour
     [Header("Probability - Glitched items")]
     [SerializeField] private int upperLimit;
 
+    [Header("Input Delay")]
+    [SerializeField] private float InputDelayTime;
+
+    [Header("Game Objects")]
+    [SerializeField] private GameObject correctParticles;
+    [SerializeField] private GameObject wrongParticles;
+    [SerializeField] private AudioManager audioManager;
+
     [Header("Events")]
     public System.Action onAllObjectsProcessed; // Nikolaos Comandariu.
     public static event Action<int> OnTallyUpScores;
+    public static Action<bool> onInputAllowedP1;
+    public static Action<bool> onInputAllowedP2;
 
     // Buttons
     private Button Accept;
@@ -56,6 +66,10 @@ public class ObjectSpawner : MonoBehaviour
     private bool isSpawning = false;
     private bool AllowDecision = false; //smriti added this
     private bool SpawnGlitchedItem = false;
+    private bool NotMatch = false;
+    private bool IsMatch = false;
+
+    public bool InputAllowed;
     private bool rhythmPoints; // Nikolaos Comandariu.
     private bool generatingNumber; //smriti added this; possible to remove if not used
 
@@ -71,20 +85,21 @@ public class ObjectSpawner : MonoBehaviour
     /// </summary>
     public enum RoundCondition
     {
-        Fruit,
         Red,
-        Green,
+        Orange,
         Yellow,
-        Single,
-        Orange, //options added by smriti
-        Drink,
-        NotFruit,
+        Green,
         NotRed,
-        NotGreen,
-        NotYellow,
-        NotSingle,
         NotOrange,
-        NotDrink //end of options added by smrti
+        NotYellow,
+        NotGreen,
+        Fruit,
+        Drink,
+        Single,
+        NotFruit,
+        NotDrink,
+        NotSingle
+       // Glitched //end of options added by smrti
     }
     
     // Nikolaos Comandariu.
@@ -98,11 +113,11 @@ public class ObjectSpawner : MonoBehaviour
 
         if (IsPlayer1)
         {
-            RhythmHitbox.onColliderEnteredP1 += AcceptRhythmPoints;
+           // RhythmHitbox.onColliderEnteredP1 += AcceptRhythmPoints;
         }
         else
         {
-            RhythmHitbox.onColliderEnteredP2 += AcceptRhythmPoints;
+            //RhythmHitbox.onColliderEnteredP2 += AcceptRhythmPoints;
         }
     }
 
@@ -116,11 +131,11 @@ public class ObjectSpawner : MonoBehaviour
 
         if (IsPlayer1)
         {
-            RhythmHitbox.onColliderEnteredP1 -= AcceptRhythmPoints;
+            //RhythmHitbox.onColliderEnteredP1 -= AcceptRhythmPoints;
         }
         else
         {
-            RhythmHitbox.onColliderEnteredP2 -= AcceptRhythmPoints;
+            //RhythmHitbox.onColliderEnteredP2 -= AcceptRhythmPoints;
         }
     }
 
@@ -170,6 +185,17 @@ public class ObjectSpawner : MonoBehaviour
                     currentObject = Instantiate(ObjectsPool[n], SpawnPos.position, 
                         ObjectsPool[n].transform.rotation, gameObject.transform);
 
+                    InputAllowed = false;
+
+                    if(IsPlayer1)
+                    {
+                        onInputAllowedP1?.Invoke(InputAllowed);
+                    }
+                    else
+                    {
+                        onInputAllowedP2?.Invoke(InputAllowed);
+                    } 
+
                     productPrice.text = "£" + 
                         currentObject.GetComponent<ObjectPrototype_>().GetPrice().ToString();
                     //Debug.Log("spawn object");
@@ -186,6 +212,19 @@ public class ObjectSpawner : MonoBehaviour
 
                     AllowDecision = true;
                     AllowObjSpawn = false;
+
+                    yield return new WaitForSeconds(InputDelayTime);
+
+                    InputAllowed = true;
+
+                    if (IsPlayer1)
+                    {
+                        onInputAllowedP1?.Invoke(InputAllowed);
+                    }
+                    else
+                    {
+                        onInputAllowedP2?.Invoke(InputAllowed);
+                    }
 
                     yield return null;
                 }
@@ -230,11 +269,11 @@ public class ObjectSpawner : MonoBehaviour
 
     public void DisplayTextFeedback(int amount, Vector3 position, Color color)
     {
-        GameObject instance = Instantiate(ScoreTextFeedback, position, Quaternion.identity);
+            GameObject instance = Instantiate(ScoreTextFeedback, position, Quaternion.identity);
 
-        TextMeshPro tmp = instance.GetComponent<TextMeshPro>();
-        tmp.text = "+" + amount;
-        tmp.color = color;
+            TextMeshPro tmp = instance.GetComponent<TextMeshPro>();
+            tmp.text = amount.ToString();
+            tmp.color = color;
     }
 
     /// <summary>
@@ -292,7 +331,7 @@ public class ObjectSpawner : MonoBehaviour
     /// </summary>
     public void AcceptObject()
     {
-        //Debug.Log("accept clicked");
+        Debug.Log("accept clicked");
 
         if (currentObject == null) 
             return;
@@ -302,6 +341,13 @@ public class ObjectSpawner : MonoBehaviour
         ObjectPrototype_ proto = currentObject.GetComponent<ObjectPrototype_>();
 
         bool isMatch = false;
+
+       /* if (proto.checkIsGlitched() == true) 
+        { 
+            score--;
+            Debug.Log("Score decreased due to glitched");
+            //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
+        }*/
 
         //Debug.Log("Is match: " + isMatch);
         //code by Smriti
@@ -316,97 +362,134 @@ public class ObjectSpawner : MonoBehaviour
             //Debug.Log("X is not <= 0");
 
             // Set current round condition
-            roundCondition = (RoundCondition)x-1;
+            roundCondition = (RoundCondition)x;
 
-            switch (roundCondition)
+            if (proto.checkIsGlitched())//code added/edited by smriti
             {
-                case RoundCondition.Fruit:
-                    isMatch = proto.checkIsFruit();
-                    break;
-                case RoundCondition.Red:
-                    isMatch = proto.checkIsRed();
-                    break;
-                case RoundCondition.Green:
-                    isMatch = proto.checkIsGreen();
-                    break;
-                case RoundCondition.Yellow:
-                    isMatch = proto.checkIsYellow();
-                    break;
-                case RoundCondition.Single:
-                    isMatch = proto.checkIsSingle(); 
-                    break;
-                //added code by smriti
-                case RoundCondition.Orange:
-                    isMatch = proto.checkIsOrange();
-                    break;
-                case RoundCondition.Drink:
-                    isMatch = proto.checkIsDrink();
-                    break;
-                case RoundCondition.NotFruit:
-                    isMatch = !proto.checkIsFruit();
-                    break;
-                case RoundCondition.NotRed:
-                    isMatch = !proto.checkIsRed();
-                    break;
-                case RoundCondition.NotGreen:
-                    isMatch = !proto.checkIsGreen();
-                    break;
-                case RoundCondition.NotYellow:
-                    isMatch = !proto.checkIsYellow();
-                    break;
-                case RoundCondition.NotSingle:
-                    isMatch = !proto.checkIsSingle();
-                    break;
-                case RoundCondition.NotOrange:
-                    isMatch = !proto.checkIsOrange();
-                    break;
-                case RoundCondition.NotDrink:
-                    isMatch = !proto.checkIsDrink();
-                    break;
+                isMatch = false;
             }
 
-            Debug.Log("Is match: " + isMatch);
-            Debug.Log("Round condition: " + roundCondition);
-
-            if (isMatch)
+            else
             {
-                //Debug.Log("ACCEPT: Correct choice!");
-
-                if(rhythmPoints) // Nikolaos Comandariu.
+                switch (roundCondition)
                 {
-                    score += 1;
-                    DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+                    case RoundCondition.Fruit:
+                        isMatch = proto.checkIsFruit();
+                        break;
+                    case RoundCondition.Red:
+                        isMatch = proto.checkIsRed();
+                        break;
+                    case RoundCondition.Green:
+                        isMatch = proto.checkIsGreen();
+                        break;
+                    case RoundCondition.Yellow:
+                        isMatch = proto.checkIsYellow();
+                        break;
+                    case RoundCondition.Single:
+                        isMatch = proto.checkIsSingle();
+                        break;
+                    //added code by smriti
+                    case RoundCondition.Orange:
+                        isMatch = proto.checkIsOrange();
+                        break;
+                    case RoundCondition.Drink:
+                        isMatch = proto.checkIsDrink();
+                        break;
+                    case RoundCondition.NotFruit:
+                        isMatch = !proto.checkIsFruit();
+                        break;
+                    case RoundCondition.NotRed:
+                        isMatch = !proto.checkIsRed();
+                        break;
+                    case RoundCondition.NotGreen:
+                        isMatch = !proto.checkIsGreen();
+                        break;
+                    case RoundCondition.NotYellow:
+                        isMatch = !proto.checkIsYellow();
+                        break;
+                    case RoundCondition.NotSingle:
+                        isMatch = !proto.checkIsSingle();
+                        break;
+                    case RoundCondition.NotOrange:
+                        isMatch = !proto.checkIsOrange();
+                        break;
+                    case RoundCondition.NotDrink:
+                        isMatch = !proto.checkIsDrink();
+                        break;
+                        /*case RoundCondition.Glitched: //code by smriti
+                            isMatch = !proto.checkIsGlitched();
+                            break; //end code by smriti */
                 }
 
-                score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
-                DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
-                UpdateScoreUI();
-                Debug.Log("Correct! Score is now: " + score);
+                Debug.Log("Is match: " + isMatch);
+                Debug.Log("Round condition: " + roundCondition);
             }
+
+            if (isMatch)
+                {
+                    //Debug.Log("ACCEPT: Correct choice!");
+
+                    if (rhythmPoints) // Nikolaos Comandariu.
+                    {
+                        score += 1;
+                        DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+                    }
+
+                    score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
+                    DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+                    Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
+                    UpdateScoreUI();
+                    Debug.Log("Correct! Score is now: " + score);
+                    audioManager.PlaySFX(audioManager.correctChoiceSFX);
+            }
+            
             else if(!isMatch)
             {
                 //Debug.Log("Wrong choice!");
-                score -= 1;
-                DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
+                //score -= 1;
+                Instantiate(wrongParticles, CurrentObjLoc, Quaternion.identity);
+                audioManager.PlaySFX(audioManager.incorrectChoiceSFX);
+                //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
                 UpdateScoreUI();
+                NotMatch = true;
+                //Debug.Log("Wrong, Score is now: " + score);
                 Debug.Log("Wrong, Score is now: " + score);
                 //code by Smriti
                 if (AllowDecision)
                 {
-                    MoveToTarget acceptedP1 = currentObject.GetComponent<MoveToTarget>();
-                    acceptedP1.SetTarget(AcceptedP1);
-                    acceptedP1.SetSpeed(MoveForce);
-                    currentObject.transform.position = Vector2.MoveTowards(EndOfConveyor.position,
-                        AcceptedP1.position, MoveForce * Time.deltaTime);
-                    //Destroy(currentObject);
+                    //Debug.Log("Wrong choice!");
+                    score -= 1;
+                    //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
+                    UpdateScoreUI();
+                    NotMatch = true;
+                    //Debug.Log("Wrong, Score is now: " + score);
+                    Debug.Log("Wrong, Score is now: " + score);
+                    //code by Smriti
+                    if (AllowDecision)
+                    {
+                        MoveToTarget acceptedP1 = currentObject.GetComponent<MoveToTarget>();
+                        acceptedP1.SetTarget(AcceptedP1);
+                        acceptedP1.SetSpeed(MoveForce);
+                        currentObject.transform.position = Vector2.MoveTowards(EndOfConveyor.position,
+                            AcceptedP1.position, MoveForce * Time.deltaTime);
+                        //Destroy(currentObject);
 
-                    AllowDecision = false;
+                        AllowDecision = false;
 
-                    //end of code by Smriti
+                        //end of code by Smriti
+                    }
                 }
+
+
                 //AllowObjSpawn = true;
                 //StartCoroutine(SpawnObject());
             }
+            /*else
+            {
+                score -= 1;
+                Debug.Log("Glitched item; score derement");
+            }*/
+            //end of code added/edited by smriti
         }
 
         Destroy(currentObject);
@@ -448,6 +531,14 @@ public class ObjectSpawner : MonoBehaviour
         bool isMatch = false;
         //Debug.Log("Is match: " + isMatch);
 
+       /* if (proto.checkIsGlitched()== true) 
+        { 
+            score++;
+            Debug.Log("score increased due to glitched item");
+            //DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+        }*/
+
+
         for (int i = 0; i < criteriaList.Count; i++)
         {
             int x = criteriaList[i];
@@ -455,97 +546,135 @@ public class ObjectSpawner : MonoBehaviour
             if (x <= 0) break;
             //Debug.Log("X is not <= 0");
             // Set current round condition
-            roundCondition = (RoundCondition)x-1;
+            roundCondition = (RoundCondition)x;
 
-            switch (roundCondition)
+            if (proto.checkIsGlitched())
             {
-                case RoundCondition.Fruit:
-                    isMatch = !proto.checkIsFruit();
-                    break;
-                case RoundCondition.Red:
-                    isMatch = !proto.checkIsRed();
-                    break;
-                case RoundCondition.Green:
-                    isMatch = !proto.checkIsGreen();
-                    break;
-                case RoundCondition.Yellow:
-                    isMatch = !proto.checkIsYellow();
-                    break;
-                case RoundCondition.Single:
-                    isMatch = !proto.checkIsSingle();
-                    break;
-                //added code by smriti
-                case RoundCondition.Orange:
-                    isMatch = !proto.checkIsOrange();
-                    break;
-                case RoundCondition.Drink:
-                    isMatch = !proto.checkIsDrink();
-                    break;
-                case RoundCondition.NotFruit:
-                    isMatch = proto.checkIsFruit();
-                    break;
-                case RoundCondition.NotRed:
-                    isMatch = proto.checkIsRed();
-                    break;
-                case RoundCondition.NotGreen:
-                    isMatch = proto.checkIsGreen();
-                    break;
-                case RoundCondition.NotYellow:
-                    isMatch = proto.checkIsYellow();
-                    break;
-                case RoundCondition.NotSingle:
-                    isMatch = proto.checkIsSingle();
-                    break;
-                case RoundCondition.NotOrange:
-                    isMatch = proto.checkIsOrange();
-                    break;
-                case RoundCondition.NotDrink:
-                    isMatch = proto.checkIsDrink();
-                    break;
-            } //end of added code by smriti
+                isMatch = true;
+            }
 
-            Debug.Log("Is match: " + isMatch);
-            Debug.Log("Round condition: " + roundCondition);
+            else
+            { 
+                switch (roundCondition)
+                {
+                    case RoundCondition.Fruit:
+                        isMatch = !proto.checkIsFruit();
+                        break;
+                    case RoundCondition.Red:
+                        isMatch = !proto.checkIsRed();
+                        break;
+                    case RoundCondition.Green:
+                        isMatch = !proto.checkIsGreen();
+                        break;
+                    case RoundCondition.Yellow:
+                        isMatch = !proto.checkIsYellow();
+                        break;
+                    case RoundCondition.Single:
+                        isMatch = !proto.checkIsSingle();
+                        break;
+                    //added code by smriti
+                    case RoundCondition.Orange:
+                        isMatch = !proto.checkIsOrange();
+                        break;
+                    case RoundCondition.Drink:
+                        isMatch = !proto.checkIsDrink();
+                        break;
+                    case RoundCondition.NotFruit:
+                        isMatch = proto.checkIsFruit();
+                        break;
+                    case RoundCondition.NotRed:
+                        isMatch = proto.checkIsRed();
+                        break;
+                    case RoundCondition.NotGreen:
+                        isMatch = proto.checkIsGreen();
+                        break;
+                    case RoundCondition.NotYellow:
+                        isMatch = proto.checkIsYellow();
+                        break;
+                    case RoundCondition.NotSingle:
+                        isMatch = proto.checkIsSingle();
+                        break;
+                    case RoundCondition.NotOrange:
+                        isMatch = proto.checkIsOrange();
+                        break;
+                    case RoundCondition.NotDrink:
+                        isMatch = proto.checkIsDrink();
+                        break;
+                        /*case RoundCondition.Glitched: //code added by smriti
+                            isMatch = proto.checkIsGlitched();
+                            break;*/
+                } //end of added code by smriti
+
+                Debug.Log("Is match: " + isMatch);
+                Debug.Log("Round condition: " + roundCondition);
+            }
 
             if (isMatch)
-            {
-                //Debug.Log("ACCEPT: Correct choice!");
-                Debug.Log("Rhythm Points: " + rhythmPoints);
-                if (rhythmPoints) // Nikolaos Comandariu.
                 {
-                    score += 1;
+                    //Debug.Log("ACCEPT: Correct choice!");
+                    Debug.Log("Rhythm Points: " + rhythmPoints);
+                    if (rhythmPoints) // Nikolaos Comandariu.
+                    {
+                        score += 1;
+                        DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+                    }
+
+                    score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
+                    isMatch = true;
                     DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+                    Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
+                    UpdateScoreUI();
+                    Debug.Log("Correct! Score is now: " + score);
+                    audioManager.PlaySFX(audioManager.correctChoiceSFX);
                 }
 
-                score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
-                DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
-                UpdateScoreUI();
-                Debug.Log("Correct! Score is now: " + score);
-            }
+            
             else if (!isMatch)
             {
                 //Debug.Log("Wrong choice!");
-                score -= 1;
-                DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
+                //score -= 1;
+                Instantiate(wrongParticles, CurrentObjLoc, Quaternion.identity);
+                audioManager.PlaySFX(audioManager.incorrectChoiceSFX);
+                //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
                 UpdateScoreUI();
+                NotMatch = true;
+                //Debug.Log("Wrong, Score is now: " + score);
                 Debug.Log("Wrong, Score is now: " + score);
                 //code by Smriti
                 if (AllowDecision)
                 {
-                    MoveToTarget acceptedP1 = currentObject.GetComponent<MoveToTarget>();
-                    acceptedP1.SetTarget(AcceptedP1);
-                    acceptedP1.SetSpeed(MoveForce);
-                    currentObject.transform.position = Vector2.MoveTowards(EndOfConveyor.position,
-                        AcceptedP1.position, MoveForce * Time.deltaTime);
-                    //Destroy(currentObject);
+                    //Debug.Log("Wrong choice!");
+                    score -= 1;
+                    //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
+                    UpdateScoreUI();
+                    NotMatch = true;
+                    //Debug.Log("Wrong, Score is now: " + score);
+                    Debug.Log("Wrong, Score is now: " + score);
+                    //code by Smriti
+                    if (AllowDecision)
+                    {
+                        MoveToTarget acceptedP1 = currentObject.GetComponent<MoveToTarget>();
+                        acceptedP1.SetTarget(AcceptedP1);
+                        acceptedP1.SetSpeed(MoveForce);
+                        currentObject.transform.position = Vector2.MoveTowards(EndOfConveyor.position,
+                            AcceptedP1.position, MoveForce * Time.deltaTime);
+                        //Destroy(currentObject);
 
-                    AllowDecision = false;
+                        AllowDecision = false;
 
-                    //end of code by Smriti
+                        //end of code by Smriti
+                    }
+                    //AllowObjSpawn = true;
+                    //StartCoroutine(SpawnObject());
                 }
-                //AllowObjSpawn = true;
-                //StartCoroutine(SpawnObject());
             }
+           /* else
+            {
+                score += 1;
+                Debug.Log("Glitched Item, score increment");
+            }*/
+           //end of code added/edited by smriti
+
         }
 
         /*if (AllowDecision)
@@ -661,11 +790,13 @@ public class ObjectSpawner : MonoBehaviour
 
     public void ResetObjects()
     {
+        ObjectsPool.Clear();
+        NumOfObjToSpawn = 0;
+        AllowObjSpawn = true;
+    
         Destroy(currentObject);
         currentObject = null;
-        GenerateObjectsForRound();
     }
-
     private void TallyUpScores()
     {
         OnTallyUpScores?.Invoke(score);
@@ -676,16 +807,16 @@ public class ObjectSpawner : MonoBehaviour
         rhythmPoints = canAccept;
     }
     
-    private void SetCriteria(int crit1, int crit2, int crit3, int crit4)
+    private void SetCriteria(int crit1, int crit2, int crit3)
+
     {
         criteriaList.Clear();
 
         criteriaList.Add(crit1);
         criteriaList.Add(crit2);
         criteriaList.Add(crit3);
-        criteriaList.Add(crit4);
 
-        Debug.Log("Criterias: " + crit1 + crit2 + crit3 + crit4);
+        Debug.Log("Criterias: " + crit1 + crit2 + crit3);
     }
 
     // End of code from Nikolaos Comandariu.
