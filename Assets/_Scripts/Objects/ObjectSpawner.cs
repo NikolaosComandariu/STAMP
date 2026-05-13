@@ -99,6 +99,7 @@ public class ObjectSpawner : MonoBehaviour
         NotFruit,
         NotDrink,
         NotSingle
+       // Glitched //end of options added by smrti
     }
     
     // Nikolaos Comandariu.
@@ -341,6 +342,13 @@ public class ObjectSpawner : MonoBehaviour
 
         bool isMatch = false;
 
+       /* if (proto.checkIsGlitched() == true) 
+        { 
+            score--;
+            Debug.Log("Score decreased due to glitched");
+            //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
+        }*/
+
         //Debug.Log("Is match: " + isMatch);
         //code by Smriti
         //Debug.Log("Criteria list count: " + criteriaList.Count);
@@ -356,74 +364,85 @@ public class ObjectSpawner : MonoBehaviour
             // Set current round condition
             roundCondition = (RoundCondition)x;
 
-            switch (roundCondition)
+            if (proto.checkIsGlitched())//code added/edited by smriti
             {
-                case RoundCondition.Fruit:
-                    isMatch = proto.checkIsFruit();
-                    break;
-                case RoundCondition.Red:
-                    isMatch = proto.checkIsRed();
-                    break;
-                case RoundCondition.Green:
-                    isMatch = proto.checkIsGreen();
-                    break;
-                case RoundCondition.Yellow:
-                    isMatch = proto.checkIsYellow();
-                    break;
-                case RoundCondition.Single:
-                    isMatch = proto.checkIsSingle(); 
-                    break;
-                //added code by smriti
-                case RoundCondition.Orange:
-                    isMatch = proto.checkIsOrange();
-                    break;
-                case RoundCondition.Drink:
-                    isMatch = proto.checkIsDrink();
-                    break;
-                case RoundCondition.NotFruit:
-                    isMatch = !proto.checkIsFruit();
-                    break;
-                case RoundCondition.NotRed:
-                    isMatch = !proto.checkIsRed();
-                    break;
-                case RoundCondition.NotGreen:
-                    isMatch = !proto.checkIsGreen();
-                    break;
-                case RoundCondition.NotYellow:
-                    isMatch = !proto.checkIsYellow();
-                    break;
-                case RoundCondition.NotSingle:
-                    isMatch = !proto.checkIsSingle();
-                    break;
-                case RoundCondition.NotOrange:
-                    isMatch = !proto.checkIsOrange();
-                    break;
-                case RoundCondition.NotDrink:
-                    isMatch = !proto.checkIsDrink();
-                    break;
+                isMatch = false;
             }
 
-            Debug.Log("Is match: " + isMatch);
-            Debug.Log("Round condition: " + roundCondition);
-
-            if (isMatch)
+            else
             {
-                //Debug.Log("ACCEPT: Correct choice!");
-
-                if(rhythmPoints) // Nikolaos Comandariu.
+                switch (roundCondition)
                 {
-                    score += 1;
-                    DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
-                    Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
+                    case RoundCondition.Fruit:
+                        isMatch = proto.checkIsFruit();
+                        break;
+                    case RoundCondition.Red:
+                        isMatch = proto.checkIsRed();
+                        break;
+                    case RoundCondition.Green:
+                        isMatch = proto.checkIsGreen();
+                        break;
+                    case RoundCondition.Yellow:
+                        isMatch = proto.checkIsYellow();
+                        break;
+                    case RoundCondition.Single:
+                        isMatch = proto.checkIsSingle();
+                        break;
+                    //added code by smriti
+                    case RoundCondition.Orange:
+                        isMatch = proto.checkIsOrange();
+                        break;
+                    case RoundCondition.Drink:
+                        isMatch = proto.checkIsDrink();
+                        break;
+                    case RoundCondition.NotFruit:
+                        isMatch = !proto.checkIsFruit();
+                        break;
+                    case RoundCondition.NotRed:
+                        isMatch = !proto.checkIsRed();
+                        break;
+                    case RoundCondition.NotGreen:
+                        isMatch = !proto.checkIsGreen();
+                        break;
+                    case RoundCondition.NotYellow:
+                        isMatch = !proto.checkIsYellow();
+                        break;
+                    case RoundCondition.NotSingle:
+                        isMatch = !proto.checkIsSingle();
+                        break;
+                    case RoundCondition.NotOrange:
+                        isMatch = !proto.checkIsOrange();
+                        break;
+                    case RoundCondition.NotDrink:
+                        isMatch = !proto.checkIsDrink();
+                        break;
+                        /*case RoundCondition.Glitched: //code by smriti
+                            isMatch = !proto.checkIsGlitched();
+                            break; //end code by smriti */
                 }
 
-                score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
-                DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
-                Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
-                UpdateScoreUI();
-                Debug.Log("Correct! Score is now: " + score);
-                audioManager.PlaySFX(audioManager.correctChoiceSFX);
+                Debug.Log("Is match: " + isMatch);
+                Debug.Log("Round condition: " + roundCondition);
             }
+
+            if (isMatch)
+                {
+                    //Debug.Log("ACCEPT: Correct choice!");
+
+                    if (rhythmPoints) // Nikolaos Comandariu.
+                    {
+                        score += 1;
+                        DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+                    }
+
+                    score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
+                    DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+                    Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
+                    UpdateScoreUI();
+                    Debug.Log("Correct! Score is now: " + score);
+                    audioManager.PlaySFX(audioManager.correctChoiceSFX);
+            }
+            
             else if(!isMatch)
             {
                 //Debug.Log("Wrong choice!");
@@ -438,20 +457,39 @@ public class ObjectSpawner : MonoBehaviour
                 //code by Smriti
                 if (AllowDecision)
                 {
-                    MoveToTarget acceptedP1 = currentObject.GetComponent<MoveToTarget>();
-                    acceptedP1.SetTarget(AcceptedP1);
-                    acceptedP1.SetSpeed(MoveForce);
-                    currentObject.transform.position = Vector2.MoveTowards(EndOfConveyor.position,
-                        AcceptedP1.position, MoveForce * Time.deltaTime);
-                    //Destroy(currentObject);
+                    //Debug.Log("Wrong choice!");
+                    score -= 1;
+                    //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
+                    UpdateScoreUI();
+                    NotMatch = true;
+                    //Debug.Log("Wrong, Score is now: " + score);
+                    Debug.Log("Wrong, Score is now: " + score);
+                    //code by Smriti
+                    if (AllowDecision)
+                    {
+                        MoveToTarget acceptedP1 = currentObject.GetComponent<MoveToTarget>();
+                        acceptedP1.SetTarget(AcceptedP1);
+                        acceptedP1.SetSpeed(MoveForce);
+                        currentObject.transform.position = Vector2.MoveTowards(EndOfConveyor.position,
+                            AcceptedP1.position, MoveForce * Time.deltaTime);
+                        //Destroy(currentObject);
 
-                    AllowDecision = false;
+                        AllowDecision = false;
 
-                    //end of code by Smriti
+                        //end of code by Smriti
+                    }
                 }
+
+
                 //AllowObjSpawn = true;
                 //StartCoroutine(SpawnObject());
             }
+            /*else
+            {
+                score -= 1;
+                Debug.Log("Glitched item; score derement");
+            }*/
+            //end of code added/edited by smriti
         }
 
         Destroy(currentObject);
@@ -493,6 +531,14 @@ public class ObjectSpawner : MonoBehaviour
         bool isMatch = false;
         //Debug.Log("Is match: " + isMatch);
 
+       /* if (proto.checkIsGlitched()== true) 
+        { 
+            score++;
+            Debug.Log("score increased due to glitched item");
+            //DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+        }*/
+
+
         for (int i = 0; i < criteriaList.Count; i++)
         {
             int x = criteriaList[i];
@@ -502,75 +548,87 @@ public class ObjectSpawner : MonoBehaviour
             // Set current round condition
             roundCondition = (RoundCondition)x;
 
-            switch (roundCondition)
+            if (proto.checkIsGlitched())
             {
-                case RoundCondition.Fruit:
-                    isMatch = !proto.checkIsFruit();
-                    break;
-                case RoundCondition.Red:
-                    isMatch = !proto.checkIsRed();
-                    break;
-                case RoundCondition.Green:
-                    isMatch = !proto.checkIsGreen();
-                    break;
-                case RoundCondition.Yellow:
-                    isMatch = !proto.checkIsYellow();
-                    break;
-                case RoundCondition.Single:
-                    isMatch = !proto.checkIsSingle();
-                    break;
-                //added code by smriti
-                case RoundCondition.Orange:
-                    isMatch = !proto.checkIsOrange();
-                    break;
-                case RoundCondition.Drink:
-                    isMatch = !proto.checkIsDrink();
-                    break;
-                case RoundCondition.NotFruit:
-                    isMatch = proto.checkIsFruit();
-                    break;
-                case RoundCondition.NotRed:
-                    isMatch = proto.checkIsRed();
-                    break;
-                case RoundCondition.NotGreen:
-                    isMatch = proto.checkIsGreen();
-                    break;
-                case RoundCondition.NotYellow:
-                    isMatch = proto.checkIsYellow();
-                    break;
-                case RoundCondition.NotSingle:
-                    isMatch = proto.checkIsSingle();
-                    break;
-                case RoundCondition.NotOrange:
-                    isMatch = proto.checkIsOrange();
-                    break;
-                case RoundCondition.NotDrink:
-                    isMatch = proto.checkIsDrink();
-                    break;
-            } //end of added code by smriti
+                isMatch = true;
+            }
 
-            Debug.Log("Is match: " + isMatch);
-            Debug.Log("Round condition: " + roundCondition);
+            else
+            { 
+                switch (roundCondition)
+                {
+                    case RoundCondition.Fruit:
+                        isMatch = !proto.checkIsFruit();
+                        break;
+                    case RoundCondition.Red:
+                        isMatch = !proto.checkIsRed();
+                        break;
+                    case RoundCondition.Green:
+                        isMatch = !proto.checkIsGreen();
+                        break;
+                    case RoundCondition.Yellow:
+                        isMatch = !proto.checkIsYellow();
+                        break;
+                    case RoundCondition.Single:
+                        isMatch = !proto.checkIsSingle();
+                        break;
+                    //added code by smriti
+                    case RoundCondition.Orange:
+                        isMatch = !proto.checkIsOrange();
+                        break;
+                    case RoundCondition.Drink:
+                        isMatch = !proto.checkIsDrink();
+                        break;
+                    case RoundCondition.NotFruit:
+                        isMatch = proto.checkIsFruit();
+                        break;
+                    case RoundCondition.NotRed:
+                        isMatch = proto.checkIsRed();
+                        break;
+                    case RoundCondition.NotGreen:
+                        isMatch = proto.checkIsGreen();
+                        break;
+                    case RoundCondition.NotYellow:
+                        isMatch = proto.checkIsYellow();
+                        break;
+                    case RoundCondition.NotSingle:
+                        isMatch = proto.checkIsSingle();
+                        break;
+                    case RoundCondition.NotOrange:
+                        isMatch = proto.checkIsOrange();
+                        break;
+                    case RoundCondition.NotDrink:
+                        isMatch = proto.checkIsDrink();
+                        break;
+                        /*case RoundCondition.Glitched: //code added by smriti
+                            isMatch = proto.checkIsGlitched();
+                            break;*/
+                } //end of added code by smriti
+
+                Debug.Log("Is match: " + isMatch);
+                Debug.Log("Round condition: " + roundCondition);
+            }
 
             if (isMatch)
-            {
-                //Debug.Log("ACCEPT: Correct choice!");
-                Debug.Log("Rhythm Points: " + rhythmPoints);
-                if (rhythmPoints) // Nikolaos Comandariu.
                 {
-                    score += 1;
+                    //Debug.Log("ACCEPT: Correct choice!");
+                    Debug.Log("Rhythm Points: " + rhythmPoints);
+                    if (rhythmPoints) // Nikolaos Comandariu.
+                    {
+                        score += 1;
+                        DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+                    }
+
+                    score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
+                    isMatch = true;
                     DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
                     Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
+                    UpdateScoreUI();
+                    Debug.Log("Correct! Score is now: " + score);
+                    audioManager.PlaySFX(audioManager.correctChoiceSFX);
                 }
 
-                score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
-                isMatch = true;
-                DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
-                Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
-                UpdateScoreUI();
-                Debug.Log("Correct! Score is now: " + score);
-                audioManager.PlaySFX(audioManager.correctChoiceSFX);
-            }
+            
             else if (!isMatch)
             {
                 //Debug.Log("Wrong choice!");
@@ -585,20 +643,38 @@ public class ObjectSpawner : MonoBehaviour
                 //code by Smriti
                 if (AllowDecision)
                 {
-                    MoveToTarget acceptedP1 = currentObject.GetComponent<MoveToTarget>();
-                    acceptedP1.SetTarget(AcceptedP1);
-                    acceptedP1.SetSpeed(MoveForce);
-                    currentObject.transform.position = Vector2.MoveTowards(EndOfConveyor.position,
-                        AcceptedP1.position, MoveForce * Time.deltaTime);
-                    //Destroy(currentObject);
+                    //Debug.Log("Wrong choice!");
+                    score -= 1;
+                    //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
+                    UpdateScoreUI();
+                    NotMatch = true;
+                    //Debug.Log("Wrong, Score is now: " + score);
+                    Debug.Log("Wrong, Score is now: " + score);
+                    //code by Smriti
+                    if (AllowDecision)
+                    {
+                        MoveToTarget acceptedP1 = currentObject.GetComponent<MoveToTarget>();
+                        acceptedP1.SetTarget(AcceptedP1);
+                        acceptedP1.SetSpeed(MoveForce);
+                        currentObject.transform.position = Vector2.MoveTowards(EndOfConveyor.position,
+                            AcceptedP1.position, MoveForce * Time.deltaTime);
+                        //Destroy(currentObject);
 
-                    AllowDecision = false;
+                        AllowDecision = false;
 
-                    //end of code by Smriti
+                        //end of code by Smriti
+                    }
+                    //AllowObjSpawn = true;
+                    //StartCoroutine(SpawnObject());
                 }
-                //AllowObjSpawn = true;
-                //StartCoroutine(SpawnObject());
             }
+           /* else
+            {
+                score += 1;
+                Debug.Log("Glitched Item, score increment");
+            }*/
+           //end of code added/edited by smriti
+
         }
 
         /*if (AllowDecision)
