@@ -22,6 +22,7 @@ public class ObjectSpawner : MonoBehaviour
     [Header("Game Objects")]
     [SerializeField] private List<GameObject> ObjectsPool = new List<GameObject>(); // Amount of objects in the round
     [SerializeField] private List<GameObject> GlitchedItemsPool = new List<GameObject>(); // Amount of glitched objects 
+    [SerializeField] private List<GameObject> NonSupermarketItemsPool = new List<GameObject>();
     [SerializeField] private List<GameObject> AllPossibleObjects; // All prefabs possible to spawn
     [SerializeField] private ScoreManager scoreManager; //smriti added this
     [SerializeField] private GameObject ScoreTextFeedback;
@@ -68,6 +69,7 @@ public class ObjectSpawner : MonoBehaviour
     private bool SpawnGlitchedItem = false;
     private bool NotMatch = false;
     private bool IsMatch = false;
+    private bool refundActive = false;
 
     public bool InputAllowed;
     private bool rhythmPoints; // Nikolaos Comandariu.
@@ -110,6 +112,7 @@ public class ObjectSpawner : MonoBehaviour
     {
         GameManager.onGameOver += TallyUpScores;
         CriteriaManager.OnCriteriaDecided += SetCriteria;
+        GameChangerManager.onRefundActivated += RefundActive;
 
         if (IsPlayer1)
         {
@@ -128,6 +131,7 @@ public class ObjectSpawner : MonoBehaviour
     {
         GameManager.onGameOver -= TallyUpScores;
         CriteriaManager.OnCriteriaDecided -= SetCriteria;
+        GameChangerManager.onRefundActivated -= RefundActive;
 
         if (IsPlayer1)
         {
@@ -304,7 +308,15 @@ public class ObjectSpawner : MonoBehaviour
 
             ObjectsPool[index] = GlitchedItemsPool[index2];
             SpawnGlitchedItem = false;
-        }    
+        }
+        if(refundActive)
+        {
+            int index = Random.Range(0, ObjectsPool.Count);
+            int index2 = Random.Range(0, NonSupermarketItemsPool.Count);
+
+            ObjectsPool[index] = NonSupermarketItemsPool[index2];
+            refundActive = false;
+        }
 
         NumOfObjToSpawn = ObjectsPool.Count;
         //Debug.Log("Num of obj to spawn: " + NumOfObjToSpawn);
@@ -817,6 +829,11 @@ public class ObjectSpawner : MonoBehaviour
         criteriaList.Add(crit3);
 
         Debug.Log("Criterias: " + crit1 + crit2 + crit3);
+    }
+
+    private void RefundActive()
+    {
+        refundActive = true;
     }
 
     // End of code from Nikolaos Comandariu.
