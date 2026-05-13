@@ -70,6 +70,7 @@ public class ObjectSpawner : MonoBehaviour
     private bool NotMatch = false;
     private bool IsMatch = false;
     private bool refundActive = false;
+    private bool generatingRefundItems = false;
 
     public bool InputAllowed;
     private bool rhythmPoints; // Nikolaos Comandariu.
@@ -309,13 +310,13 @@ public class ObjectSpawner : MonoBehaviour
             ObjectsPool[index] = GlitchedItemsPool[index2];
             SpawnGlitchedItem = false;
         }
-        if(refundActive)
+        if(refundActive && generatingRefundItems == false)
         {
             int index = Random.Range(0, ObjectsPool.Count);
             int index2 = Random.Range(0, NonSupermarketItemsPool.Count);
 
             ObjectsPool[index] = NonSupermarketItemsPool[index2];
-            refundActive = false;
+            generatingRefundItems = false;
         }
 
         NumOfObjToSpawn = ObjectsPool.Count;
@@ -380,7 +381,10 @@ public class ObjectSpawner : MonoBehaviour
             {
                 isMatch = false;
             }
-
+            else if(proto.checkIsSupermarketItem() && refundActive) // Nikolaos Comandariu.
+            {
+                isMatch = true;
+            }
             else
             {
                 switch (roundCondition)
@@ -564,7 +568,10 @@ public class ObjectSpawner : MonoBehaviour
             {
                 isMatch = true;
             }
-
+            else if (proto.checkIsSupermarketItem() && refundActive) // Nikolaos Comandariu.
+            {
+                isMatch = false;
+            }
             else
             { 
                 switch (roundCondition)

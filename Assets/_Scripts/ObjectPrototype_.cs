@@ -25,7 +25,7 @@ public class ObjectPrototype_ : MonoBehaviour
     [SerializeField] private bool IsOrange;
     [SerializeField] private bool IsDrink;
     [SerializeField] private bool IsGlitched;
-    [SerializeField] private bool supermarketItem;
+    [SerializeField] private bool supermarketItem; // Nikolaos Comandariu.
 
     private Transform transform2;
 
@@ -81,6 +81,8 @@ public class ObjectPrototype_ : MonoBehaviour
     public bool checkIsOrange() {  return IsOrange; }
     public bool checkIsDrink() {  return IsDrink; }
     public bool checkIsGlitched() { return IsGlitched; }
+
+    public bool checkIsSupermarketItem() { return supermarketItem; } // Nikolaos Comandariu.
 
     //testing new fucntions
     private void moveUp()
