@@ -5,6 +5,7 @@ public class CreditsManager : MonoBehaviour
 {
     [Header("Game Objects")]
     [SerializeField] private GameObject[] creditNames;
+    [SerializeField] private GameObject creditAnim;
 
     [Header("Variables")]
     [SerializeField] private float stampTime;
@@ -42,7 +43,11 @@ public class CreditsManager : MonoBehaviour
             creditNames[i].GetComponent<SpriteRenderer>().enabled = true;
             keepMoving = true;
 
-            if (i == creditNames.Length - 1) keepMoving = false;
+            if (i == creditNames.Length - 1)
+            {
+                keepMoving = false; 
+                creditAnim.GetComponent<Animator>().SetTrigger("Finished");
+            }
 
             yield return new WaitForSeconds(stampTime);
         }

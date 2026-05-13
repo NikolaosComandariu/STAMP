@@ -1094,6 +1094,7 @@ MonoBehaviour:
   - {fileID: 1593154293}
   - {fileID: 856072247}
   - {fileID: 1278301375}
+  creditAnim: {fileID: 1936121134}
   stampTime: 0.6
   speed: 1.55
 --- !u!1 &1936121134
