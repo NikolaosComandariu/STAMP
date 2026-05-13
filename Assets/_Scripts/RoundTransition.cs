@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using Color = UnityEngine.Color;
 
@@ -58,7 +59,10 @@ public class RoundTransition : MonoBehaviour
     private void OnEnable()
     {
         GameManager.onNextRound += StartRoundTransition;
-        GameManager.onGameChangerRound += SetGameChangerText;
+        GameChangerManager.onOppositeDayActivated += OppositeDayText;
+        GameChangerManager.onRhythmActivated += RhythmText;
+        //GameChangerManager.onSupermarketSweepActivated += SupermarketSweepText; // TODO: Re-enable once game changers are in!
+        //GameChangerManager.onRefundActivated += RefundText;
     }
 
     /// <summary>
@@ -67,7 +71,10 @@ public class RoundTransition : MonoBehaviour
     private void OnDisable()
     {
         GameManager.onNextRound -= StartRoundTransition;
-        //GameManager.onGameChangerRound -= GameChangerRound;
+        GameChangerManager.onOppositeDayActivated -= OppositeDayText;
+        GameChangerManager.onRhythmActivated -= RhythmText;
+        //GameChangerManager.onSupermarketSweepActivated -= SupermarketSweepText;
+        //GameChangerManager.onRefundActivated -= RefundText;
     }
 
     /// <summary>
@@ -99,7 +106,7 @@ public class RoundTransition : MonoBehaviour
 
         gameChangerText.text = null;
         anim.ResetTrigger("StopTransition");
-        canvasComponent.enabled = false;
+        //canvasComponent.enabled = false;
         onTransitionEnded?.Invoke();
 
         yield return null;
@@ -140,6 +147,8 @@ public class RoundTransition : MonoBehaviour
 
             yield return null;
         }
+
+        gameChangerText.text = null;
     }
 
     private void SetScoreText()
@@ -148,8 +157,27 @@ public class RoundTransition : MonoBehaviour
         roundText.text = roundNum.ToString();
     }
 
-    private void SetGameChangerText()
+    private void OppositeDayText()
     {
-        gameChangerText.text = "Game changer active!";
+        gameChangerText.text = null;
+        gameChangerText.text = "Opposite Day: Controls are reversed!";
+    }
+
+    private void RhythmText()
+    {
+        gameChangerText.text = null;
+        gameChangerText.text = "Rhythm: Accept/Decline objects in the hitbox for bonus points!";
+    }
+
+    private void SupermarketSweepText()
+    {
+        gameChangerText.text = null;
+        gameChangerText.text = "Supermarket Sweep: You have up to 100 items to go through!";
+    }
+
+    private void RefundText()
+    {
+        gameChangerText.text = null;
+        gameChangerText.text = "Refund: Decline items that do not belong here!";
     }
 }
