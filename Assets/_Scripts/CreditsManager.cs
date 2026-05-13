@@ -21,20 +21,29 @@ public class CreditsManager : MonoBehaviour
     {
         if (!keepMoving) return;
 
-        creditNames[0].transform.position += speed * Time.deltaTime * Vector3.down;   
+        //creditNames[0].transform.position += speed * Time.deltaTime * Vector3.down;
+
+        foreach(var credit in creditNames)
+        {
+            credit.transform.position += speed * Time.deltaTime * Vector3.down;
+        }
     }
 
     private IEnumerator Credits()
     {
-        yield return new WaitForSeconds(stampTime);
+        yield return new WaitForSeconds(0.45f);
         keepMoving = false;
 
         for(int i = 0; i < creditNames.Length; i++)
         {
             keepMoving = false;
             yield return new WaitForSeconds(stampTime);
-            creditNames[i].gameObject.GetComponent<SpriteRenderer>().enabled = true;
+
+            creditNames[i].GetComponent<SpriteRenderer>().enabled = true;
             keepMoving = true;
+
+            if (i == creditNames.Length - 1) keepMoving = false;
+
             yield return new WaitForSeconds(stampTime);
         }
 
