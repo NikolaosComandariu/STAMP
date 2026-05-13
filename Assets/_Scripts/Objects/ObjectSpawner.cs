@@ -548,7 +548,7 @@ public class ObjectSpawner : MonoBehaviour
             // Set current round condition
             roundCondition = (RoundCondition)x;
 
-            if (proto.checkIsGlitched())
+            if (proto.checkIsGlitched()) // code added and edited by smriti
             {
                 isMatch = true;
             }
@@ -807,16 +807,16 @@ public class ObjectSpawner : MonoBehaviour
         rhythmPoints = canAccept;
     }
     
-    private void SetCriteria(int crit1, int crit2, int crit3)
+    private void SetCriteria(int crit1, int crit2)
 
     {
         criteriaList.Clear();
 
         criteriaList.Add(crit1);
         criteriaList.Add(crit2);
-        criteriaList.Add(crit3);
+       // criteriaList.Add(crit3);
 
-        Debug.Log("Criterias: " + crit1 + crit2 + crit3);
+       // Debug.Log("Criterias: " + crit1 + crit2);
     }
 
     // End of code from Nikolaos Comandariu.
