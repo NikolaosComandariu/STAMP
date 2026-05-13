@@ -10,7 +10,6 @@ public class CreditsManager : MonoBehaviour
     [SerializeField] private float stampTime;
     [SerializeField] private float speed;
 
-    private int amountOfNames = 7;
     private bool keepMoving;
 
     private void Start()
@@ -30,11 +29,11 @@ public class CreditsManager : MonoBehaviour
         yield return new WaitForSeconds(stampTime);
         keepMoving = false;
 
-        for(int i = 0; i < amountOfNames; i++)
+        for(int i = 0; i < creditNames.Length; i++)
         {
             keepMoving = false;
-            creditNames[i].gameObject.GetComponent<SpriteRenderer>().enabled = true;
             yield return new WaitForSeconds(stampTime);
+            creditNames[i].gameObject.GetComponent<SpriteRenderer>().enabled = true;
             keepMoving = true;
             yield return new WaitForSeconds(stampTime);
         }
