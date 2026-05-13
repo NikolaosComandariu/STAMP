@@ -70,7 +70,6 @@ public class ObjectSpawner : MonoBehaviour
     private bool NotMatch = false;
     private bool IsMatch = false;
     private bool refundActive = false;
-    private bool generatingRefundItems = false;
 
     public bool InputAllowed;
     private bool rhythmPoints; // Nikolaos Comandariu.
@@ -101,7 +100,8 @@ public class ObjectSpawner : MonoBehaviour
         Single,
         NotFruit,
         NotDrink,
-        NotSingle
+        NotSingle,
+        SupermarketItem
        // Glitched //end of options added by smrti
     }
     
@@ -297,9 +297,20 @@ public class ObjectSpawner : MonoBehaviour
         // Repopulate ObjectsPool.
         for (int i = 0; i < objToSpawn; i++)
         {
+            int refundItem = Random.Range(0, 2); // 1 in 3 chance.
+
             //Debug.Log("Generating Objects for round");
-            int randomIndex = Random.Range(0, AllPossibleObjects.Count);
-            ObjectsPool.Add(AllPossibleObjects[randomIndex]);
+            if (refundActive && refundItem == 0) // Nikolaos Comandariu.
+            {
+                int randomIndex = Random.Range(0, NonSupermarketItemsPool.Count);
+                ObjectsPool.Add(NonSupermarketItemsPool[randomIndex]);
+            }
+            else
+            {
+                int randomIndex = Random.Range(0, AllPossibleObjects.Count);
+                ObjectsPool.Add(AllPossibleObjects[randomIndex]);
+            }  
+            
             ChanceToSpawnGlitchedItem();
         }
         if (SpawnGlitchedItem == true)
@@ -309,14 +320,6 @@ public class ObjectSpawner : MonoBehaviour
 
             ObjectsPool[index] = GlitchedItemsPool[index2];
             SpawnGlitchedItem = false;
-        }
-        if(refundActive && generatingRefundItems == false)
-        {
-            int index = Random.Range(0, ObjectsPool.Count);
-            int index2 = Random.Range(0, NonSupermarketItemsPool.Count);
-
-            ObjectsPool[index] = NonSupermarketItemsPool[index2];
-            generatingRefundItems = false;
         }
 
         NumOfObjToSpawn = ObjectsPool.Count;
@@ -381,10 +384,6 @@ public class ObjectSpawner : MonoBehaviour
             {
                 isMatch = false;
             }
-            else if(proto.checkIsSupermarketItem() && refundActive) // Nikolaos Comandariu.
-            {
-                isMatch = true;
-            }
             else
             {
                 switch (roundCondition)
@@ -431,6 +430,9 @@ public class ObjectSpawner : MonoBehaviour
                         break;
                     case RoundCondition.NotDrink:
                         isMatch = !proto.checkIsDrink();
+                        break;
+                    case RoundCondition.SupermarketItem:
+                        isMatch = proto.checkIsSupermarketItem();
                         break;
                         /*case RoundCondition.Glitched: //code by smriti
                             isMatch = !proto.checkIsGlitched();
@@ -568,10 +570,6 @@ public class ObjectSpawner : MonoBehaviour
             {
                 isMatch = true;
             }
-            else if (proto.checkIsSupermarketItem() && refundActive) // Nikolaos Comandariu.
-            {
-                isMatch = false;
-            }
             else
             { 
                 switch (roundCondition)
@@ -618,6 +616,9 @@ public class ObjectSpawner : MonoBehaviour
                         break;
                     case RoundCondition.NotDrink:
                         isMatch = proto.checkIsDrink();
+                        break;
+                    case RoundCondition.SupermarketItem:
+                        isMatch = !proto.checkIsSupermarketItem();
                         break;
                         /*case RoundCondition.Glitched: //code added by smriti
                             isMatch = proto.checkIsGlitched();
