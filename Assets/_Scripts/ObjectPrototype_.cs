@@ -25,6 +25,7 @@ public class ObjectPrototype_ : MonoBehaviour
     [SerializeField] private bool IsOrange;
     [SerializeField] private bool IsDrink;
     [SerializeField] private bool IsGlitched;
+    [SerializeField] private bool supermarketItem;
 
     private Transform transform2;
 
