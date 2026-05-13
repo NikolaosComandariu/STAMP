@@ -1020,6 +1020,30 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1967051820}
+    - target: {fileID: 5553932542031680745, guid: 8360dd5366b9e9a4390e5be335d7fa26, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5553932542031680745, guid: 8360dd5366b9e9a4390e5be335d7fa26, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5553932542031680745, guid: 8360dd5366b9e9a4390e5be335d7fa26, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -396.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5725919940121943689, guid: 8360dd5366b9e9a4390e5be335d7fa26, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5725919940121943689, guid: 8360dd5366b9e9a4390e5be335d7fa26, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5725919940121943689, guid: 8360dd5366b9e9a4390e5be335d7fa26, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -396.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1526,7 +1550,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7886399669339473410, guid: 3708efc760ebc674d9ba6963d421af34, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 236.7
+      value: 263.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
