@@ -27,6 +27,26 @@ public class CriteriaManager : MonoBehaviour
 
     public static event Action<int, int, int> OnCriteriaDecided;
 
+    // Start of Nikolaos Comandariu code.
+    private bool refundActive = false;
+
+    /// <summary>
+    /// Subscribe to events.
+    /// </summary>
+    private void OnEnable()
+    {
+        GameChangerManager.onRefundActivated += RefundActive;
+    }
+
+    /// <summary>
+    /// Unsubscribe from events.
+    /// </summary>
+    private void OnDisable()
+    {
+        GameChangerManager.onRefundActivated -= RefundActive;
+    }
+
+    // End of Nikolaos Comandariu code.
 
     public enum ColourCondition
     {
@@ -154,6 +174,23 @@ public class CriteriaManager : MonoBehaviour
         int colourKey;
         int itemKey;
         int priceKey;
+        
+        if(refundActive) // Nikolaos Comandariu.
+        {
+            // Clear list and set criteria.
+            criteriaTextList.Clear();
+            criteriaTextList[0] = 14;
+
+            // Set texts.
+            _criteriaP1_1.text = "Supermarket Items";
+            _criteriaP2_1.text = "Supermarket Items";
+
+            // Send criteria to object spawner.
+            OnCriteriaDecided.Invoke(criteriaTextList[0], criteriaTextList[1],
+            criteriaTextList[2]);
+
+            return;
+        }
 
         colourKey = Random.Range(0, ColourList.Count);
         itemKey = Random.Range(0, ItemList.Count);
@@ -208,5 +245,10 @@ public class CriteriaManager : MonoBehaviour
         populatePriceDict();
         populateCriterias();
         selectCriteria();
+    }
+
+    private void RefundActive()
+    {
+        refundActive = true;
     }
 }
