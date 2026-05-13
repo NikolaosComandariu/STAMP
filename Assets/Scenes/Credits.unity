@@ -1188,6 +1188,7 @@ MonoBehaviour:
   creditAnim: {fileID: 1936121134}
   stampTime: 0.6
   speed: 1.55
+  initialWaitTime: 0.45
 --- !u!1 &1936121134
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ public class CreditsManager : MonoBehaviour
     [Header("Variables")]
     [SerializeField] private float stampTime;
     [SerializeField] private float speed;
+    [SerializeField] private float initialWaitTime;
 
     private bool keepMoving;
 
@@ -32,7 +33,7 @@ public class CreditsManager : MonoBehaviour
 
     private IEnumerator Credits()
     {
-        yield return new WaitForSeconds(0.45f);
+        yield return new WaitForSeconds(initialWaitTime);
         keepMoving = false;
 
         for(int i = 0; i < creditNames.Length; i++)
