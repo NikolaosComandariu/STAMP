@@ -14,6 +14,8 @@ public class RhythmHitbox : MonoBehaviour
     {
         GameManager.onNextRound += DisableHitbox;
         GameChangerManager.onRhythmActivated += EnableHitbox;
+
+        //GameChangerManager.onRushHourActivated += FloodObjectPool;
     }
 
     private void OnDisable()

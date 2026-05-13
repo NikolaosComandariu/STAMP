@@ -53,6 +53,9 @@ public class ObjectSpawner : MonoBehaviour
     public static Action<bool> onInputAllowedP1;
     public static Action<bool> onInputAllowedP2;
 
+    [Header("Events Variables")]
+    [SerializeField] private int maxObjRushHour = 100;
+
     // Buttons
     private Button Accept;
     private Button Decline;
@@ -111,13 +114,15 @@ public class ObjectSpawner : MonoBehaviour
         GameManager.onGameOver += TallyUpScores;
         CriteriaManager.OnCriteriaDecided += SetCriteria;
 
+        GameChangerManager.onRushHourActivated += FloodObjectPool;
+
         if (IsPlayer1)
         {
-           // RhythmHitbox.onColliderEnteredP1 += AcceptRhythmPoints;
+            RhythmHitbox.onColliderEnteredP1 += AcceptRhythmPoints;
         }
         else
         {
-            //RhythmHitbox.onColliderEnteredP2 += AcceptRhythmPoints;
+            RhythmHitbox.onColliderEnteredP2 += AcceptRhythmPoints;
         }
     }
 
@@ -131,11 +136,11 @@ public class ObjectSpawner : MonoBehaviour
 
         if (IsPlayer1)
         {
-            //RhythmHitbox.onColliderEnteredP1 -= AcceptRhythmPoints;
+           RhythmHitbox.onColliderEnteredP1 -= AcceptRhythmPoints;
         }
         else
         {
-            //RhythmHitbox.onColliderEnteredP2 -= AcceptRhythmPoints;
+           RhythmHitbox.onColliderEnteredP2 -= AcceptRhythmPoints;
         }
     }
 
@@ -232,6 +237,17 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
+    private void FloodObjectPool()
+    {
+        ObjectsPool.Clear();
+        for (int n = 0; n < maxObjRushHour; n++)
+        {
+            int randomIndex = Random.Range(0, AllPossibleObjects.Count);
+            ObjectsPool.Add(AllPossibleObjects[randomIndex]);
+        }
+
+    }
+
     private void ChanceToSpawnGlitchedItem()
     {
         int chance = Random.Range(1, upperLimit);
@@ -270,6 +286,7 @@ public class ObjectSpawner : MonoBehaviour
     public void DisplayTextFeedback(int amount, Vector3 position, Color color)
     {
             GameObject instance = Instantiate(ScoreTextFeedback, position, Quaternion.identity);
+
 
             TextMeshPro tmp = instance.GetComponent<TextMeshPro>();
             tmp.text = amount.ToString();
@@ -413,7 +430,7 @@ public class ObjectSpawner : MonoBehaviour
 
                 if(rhythmPoints) // Nikolaos Comandariu.
                 {
-                    score += 1;
+                    ResolveAnswer(true);
                     DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
                     Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
                 }
@@ -575,7 +592,7 @@ public class ObjectSpawner : MonoBehaviour
                 Debug.Log("Rhythm Points: " + rhythmPoints);
                 if (rhythmPoints) // Nikolaos Comandariu.
                 {
-                    score += 1;
+                    ResolveAnswer(true);
                     DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
                     Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
                 }
@@ -736,7 +753,7 @@ public class ObjectSpawner : MonoBehaviour
     //        //end of code added by smriti
     //}
 
-
+    //Josh
     void ResolveAnswer(bool isCorrect)
     {
         if (ScoreManager.Instance == null)
@@ -745,12 +762,12 @@ public class ObjectSpawner : MonoBehaviour
             return;
         }
 
-        int delta = isCorrect ? 1 : -1;
+        int delta = isCorrect ? 1 : 0;
         ScoreManager.Instance.AddScore(IsPlayer1, delta);
 
         Debug.Log("Player1={IsPlayer1} | Correct={isCorrect} | Delta={delta}");
     }
-
+    //-Josh
 
     // Code from Nikolaos Comandariu.
 
