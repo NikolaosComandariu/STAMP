@@ -157,5 +157,7 @@ public class CountdownManager : MonoBehaviour
     private void RoundEnded()
     {
         roundStarted = false;
+        if (roundCountdownRoutine != null)
+            StopCoroutine(roundCountdownRoutine);
     }
 }
