@@ -51,7 +51,8 @@ public class ObjectSpawner : MonoBehaviour
 
     [Header("Events")]
     public System.Action onAllObjectsProcessed; // Nikolaos Comandariu.
-    public static event Action<int> OnTallyUpScores;
+    public static event Action<int> OnTallyUpScoresP1;
+    public static event Action<int> OnTallyUpScoresP2;
     public static Action<bool> onInputAllowedP1;
     public static Action<bool> onInputAllowedP2;
 
@@ -518,7 +519,7 @@ public class ObjectSpawner : MonoBehaviour
                 if (AllowDecision)
                 {
                     //Debug.Log("Wrong choice!");
-                    score -= 1;
+                    //score -= 1;
                     //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
                     UpdateScoreUI();
                     NotMatch = true;
@@ -540,6 +541,7 @@ public class ObjectSpawner : MonoBehaviour
                     }
                 }
 
+                TallyUpScores();
 
                 //AllowObjSpawn = true;
                 //StartCoroutine(SpawnObject());
@@ -739,7 +741,7 @@ public class ObjectSpawner : MonoBehaviour
                 if (AllowDecision)
                 {
                     //Debug.Log("Wrong choice!");
-                    score -= 1;
+                    //score -= 1;
                     //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
                     UpdateScoreUI();
                     NotMatch = true;
@@ -763,12 +765,15 @@ public class ObjectSpawner : MonoBehaviour
                     //StartCoroutine(SpawnObject());
                 }
             }
-           /* else
-            {
-                score += 1;
-                Debug.Log("Glitched Item, score increment");
-            }*/
-           //end of code added/edited by smriti
+
+            TallyUpScores();
+
+            /* else
+             {
+                 score += 1;
+                 Debug.Log("Glitched Item, score increment");
+             }*/
+            //end of code added/edited by smriti
 
         }
 
@@ -892,9 +897,17 @@ public class ObjectSpawner : MonoBehaviour
         Destroy(currentObject);
         currentObject = null;
     }
+
     private void TallyUpScores()
     {
-        OnTallyUpScores?.Invoke(score);
+        if(IsPlayer1)
+        {
+            OnTallyUpScoresP1?.Invoke(score);
+        }
+        else
+        {
+            OnTallyUpScoresP2?.Invoke(score);
+        }  
     }
 
     private void AcceptRhythmPoints(bool canAccept)

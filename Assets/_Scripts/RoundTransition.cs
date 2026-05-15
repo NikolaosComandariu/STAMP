@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using Color = UnityEngine.Color;
 
@@ -15,7 +14,8 @@ public class RoundTransition : MonoBehaviour
     [SerializeField] private GameObject transitionObj;
 
     [Header("Text")]
-    [SerializeField] private TextMeshProUGUI scoreText = null;
+    [SerializeField] private TextMeshProUGUI scoreTextP1 = null;
+    [SerializeField] private TextMeshProUGUI scoreTextP2 = null;
     [SerializeField] private TextMeshProUGUI gameChangerText = null;
     [SerializeField] private TextMeshProUGUI roundText = null;
 
@@ -63,6 +63,8 @@ public class RoundTransition : MonoBehaviour
         GameChangerManager.onRhythmActivated += RhythmText;
         //GameChangerManager.onSupermarketSweepActivated += SupermarketSweepText; // TODO: Re-enable once game changers are in!
         GameChangerManager.onRefundActivated += RefundText;
+        ObjectSpawner.OnTallyUpScoresP1 += SetScoreTextP1;
+        ObjectSpawner.OnTallyUpScoresP2 += SetScoreTextP2;
     }
 
     /// <summary>
@@ -74,7 +76,9 @@ public class RoundTransition : MonoBehaviour
         GameChangerManager.onOppositeDayActivated -= OppositeDayText;
         GameChangerManager.onRhythmActivated -= RhythmText;
         //GameChangerManager.onSupermarketSweepActivated -= SupermarketSweepText;
-        //GameChangerManager.onRefundActivated -= RefundText;
+        GameChangerManager.onRefundActivated -= RefundText;
+        ObjectSpawner.OnTallyUpScoresP1 -= SetScoreTextP1;
+        ObjectSpawner.OnTallyUpScoresP2 -= SetScoreTextP2;
     }
 
     /// <summary>
@@ -115,7 +119,7 @@ public class RoundTransition : MonoBehaviour
     private IEnumerator FadeIn()
     {
         roundNum++;
-        SetScoreText();
+        roundText.text = "Round: " + roundNum;
 
         Color color;
 
@@ -126,8 +130,6 @@ public class RoundTransition : MonoBehaviour
             color = spriteRenderer.color;
             color.a += Time.deltaTime / fadeInTime;
             spriteRenderer.color = color;
-
-            //Debug.Log("Canvas alpha: " + canvasGroup.alpha);
 
             yield return null;
         }
@@ -151,10 +153,14 @@ public class RoundTransition : MonoBehaviour
         gameChangerText.text = null;
     }
 
-    private void SetScoreText()
+    private void SetScoreTextP1(int score)
     {
-        //scoreText.text = ;
-        roundText.text = roundNum.ToString();
+        scoreTextP1.text = "Player 1 Score: " + score.ToString();
+    }
+
+    private void SetScoreTextP2(int score)
+    {
+        scoreTextP2.text = "Player 2 Score: " + score.ToString();
     }
 
     private void OppositeDayText()
