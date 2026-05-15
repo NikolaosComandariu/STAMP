@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -17,8 +19,15 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI p1Score;
     [SerializeField] private TextMeshProUGUI p2Score;
 
-    private int Player1Score;
-    private int Player2Score;
+    public static ScoreManager Instance;
+
+    public event Action<int> OnPlayer2ScoreChanged;
+    public event Action<int> OnPlayer1ScoreChanged;
+
+    //"encapsulation", private set so only the scores can be set in this script
+    //better way to do get and set methods
+    public int Player1Score { get; private set; }
+    public int Player2Score { get; private set; }
 
     //getters
     public int getPlayer1Score()
@@ -28,6 +37,34 @@ public class ScoreManager : MonoBehaviour
     public int getPlayer2Score()
     {
         return Player2Score;
+    }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
+
+
+    public void AddScore(bool isPlayer1, int amount)
+    {
+        //objectSpawner.UpdateScoreUI();
+        p1Score.text = "Player 1 Score: " + Player1Score.ToString();
+        UnityEngine.Debug.Log("AddScore called, P1={isPlayer1} , amount={amount}");
+        if (isPlayer1)
+        {
+            Player1Score += amount;
+            UnityEngine.Debug.Log("P1 score Is now: " + Player1Score);
+            OnPlayer1ScoreChanged?.Invoke(Player1Score);
+        }
+        else
+        {
+            Player2Score += amount;
+            UnityEngine.Debug.Log("P2 score Is now: " + Player2Score);
+            OnPlayer2ScoreChanged?.Invoke(Player2Score);
+        }
     }
 
     //changes scores
@@ -44,6 +81,4 @@ public class ScoreManager : MonoBehaviour
         Player2Score = score;
         p2Score.text = "Player 2 Score : " + Player2Score.ToString();
     }
-
-
 }

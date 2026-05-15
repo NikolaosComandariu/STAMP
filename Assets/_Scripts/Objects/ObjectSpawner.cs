@@ -492,15 +492,16 @@ public class ObjectSpawner : MonoBehaviour
 
                     if (rhythmPoints) // Nikolaos Comandariu.
                     {
-                        score += 1;
+                        ResolveAnswer(true);
                         DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
                     }
 
-                    score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
+                    //score += 1;// Score should not be in ObjectSpawner ideally, might need to refactor later.
+                    ResolveAnswer(true);
                     DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
                     Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
-                    UpdateScoreUI();
-                    Debug.Log("Correct! Score is now: " + score);
+                    //UpdateScoreUI();
+                    //Debug.Log("Correct! Score is now: " + score);
                     audioManager.PlaySFX(audioManager.correctChoiceSFX);
             }
             
@@ -508,23 +509,22 @@ public class ObjectSpawner : MonoBehaviour
             {
                 //Debug.Log("Wrong choice!");
                 //score -= 1;
+                ResolveAnswer(false);
                 Instantiate(wrongParticles, CurrentObjLoc, Quaternion.identity);
                 audioManager.PlaySFX(audioManager.incorrectChoiceSFX);
                 //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
-                UpdateScoreUI();
+                //UpdateScoreUI();
                 NotMatch = true;
                 //Debug.Log("Wrong, Score is now: " + score);
-                Debug.Log("Wrong, Score is now: " + score);
                 //code by Smriti
                 if (AllowDecision)
                 {
                     //Debug.Log("Wrong choice!");
                     //score -= 1;
                     //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
-                    UpdateScoreUI();
+                    //UpdateScoreUI();
                     NotMatch = true;
                     //Debug.Log("Wrong, Score is now: " + score);
-                    Debug.Log("Wrong, Score is now: " + score);
                     //code by Smriti
                     if (AllowDecision)
                     {
@@ -712,16 +712,17 @@ public class ObjectSpawner : MonoBehaviour
                     Debug.Log("Rhythm Points: " + rhythmPoints);
                     if (rhythmPoints) // Nikolaos Comandariu.
                     {
-                        score += 1;
+                        //score += 1;
                         DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
                     }
 
-                    score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
+                    //score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
                     isMatch = true;
+                    ResolveAnswer(true);
                     DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
                     Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
-                    UpdateScoreUI();
-                    Debug.Log("Correct! Score is now: " + score);
+                    //UpdateScoreUI();
+                    //Debug.Log("Correct! Score is now: " + score);
                     audioManager.PlaySFX(audioManager.correctChoiceSFX);
                 }
 
@@ -730,20 +731,20 @@ public class ObjectSpawner : MonoBehaviour
             {
                 //Debug.Log("Wrong choice!");
                 //score -= 1;
+                ResolveAnswer(false);
                 Instantiate(wrongParticles, CurrentObjLoc, Quaternion.identity);
                 audioManager.PlaySFX(audioManager.incorrectChoiceSFX);
                 //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
-                UpdateScoreUI();
+                //UpdateScoreUI();
                 NotMatch = true;
                 //Debug.Log("Wrong, Score is now: " + score);
-                Debug.Log("Wrong, Score is now: " + score);
                 //code by Smriti
                 if (AllowDecision)
                 {
                     //Debug.Log("Wrong choice!");
                     //score -= 1;
                     //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
-                    UpdateScoreUI();
+                    //UpdateScoreUI();
                     NotMatch = true;
                     //Debug.Log("Wrong, Score is now: " + score);
                     Debug.Log("Wrong, Score is now: " + score);
@@ -839,6 +840,21 @@ public class ObjectSpawner : MonoBehaviour
         {
             StartCoroutine(SpawnObject());
         }
+    }
+
+
+    void ResolveAnswer(bool isCorrect)
+    {
+        if (ScoreManager.Instance == null)
+        {
+            Debug.LogError("no scoremanager");
+            return;
+        }
+
+        int delta = isCorrect ? 1 : 0;
+        ScoreManager.Instance.AddScore(IsPlayer1, delta);
+
+        Debug.Log("Player1={IsPlayer1} | Correct={isCorrect} | Delta={delta}");
     }
 
     /// <summary>
