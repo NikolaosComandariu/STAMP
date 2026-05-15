@@ -148,6 +148,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e9d7f857a0ac44d8deef74267e2a42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  criteriaTextList: 
+  _criteriaP1_1: {fileID: 0}
+  _criteriaP1_2: {fileID: 0}
+  _criteriaP1_3: {fileID: 0}
+  _criteriaP2_1: {fileID: 0}
+  _criteriaP2_2: {fileID: 0}
+  _criteriaP2_3: {fileID: 0}
   criteriaNumber: 1
 --- !u!4 &857560629
 Transform:

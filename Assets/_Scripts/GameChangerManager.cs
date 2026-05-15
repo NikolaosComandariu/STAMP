@@ -8,6 +8,7 @@ public class GameChangerManager : MonoBehaviour
     [SerializeField] private Canvas rhythmCanvas;
     [SerializeField] private Canvas oppositeDayCanvas;
     [SerializeField] private Canvas rushHourCanvas;
+    [SerializeField] private Canvas refundCanvas;
 
     [Header("Variables")]
     [SerializeField] private int numOfGameChangers;
@@ -20,6 +21,7 @@ public class GameChangerManager : MonoBehaviour
     public static event Action onOppositeDayActivated;
     public static event Action onRhythmActivated;
     public static event Action onRushHourActivated;
+    public static event Action onRefundActivated;
 
     private bool isActive;
     private bool onCooldown;
@@ -56,6 +58,7 @@ public class GameChangerManager : MonoBehaviour
 
         rhythmCanvas.enabled = false;
         oppositeDayCanvas.enabled = false;
+        refundCanvas.enabled = false;
     }
 
     private void ActivateGameChanger()
@@ -91,6 +94,10 @@ public class GameChangerManager : MonoBehaviour
                 onRushHourActivated?.Invoke();
                 rushHourCanvas.enabled = true;
                 break;
+            case 3:
+                onRefundActivated?.Invoke();
+                refundCanvas.enabled = true;
+                break;
         }
     }
 
@@ -99,5 +106,6 @@ public class GameChangerManager : MonoBehaviour
         rhythmCanvas.enabled = false;
         oppositeDayCanvas.enabled = false;
         rushHourCanvas.enabled = false;
+        refundCanvas.enabled = false;
     }
 }
