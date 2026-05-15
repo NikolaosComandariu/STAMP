@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 82757fe22dae3db4c8377ef10356aeed
+guid: 5dfe7f80758769e4abc358d08f7782fd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 34919900871778691
-    second: Player 2 Wins_0
+      213: -5323021194741985504
+    second: AlanNameCredits 1_0
+  - first:
+      213: -8863582116225917830
+    second: AlanNameCredits 1_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +78,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,7 +103,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player 2 Wins_0
+      name: AlanNameCredits_0
       rect:
         serializedVersion: 2
         x: 0
@@ -108,15 +111,15 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 381ed0ff67f0c7000800000000000000
-      internalID: 34919900871778691
+      spriteID: 5194350381f54144991c5d1ad50d0c26
+      internalID: -111130463
       vertices: []
       indices: 
       edges: []
@@ -125,7 +128,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 992af1a565a25b34f8a4fb2f6d7c1633
     internalID: 0
     vertices: []
     indices: 
@@ -133,9 +136,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Player 2 Wins_0: 34919900871778691
+      AlanNameCredits_0: -111130463
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

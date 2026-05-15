@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 2b38cef82ec37ce45a2e7b0eb451fe0a
+guid: 4c81989d368ee8f46ada65be035f06a7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2635970742440954462
-    second: Player 1 Lose_0
+      213: -2701228273213317300
+    second: EddyNameCredits_0
+  - first:
+      213: 3915344753081298862
+    second: EddyNameCredits_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +40,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -75,7 +78,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,7 +103,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player 1 Lose_0
+      name: EddyNameCredits_0
       rect:
         serializedVersion: 2
         x: 0
@@ -108,15 +111,15 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e5a048d9c69d49420800000000000000
-      internalID: 2635970742440954462
+      spriteID: c4fd0ed723f438ad0800000000000000
+      internalID: -2701228273213317300
       vertices: []
       indices: 
       edges: []
@@ -125,7 +128,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: b1b0d3a2f9e29e04e8622ede6ac8c914
     internalID: 0
     vertices: []
     indices: 
@@ -133,9 +136,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Player 1 Lose_0: 2635970742440954462
+      EddyNameCredits_0: -2701228273213317300
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
