@@ -571,6 +571,30 @@ PrefabInstance:
       propertyPath: 'GlitchedItemsPool.Array.data[3]'
       value: 
       objectReference: {fileID: 4785273044838676147, guid: 2649ee5862ab62f41bed292200019be0, type: 3}
+    - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: NonSupermarketItemsPool.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: 'NonSupermarketItemsPool.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5663447305687192481, guid: fae311c2b7eb3074dae0ca866cfa7516, type: 3}
+    - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: 'NonSupermarketItemsPool.Array.data[1]'
+      value: 
+      objectReference: {fileID: 5663447305687192481, guid: 606579e4c92849f45ba6a777aba3467f, type: 3}
+    - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: 'NonSupermarketItemsPool.Array.data[2]'
+      value: 
+      objectReference: {fileID: 5663447305687192481, guid: 9d5c713c320e9d64bb859f4638ae37de, type: 3}
+    - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: 'NonSupermarketItemsPool.Array.data[3]'
+      value: 
+      objectReference: {fileID: 5663447305687192481, guid: c756e1f91052ad944929725ef44d144c, type: 3}
+    - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: 'NonSupermarketItemsPool.Array.data[4]'
+      value: 
+      objectReference: {fileID: 5663447305687192481, guid: 78db20ce773c1594aa1a48ba1907cade, type: 3}
     - target: {fileID: 3701250182288645087, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10.92
@@ -3782,6 +3806,30 @@ PrefabInstance:
       propertyPath: 'GlitchedItemsPool.Array.data[3]'
       value: 
       objectReference: {fileID: 4785273044838676147, guid: 2649ee5862ab62f41bed292200019be0, type: 3}
+    - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: NonSupermarketItemsPool.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: 'NonSupermarketItemsPool.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5663447305687192481, guid: fae311c2b7eb3074dae0ca866cfa7516, type: 3}
+    - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: 'NonSupermarketItemsPool.Array.data[1]'
+      value: 
+      objectReference: {fileID: 5663447305687192481, guid: 606579e4c92849f45ba6a777aba3467f, type: 3}
+    - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: 'NonSupermarketItemsPool.Array.data[2]'
+      value: 
+      objectReference: {fileID: 5663447305687192481, guid: 9d5c713c320e9d64bb859f4638ae37de, type: 3}
+    - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: 'NonSupermarketItemsPool.Array.data[3]'
+      value: 
+      objectReference: {fileID: 5663447305687192481, guid: c756e1f91052ad944929725ef44d144c, type: 3}
+    - target: {fileID: 2078211021006589996, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
+      propertyPath: 'NonSupermarketItemsPool.Array.data[4]'
+      value: 
+      objectReference: {fileID: 5663447305687192481, guid: 78db20ce773c1594aa1a48ba1907cade, type: 3}
     - target: {fileID: 7464752900714267715, guid: 3fbcc5f65e407c3489e1068667d8cc81, type: 3}
       propertyPath: m_Name
       value: ObjectSpawner
