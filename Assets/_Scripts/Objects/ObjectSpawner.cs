@@ -332,6 +332,8 @@ public class ObjectSpawner : MonoBehaviour
             SpawnGlitchedItem = false;
         }
 
+        refundActive = false;
+
         NumOfObjToSpawn = ObjectsPool.Count;
         //Debug.Log("Num of obj to spawn: " + NumOfObjToSpawn);
     }
@@ -599,7 +601,6 @@ public class ObjectSpawner : MonoBehaviour
             Debug.Log("score increased due to glitched item");
             //DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
         }*/
-
 
         for (int i = 0; i < criteriaList.Count; i++)
         {
@@ -909,7 +910,9 @@ public class ObjectSpawner : MonoBehaviour
         ObjectsPool.Clear();
         NumOfObjToSpawn = 0;
         AllowObjSpawn = true;
-    
+        refundActive = false;
+        criteriaList.Clear();
+
         Destroy(currentObject);
         currentObject = null;
     }
@@ -944,7 +947,7 @@ public class ObjectSpawner : MonoBehaviour
         {
             criteriaList.Add(crit1);
             criteriaList.Add(crit2);
-        } 
+        }
     }
 
     private void RefundActive()
