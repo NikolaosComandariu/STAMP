@@ -98,8 +98,15 @@ public class ObjectSpawner : MonoBehaviour
         Single,
         NotFruit,
         NotDrink,
-        NotSingle
-       // Glitched //end of options added by smrti
+        NotSingle,
+        LessThan5, //options added by smriti
+        MoreThan5,
+        LessThan3,
+        MoreThan3,
+        LessThan2,
+        MoreThan2,
+        LessThan1,
+        MoreThan1 //end of options added by smrti
     }
     
     // Nikolaos Comandariu.
@@ -416,9 +423,39 @@ public class ObjectSpawner : MonoBehaviour
                     case RoundCondition.NotDrink:
                         isMatch = !proto.checkIsDrink();
                         break;
-                        /*case RoundCondition.Glitched: //code by smriti
-                            isMatch = !proto.checkIsGlitched();
-                            break; //end code by smriti */
+                    //code added by smriti
+                    case RoundCondition.LessThan5:
+                        if (proto.GetPrice() < 5) { isMatch = true; }
+                        else { isMatch = false; }
+                        break;
+                    case RoundCondition.MoreThan5:
+                        if (proto.GetPrice() > 5) { isMatch = true; }
+                        else { isMatch = false; }
+                        break;
+                    case RoundCondition.LessThan3:
+                        if (proto.GetPrice() < 3) { isMatch = true; }
+                        else { isMatch = false; }
+                        break;
+                    case RoundCondition.MoreThan3:
+                        if (proto.GetPrice() > 3) { isMatch = true; }
+                        else { isMatch = false; }
+                        break;
+                    case RoundCondition.LessThan2:
+                        if (proto.GetPrice() < 2) { isMatch = true; }
+                        else { isMatch = false; }
+                        break;
+                    case RoundCondition.MoreThan2:
+                        if (proto.GetPrice() > 2) { isMatch = true; }
+                        else { isMatch = false; }
+                        break;
+                    case RoundCondition.LessThan1:
+                        if (proto.GetPrice() < 1) { isMatch = true; }
+                        else { isMatch = false; }
+                        break;
+                    case RoundCondition.MoreThan1:
+                        if (proto.GetPrice() > 1) { isMatch = true; }
+                        else { isMatch = false; }
+                        break;
                 }
 
                 Debug.Log("Is match: " + isMatch);
@@ -548,7 +585,7 @@ public class ObjectSpawner : MonoBehaviour
             // Set current round condition
             roundCondition = (RoundCondition)x;
 
-            if (proto.checkIsGlitched())
+            if (proto.checkIsGlitched()) // code added and edited by smriti
             {
                 isMatch = true;
             }
@@ -600,9 +637,39 @@ public class ObjectSpawner : MonoBehaviour
                     case RoundCondition.NotDrink:
                         isMatch = proto.checkIsDrink();
                         break;
-                        /*case RoundCondition.Glitched: //code added by smriti
-                            isMatch = proto.checkIsGlitched();
-                            break;*/
+                    //code added by smriti
+                    case RoundCondition.LessThan5:
+                        if(proto.GetPrice() < 5) { isMatch = false; }
+                        else{ isMatch = true; }
+                        break;
+                    case RoundCondition.MoreThan5:
+                        if (proto.GetPrice() > 5) { isMatch = false; }
+                        else { isMatch = true; }
+                        break;
+                    case RoundCondition.LessThan3:
+                        if (proto.GetPrice() < 3) { isMatch = false; }
+                        else { isMatch = true; }
+                        break;
+                    case RoundCondition.MoreThan3:
+                        if (proto.GetPrice() > 3) { isMatch = false; }
+                        else { isMatch = true; }
+                        break;
+                    case RoundCondition.LessThan2:
+                        if (proto.GetPrice() < 2) { isMatch = false; }
+                        else { isMatch = true; }
+                        break;
+                    case RoundCondition.MoreThan2:
+                        if (proto.GetPrice() > 2) { isMatch = false; }
+                        else { isMatch = true; }
+                        break;
+                    case RoundCondition.LessThan1:
+                        if (proto.GetPrice() < 1) { isMatch = false; }
+                        else { isMatch = true; }
+                        break;
+                    case RoundCondition.MoreThan1:
+                        if (proto.GetPrice() > 1) { isMatch = false; }
+                        else { isMatch = true; }
+                        break;
                 } //end of added code by smriti
 
                 Debug.Log("Is match: " + isMatch);
@@ -807,16 +874,16 @@ public class ObjectSpawner : MonoBehaviour
         rhythmPoints = canAccept;
     }
     
-    private void SetCriteria(int crit1, int crit2, int crit3)
+    private void SetCriteria(int crit1, int crit2)
 
     {
         criteriaList.Clear();
 
         criteriaList.Add(crit1);
         criteriaList.Add(crit2);
-        criteriaList.Add(crit3);
+       // criteriaList.Add(crit3);
 
-        Debug.Log("Criterias: " + crit1 + crit2 + crit3);
+       // Debug.Log("Criterias: " + crit1 + crit2);
     }
 
     // End of code from Nikolaos Comandariu.

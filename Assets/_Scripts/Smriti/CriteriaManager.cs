@@ -18,17 +18,19 @@ public class CriteriaManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _criteriaP2_2;
     [SerializeField] private TextMeshProUGUI _criteriaP2_3;
 
-
-    private Dictionary<int, ColourCondition> ColourList = new Dictionary<int, ColourCondition>();
+    [Header("Dictionaries")]
+    //private Dictionary<int, ColourCondition> ColourList = new Dictionary<int, ColourCondition>();
     private Dictionary<int, ItemCondition> ItemList = new Dictionary<int, ItemCondition>();
     private Dictionary<int, PriceCondition> PriceList = new Dictionary<int, PriceCondition>();
-    private Dictionary<int, Conditions> ConditionsList = new Dictionary<int, Conditions>();
+    private Dictionary<int, string> PriceTextList = new Dictionary<int, string>();
+   // private Dictionary<int, Conditions> ConditionsList = new Dictionary<int, Conditions>();
     public int criteriaNumber = 1;
 
-    public static event Action<int, int, int> OnCriteriaDecided;
+    public static event Action<int, int> OnCriteriaDecided;
 
+   //private ObjectPrototype_ myProto;
 
-    public enum ColourCondition
+    /*public enum ColourCondition
     {
         Red,
         Orange,
@@ -38,7 +40,7 @@ public class CriteriaManager : MonoBehaviour
         NotOrange,
         NotYellow,
         NotGreen
-    }
+    }*/
 
     public enum ItemCondition
     {
@@ -47,7 +49,15 @@ public class CriteriaManager : MonoBehaviour
         Single,
         NotFruit,
         NotDrink,
-        NotSingle
+        NotSingle,
+        Red,
+        Orange,
+        Yellow,
+        Green,
+        NotRed,
+        NotOrange,
+        NotYellow,
+        NotGreen
     }
 
     public enum PriceCondition
@@ -63,7 +73,7 @@ public class CriteriaManager : MonoBehaviour
         //More to be added later once properly sorted out
     }
 
-    public enum Conditions
+   /* public enum Conditions
     {
         Red,
         Orange,
@@ -79,10 +89,10 @@ public class CriteriaManager : MonoBehaviour
         NotFruit,
         NotDrink,
         NotSingle
-    }
+    }*/
 
     //populating dictionary
-    public void populateColourDict()
+    /*public void populateColourDict()
     {
         ColourList.Clear();
 
@@ -95,21 +105,29 @@ public class CriteriaManager : MonoBehaviour
         ColourList.Add(6, ColourCondition.NotYellow);
         ColourList.Add(7, ColourCondition.NotGreen);
    
-    }
+    }*/
 
     public void populateItemDict()
     {
         ItemList.Clear();
 
-        ItemList.Add(0, ItemCondition.Fruit);
-        ItemList.Add(1, ItemCondition.Drink);
-        ItemList.Add(2, ItemCondition.Single);
-        ItemList.Add(3, ItemCondition.NotFruit);
-        ItemList.Add(4, ItemCondition.NotDrink);
-        ItemList.Add(5, ItemCondition.NotSingle);
+        ItemList.Add(0, ItemCondition.Red);
+        ItemList.Add(1, ItemCondition.Orange);
+        ItemList.Add(2, ItemCondition.Yellow);
+        ItemList.Add(3, ItemCondition.Green);
+        ItemList.Add(4, ItemCondition.NotRed);
+        ItemList.Add(5, ItemCondition.NotOrange);
+        ItemList.Add(6, ItemCondition.NotYellow);
+        ItemList.Add(7, ItemCondition.NotGreen);
+        ItemList.Add(8, ItemCondition.Fruit);
+        ItemList.Add(9, ItemCondition.Drink);
+        ItemList.Add(10, ItemCondition.Single);
+        ItemList.Add(11, ItemCondition.NotFruit);
+        ItemList.Add(12, ItemCondition.NotDrink);
+        ItemList.Add(13, ItemCondition.NotSingle);
     }
 
-    public void populatePriceDict()
+   /* public void populatePriceDict()
     {
         PriceList.Clear();
 
@@ -125,9 +143,58 @@ public class CriteriaManager : MonoBehaviour
 
         //TO BE ADDED
 
+    }*/
+
+    public void populatePriceTextDict()
+    {
+        PriceTextList.Clear();
+
+        PriceTextList.Add(0, getPriceTitle(PriceCondition.LessThan5Pounds));
+        PriceTextList.Add(1, getPriceTitle(PriceCondition.MoreThan5Pounds));
+        PriceTextList.Add(2, getPriceTitle(PriceCondition.LessThan3Pounds));
+        PriceTextList.Add(3, getPriceTitle(PriceCondition.MoreThan3Pounds));
+        PriceTextList.Add(4, getPriceTitle(PriceCondition.LessThan2Pounds));
+        PriceTextList.Add(5, getPriceTitle(PriceCondition.MoreThan2Pounds));
+        PriceTextList.Add(6, getPriceTitle(PriceCondition.LessThan1Pound));
+        PriceTextList.Add(7, getPriceTitle(PriceCondition.MoreThan1Pound));
     }
 
-    public void populateCriterias()
+    private string getPriceTitle(PriceCondition PC)
+    {
+        switch (PC)
+        {
+            case(PriceCondition.LessThan5Pounds):
+                return "Price < £5";
+                break;
+            case (PriceCondition.MoreThan5Pounds):
+                return "Price > £5";
+                break;
+            case (PriceCondition.LessThan3Pounds):
+                return "Price < £3";
+                break;
+            case (PriceCondition.MoreThan3Pounds):
+                return "Price > £3";
+                break;
+            case (PriceCondition.LessThan1Pound):
+                return "Price < £1";
+                break;
+            case (PriceCondition.MoreThan1Pound):
+                return "Price >£1";
+                break;
+            case (PriceCondition.LessThan2Pounds):
+                return "Price < £2";
+                break;
+            case (PriceCondition.MoreThan2Pounds):
+                return "Price > £2";
+                break;
+            default:
+                return null;
+                break;
+
+        }
+    }
+
+    /*public void populateCriterias()
     {
         ConditionsList.Clear();
 
@@ -145,57 +212,61 @@ public class CriteriaManager : MonoBehaviour
         ConditionsList.Add(11, Conditions.NotFruit);
         ConditionsList.Add(12, Conditions.NotDrink);
         ConditionsList.Add(13, Conditions.NotSingle);
-    }
+    }*/
 
     public void IncreaseAmountOfCriteria() { criteriaNumber++; }
 
     public void selectCriteria()
     {
-        int colourKey;
+        //int colourKey;
         int itemKey;
         int priceKey;
 
-        colourKey = Random.Range(0, ColourList.Count);
+        //colourKey = Random.Range(0, ColourList.Count);
         itemKey = Random.Range(0, ItemList.Count);
         //priceKey = Random.Range(0, PriceList.Count);
-        priceKey = Random.Range(0, ColourList.Count);
+        priceKey = Random.Range(0, PriceTextList.Count);
 
         switch (criteriaNumber)
         {
             case 1:
-                criteriaTextList[0] = colourKey + 1;
+                //criteriaTextList[0] = colourKey; //+ 1;
+                criteriaTextList[0] = itemKey;
                 break;
             case 2:
-                criteriaTextList[0] = colourKey + 1;
-                criteriaTextList[1] = itemKey + 7; // + 6 cause it's 1 list in objSpawner, -1 to translate
+                //criteriaTextList[0] = colourKey; //+ 1;
+                criteriaTextList[0] = itemKey; //+ 6; // + 6 cause it's 1 list in objSpawner, -1 to translate
+                criteriaTextList[1] = priceKey;
                 break;
-            case 3:
+            /*case 3:
                 criteriaTextList[0] = colourKey;
-                criteriaTextList[1] = itemKey + 6;
+                criteriaTextList[1] = itemKey; //+ 6;
                 criteriaTextList[2] = priceKey;
-                break;
+                break;*/
         }
 
         if (criteriaTextList[0] != 0)
         {
-            _criteriaP1_1.text = ConditionsList[key: criteriaTextList[0]].ToString() + "\n";
-            _criteriaP2_1.text = ConditionsList[key: criteriaTextList[0]].ToString() + "\n";
+            _criteriaP1_1.text = ItemList[key: criteriaTextList[0]].ToString() + "\n";
+            _criteriaP2_1.text = ItemList[key: criteriaTextList[0]].ToString() + "\n";
         }
 
         if (criteriaTextList[1] != 0)
         {
-            _criteriaP1_2.text = ConditionsList[key: criteriaTextList[1]].ToString() + "\n";
-            _criteriaP2_2.text = ConditionsList[key: criteriaTextList[1]].ToString() + "\n";
+            _criteriaP1_2.text = PriceTextList[key: criteriaTextList[1]].ToString() + "\n";
+            _criteriaP2_2.text = PriceTextList[key: criteriaTextList[1]].ToString() + "\n";
         }
 
-        if (criteriaTextList[2] != 0)
-        {
-            _criteriaP1_3.text = ConditionsList[key: criteriaTextList[2]].ToString() + "\n";
-            _criteriaP2_3.text = ConditionsList[key: criteriaTextList[2]].ToString() + "\n";
-        }
-            
-        OnCriteriaDecided.Invoke(criteriaTextList[0], criteriaTextList[1],
-            criteriaTextList[2]);
+        /* if (criteriaTextList[2] != 0)
+         {
+             _criteriaP1_3.text = PriceTextList[key: criteriaTextList[2]].ToString() + "\n";
+             _criteriaP2_3.text = PriceTextList[key: criteriaTextList[2]].ToString() + "\n";
+         }*/
+
+        if (criteriaTextList[1] != 0)
+            criteriaTextList[1] = priceKey + 13;
+
+        OnCriteriaDecided.Invoke(criteriaTextList[0], criteriaTextList[1]);
 
 
         //Debug.Log("CriteriaManager: Criterias are: " +  criteriaTextList[0] + ", " + criteriaTextList[1] + ", " + criteriaTextList[2]);
@@ -203,10 +274,11 @@ public class CriteriaManager : MonoBehaviour
 
     public void displayCriteria()
     {
-        populateColourDict();
+        //populateColourDict();
         populateItemDict();
-        populatePriceDict();
-        populateCriterias();
+       // populatePriceDict();
+        populatePriceTextDict();
+        //populateCriterias();
         selectCriteria();
     }
 }
