@@ -111,20 +111,20 @@ public class CriteriaManager : MonoBehaviour
     {
         ItemList.Clear();
 
-        ItemList.Add(0, ItemCondition.Fruit);
-        ItemList.Add(1, ItemCondition.Drink);
-        ItemList.Add(2, ItemCondition.Single);
-        ItemList.Add(3, ItemCondition.NotFruit);
-        ItemList.Add(4, ItemCondition.NotDrink);
-        ItemList.Add(5, ItemCondition.NotSingle);
-        ItemList.Add(6, ItemCondition.Red);
-        ItemList.Add(7, ItemCondition.Orange);
-        ItemList.Add(8, ItemCondition.Yellow);
-        ItemList.Add(9, ItemCondition.Green);
-        ItemList.Add(10, ItemCondition.NotRed);
-        ItemList.Add(11, ItemCondition.NotOrange);
-        ItemList.Add(12, ItemCondition.NotYellow);
-        ItemList.Add(13, ItemCondition.NotGreen);
+        ItemList.Add(0, ItemCondition.Red);
+        ItemList.Add(1, ItemCondition.Orange);
+        ItemList.Add(2, ItemCondition.Yellow);
+        ItemList.Add(3, ItemCondition.Green);
+        ItemList.Add(4, ItemCondition.NotRed);
+        ItemList.Add(5, ItemCondition.NotOrange);
+        ItemList.Add(6, ItemCondition.NotYellow);
+        ItemList.Add(7, ItemCondition.NotGreen);
+        ItemList.Add(8, ItemCondition.Fruit);
+        ItemList.Add(9, ItemCondition.Drink);
+        ItemList.Add(10, ItemCondition.Single);
+        ItemList.Add(11, ItemCondition.NotFruit);
+        ItemList.Add(12, ItemCondition.NotDrink);
+        ItemList.Add(13, ItemCondition.NotSingle);
     }
 
    /* public void populatePriceDict()
@@ -153,10 +153,10 @@ public class CriteriaManager : MonoBehaviour
         PriceTextList.Add(1, getPriceTitle(PriceCondition.MoreThan5Pounds));
         PriceTextList.Add(2, getPriceTitle(PriceCondition.LessThan3Pounds));
         PriceTextList.Add(3, getPriceTitle(PriceCondition.MoreThan3Pounds));
-        PriceTextList.Add(4, getPriceTitle(PriceCondition.LessThan1Pound));
-        PriceTextList.Add(5, getPriceTitle(PriceCondition.MoreThan1Pound));
-        PriceTextList.Add(6, getPriceTitle(PriceCondition.LessThan2Pounds));
-        PriceTextList.Add(7, getPriceTitle(PriceCondition.MoreThan2Pounds));
+        PriceTextList.Add(4, getPriceTitle(PriceCondition.LessThan2Pounds));
+        PriceTextList.Add(5, getPriceTitle(PriceCondition.MoreThan2Pounds));
+        PriceTextList.Add(6, getPriceTitle(PriceCondition.LessThan1Pound));
+        PriceTextList.Add(7, getPriceTitle(PriceCondition.MoreThan1Pound));
     }
 
     private string getPriceTitle(PriceCondition PC)
@@ -257,12 +257,15 @@ public class CriteriaManager : MonoBehaviour
             _criteriaP2_2.text = PriceTextList[key: criteriaTextList[1]].ToString() + "\n";
         }
 
-       /* if (criteriaTextList[2] != 0)
-        {
-            _criteriaP1_3.text = PriceTextList[key: criteriaTextList[2]].ToString() + "\n";
-            _criteriaP2_3.text = PriceTextList[key: criteriaTextList[2]].ToString() + "\n";
-        }*/
-            
+        /* if (criteriaTextList[2] != 0)
+         {
+             _criteriaP1_3.text = PriceTextList[key: criteriaTextList[2]].ToString() + "\n";
+             _criteriaP2_3.text = PriceTextList[key: criteriaTextList[2]].ToString() + "\n";
+         }*/
+
+        if (criteriaTextList[1] != 0)
+            criteriaTextList[1] = priceKey + 13;
+
         OnCriteriaDecided.Invoke(criteriaTextList[0], criteriaTextList[1]);
 
 
