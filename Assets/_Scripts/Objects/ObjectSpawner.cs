@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO.Hashing;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
-using TMPro;
-using System;
 
 public class ObjectSpawner : MonoBehaviour
 {
@@ -101,7 +102,7 @@ public class ObjectSpawner : MonoBehaviour
         NotFruit,
         NotDrink,
         NotSingle,
-        SupermarketItem
+        SupermarketItem,
        // Glitched //end of options added by smrti
         LessThan5, //options added by smriti
         MoreThan5,
@@ -902,15 +903,19 @@ public class ObjectSpawner : MonoBehaviour
     }
     
     private void SetCriteria(int crit1, int crit2)
-
     {
         criteriaList.Clear();
 
-        criteriaList.Add(crit1);
-        criteriaList.Add(crit2);
-       // criteriaList.Add(crit3);
-
-       // Debug.Log("Criterias: " + crit1 + crit2);
+        if(refundActive)
+        {
+            criteriaList.Add(14);
+            criteriaList.Add(14);
+        }
+        else
+        {
+            criteriaList.Add(crit1);
+            criteriaList.Add(crit2);
+        } 
     }
 
     private void RefundActive()

@@ -23,7 +23,8 @@ public class CriteriaManager : MonoBehaviour
     private Dictionary<int, ItemCondition> ItemList = new Dictionary<int, ItemCondition>();
     private Dictionary<int, PriceCondition> PriceList = new Dictionary<int, PriceCondition>();
     private Dictionary<int, string> PriceTextList = new Dictionary<int, string>();
-   // private Dictionary<int, Conditions> ConditionsList = new Dictionary<int, Conditions>();
+    private Dictionary<int, SupermarketCondition> SupermarketTextList = new Dictionary<int, SupermarketCondition>();
+    // private Dictionary<int, Conditions> ConditionsList = new Dictionary<int, Conditions>();
     public int criteriaNumber = 1;
 
     public static event Action<int, int> OnCriteriaDecided;
@@ -91,6 +92,11 @@ public class CriteriaManager : MonoBehaviour
         LessThan2Pounds,
         MoreThan2Pounds
         //More to be added later once properly sorted out
+    }
+
+    public enum SupermarketCondition
+    {
+        SupermarketItems
     }
 
    /* public enum Conditions
@@ -179,6 +185,13 @@ public class CriteriaManager : MonoBehaviour
         PriceTextList.Add(7, getPriceTitle(PriceCondition.MoreThan1Pound));
     }
 
+    public void populateSupermarketTextDict()
+    {
+        SupermarketTextList.Clear();
+
+        SupermarketTextList.Add(0, SupermarketCondition.SupermarketItems);
+    }
+
     private string getPriceTitle(PriceCondition PC)
     {
         switch (PC)
@@ -241,23 +254,12 @@ public class CriteriaManager : MonoBehaviour
         //int colourKey;
         int itemKey;
         int priceKey;
+
+        Debug.Log("Refund active: " + refundActive);
+
         
-        if(refundActive) // Nikolaos Comandariu.
-        {
-            // Clear list and set criteria.
-            criteriaTextList.Clear();
-            criteriaTextList[0] = 14;
 
-            // Set texts.
-            _criteriaP1_1.text = "Supermarket Items";
-            _criteriaP2_1.text = "Supermarket Items";
-
-            // Send criteria to object spawner.
-            OnCriteriaDecided.Invoke(criteriaTextList[0], criteriaTextList[1],
-            criteriaTextList[2]);
-
-            return;
-        }
+        Debug.Log("Function did not end - select Criteria");
 
         //colourKey = Random.Range(0, ColourList.Count);
         itemKey = Random.Range(0, ItemList.Count);
@@ -303,10 +305,13 @@ public class CriteriaManager : MonoBehaviour
         if (criteriaTextList[1] != 0)
             criteriaTextList[1] = priceKey + 13;
 
+        if (refundActive) // Nikolaos Comandariu.
+        {
+            _criteriaP1_1.text = "Supermarket Items";
+            _criteriaP2_1.text = "Supermarket Items";
+        }
+
         OnCriteriaDecided.Invoke(criteriaTextList[0], criteriaTextList[1]);
-
-
-        //Debug.Log("CriteriaManager: Criterias are: " +  criteriaTextList[0] + ", " + criteriaTextList[1] + ", " + criteriaTextList[2]);
     }
 
     public void displayCriteria()
@@ -315,6 +320,7 @@ public class CriteriaManager : MonoBehaviour
         populateItemDict();
        // populatePriceDict();
         populatePriceTextDict();
+        populateSupermarketTextDict();
         //populateCriterias();
         selectCriteria();
     }
@@ -322,5 +328,6 @@ public class CriteriaManager : MonoBehaviour
     private void RefundActive()
     {
         refundActive = true;
+        Debug.Log("Refund activated!");
     }
 }

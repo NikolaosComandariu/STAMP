@@ -147,6 +147,11 @@ public class GameManager : MonoBehaviour
         }
 
         onNextRound?.Invoke();
+
+        // If round number is a multiple of 3, activate round changer.
+        if (currentRoundNumber % 1 == 0)
+            onGameChangerRound?.Invoke();
+
         criteriaManager.displayCriteria(); // added by smriti
 
         // Update text displaying current round number.
@@ -155,10 +160,6 @@ public class GameManager : MonoBehaviour
         // If round number is a multiple of 5, increase difficulty.
         if(currentRoundNumber % 5 == 0)
             IncreaseDifficulty();
-
-        // If round number is a multiple of 3, activate round changer.
-        if(currentRoundNumber % 3 == 0)
-            onGameChangerRound?.Invoke();
     }
 
     private IEnumerator StartRound()
