@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 
 public class ObjectSpawner : MonoBehaviour
 {
-    [Header("Variables")] 
+    [Header("Variables")]
     [SerializeField] private float spawnDelay = 1.5f;
     [SerializeField] private float MoveForce;
     [SerializeField] private RoundCondition currentRoundCondition;
@@ -34,7 +34,7 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] private Transform DeclinedP1; //code by Smriti
     [SerializeField] private Transform AcceptedP1; //code by Smriti
 
-    [Header("Text")] 
+    [Header("Text")]
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI productPrice;
 
@@ -74,17 +74,15 @@ public class ObjectSpawner : MonoBehaviour
     private bool NotMatch = false;
     private bool IsMatch = false;
     private bool refundActive = false;
-
     public bool InputAllowed;
     private bool rhythmPoints; // Nikolaos Comandariu.
     private bool generatingNumber; //smriti added this; possible to remove if not used
+    private bool correctChoice = false;
 
     private Vector3 CurrentObjLoc;
-
     private Item item; // This isn't used anywhere, can be removed.
     private Rigidbody2D rb2D;
     private int[] CriteriaGenerated;//smriti added this; possible to remove if not used
-    private bool correctChoice = false;
 
     /// <summary>
     /// Used to compare the criteria to the object to see if the
@@ -107,7 +105,6 @@ public class ObjectSpawner : MonoBehaviour
         NotDrink,
         NotSingle,
         SupermarketItem,
-       // Glitched //end of options added by smrti
         LessThan5, //options added by smriti
         MoreThan5,
         LessThan3,
@@ -117,7 +114,7 @@ public class ObjectSpawner : MonoBehaviour
         LessThan1,
         MoreThan1 //end of options added by smrti
     }
-    
+
     // Nikolaos Comandariu.
     /// <summary>
     /// Subscribe to events.
@@ -151,16 +148,15 @@ public class ObjectSpawner : MonoBehaviour
 
         if (IsPlayer1)
         {
-           RhythmHitbox.onColliderEnteredP1 -= AcceptRhythmPoints;
+            RhythmHitbox.onColliderEnteredP1 -= AcceptRhythmPoints;
         }
         else
         {
-           RhythmHitbox.onColliderEnteredP2 -= AcceptRhythmPoints;
+            RhythmHitbox.onColliderEnteredP2 -= AcceptRhythmPoints;
         }
     }
 
     // End of Nikolaos Comandariu.
-
     private void Start()
     {
         objToSpawn = 5;
@@ -174,16 +170,6 @@ public class ObjectSpawner : MonoBehaviour
         {
             CurrentObjLoc = currentObject.transform.position;
         }
-
-        /*
-        // If number of objects to spawn is 0, restart spawning.
-        if (NumOfObjToSpawn == 0)
-        {
-            //roundNumber++;
-            GenerateObjectsForRound();
-            AllowObjSpawn = true;
-            StartCoroutine(SpawnObject());
-        }*/
     }
 
     /// <summary>
@@ -202,24 +188,23 @@ public class ObjectSpawner : MonoBehaviour
                 {
                     int n = Random.Range(0, ObjectsPool.Count);
 
-                    currentObject = Instantiate(ObjectsPool[n], SpawnPos.position, 
+                    currentObject = Instantiate(ObjectsPool[n], SpawnPos.position,
                         ObjectsPool[n].transform.rotation, gameObject.transform);
 
                     InputAllowed = false;
 
-                    if(IsPlayer1)
+                    if (IsPlayer1)
                     {
                         onInputAllowedP1?.Invoke(InputAllowed);
                     }
                     else
                     {
                         onInputAllowedP2?.Invoke(InputAllowed);
-                    } 
+                    }
 
-                    productPrice.text = "£" + 
+                    productPrice.text = "£" +
                         currentObject.GetComponent<ObjectPrototype_>().GetPrice().ToString();
-                    //Debug.Log("spawn object");
-                    //item = currentObject.GetComponent<Item>(); // Can be removed, item does not seem to be used anywhere.
+
                     ObjectsPool.RemoveAt(n);
                     NumOfObjToSpawn--;
 
@@ -260,7 +245,6 @@ public class ObjectSpawner : MonoBehaviour
             int randomIndex = Random.Range(0, AllPossibleObjects.Count);
             ObjectsPool.Add(AllPossibleObjects[randomIndex]);
         }
-
     }
 
     private void ChanceToSpawnGlitchedItem()
@@ -276,57 +260,29 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
-    //public void DisplayTextFeedback( int amount, Transform currentObject)
-    //{
-    //    TextMeshPro scoreTextFeedback = Instantiate (ScoreTextFeedback);
-    //    scoreTextFeedback.transform.position = currentObject.position;
-
-    //}
-
-    //public void DisplayTextFeedback(int amount, Vector3 CurrentObject)
-    //{
-    //    GameObject instance = Instantiate(ScoreTextFeedback, currentObject.transform.position, Quaternion.identity);
-    //    TextMeshProUGUI tmp = instance.GetComponent<TextMeshProUGUI>();
-    //    tmp.text = "+" + amount;
-    //}
-
-    //public void DisplayTextFeedback(int amount, Vector3 position)
-    //{
-    //    GameObject instance = Instantiate(ScoreTextFeedback, position, Quaternion.identity);
-
-    //    TextMeshProUGUI tmp = instance.GetComponent<TextMeshProUGUI>();
-    //    tmp.text = "+" + amount;
-    //}
-
     public void DisplayTextFeedback(int amount, Vector3 position, Color color)
     {
-            GameObject instance = Instantiate(ScoreTextFeedback, position, Quaternion.identity);
+        GameObject instance = Instantiate(ScoreTextFeedback, position, Quaternion.identity);
 
 
-            TextMeshPro tmp = instance.GetComponent<TextMeshPro>();
-            tmp.text = amount.ToString();
-            tmp.color = color;
+        TextMeshPro tmp = instance.GetComponent<TextMeshPro>();
+        tmp.text = amount.ToString();
+        tmp.color = color;
     }
 
     /// <summary>
     /// Clears object pool, gets random objects from
     /// all possible objects to spawn.
     /// </summary>
-    public void GenerateObjectsForRound() 
+    public void GenerateObjectsForRound()
     {
         ObjectsPool.Clear();
 
-        //int itemsThisRound = objToSpawn;
-        // round 1 = 3 items
-        // Round 2 = 5 items
-        // etc
-        //Debug.Log("Obj to spawn: " + objToSpawn);
         // Repopulate ObjectsPool.
         for (int i = 0; i < objToSpawn; i++)
         {
             int refundItem = Random.Range(0, 2); // 1 in 3 chance.
 
-            //Debug.Log("Generating Objects for round");
             if (refundActive && refundItem == 0) // Nikolaos Comandariu.
             {
                 int randomIndex = Random.Range(0, NonSupermarketItemsPool.Count);
@@ -336,10 +292,11 @@ public class ObjectSpawner : MonoBehaviour
             {
                 int randomIndex = Random.Range(0, AllPossibleObjects.Count);
                 ObjectsPool.Add(AllPossibleObjects[randomIndex]);
-            }  
-            
+            }
+
             ChanceToSpawnGlitchedItem();
         }
+
         if (SpawnGlitchedItem == true)
         {
             int index = Random.Range(0, ObjectsPool.Count);
@@ -350,21 +307,7 @@ public class ObjectSpawner : MonoBehaviour
         }
 
         NumOfObjToSpawn = ObjectsPool.Count;
-        //Debug.Log("Num of obj to spawn: " + NumOfObjToSpawn);
     }
-    
-    //public DeclinedTrigger trigger;
-    //private Collision2D collision;
-
-    /* public void OnCollisionEnter2D(Collision2D collision)
-     {
-         if(collision.gameObject.CompareTag("DeclinedTrigger"))
-         {
-             Debug.Log("Collision");
-             //currentObject.SetActive(false);
-         }
-     }*/
-    //end off code by Smriti
 
     /// <summary>
     /// It compares the object that was accepted against the criteria,
@@ -376,33 +319,17 @@ public class ObjectSpawner : MonoBehaviour
     {
         Debug.Log("accept clicked");
 
-        if (currentObject == null) 
+        if (currentObject == null)
             return;
-
-        //Debug.Log("Current obj is not null");
 
         ObjectPrototype_ proto = currentObject.GetComponent<ObjectPrototype_>();
 
         bool isMatch = false;
 
-       /* if (proto.checkIsGlitched() == true) 
-        { 
-            score--;
-            Debug.Log("Score decreased due to glitched");
-            //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
-        }*/
-
-        //Debug.Log("Is match: " + isMatch);
-        //code by Smriti
-        //Debug.Log("Criteria list count: " + criteriaList.Count);
-
         for (int i = 0; i < criteriaList.Count; i++)
         {
-            //Debug.Log("Start of for loop");
             int x = criteriaList[i];
-            //Debug.Log("X: " + x);
             if (x <= 0) break;
-            //Debug.Log("X is not <= 0");
 
             // Set current round condition
             roundCondition = (RoundCondition)x;
@@ -430,8 +357,7 @@ public class ObjectSpawner : MonoBehaviour
                     case RoundCondition.Single:
                         isMatch = proto.checkIsSingle();
                         break;
-                    //added code by smriti
-                    case RoundCondition.Orange:
+                    case RoundCondition.Orange: //added code by smriti
                         isMatch = proto.checkIsOrange();
                         break;
                     case RoundCondition.Drink:
@@ -461,10 +387,6 @@ public class ObjectSpawner : MonoBehaviour
                     case RoundCondition.SupermarketItem:
                         isMatch = proto.checkIsSupermarketItem();
                         break;
-                        /*case RoundCondition.Glitched: //code by smriti
-                            isMatch = !proto.checkIsGlitched();
-                            break; //end code by smriti */
-                    //code added by smriti
                     case RoundCondition.LessThan5:
                         if (proto.GetPrice() < 5) { isMatch = true; }
                         else { isMatch = false; }
@@ -504,110 +426,76 @@ public class ObjectSpawner : MonoBehaviour
             }
 
             if (isMatch)
-                {
-                    ResolveAnswer(true);
-                    DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
-                    Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
-                }
-
-                //score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
-
-
-                //scoreManager.plusPlayer1Score();
-
-                //scoreManager.plusPlayer2Score();
-                
+            {
+                ResolveAnswer(true);
                 DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
                 Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
-                ResolveAnswer(true);
-                if (IsPlayer1)
-                    Debug.Log("Correct! Player 1 score is now: " + ScoreManager.Instance.Player1Score);
-                else
-                    Debug.Log("Correct! Player 2 score is now: " + ScoreManager.Instance.Player2Score);
-                audioManager.PlaySFX(audioManager.correctChoiceSFX);
-                    //Debug.Log("ACCEPT: Correct choice!");
-
-                    if (rhythmPoints) // Nikolaos Comandariu.
-                    {
-                        score += 1;
-                        DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
-                    }
-
-                    score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
-                    DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
-                    Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
-                    UpdateScoreUI();
-                    Debug.Log("Correct! Score is now: " + score);
-                    audioManager.PlaySFX(audioManager.correctChoiceSFX);
             }
-            
-            else if(!isMatch)
-            {
-                //Debug.Log("Wrong choice!");
-                //score -= 1;
-                //scoreManager.minusPlayer1Score();
 
-                //scoreManager.minusPlayer2Score();
-                
+            if (IsPlayer1)
+            {
+                Debug.Log("Correct! Player 1 score is now: " + ScoreManager.Instance.Player1Score);
+            }
+            else
+            {
+                Debug.Log("Correct! Player 2 score is now: " + ScoreManager.Instance.Player2Score);
+            }
+
+            audioManager.PlaySFX(audioManager.correctChoiceSFX);
+
+            if (rhythmPoints) // Nikolaos Comandariu.
+            {
+                score += 1;
+                DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+            }
+
+            score += 1;
+            DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+            Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
+            UpdateScoreUI();
+            Debug.Log("Correct! Score is now: " + score);
+            audioManager.PlaySFX(audioManager.correctChoiceSFX);
+
+
+            else if (!isMatch)
+            {
                 Instantiate(wrongParticles, CurrentObjLoc, Quaternion.identity);
                 audioManager.PlaySFX(audioManager.incorrectChoiceSFX);
-                //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
+
                 ResolveAnswer(false);
                 NotMatch = true;
-                //Debug.Log("Wrong, Score is now: " + score);
+
                 if (IsPlayer1)
                     Debug.Log("Wrong! Player 1 score is now: " + ScoreManager.Instance.Player1Score);
                 else
                     Debug.Log("Wrong! Player 2 score is now: " + ScoreManager.Instance.Player2Score);
+
                 //code by Smriti
                 if (AllowDecision)
                 {
-                    //Debug.Log("Wrong choice!");
                     score -= 1;
-                    //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
                     UpdateScoreUI();
                     NotMatch = true;
-                    //Debug.Log("Wrong, Score is now: " + score);
+
                     Debug.Log("Wrong, Score is now: " + score);
-                    //code by Smriti
-                    if (AllowDecision)
-                    {
-                        MoveToTarget acceptedP1 = currentObject.GetComponent<MoveToTarget>();
-                        acceptedP1.SetTarget(AcceptedP1);
-                        acceptedP1.SetSpeed(MoveForce);
-                        currentObject.transform.position = Vector2.MoveTowards(EndOfConveyor.position,
-                            AcceptedP1.position, MoveForce * Time.deltaTime);
-                        //Destroy(currentObject);
+                    MoveToTarget acceptedP1 = currentObject.GetComponent<MoveToTarget>();
+                    acceptedP1.SetTarget(AcceptedP1);
+                    acceptedP1.SetSpeed(MoveForce);
+                    currentObject.transform.position = Vector2.MoveTowards(EndOfConveyor.position,
+                    AcceptedP1.position, MoveForce * Time.deltaTime);
 
-                        AllowDecision = false;
-
-                        //end of code by Smriti
-                    }
+                    AllowDecision = false;
                 }
-
-
-                //AllowObjSpawn = true;
-                //StartCoroutine(SpawnObject());
             }
-            /*else
-            {
-                score -= 1;
-                Debug.Log("Glitched item; score derement");
-            }*/
-            //end of code added/edited by smriti
         }
 
         Destroy(currentObject);
         currentObject = null;
         AllowObjSpawn = true;
 
-        //StartCoroutine(SpawnObject());
-        //Debug.Log("Object should be destroyed");
-
         // Nikolaos Comandariu
         if (NumOfObjToSpawn <= 0 && currentObject == null)
         {
-            //Debug.Log("All Objects Processed Event");
             onAllObjectsProcessed?.Invoke();
         } // End of code added.
         else
@@ -624,33 +512,17 @@ public class ObjectSpawner : MonoBehaviour
     /// </summary>
     public void DeclineObject()
     {
-        //Debug.Log("Decline clicked");
-
-        if (currentObject == null)
-            return;
-
-        //Debug.Log("Current obj is not null");
+        if (currentObject == null) return;
 
         ObjectPrototype_ proto = currentObject.GetComponent<ObjectPrototype_>();
 
         bool isMatch = false;
-        //Debug.Log("Is match: " + isMatch);
-
-       /* if (proto.checkIsGlitched()== true) 
-        { 
-            score++;
-            Debug.Log("score increased due to glitched item");
-            //DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
-        }*/
-
 
         for (int i = 0; i < criteriaList.Count; i++)
         {
             int x = criteriaList[i];
-            //Debug.Log("Start of for loop");
             if (x <= 0) break;
-            //Debug.Log("X is not <= 0");
-            // Set current round condition
+
             roundCondition = (RoundCondition)x;
 
             if (proto.checkIsGlitched()) // code added and edited by smriti
@@ -658,7 +530,7 @@ public class ObjectSpawner : MonoBehaviour
                 isMatch = true;
             }
             else
-            { 
+            {
                 switch (roundCondition)
                 {
                     case RoundCondition.Fruit:
@@ -676,8 +548,7 @@ public class ObjectSpawner : MonoBehaviour
                     case RoundCondition.Single:
                         isMatch = !proto.checkIsSingle();
                         break;
-                    //added code by smriti
-                    case RoundCondition.Orange:
+                    case RoundCondition.Orange: //added code by smriti
                         isMatch = !proto.checkIsOrange();
                         break;
                     case RoundCondition.Drink:
@@ -707,13 +578,9 @@ public class ObjectSpawner : MonoBehaviour
                     case RoundCondition.SupermarketItem:
                         isMatch = !proto.checkIsSupermarketItem();
                         break;
-                        /*case RoundCondition.Glitched: //code added by smriti
-                            isMatch = proto.checkIsGlitched();
-                            break;*/
-                    //code added by smriti
-                    case RoundCondition.LessThan5:
-                        if(proto.GetPrice() < 5) { isMatch = false; }
-                        else{ isMatch = true; }
+                    case RoundCondition.LessThan5: //code added by smriti
+                        if (proto.GetPrice() < 5) { isMatch = false; }
+                        else { isMatch = true; }
                         break;
                     case RoundCondition.MoreThan5:
                         if (proto.GetPrice() > 5) { isMatch = false; }
@@ -750,147 +617,80 @@ public class ObjectSpawner : MonoBehaviour
             }
 
             if (isMatch)
-                {
-                    ResolveAnswer(true);
-                    //Debug.Log("ACCEPT: Correct choice!");
-                    Debug.Log("Rhythm Points: " + rhythmPoints);
-                    if (rhythmPoints) // Nikolaos Comandariu.
-                    {
-                        score += 1;
-                        DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
-                    }
+            {
+                ResolveAnswer(true);
+                Debug.Log("Rhythm Points: " + rhythmPoints);
 
-                    score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
-                    isMatch = true;
+                if (rhythmPoints) // Nikolaos Comandariu.
+                {
+                    score += 1;
                     DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
-                    Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
-                    UpdateScoreUI();
-                    Debug.Log("Correct! Score is now: " + score);
-                    audioManager.PlaySFX(audioManager.correctChoiceSFX);
                 }
 
-                //score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
-                //scoreManager.plusPlayer1Score();
-                //scoreManager.plusPlayer2Score();
-
-
+                score += 1;
                 isMatch = true;
                 DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
                 Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
-                ResolveAnswer(true);
-                if (IsPlayer1)
-                    Debug.Log("Correct! Player 1 score is now: " + ScoreManager.Instance.Player1Score);
-                else
-                    Debug.Log("Correct! Player 2 score is now: " + ScoreManager.Instance.Player2Score);
+                UpdateScoreUI();
+                Debug.Log("Correct! Score is now: " + score);
                 audioManager.PlaySFX(audioManager.correctChoiceSFX);
             }
-            
-            else if (!isMatch)
-            {
-                //Debug.Log("Wrong choice!");
-                //score -= 1;
-                //scoreManager.minusPlayer1Score();
-                Instantiate(wrongParticles, CurrentObjLoc, Quaternion.identity);
-                audioManager.PlaySFX(audioManager.incorrectChoiceSFX);
-                //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
 
-                ResolveAnswer(false);
+            isMatch = true;
+            DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+            Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
+            ResolveAnswer(true);
+
+            if (IsPlayer1)
+                Debug.Log("Correct! Player 1 score is now: " + ScoreManager.Instance.Player1Score);
+            else
+                Debug.Log("Correct! Player 2 score is now: " + ScoreManager.Instance.Player2Score);
+
+            audioManager.PlaySFX(audioManager.correctChoiceSFX);
+        }
+
+        else if (!isMatch)
+        {
+            Instantiate(wrongParticles, CurrentObjLoc, Quaternion.identity);
+            audioManager.PlaySFX(audioManager.incorrectChoiceSFX);
+
+            ResolveAnswer(false);
+            NotMatch = true;
+
+            if (IsPlayer1)
+                Debug.Log("Wrong! Player 1 score is now: " + ScoreManager.Instance.Player1Score);
+            else
+                Debug.Log("Wrong! Player 2 score is now: " + ScoreManager.Instance.Player2Score);
+
+            //code by Smriti
+            if (AllowDecision)
+            {
+                score -= 1;
+
+                UpdateScoreUI();
                 NotMatch = true;
-                //Debug.Log("Wrong, Score is now: " + score);
-                if (IsPlayer1)
-                    Debug.Log("Wrong! Player 1 score is now: " + ScoreManager.Instance.Player1Score);
-                else
-                    Debug.Log("Wrong! Player 2 score is now: " + ScoreManager.Instance.Player2Score);
+                Debug.Log("Wrong, Score is now: " + score);
+
                 //code by Smriti
                 if (AllowDecision)
                 {
-                    //Debug.Log("Wrong choice!");
-                    score -= 1;
-                    //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
-                    UpdateScoreUI();
-                    NotMatch = true;
-                    //Debug.Log("Wrong, Score is now: " + score);
-                    Debug.Log("Wrong, Score is now: " + score);
-                    //code by Smriti
-                    if (AllowDecision)
-                    {
-                        MoveToTarget acceptedP1 = currentObject.GetComponent<MoveToTarget>();
-                        acceptedP1.SetTarget(AcceptedP1);
-                        acceptedP1.SetSpeed(MoveForce);
-                        currentObject.transform.position = Vector2.MoveTowards(EndOfConveyor.position,
-                            AcceptedP1.position, MoveForce * Time.deltaTime);
-                        //Destroy(currentObject);
+                    MoveToTarget acceptedP1 = currentObject.GetComponent<MoveToTarget>();
+                    acceptedP1.SetTarget(AcceptedP1);
+                    acceptedP1.SetSpeed(MoveForce);
+                    currentObject.transform.position = Vector2.MoveTowards(EndOfConveyor.position,
+                        AcceptedP1.position, MoveForce * Time.deltaTime);
 
-                        AllowDecision = false;
+                    AllowDecision = false;
 
-                        //end of code by Smriti
-                    }
-                    //AllowObjSpawn = true;
-                    //StartCoroutine(SpawnObject());
+                    //end of code by Smriti
                 }
             }
-           /* else
-            {
-                score += 1;
-                Debug.Log("Glitched Item, score increment");
-            }*/
-           //end of code added/edited by smriti
-
         }
-
-        /*if (AllowDecision)
-        {
-            //code by smriti
-            MoveToTarget declinedP1 = currentObject.GetComponent<MoveToTarget>();
-            declinedP1.SetTarget(DeclinedP1);
-            declinedP1.SetSpeed(MoveForce);
-
-            // Rigidbody2D testrb = currentObject.GetComponent<Rigidbody2D>();
-            //testrb.transform.position = Vector2.MoveTowards(EndOfConveyor.position,DeclinedP1.position, MoveForce * Time.deltaTime);
-
-            currentObject.transform.position = Vector2.MoveTowards(EndOfConveyor.position, 
-                DeclinedP1.position, MoveForce * Time.deltaTime);
-
-            //OnCollisionEnter2D(collision);
-            //trigger.
-            //GameObject oldObject = currentObject;
-            //Thread.Sleep(5000);
-            //currentObject.SetActive(false);
-
-             if (currentObject.transform.position == DeclinedP1.position)
-             {
-                 currentObject.SetActive(false);
-             }
-            //Destroy(currentObject);
-            AllowDecision = false;
-
-            //end code by smriti
-        } */
-
-        Destroy(currentObject);
-        currentObject = null;
+    }
+    Destroy(currentObject);
+    currentObject = null;
         AllowObjSpawn = true;
-        //StartCoroutine(SpawnObject());
 
-        /*
-        if (!isMatch)
-        {
-            Debug.Log("Correct choice");
-            DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
-            score += 1;
-            UpdateScoreUI();
-            Debug.Log("Correct, Score is now: " + score);
-        }
-        else
-        {
-            Debug.Log("Wrong choice!");
-            DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
-            score -= 1;
-            UpdateScoreUI();
-            Debug.Log("Wrong, Score is now: " + score);
-        }*/
-
-        //AllowObjSpawn = true;
         // Nikolaos Comandariu
         if (NumOfObjToSpawn <= 0 && currentObject == null) // Can be turned into an inverted if statement.
         {
@@ -902,124 +702,84 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Updates scoreText to show the current score.
-    /// </summary>
-    //public void UpdateScoreAndUI()
-    //{
-    //    if (scoreText != null)
-    //    {
-    //        //code added by smriti & Josh
-    //        if (IsPlayer1 && correctChoice == true)
-    //        {
-
-    //            scoreText.text = "Score: " + score;
-    //            scoreManager.changePlayer1Score(score);
-    //            correctChoice = false;
-    //        }
-    //        else if (IsPlayer1 && correctChoice == false)
-    //        {
-
-    //            scoreText.text = "Score: " + score;
-    //            scoreManager.changePlayer1Score(score);
-    //        }
-    //        else if (!IsPlayer1 && correctChoice == true)
-    //        {
-
-    //            scoreText.text = "Score: " + score;
-    //            scoreManager.changePlayer2Score(score);
-    //            correctChoice = false;
-    //        }
-    //        else if (!IsPlayer1 && correctChoice == false)
-    //        {
-
-    //            scoreText.text = "Score: " + score;
-    //            scoreManager.changePlayer2Score(score);
-    //        }
-    //        //scoreText.text = "Score: " + score;
-    //        //scoreManager.changePlayer1Score(score); //smriti added this
-    //        //scoreManager.changePlayer2Score(score); // smriti added this
-    //    }
-    //        //scoreText.text = "Score: " + score;
-    //        //end of code added by smriti
-    //}
 
     //Josh
     void ResolveAnswer(bool isCorrect)
+{
+    if (ScoreManager.Instance == null)
     {
-        if (ScoreManager.Instance == null)
-        {
-            Debug.LogError("no scoremanager");
-            return;
-        }
-
-        int delta = isCorrect ? 1 : 0;
-        ScoreManager.Instance.AddScore(IsPlayer1, delta);
-
-        Debug.Log("Player1={IsPlayer1} | Correct={isCorrect} | Delta={delta}");
-    }
-    //-Josh
-
-    // Code from Nikolaos Comandariu.
-
-    /// <summary>
-    /// Changes number of objects spawned, will be used when
-    /// increasing difficulty.
-    /// </summary>
-    /// <param name="num"></param>
-    public void ChangeNumberOfObjectsSpawned(int num)
-    {
-        objToSpawn = num;
+        Debug.LogError("no scoremanager");
+        return;
     }
 
-    /// <summary>
-    /// Changes boolean to allow objects to spawn.
-    /// </summary>
-    /// <param name="allow"></param>
-    public void ChangeAllowToSpawn(bool allow)
-    {
-        AllowObjSpawn = allow;
-    }
+    int delta = isCorrect ? 1 : 0;
+    ScoreManager.Instance.AddScore(IsPlayer1, delta);
 
-    public void ResetObjects()
-    {
-        ObjectsPool.Clear();
-        NumOfObjToSpawn = 0;
-        AllowObjSpawn = true;
-    
-        Destroy(currentObject);
-        currentObject = null;
-    }
-    private void TallyUpScores()
-    {
-        OnTallyUpScores?.Invoke(score);
-    }
+    Debug.Log("Player1={IsPlayer1} | Correct={isCorrect} | Delta={delta}");
+}
+//-Josh
 
-    private void AcceptRhythmPoints(bool canAccept)
-    {
-        rhythmPoints = canAccept;
-    }
-    
-    private void SetCriteria(int crit1, int crit2)
-    {
-        criteriaList.Clear();
+// Code from Nikolaos Comandariu.
 
-        if(refundActive)
-        {
-            criteriaList.Add(14);
-            criteriaList.Add(14);
-        }
-        else
-        {
-            criteriaList.Add(crit1);
-            criteriaList.Add(crit2);
-        } 
-    }
+/// <summary>
+/// Changes number of objects spawned, will be used when
+/// increasing difficulty.
+/// </summary>
+/// <param name="num"></param>
+public void ChangeNumberOfObjectsSpawned(int num)
+{
+    objToSpawn = num;
+}
 
-    private void RefundActive()
+/// <summary>
+/// Changes boolean to allow objects to spawn.
+/// </summary>
+/// <param name="allow"></param>
+public void ChangeAllowToSpawn(bool allow)
+{
+    AllowObjSpawn = allow;
+}
+
+public void ResetObjects()
+{
+    ObjectsPool.Clear();
+    NumOfObjToSpawn = 0;
+    AllowObjSpawn = true;
+
+    Destroy(currentObject);
+    currentObject = null;
+}
+
+private void TallyUpScores()
+{
+    OnTallyUpScores?.Invoke(score);
+}
+
+private void AcceptRhythmPoints(bool canAccept)
+{
+    rhythmPoints = canAccept;
+}
+
+private void SetCriteria(int crit1, int crit2)
+{
+    criteriaList.Clear();
+
+    if (refundActive)
     {
-        refundActive = true;
+        criteriaList.Add(14);
+        criteriaList.Add(14);
     }
+    else
+    {
+        criteriaList.Add(crit1);
+        criteriaList.Add(crit2);
+    }
+}
+
+private void RefundActive()
+{
+    refundActive = true;
+}
 
     // End of code from Nikolaos Comandariu.
 }
