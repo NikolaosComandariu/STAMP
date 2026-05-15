@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO.Hashing;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
-using TMPro;
-using System;
 
 public class ObjectSpawner : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class ObjectSpawner : MonoBehaviour
     [Header("Game Objects")]
     [SerializeField] private List<GameObject> ObjectsPool = new List<GameObject>(); // Amount of objects in the round
     [SerializeField] private List<GameObject> GlitchedItemsPool = new List<GameObject>(); // Amount of glitched objects 
+    [SerializeField] private List<GameObject> NonSupermarketItemsPool = new List<GameObject>();
     [SerializeField] private List<GameObject> AllPossibleObjects; // All prefabs possible to spawn
     [SerializeField] private ScoreManager scoreManager; //smriti added this
     [SerializeField] private GameObject ScoreTextFeedback;
@@ -68,6 +70,7 @@ public class ObjectSpawner : MonoBehaviour
     private bool SpawnGlitchedItem = false;
     private bool NotMatch = false;
     private bool IsMatch = false;
+    private bool refundActive = false;
 
     public bool InputAllowed;
     private bool rhythmPoints; // Nikolaos Comandariu.
@@ -99,6 +102,8 @@ public class ObjectSpawner : MonoBehaviour
         NotFruit,
         NotDrink,
         NotSingle,
+        SupermarketItem,
+       // Glitched //end of options added by smrti
         LessThan5, //options added by smriti
         MoreThan5,
         LessThan3,
@@ -117,6 +122,7 @@ public class ObjectSpawner : MonoBehaviour
     {
         GameManager.onGameOver += TallyUpScores;
         CriteriaManager.OnCriteriaDecided += SetCriteria;
+        GameChangerManager.onRefundActivated += RefundActive;
 
         if (IsPlayer1)
         {
@@ -135,6 +141,7 @@ public class ObjectSpawner : MonoBehaviour
     {
         GameManager.onGameOver -= TallyUpScores;
         CriteriaManager.OnCriteriaDecided -= SetCriteria;
+        GameChangerManager.onRefundActivated -= RefundActive;
 
         if (IsPlayer1)
         {
@@ -299,9 +306,20 @@ public class ObjectSpawner : MonoBehaviour
         // Repopulate ObjectsPool.
         for (int i = 0; i < objToSpawn; i++)
         {
+            int refundItem = Random.Range(0, 2); // 1 in 3 chance.
+
             //Debug.Log("Generating Objects for round");
-            int randomIndex = Random.Range(0, AllPossibleObjects.Count);
-            ObjectsPool.Add(AllPossibleObjects[randomIndex]);
+            if (refundActive && refundItem == 0) // Nikolaos Comandariu.
+            {
+                int randomIndex = Random.Range(0, NonSupermarketItemsPool.Count);
+                ObjectsPool.Add(NonSupermarketItemsPool[randomIndex]);
+            }
+            else
+            {
+                int randomIndex = Random.Range(0, AllPossibleObjects.Count);
+                ObjectsPool.Add(AllPossibleObjects[randomIndex]);
+            }  
+            
             ChanceToSpawnGlitchedItem();
         }
         if (SpawnGlitchedItem == true)
@@ -311,7 +329,7 @@ public class ObjectSpawner : MonoBehaviour
 
             ObjectsPool[index] = GlitchedItemsPool[index2];
             SpawnGlitchedItem = false;
-        }    
+        }
 
         NumOfObjToSpawn = ObjectsPool.Count;
         //Debug.Log("Num of obj to spawn: " + NumOfObjToSpawn);
@@ -375,7 +393,6 @@ public class ObjectSpawner : MonoBehaviour
             {
                 isMatch = false;
             }
-
             else
             {
                 switch (roundCondition)
@@ -423,6 +440,12 @@ public class ObjectSpawner : MonoBehaviour
                     case RoundCondition.NotDrink:
                         isMatch = !proto.checkIsDrink();
                         break;
+                    case RoundCondition.SupermarketItem:
+                        isMatch = proto.checkIsSupermarketItem();
+                        break;
+                        /*case RoundCondition.Glitched: //code by smriti
+                            isMatch = !proto.checkIsGlitched();
+                            break; //end code by smriti */
                     //code added by smriti
                     case RoundCondition.LessThan5:
                         if (proto.GetPrice() < 5) { isMatch = true; }
@@ -589,7 +612,6 @@ public class ObjectSpawner : MonoBehaviour
             {
                 isMatch = true;
             }
-
             else
             { 
                 switch (roundCondition)
@@ -637,6 +659,12 @@ public class ObjectSpawner : MonoBehaviour
                     case RoundCondition.NotDrink:
                         isMatch = proto.checkIsDrink();
                         break;
+                    case RoundCondition.SupermarketItem:
+                        isMatch = !proto.checkIsSupermarketItem();
+                        break;
+                        /*case RoundCondition.Glitched: //code added by smriti
+                            isMatch = proto.checkIsGlitched();
+                            break;*/
                     //code added by smriti
                     case RoundCondition.LessThan5:
                         if(proto.GetPrice() < 5) { isMatch = false; }
@@ -875,15 +903,24 @@ public class ObjectSpawner : MonoBehaviour
     }
     
     private void SetCriteria(int crit1, int crit2)
-
     {
         criteriaList.Clear();
 
-        criteriaList.Add(crit1);
-        criteriaList.Add(crit2);
-       // criteriaList.Add(crit3);
+        if(refundActive)
+        {
+            criteriaList.Add(14);
+            criteriaList.Add(14);
+        }
+        else
+        {
+            criteriaList.Add(crit1);
+            criteriaList.Add(crit2);
+        } 
+    }
 
-       // Debug.Log("Criterias: " + crit1 + crit2);
+    private void RefundActive()
+    {
+        refundActive = true;
     }
 
     // End of code from Nikolaos Comandariu.

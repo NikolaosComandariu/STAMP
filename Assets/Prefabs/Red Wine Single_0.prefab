@@ -123,6 +123,7 @@ MonoBehaviour:
   IsOrange: 0
   IsDrink: 1
   IsGlitched: 0
+  supermarketItem: 1
 --- !u!114 &-606622959872024248
 MonoBehaviour:
   m_ObjectHideFlags: 0
