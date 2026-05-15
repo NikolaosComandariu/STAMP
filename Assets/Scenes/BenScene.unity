@@ -317,30 +317,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2150006852487577168, guid: 61a3ce1fd3ee1ab44917ee6e0e76f67f, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3027.7966
-      objectReference: {fileID: 0}
-    - target: {fileID: 2150006852487577168, guid: 61a3ce1fd3ee1ab44917ee6e0e76f67f, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 3027.7966
-      objectReference: {fileID: 0}
-    - target: {fileID: 2150006852487577168, guid: 61a3ce1fd3ee1ab44917ee6e0e76f67f, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 3027.7966
-      objectReference: {fileID: 0}
-    - target: {fileID: 2150006852487577168, guid: 61a3ce1fd3ee1ab44917ee6e0e76f67f, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -312
-      objectReference: {fileID: 0}
-    - target: {fileID: 2377477699745652901, guid: 61a3ce1fd3ee1ab44917ee6e0e76f67f, type: 3}
-      propertyPath: m_text
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3041162715247222698, guid: 61a3ce1fd3ee1ab44917ee6e0e76f67f, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 256
-      objectReference: {fileID: 0}
     - target: {fileID: 5385921029387070544, guid: 61a3ce1fd3ee1ab44917ee6e0e76f67f, type: 3}
       propertyPath: m_Name
       value: RoundTransitionCanvas
@@ -349,10 +325,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1967051820}
-    - target: {fileID: 8563658133362275017, guid: 61a3ce1fd3ee1ab44917ee6e0e76f67f, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
