@@ -1028,6 +1028,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8345735472360019259, guid: 8360dd5366b9e9a4390e5be335d7fa26, type: 3}
+      propertyPath: refundCanvas
+      value: 
+      objectReference: {fileID: 1444032080}
+    - target: {fileID: 8345735472360019259, guid: 8360dd5366b9e9a4390e5be335d7fa26, type: 3}
+      propertyPath: numOfGameChangers
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -2454,6 +2462,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2305213667471299708, guid: 73ccf40466fbe0145962a07f9c7f694b, type: 3}
   m_PrefabInstance: {fileID: 1444032078}
   m_PrefabAsset: {fileID: 0}
+--- !u!223 &1444032080 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 6444691230523915145, guid: 73ccf40466fbe0145962a07f9c7f694b, type: 3}
+  m_PrefabInstance: {fileID: 1444032078}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1477130955
 GameObject:
   m_ObjectHideFlags: 0
@@ -3745,7 +3758,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 4091726785045013599, guid: 10a1d64ef2ef93147a4a1917c9f163c5, type: 3}
+  m_Sprite: {fileID: 6428846909671983464, guid: a7380da1aa8412949b96d0601c0a87be, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3753,7 +3766,7 @@ SpriteRenderer:
   m_Size: {x: 0.58, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!4 &2133594078
 Transform:

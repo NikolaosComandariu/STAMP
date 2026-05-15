@@ -156,8 +156,10 @@ public class GameManager : MonoBehaviour
             IncreaseDifficulty();
 
         // If round number is a multiple of 3, activate round changer.
-        if(currentRoundNumber % 3 == 0)
-            onGameChangerRound?.Invoke();
+        //if(currentRoundNumber % 3 == 0)
+            //onGameChangerRound?.Invoke();
+
+
 
         // TODO: Reset Criteria and get new ones for the round.
         //yield return StartCoroutine(StartRound());
