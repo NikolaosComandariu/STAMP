@@ -27,6 +27,19 @@ public class CountdownManager : MonoBehaviour
     public static Action onRoundTimerFinished;
 
     private float roundCountdown;
+    private bool roundStarted = false;
+
+    private void OnEnable()
+    {
+        GameManager.onNextRound += RoundStarted;
+        GameManager.onRoundEnded += RoundEnded;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.onNextRound -= RoundStarted;
+        GameManager.onRoundEnded -= RoundEnded;
+    }
 
     private void Awake()
     {
@@ -86,13 +99,15 @@ public class CountdownManager : MonoBehaviour
     /// <returns></returns>
     private IEnumerator StartRoundCountdown()
     {
-        while (roundCountdown > 0)
+        while (roundCountdown > 0 && roundStarted)
         {
             yield return new WaitForSeconds(1.0f);
 
             roundCountdown--;
             roundTimerText.text = roundCountdown.ToString();
         }
+
+        roundStarted = false;
 
         Debug.Log("Round Countdown Expired!");
         onRoundTimerFinished?.Invoke();
@@ -132,5 +147,15 @@ public class CountdownManager : MonoBehaviour
         roundTimerText.text = roundCountdown.ToString();
 
         startCountdownRoutine = StartCoroutine(StartGameCountdown());
+    }
+
+    private void RoundStarted()
+    {
+        roundStarted = true;
+    }
+
+    private void RoundEnded()
+    {
+        roundStarted = false;
     }
 }

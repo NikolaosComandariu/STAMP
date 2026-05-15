@@ -62,7 +62,7 @@ public class RoundTransition : MonoBehaviour
         GameChangerManager.onOppositeDayActivated += OppositeDayText;
         GameChangerManager.onRhythmActivated += RhythmText;
         //GameChangerManager.onSupermarketSweepActivated += SupermarketSweepText; // TODO: Re-enable once game changers are in!
-        //GameChangerManager.onRefundActivated += RefundText;
+        GameChangerManager.onRefundActivated += RefundText;
     }
 
     /// <summary>
@@ -127,7 +127,7 @@ public class RoundTransition : MonoBehaviour
             color.a += Time.deltaTime / fadeInTime;
             spriteRenderer.color = color;
 
-            Debug.Log("Canvas alpha: " + canvasGroup.alpha);
+            //Debug.Log("Canvas alpha: " + canvasGroup.alpha);
 
             yield return null;
         }

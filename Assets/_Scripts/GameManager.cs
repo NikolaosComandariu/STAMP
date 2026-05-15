@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     public static OnGameOver onGameOver;
     public static event Action onGameChangerRound;
     public static event Action onNextRound;
+    public static event Action onRoundEnded;
 
     private int maxRoundNumber = 16;
     private int spawnCountdown = 3;
@@ -223,7 +224,9 @@ public class GameManager : MonoBehaviour
         objectSpawner.ResetObjects();
         rightObjSpawner.ResetObjects();
 
-       StartCoroutine(NextRound());
+        onRoundEnded?.Invoke();
+
+        StartCoroutine(NextRound());
     }
 
     private void ActivateGameChanger()
