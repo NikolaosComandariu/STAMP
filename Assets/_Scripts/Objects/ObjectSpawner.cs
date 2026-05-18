@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO.Hashing;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,15 +15,12 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] public GameObject currentObject;
     [SerializeField] private List<int> criteriaList = new List<int>();
     [SerializeField] private RoundCondition roundCondition;
-    [SerializeField] private int score = 0;
     [SerializeField] private bool IsPlayer1; //smriti added this
 
     [Header("Game Objects")]
     [SerializeField] private List<GameObject> ObjectsPool = new List<GameObject>(); // Amount of objects in the round
-    [SerializeField] private List<GameObject> GlitchedItemsPool = new List<GameObject>(); // Amount of glitched objects 
-    [SerializeField] private List<GameObject> NonSupermarketItemsPool = new List<GameObject>();
+    [SerializeField] private List<GameObject> GlitchedItemsPool = new List<GameObject>();
     [SerializeField] private List<GameObject> AllPossibleObjects; // All prefabs possible to spawn
-    [SerializeField] private ScoreManager scoreManager; //smriti added this
     [SerializeField] private GameObject ScoreTextFeedback;
 
     [Header("Transforms")]
@@ -36,9 +32,6 @@ public class ObjectSpawner : MonoBehaviour
     [Header("Text")] 
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI productPrice;
-
-    [Header("Probability - Glitched items")]
-    [SerializeField] private int upperLimit;
 
     [Header("Input Delay")]
     [SerializeField] private float InputDelayTime;
@@ -67,7 +60,6 @@ public class ObjectSpawner : MonoBehaviour
     private bool AllowObjSpawn;
     private bool isSpawning = false;
     private bool AllowDecision = false; //smriti added this
-    private bool SpawnGlitchedItem = false;
     private bool NotMatch = false;
     private bool IsMatch = false;
     private bool refundActive = false;
@@ -102,8 +94,7 @@ public class ObjectSpawner : MonoBehaviour
         NotFruit,
         NotDrink,
         NotSingle,
-        SupermarketItem,
-       // Glitched //end of options added by smrti
+        Glitched,
         LessThan5, //options added by smriti
         MoreThan5,
         LessThan3,
@@ -233,19 +224,6 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
-    private void ChanceToSpawnGlitchedItem()
-    {
-        int chance = Random.Range(1, upperLimit);
-        if (chance == 1)
-        {
-            SpawnGlitchedItem = true;
-        }
-        else
-        {
-            return;
-        }
-    }
-
     public void DisplayTextFeedback(int amount, Vector3 position, Color color)
     {
             GameObject instance = Instantiate(ScoreTextFeedback, position, Quaternion.identity);
@@ -270,24 +248,14 @@ public class ObjectSpawner : MonoBehaviour
 
             if (refundActive && refundItem == 0) // Nikolaos Comandariu.
             {
-                int randomIndex = Random.Range(0, NonSupermarketItemsPool.Count);
-                ObjectsPool.Add(NonSupermarketItemsPool[randomIndex]);
+                int randomIndex = Random.Range(0, GlitchedItemsPool.Count);
+                ObjectsPool.Add(GlitchedItemsPool[randomIndex]);
             }
             else
             {
                 int randomIndex = Random.Range(0, AllPossibleObjects.Count);
                 ObjectsPool.Add(AllPossibleObjects[randomIndex]);
             }  
-            
-            ChanceToSpawnGlitchedItem();
-        }
-        if (SpawnGlitchedItem == true)
-        {
-            int index = Random.Range(0, ObjectsPool.Count);
-            int index2 = Random.Range(0, GlitchedItemsPool.Count);
-
-            ObjectsPool[index] = GlitchedItemsPool[index2];
-            SpawnGlitchedItem = false;
         }
 
         refundActive = false;
@@ -371,12 +339,9 @@ public class ObjectSpawner : MonoBehaviour
                     case RoundCondition.NotDrink:
                         isMatch = !proto.checkIsDrink();
                         break;
-                    case RoundCondition.SupermarketItem:
-                        isMatch = proto.checkIsSupermarketItem();
-                        break;
-                        /*case RoundCondition.Glitched: //code by smriti
-                            isMatch = !proto.checkIsGlitched();
-                            break; //end code by smriti */
+                    case RoundCondition.Glitched: //code by smriti
+                        isMatch = !proto.checkIsGlitched();
+                        break; //end code by smriti
                     //code added by smriti
                     case RoundCondition.LessThan5:
                         if (proto.GetPrice() < 5) { isMatch = true; }
@@ -543,12 +508,9 @@ public class ObjectSpawner : MonoBehaviour
                     case RoundCondition.NotDrink:
                         isMatch = proto.checkIsDrink();
                         break;
-                    case RoundCondition.SupermarketItem:
-                        isMatch = !proto.checkIsSupermarketItem();
+                    case RoundCondition.Glitched: //code added by smriti
+                        isMatch = proto.checkIsGlitched();
                         break;
-                        /*case RoundCondition.Glitched: //code added by smriti
-                            isMatch = proto.checkIsGlitched();
-                            break;*/
                     //code added by smriti
                     case RoundCondition.LessThan5:
                         if(proto.GetPrice() < 5) { isMatch = false; }
