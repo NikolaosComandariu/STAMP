@@ -16,6 +16,7 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] private List<int> criteriaList = new List<int>();
     [SerializeField] private RoundCondition roundCondition;
     [SerializeField] private bool IsPlayer1; //smriti added this
+    [SerializeField] private int RushHourItemCount;
 
     [Header("Game Objects")]
     [SerializeField] private List<GameObject> ObjectsPool = new List<GameObject>(); // Amount of objects in the round
@@ -113,6 +114,7 @@ public class ObjectSpawner : MonoBehaviour
     {
         CriteriaManager.OnCriteriaDecided += SetCriteria;
         GameChangerManager.onRefundActivated += RefundActive;
+        GameChangerManager.onRushHourActivated += FloodItemPool;
 
         if (IsPlayer1)
         {
@@ -679,4 +681,13 @@ public class ObjectSpawner : MonoBehaviour
     }
 
     // End of code from Nikolaos Comandariu.
+
+    private void FloodItemPool()
+    {
+        for (int i = 0; i < RushHourItemCount; i++)
+        {
+            int randomIndex = Random.Range(0, AllPossibleObjects.Count);
+            ObjectsPool.Add(AllPossibleObjects[randomIndex]);
+        }
+    }
 }
