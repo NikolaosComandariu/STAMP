@@ -16,14 +16,12 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] public GameObject currentObject;
     [SerializeField] private List<int> criteriaList = new List<int>();
     [SerializeField] private RoundCondition roundCondition;
-    [SerializeField] private int score = 0;
     [SerializeField] private bool IsPlayer1; //smriti added this
 
     [Header("Game Objects")]
     [SerializeField] private List<GameObject> ObjectsPool = new List<GameObject>(); // Amount of objects in the round
     [SerializeField] private List<GameObject> GlitchedItemsPool = new List<GameObject>();
     [SerializeField] private List<GameObject> AllPossibleObjects; // All prefabs possible to spawn
-    [SerializeField] private ScoreManager scoreManager; //smriti added this
     [SerializeField] private GameObject ScoreTextFeedback;
 
     [Header("Transforms")]
