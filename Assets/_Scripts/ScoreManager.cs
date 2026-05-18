@@ -1,84 +1,55 @@
 using System;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class ScoreManager : MonoBehaviour
 {
-    [Header("Scripts")]
-    [SerializeField] private ObjectPrototype_ myObjPrototype;
-    [SerializeField] private ProduceOptionsManager myPOManager;
+    // Player scores.
+    private int p1Score, p2Score = 0;
 
-    [Header("Criteria")]
-    [SerializeField] private Dictionary<int, string> criteria = new Dictionary<int, string>();
-    //[SerializeField] private ObjectSpawner objectSpawner; // can remove if not used
-    //[SerializeField] private CriteriaManager criteriaManager; // can remove if not used;
+    public static event Action<int, int> SendPlayerScores;
 
-    [Header("TextGameObject")]
-    [SerializeField] private TextMeshProUGUI p1Score;
-    [SerializeField] private TextMeshProUGUI p2Score;
-
-    public static ScoreManager Instance;
-
-    public event Action<int> OnPlayer2ScoreChanged;
-    public event Action<int> OnPlayer1ScoreChanged;
-
-    //"encapsulation", private set so only the scores can be set in this script
-    //better way to do get and set methods
-    public int Player1Score { get; private set; }
-    public int Player2Score { get; private set; }
-
-    //getters
-    public int getPlayer1Score()
+    /// <summary>
+    /// Subscribe to events.
+    /// </summary>
+    private void OnEnable()
     {
-        return Player1Score;
-    }
-    public int getPlayer2Score()
-    {
-        return Player2Score;
+        ObjectSpawner.IncrementP1Score += P1Score;
+        ObjectSpawner.IncrementP2Score += P2Score;
+        GameManager.onGameOver += SendScores;
+        GameManager.onNextRound += SendScores;
     }
 
-    private void Awake()
+    /// <summary>
+    /// Unsubscribe from events.
+    /// </summary>
+    private void OnDisable()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
+        ObjectSpawner.IncrementP1Score -= P1Score;
+        ObjectSpawner.IncrementP2Score -= P2Score;
+        GameManager.onGameOver -= SendScores;
+        GameManager.onNextRound -= SendScores;
     }
 
-
-    public void AddScore(bool isPlayer1, int amount)
+    /// <summary>
+    /// Update player 1 score.
+    /// </summary>
+    /// <param name="amount"></param>
+    public void P1Score()
     {
-        //objectSpawner.UpdateScoreUI();
-        p1Score.text = "Player 1 Score: " + Player1Score.ToString();
-        UnityEngine.Debug.Log("AddScore called, P1={isPlayer1} , amount={amount}");
-        if (isPlayer1)
-        {
-            Player1Score += amount;
-            UnityEngine.Debug.Log("P1 score Is now: " + Player1Score);
-            OnPlayer1ScoreChanged?.Invoke(Player1Score);
-        }
-        else
-        {
-            Player2Score += amount;
-            UnityEngine.Debug.Log("P2 score Is now: " + Player2Score);
-            OnPlayer2ScoreChanged?.Invoke(Player2Score);
-        }
+        p1Score++;
     }
 
-    //changes scores
-    public void changePlayer1Score(int score)
+    /// <summary>
+    /// Update player 2 score.
+    /// </summary>
+    /// <param name="amount"></param>
+    private void P2Score()
     {
-        //objectSpawner.UpdateScoreUI();
-        Player1Score = score;
-        p1Score.text = "Player 1 Score: " + Player1Score.ToString();
+        p2Score++;
     }
 
-    public void changePlayer2Score(int score)
+    private void SendScores()
     {
-        //objectSpawner.UpdateScoreUI();
-        Player2Score = score;
-        p2Score.text = "Player 2 Score : " + Player2Score.ToString();
+        SendPlayerScores?.Invoke(p1Score, p2Score);
     }
 }

@@ -27,8 +27,7 @@ public class EndCanvas : MonoBehaviour
     private void OnEnable()
     {
         GameManager.onGameOver += HandleGameOver;
-        ObjectSpawner.OnTallyUpScoresP1 += SetScoreTextP1;
-        ObjectSpawner.OnTallyUpScoresP2 += SetScoreTextP2;
+        ScoreManager.SendPlayerScores += SetScores;
     }
 
     /// <summary>
@@ -37,8 +36,7 @@ public class EndCanvas : MonoBehaviour
     private void OnDisable()
     {
         GameManager.onGameOver -= HandleGameOver;
-        ObjectSpawner.OnTallyUpScoresP1 -= SetScoreTextP1;
-        ObjectSpawner.OnTallyUpScoresP2 -= SetScoreTextP2;
+        ScoreManager.SendPlayerScores -= SetScores;
     }
 
     /// <summary>
@@ -96,13 +94,9 @@ public class EndCanvas : MonoBehaviour
                         + whoWon;
     }
 
-    private void SetScoreTextP1(int score)
+    private void SetScores(int scoreP1, int scoreP2)
     {
-        p1Score = score;
-    }
-
-    private void SetScoreTextP2(int score)
-    {
-        p2Score = score;
+        p1Score = scoreP1;
+        p2Score = scoreP2;
     }
 }

@@ -63,8 +63,7 @@ public class RoundTransition : MonoBehaviour
         GameChangerManager.onRhythmActivated += RhythmText;
         //GameChangerManager.onSupermarketSweepActivated += SupermarketSweepText; // TODO: Re-enable once game changers are in!
         GameChangerManager.onRefundActivated += RefundText;
-        ObjectSpawner.OnTallyUpScoresP1 += SetScoreTextP1;
-        ObjectSpawner.OnTallyUpScoresP2 += SetScoreTextP2;
+        ScoreManager.SendPlayerScores += SetScoreText;
     }
 
     /// <summary>
@@ -77,8 +76,7 @@ public class RoundTransition : MonoBehaviour
         GameChangerManager.onRhythmActivated -= RhythmText;
         //GameChangerManager.onSupermarketSweepActivated -= SupermarketSweepText;
         GameChangerManager.onRefundActivated -= RefundText;
-        ObjectSpawner.OnTallyUpScoresP1 -= SetScoreTextP1;
-        ObjectSpawner.OnTallyUpScoresP2 -= SetScoreTextP2;
+        ScoreManager.SendPlayerScores -= SetScoreText;
     }
 
     /// <summary>
@@ -153,14 +151,10 @@ public class RoundTransition : MonoBehaviour
         gameChangerText.text = null;
     }
 
-    private void SetScoreTextP1(int score)
+    private void SetScoreText(int scoreP1, int scoreP2)
     {
-        scoreTextP1.text = "Player 1 Score: " + score.ToString();
-    }
-
-    private void SetScoreTextP2(int score)
-    {
-        scoreTextP2.text = "Player 2 Score: " + score.ToString();
+        scoreTextP1.text = "Player 1 Score: " + scoreP1.ToString();
+        scoreTextP2.text = "Player 2 Score: " + scoreP2.ToString();
     }
 
     private void OppositeDayText()

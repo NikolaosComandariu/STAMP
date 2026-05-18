@@ -50,8 +50,8 @@ public class ObjectSpawner : MonoBehaviour
 
     [Header("Events")]
     public System.Action onAllObjectsProcessed; // Nikolaos Comandariu.
-    public static event Action<int> OnTallyUpScoresP1;
-    public static event Action<int> OnTallyUpScoresP2;
+    public static event Action IncrementP1Score;
+    public static event Action IncrementP2Score;
     public static Action<bool> onInputAllowedP1;
     public static Action<bool> onInputAllowedP2;
 
@@ -120,7 +120,6 @@ public class ObjectSpawner : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        GameManager.onGameOver += TallyUpScores;
         CriteriaManager.OnCriteriaDecided += SetCriteria;
         GameChangerManager.onRefundActivated += RefundActive;
 
@@ -139,7 +138,6 @@ public class ObjectSpawner : MonoBehaviour
     /// </summary>
     private void OnDisable()
     {
-        GameManager.onGameOver -= TallyUpScores;
         CriteriaManager.OnCriteriaDecided -= SetCriteria;
         GameChangerManager.onRefundActivated -= RefundActive;
 
@@ -419,36 +417,28 @@ public class ObjectSpawner : MonoBehaviour
             }
 
             if (isMatch)
+            {
+                if (rhythmPoints) // Nikolaos Comandariu.
                 {
-                    if (rhythmPoints) // Nikolaos Comandariu.
-                    {
-                        ResolveAnswer(true);
-                        DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
-                    }
-
-                    //score += 1;// Score should not be in ObjectSpawner ideally, might need to refactor later.
-                    ResolveAnswer(true);
+                    IncrementPlayerScores();
                     DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
-                    Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
-                    audioManager.PlaySFX(audioManager.correctChoiceSFX);
+                }
+
+                IncrementPlayerScores();
+                Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
+                audioManager.PlaySFX(audioManager.correctChoiceSFX);
             }
-            
             else if(!isMatch)
             {
-                //Debug.Log("Wrong choice!");
-                //score -= 1;
-                ResolveAnswer(false);
                 Instantiate(wrongParticles, CurrentObjLoc, Quaternion.identity);
                 audioManager.PlaySFX(audioManager.incorrectChoiceSFX);
-                //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
-                //UpdateScoreUI();
                 NotMatch = true;
+
                 //code by Smriti
                 if (AllowDecision)
                 {
                     NotMatch = true;
 
-                    //code by Smriti
                     if (AllowDecision)
                     {
                         MoveToTarget acceptedP1 = currentObject.GetComponent<MoveToTarget>();
@@ -458,15 +448,10 @@ public class ObjectSpawner : MonoBehaviour
                         AcceptedP1.position, MoveForce * Time.deltaTime);
 
                         AllowDecision = false;
-
-                        //end of code by Smriti
                     }
                 }
-
-                TallyUpScores();
-
             }
-            //end of code added/edited by smriti
+            //end of code added/edited by smriti/edited by Nikolaos.
         }
 
         Destroy(currentObject);
@@ -608,39 +593,27 @@ public class ObjectSpawner : MonoBehaviour
                 Debug.Log("Rhythm Points: " + rhythmPoints);
                 if (rhythmPoints) // Nikolaos Comandariu.
                 {
-                    //score += 1;
+                    IncrementPlayerScores();
                     DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
                 }
-
-                //score += 1; // Score should not be in ObjectSpawner ideally, might need to refactor later.
                 isMatch = true;
-                ResolveAnswer(true);
+
+                IncrementPlayerScores();
                 DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
                 Instantiate(correctParticles, CurrentObjLoc, Quaternion.identity);
-                //UpdateScoreUI();
-                //Debug.Log("Correct! Score is now: " + score);
                 audioManager.PlaySFX(audioManager.correctChoiceSFX);
             }           
             else if (!isMatch)
             {
-                //score -= 1;
-                ResolveAnswer(false);
                 Instantiate(wrongParticles, CurrentObjLoc, Quaternion.identity);
                 audioManager.PlaySFX(audioManager.incorrectChoiceSFX);
-                //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
-                //UpdateScoreUI();
                 NotMatch = true;
-                //Debug.Log("Wrong, Score is now: " + score);
+
                 //code by Smriti
                 if (AllowDecision)
                 {
-                    //Debug.Log("Wrong choice!");
-                    //score -= 1;
-                    //DisplayTextFeedback(-1, CurrentObjLoc, Color.red);
-                    //UpdateScoreUI();
                     NotMatch = true;
-                    //Debug.Log("Wrong, Score is now: " + score);
-                    Debug.Log("Wrong, Score is now: " + score);
+
                     //code by Smriti
                     if (AllowDecision)
                     {
@@ -648,18 +621,12 @@ public class ObjectSpawner : MonoBehaviour
                         acceptedP1.SetTarget(AcceptedP1);
                         acceptedP1.SetSpeed(MoveForce);
                         currentObject.transform.position = Vector2.MoveTowards(EndOfConveyor.position,
-                            AcceptedP1.position, MoveForce * Time.deltaTime);
-                        //Destroy(currentObject);
-
+                        AcceptedP1.position, MoveForce * Time.deltaTime);
                         AllowDecision = false;
-
-                        //end of code by Smriti
                     }
-                    //AllowObjSpawn = true;
-                    //StartCoroutine(SpawnObject());
                 }
             }
-            TallyUpScores();
+            
             //end of code added/edited by smriti
         }
 
@@ -677,41 +644,6 @@ public class ObjectSpawner : MonoBehaviour
             StartCoroutine(SpawnObject());
         }
     }
-
-    void ResolveAnswer(bool isCorrect)
-    {
-        if (ScoreManager.Instance == null)
-        {
-            Debug.LogError("no scoremanager");
-            return;
-        }
-
-        int delta = isCorrect ? 1 : 0;
-        ScoreManager.Instance.AddScore(IsPlayer1, delta);
-
-        Debug.Log("Player1={IsPlayer1} | Correct={isCorrect} | Delta={delta}");
-    }
-
-    /// <summary>
-    /// Updates scoreText to show the current score.
-    /// </summary>
-    public void UpdateScoreUI()
-    {
-        if (scoreText != null)
-        {
-            //code added by smriti
-            if (IsPlayer1)
-            {
-                scoreText.text = "Score: " + score;
-                scoreManager.changePlayer1Score(score);
-            }
-            else
-            {
-                scoreText.text = "Score: " + score;
-                scoreManager.changePlayer2Score(score);
-            }
-        }
-    } //end of code added by smriti
 
     // Code from Nikolaos Comandariu.
 
@@ -746,15 +678,15 @@ public class ObjectSpawner : MonoBehaviour
         currentObject = null;
     }
 
-    private void TallyUpScores()
+    private void IncrementPlayerScores()
     {
         if(IsPlayer1)
         {
-            OnTallyUpScoresP1?.Invoke(score);
+            IncrementP1Score?.Invoke();
         }
         else
         {
-            OnTallyUpScoresP2?.Invoke(score);
+            IncrementP2Score?.Invoke();
         }  
     }
 

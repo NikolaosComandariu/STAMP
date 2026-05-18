@@ -6,7 +6,7 @@ public class ScoreUI : MonoBehaviour
     [SerializeField] private bool isPlayer1;
     [SerializeField] private TextMeshProUGUI scoreText;
 
-    private void OnEnable()
+    /*private void OnEnable()
     {
         if (ScoreManager.Instance == null)
         {
@@ -29,7 +29,7 @@ public class ScoreUI : MonoBehaviour
             ScoreManager.Instance.OnPlayer1ScoreChanged -= UpdateScore;
         else
             ScoreManager.Instance.OnPlayer2ScoreChanged -= UpdateScore;
-    }
+    }*/
 
     private void UpdateScore(int newScore)
     {
