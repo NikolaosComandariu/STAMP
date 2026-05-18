@@ -13,8 +13,27 @@ public class AudioManager : MonoBehaviour
     public AudioClip incorrectChoiceSFX;
     public AudioClip gameStartSFX;
     public AudioClip backgroundButtonClickUISFX;
+    public AudioClip RhythmGameChangerMusic;
+
+
 
     //AudioManager audioManager;
+
+    private void OnEnable()
+    {
+        GameChangerManager.onOppositeDayActivated += OppositeDayMusic;
+        GameChangerManager.onRhythmActivated += RhythmMusic;
+        GameChangerManager.onRefundActivated += RefundMusic;
+        GameManager.onNextRound += DefaultMusic;
+}
+
+    private void OnDisable()
+    {
+        GameChangerManager.onOppositeDayActivated -= OppositeDayMusic;
+        GameChangerManager.onRhythmActivated -= RhythmMusic;
+        GameChangerManager.onRefundActivated -= RefundMusic;
+        GameManager.onNextRound -= DefaultMusic;
+    }
 
     private void Start()
     {
@@ -35,5 +54,25 @@ public class AudioManager : MonoBehaviour
     public void PlaySFX(AudioClip clip)
     {
         SFXSource.PlayOneShot(clip);
+    }
+
+    private void OppositeDayMusic()
+    {
+        musicSource.clip =
+    }
+
+    private void RefundMusic()
+    {
+        musicSource.clip =
+    }
+
+    private void RhythmMusic()
+    {
+        musicSource.clip =
+    }
+
+    private void DefaultMusic()
+    {
+        musicSource.clip = 
     }
 }
