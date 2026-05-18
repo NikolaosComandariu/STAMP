@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 9124816562538679259}
   - component: {fileID: 1820139102292932985}
   m_Layer: 5
-  m_Name: Image
+  m_Name: RefundLogo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 3026128329417194715}
   - component: {fileID: 4309193984060880154}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: P2Karen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -259,7 +259,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -956.08, y: -538.8}
+  m_AnchoredPosition: {x: -955.54, y: -539.0995}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3026128329417194715
@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 1501353392487421323}
   - component: {fileID: 289532727002695891}
   m_Layer: 5
-  m_Name: Image
+  m_Name: P1Karen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -334,7 +334,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -963.27, y: -538.8}
+  m_AnchoredPosition: {x: -963.76996, y: -539.10016}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1501353392487421323
@@ -614,6 +614,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3126406824844195861, guid: 73ccf40466fbe0145962a07f9c7f694b, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3126406824844195861, guid: 73ccf40466fbe0145962a07f9c7f694b, type: 3}
       propertyPath: m_ReferenceResolution.x
       value: 1920
       objectReference: {fileID: 0}
@@ -824,6 +828,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3126406824844195861, guid: 73ccf40466fbe0145962a07f9c7f694b, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3126406824844195861, guid: 73ccf40466fbe0145962a07f9c7f694b, type: 3}
       propertyPath: m_ReferenceResolution.x
       value: 1920
       objectReference: {fileID: 0}
@@ -993,6 +1001,10 @@ PrefabInstance:
     - target: {fileID: 3126406824844195861, guid: 73ccf40466fbe0145962a07f9c7f694b, type: 3}
       propertyPath: m_UiScaleMode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3126406824844195861, guid: 73ccf40466fbe0145962a07f9c7f694b, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3126406824844195861, guid: 73ccf40466fbe0145962a07f9c7f694b, type: 3}
       propertyPath: m_ReferenceResolution.x
