@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using Color = UnityEngine.Color;
 
@@ -15,7 +14,8 @@ public class RoundTransition : MonoBehaviour
     [SerializeField] private GameObject transitionObj;
 
     [Header("Text")]
-    [SerializeField] private TextMeshProUGUI scoreText = null;
+    [SerializeField] private TextMeshProUGUI scoreTextP1 = null;
+    [SerializeField] private TextMeshProUGUI scoreTextP2 = null;
     [SerializeField] private TextMeshProUGUI gameChangerText = null;
     [SerializeField] private TextMeshProUGUI roundText = null;
 
@@ -63,6 +63,7 @@ public class RoundTransition : MonoBehaviour
         GameChangerManager.onRhythmActivated += RhythmText;
         //GameChangerManager.onSupermarketSweepActivated += SupermarketSweepText; // TODO: Re-enable once game changers are in!
         GameChangerManager.onRefundActivated += RefundText;
+        ScoreManager.SendPlayerScores += SetScoreText;
     }
 
     /// <summary>
@@ -74,7 +75,8 @@ public class RoundTransition : MonoBehaviour
         GameChangerManager.onOppositeDayActivated -= OppositeDayText;
         GameChangerManager.onRhythmActivated -= RhythmText;
         //GameChangerManager.onSupermarketSweepActivated -= SupermarketSweepText;
-        //GameChangerManager.onRefundActivated -= RefundText;
+        GameChangerManager.onRefundActivated -= RefundText;
+        ScoreManager.SendPlayerScores -= SetScoreText;
     }
 
     /// <summary>
@@ -115,7 +117,7 @@ public class RoundTransition : MonoBehaviour
     private IEnumerator FadeIn()
     {
         roundNum++;
-        SetScoreText();
+        roundText.text = "Round: " + roundNum;
 
         Color color;
 
@@ -126,8 +128,6 @@ public class RoundTransition : MonoBehaviour
             color = spriteRenderer.color;
             color.a += Time.deltaTime / fadeInTime;
             spriteRenderer.color = color;
-
-            //Debug.Log("Canvas alpha: " + canvasGroup.alpha);
 
             yield return null;
         }
@@ -151,10 +151,10 @@ public class RoundTransition : MonoBehaviour
         gameChangerText.text = null;
     }
 
-    private void SetScoreText()
+    private void SetScoreText(int scoreP1, int scoreP2)
     {
-        //scoreText.text = ;
-        roundText.text = roundNum.ToString();
+        scoreTextP1.text = "Player 1 Score: " + scoreP1.ToString();
+        scoreTextP2.text = "Player 2 Score: " + scoreP2.ToString();
     }
 
     private void OppositeDayText()
