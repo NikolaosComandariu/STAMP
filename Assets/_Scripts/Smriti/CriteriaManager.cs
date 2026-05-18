@@ -255,12 +255,6 @@ public class CriteriaManager : MonoBehaviour
         int itemKey;
         int priceKey;
 
-        Debug.Log("Refund active: " + refundActive);
-
-        
-
-        Debug.Log("Function did not end - select Criteria");
-
         //colourKey = Random.Range(0, ColourList.Count);
         itemKey = Random.Range(0, ItemList.Count);
         //priceKey = Random.Range(0, PriceList.Count);
@@ -310,6 +304,8 @@ public class CriteriaManager : MonoBehaviour
             _criteriaP1_1.text = "Supermarket Items";
             _criteriaP2_1.text = "Supermarket Items";
         }
+
+        refundActive = false;
 
         OnCriteriaDecided.Invoke(criteriaTextList[0], criteriaTextList[1]);
     }

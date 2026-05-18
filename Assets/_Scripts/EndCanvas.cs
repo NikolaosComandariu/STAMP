@@ -26,8 +26,8 @@ public class EndCanvas : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        GameManager.onGameOver += EnableCanvas;
-        ObjectSpawner.OnTallyUpScores += CompareScores;
+        GameManager.onGameOver += HandleGameOver;
+        ScoreManager.SendPlayerScores += SetScores;
     }
 
     /// <summary>
@@ -35,16 +35,18 @@ public class EndCanvas : MonoBehaviour
     /// </summary>
     private void OnDisable()
     {
-        GameManager.onGameOver -= EnableCanvas;
+        GameManager.onGameOver -= HandleGameOver;
+        ScoreManager.SendPlayerScores -= SetScores;
     }
 
     /// <summary>
     /// Set time scale to 0 and enable canvas component.
     /// </summary>
-    private void EnableCanvas()
+    private void HandleGameOver()
     {
         Time.timeScale = 0.0f;
         gameObject.GetComponent<Canvas>().enabled = true;
+        CompareScores();
     }
 
     /// <summary>
@@ -72,18 +74,8 @@ public class EndCanvas : MonoBehaviour
     /// Says who won at the end of the game.
     /// </summary>
     /// <param name="score"></param>
-    private void CompareScores(int score)
+    private void CompareScores()
     {
-        // 2 scores get sent, this is needed for now.
-        if(p1Score == 0)
-        {
-            p1Score = score;
-        }    
-        else if(p2Score == 0)
-        {
-            p2Score = score;
-        }
-
         if (p1Score > p2Score)
         {
             whoWon = "Player 1 Won!";
@@ -100,5 +92,11 @@ public class EndCanvas : MonoBehaviour
         summary.text = "Player 1 Score: " + p1Score + "\n"
                         + "Player 2 Score: " + p2Score + "\n"
                         + whoWon;
+    }
+
+    private void SetScores(int scoreP1, int scoreP2)
+    {
+        p1Score = scoreP1;
+        p2Score = scoreP2;
     }
 }
