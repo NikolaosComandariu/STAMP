@@ -1,49 +1,55 @@
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
-    [Header("Scripts")]
-    [SerializeField] private ObjectPrototype_ myObjPrototype;
-    [SerializeField] private ProduceOptionsManager myPOManager;
+    // Player scores.
+    private int p1Score, p2Score = 0;
 
-    [Header("Criteria")]
-    [SerializeField] private Dictionary<int, string> criteria = new Dictionary<int, string>();
-    //[SerializeField] private ObjectSpawner objectSpawner; // can remove if not used
-    //[SerializeField] private CriteriaManager criteriaManager; // can remove if not used;
+    public static event Action<int, int> SendPlayerScores;
 
-    [Header("TextGameObject")]
-    [SerializeField] private TextMeshProUGUI p1Score;
-    [SerializeField] private TextMeshProUGUI p2Score;
-
-    private int Player1Score;
-    private int Player2Score;
-
-    //getters
-    public int getPlayer1Score()
+    /// <summary>
+    /// Subscribe to events.
+    /// </summary>
+    private void OnEnable()
     {
-        return Player1Score;
-    }
-    public int getPlayer2Score()
-    {
-        return Player2Score;
+        ObjectSpawner.IncrementP1Score += P1Score;
+        ObjectSpawner.IncrementP2Score += P2Score;
+        GameManager.onGameOver += SendScores;
+        GameManager.onNextRound += SendScores;
     }
 
-    //changes scores
-    public void changePlayer1Score(int score)
+    /// <summary>
+    /// Unsubscribe from events.
+    /// </summary>
+    private void OnDisable()
     {
-        //objectSpawner.UpdateScoreUI();
-        Player1Score = score;
-        p1Score.text = "Player 1 Score: " + Player1Score.ToString();
+        ObjectSpawner.IncrementP1Score -= P1Score;
+        ObjectSpawner.IncrementP2Score -= P2Score;
+        GameManager.onGameOver -= SendScores;
+        GameManager.onNextRound -= SendScores;
     }
 
-    public void changePlayer2Score(int score)
+    /// <summary>
+    /// Update player 1 score.
+    /// </summary>
+    /// <param name="amount"></param>
+    public void P1Score()
     {
-        //objectSpawner.UpdateScoreUI();
-        Player2Score = score;
-        p2Score.text = "Player 2 Score : " + Player2Score.ToString();
+        p1Score++;
     }
 
+    /// <summary>
+    /// Update player 2 score.
+    /// </summary>
+    /// <param name="amount"></param>
+    private void P2Score()
+    {
+        p2Score++;
+    }
 
+    private void SendScores()
+    {
+        SendPlayerScores?.Invoke(p1Score, p2Score);
+    }
 }
