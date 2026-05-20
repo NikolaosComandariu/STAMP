@@ -117,7 +117,7 @@ public class RoundTransition : MonoBehaviour
     private IEnumerator FadeIn()
     {
         roundNum++;
-        roundText.text = "Round: " + roundNum;
+        roundText.text = "Round " + roundNum + "/16";
 
         Color color;
 
