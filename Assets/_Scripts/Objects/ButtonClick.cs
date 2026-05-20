@@ -100,6 +100,8 @@ public class ButtonClick : MonoBehaviour
         Debug.Log("Input allowed: " + inputAllowed);
 
         //audioManager.PlaySFX(audioManager.correctChoiceSFX);
+
+        // Trigger accept event for P1 if P1, else do P2 accept
     }
 
     public void OnDeclinePressed() 
