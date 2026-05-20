@@ -89,6 +89,7 @@ public class CreditsManager : MonoBehaviour
         for (int i = 0; i < creditNames.Length; i++)
         {
             creditNames[i].transform.position = new Vector3(creditNames[i].transform.position.x, creditsPosY[i], creditNames[i].transform.position.z);
+            creditNames[i].GetComponent<SpriteRenderer>().enabled = false;
         }
 
         hasReset = true;
