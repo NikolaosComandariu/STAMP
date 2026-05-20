@@ -10,7 +10,7 @@ public class CreditsManager : MonoBehaviour
     [SerializeField] private GameObject creditAnim;
 
     [Header("Game Objects")]
-    [SerializeField] private Vector3[] creditsPos;
+    [SerializeField] private float[] creditsPosY;
 
     [Header("Variables")]
     [SerializeField] private float stampTime;
@@ -72,9 +72,9 @@ public class CreditsManager : MonoBehaviour
     {
         if (hasPlayedAlready || creditAnim.GetComponent<Animator>().GetBool("HasPlayed") == true) return;
 
-        if(hasReset)
+        for (int i = 0; i < creditNames.Length; i++)
         {
-            creditsPos[0] = creditNames[0].transform.position;
+            creditsPosY[i] = creditNames[i].transform.position.y;
         }
 
         Debug.Log("Started credits");
@@ -85,6 +85,13 @@ public class CreditsManager : MonoBehaviour
     {
         keepMoving = false;
         hasPlayedAlready = false;
+
+        for (int i = 0; i < creditNames.Length; i++)
+        {
+            creditNames[i].transform.position = new Vector3(creditNames[i].transform.position.x, creditsPosY[i], creditNames[i].transform.position.z);
+        }
+
+        hasReset = true;
 
         StartCredits();
     }

@@ -147,7 +147,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2592850350890952710, guid: 2c930dbcd1019f6498b1ea766abe2507, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6727486762862420191, guid: 2c930dbcd1019f6498b1ea766abe2507, type: 3}
+      propertyPath: creditsPos.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6727486762862420191, guid: 2c930dbcd1019f6498b1ea766abe2507, type: 3}
+      propertyPath: creditsPosY.Array.size
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6727486762862420191, guid: 2c930dbcd1019f6498b1ea766abe2507, type: 3}
       propertyPath: ogCreditPos.Array.size
@@ -860,6 +868,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1918194755}
+        m_TargetAssemblyTypeName: CreditsManager, Assembly-CSharp
+        m_MethodName: ResetCredits
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1558788343}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
