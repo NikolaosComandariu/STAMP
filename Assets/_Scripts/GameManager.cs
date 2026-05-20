@@ -94,6 +94,7 @@ public class GameManager : MonoBehaviour
     private void IncreaseDifficulty()
     {
         roundTimer += roundCountdownIncrease;
+        if(roundTimer > 30) { roundTimer = 30; } // smriti added this
         objectsToSpawn += roundItemsIncrease;
 
         countDownManager.SetCountdownTimer(roundTimer);
