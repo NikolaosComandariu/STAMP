@@ -72,13 +72,10 @@ public class CreditsManager : MonoBehaviour
     {
         if (hasPlayedAlready || creditAnim.GetComponent<Animator>().GetBool("HasPlayed") == true) return;
 
-        /*if(hasReset)
+        if(hasReset)
         {
-            for (int i = 0; i < creditNames.Length; i++)
-            {
-                creditsPos.SetValue(i, );
-            }
-        }*/
+            creditsPos[0] = creditNames[0].transform.position;
+        }
 
         Debug.Log("Started credits");
         StartCoroutine(Credits());
@@ -88,8 +85,6 @@ public class CreditsManager : MonoBehaviour
     {
         keepMoving = false;
         hasPlayedAlready = false;
-
-        
 
         StartCredits();
     }
