@@ -1,54 +1,63 @@
+using System;
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class ButtonPress : MonoBehaviour
 {
-
+    [Header("Buttons")]
     [SerializeField] private Button Q;
     [SerializeField] private Button E;
     [SerializeField] private Button I;
     [SerializeField] private Button P;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private float delay;
+
+    private void OnEnable()
     {
-        
+        ButtonClick.onInputDetected += ChangeButtonColours;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-        if (Input.GetKey(KeyCode.Q))
+        ButtonClick.onInputDetected -= ChangeButtonColours;
+    }
+
+    private void ChangeButtonColours(bool isP1, bool isAccept)
+    {
+        if (isP1)
         {
-            Q.image.color = Q.colors.pressedColor;
+            if (isAccept)
+            {
+                Q.image.color = Q.colors.pressedColor;
+                StartCoroutine(ResetColour(Q, delay));
+            }
+            else
+            {
+                E.image.color = Q.colors.pressedColor;
+                StartCoroutine(ResetColour(E, delay));
+            }
         }
         else
         {
-            Q.image.color = Q.colors.normalColor;
+            if (isAccept)
+            {
+                I.image.color = Q.colors.pressedColor;
+                StartCoroutine(ResetColour(I, delay));
+            }
+            else
+            {
+                P.image.color = Q.colors.pressedColor;
+                StartCoroutine(ResetColour(P, delay));
+            }
         }
-        if (Input.GetKey(KeyCode.E))
-        {
-            E.image.color = E.colors.pressedColor;
-        }
-        else
-        {
-            E.image.color = E.colors.normalColor;
-        }
-        if (Input.GetKey(KeyCode.I))
-        {
-            I.image.color = I.colors.pressedColor;
-        }
-        else
-        {
-            I.image.color = I.colors.normalColor;
-        }
-        if (Input.GetKey(KeyCode.P))
-        {
-            P.image.color = P.colors.pressedColor;
-        }
-        else
-        {
-            P.image.color = P.colors.normalColor;
-        }
+    }
+
+    private IEnumerator ResetColour(Button button, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        button.image.color = Q.colors.normalColor;
     }
 }

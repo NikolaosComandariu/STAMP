@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ButtonClick : MonoBehaviour
 { 
@@ -18,16 +19,12 @@ public class ButtonClick : MonoBehaviour
 
     private bool oppositeDay;
     private bool inputAllowed;
+    private bool isAccept = false;
 
     public static event Action onBothInputsPressed;
-    //AudioManager audioManager;
+    public static event Action<bool, bool> onInputDetected;
 
     AudioManager audioManager;
-
-    //private void Awake()
-    //{
-    //audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
-    //}
 
     private void OnEnable()
     {
@@ -81,6 +78,7 @@ public class ButtonClick : MonoBehaviour
 
     public void OnAcceptPressed()
     {
+        isAccept = true;
         Debug.Log("accepted");
         ObjectSpawner spawner = GetComponent<ObjectSpawner>();
 
@@ -97,6 +95,8 @@ public class ButtonClick : MonoBehaviour
             }
         }
 
+        onInputDetected?.Invoke(isPlayer1, isAccept);
+
         Debug.Log("Input allowed: " + inputAllowed);
 
         //audioManager.PlaySFX(audioManager.correctChoiceSFX);
@@ -104,6 +104,7 @@ public class ButtonClick : MonoBehaviour
 
     public void OnDeclinePressed() 
     {
+        isAccept = false;
         Debug.Log("Declined");
         ObjectSpawner spawner = GetComponent<ObjectSpawner>();
 
@@ -118,6 +119,8 @@ public class ButtonClick : MonoBehaviour
                 spawner.DeclineObject();
             }
         }
+
+        onInputDetected?.Invoke(isPlayer1, isAccept);
     }
 
     private void OppositeDayActivated()
