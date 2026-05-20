@@ -15,6 +15,11 @@ public class ButtonPress : MonoBehaviour
         
     }
 
+    private void OnEnable()
+    {
+        // Subscribe to events. += FunctionName()
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -50,5 +55,10 @@ public class ButtonPress : MonoBehaviour
         {
             P.image.color = P.colors.normalColor;
         }
+    }
+
+    private void ButtonFunctionTemp()
+    {
+        // ButtonColour changes
     }
 }
