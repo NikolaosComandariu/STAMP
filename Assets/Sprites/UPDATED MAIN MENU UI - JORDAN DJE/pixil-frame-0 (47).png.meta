@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: f71ca502f95e68a4b84199a992dd26d9
+guid: 7cdf310ff66a35640adaa5f3ec45770f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6351655803138528731
-    second: pixilart-sprite (6)_0
-  - first:
-      213: -3588300309756306896
-    second: pixilart-sprite (6)_1
-  - first:
-      213: -2888039877197801611
-    second: pixilart-sprite (6)_2
-  - first:
-      213: -8422907437065293742
-    second: pixilart-sprite (6)_3
+      213: -3123479685407728696
+    second: pixil-frame-0 (47)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -122,89 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ConveyorAnimSpritesheet_0
+      name: pixil-frame-0 (47)_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 28
-        width: 99
-        height: 44
+        x: 24
+        y: 27
+        width: 53
+        height: 46
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 06602cf1f03f8ed4fb9dcb291d6abd94
-      internalID: 1411116989
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ConveyorAnimSpritesheet_1
-      rect:
-        serializedVersion: 2
-        x: 101
-        y: 28
-        width: 99
-        height: 44
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: da0ab5e16a30aad4aa6102bac1e6c399
-      internalID: 662149865
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ConveyorAnimSpritesheet_2
-      rect:
-        serializedVersion: 2
-        x: 201
-        y: 28
-        width: 99
-        height: 44
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ca8b5daa25cc492498fe9afd044b92c9
-      internalID: -1184249133
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ConveyorAnimSpritesheet_3
-      rect:
-        serializedVersion: 2
-        x: 301
-        y: 28
-        width: 99
-        height: 44
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 51c4ebbe6d6f36f4fae5cc9a49c1d641
-      internalID: 521204144
+      spriteID: 8cb9f1866cb27a4d0800000000000000
+      internalID: -3123479685407728696
       vertices: []
       indices: 
       edges: []
@@ -213,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: b6b7462c6cb3f7c4bbed20b91a5840bb
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -221,16 +146,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceOnImport
-        value: False
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      ConveyorAnimSpritesheet_0: 1411116989
-      ConveyorAnimSpritesheet_1: 662149865
-      ConveyorAnimSpritesheet_2: -1184249133
-      ConveyorAnimSpritesheet_3: 521204144
+      pixil-frame-0 (47)_0: -3123479685407728696
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
