@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ObjectSpawner objectSpawner;
     [SerializeField] private ObjectSpawner rightObjSpawner;
     [SerializeField] private roundManager roundManager;
-    //[SerializeField] private GameChangerManager changerManager;
     [SerializeField] private CriteriaManager criteriaManager; //added by smriti
 
     [Header("Variables")]
@@ -23,6 +22,7 @@ public class GameManager : MonoBehaviour
     public delegate void OnGameOver();
     public static OnGameOver onGameOver;
     public static event Action onGameChangerRound;
+    public static event Action onGenerateGameChanger;
     public static event Action onNextRound;
     public static event Action onRoundEnded;
 
@@ -52,17 +52,6 @@ public class GameManager : MonoBehaviour
 
         objectSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
         rightObjSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
-
-       // criteriaManager.populateDict(); //code added by smriti
-        //rightObjSpawner.populateDict();
-        /*for (int i = 0; i <= criteriaManager.criteriaNumber; i++) 
-        { 
-            criteriaManager.selectCriteria(); 
-        }*/
-
-        //criteriaManager.displayCriteria();
-
-         //rightObjSpawner.selectCriteria(); //end of code added by smriti
 
          StartCoroutine(NextRound());
     }
@@ -94,18 +83,12 @@ public class GameManager : MonoBehaviour
     private void IncreaseDifficulty()
     {
         roundTimer += roundCountdownIncrease;
+        if(roundTimer > 30) { roundTimer = 30; } // smriti added this
         objectsToSpawn += roundItemsIncrease;
 
         countDownManager.SetCountdownTimer(roundTimer);
         objectSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
         rightObjSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
-
-        if(currentRoundNumber % 10 == 0)
-            criteriaManager.IncreaseAmountOfCriteria(); //smriti added this
-       // rightObjSpawner.IncreaseAmountOfCriteria(); //smriti added this
-
-        // TODO: Increase criteria spawned once this functionality is in.
-        // TODO (maybe): Increase speed of spawned objects, not necessary anymore.
     }
 
     /// <summary>
@@ -144,15 +127,12 @@ public class GameManager : MonoBehaviour
         else
         {
             onGameOver?.Invoke();
-        }
+        }  
 
         onNextRound?.Invoke();
 
-        // If round number is a multiple of 3, activate round changer.
-        if (currentRoundNumber % 1 == 0)
-            onGameChangerRound?.Invoke();
-
-        criteriaManager.displayCriteria(); // added by smriti
+        if (currentRoundNumber % 3 == 0)
+            onGenerateGameChanger?.Invoke();
 
         // Update text displaying current round number.
         roundManager.UpdateRound(currentRoundNumber);
@@ -164,6 +144,12 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator StartRound()
     {
+        // If round number is a multiple of 3, activate round changer.
+        if (currentRoundNumber % 3 == 0)
+            onGameChangerRound?.Invoke();
+
+        criteriaManager.displayCriteria(); // added by smriti
+
         spawnCountdown = 3;
 
         p1Finished = false;

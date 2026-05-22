@@ -59,11 +59,8 @@ public class RoundTransition : MonoBehaviour
     private void OnEnable()
     {
         GameManager.onNextRound += StartRoundTransition;
-        GameChangerManager.onOppositeDayActivated += OppositeDayText;
-        GameChangerManager.onRhythmActivated += RhythmText;
-        //GameChangerManager.onSupermarketSweepActivated += SupermarketSweepText; // TODO: Re-enable once game changers are in!
-        GameChangerManager.onRefundActivated += RefundText;
         ScoreManager.SendPlayerScores += SetScoreText;
+        GameChangerManager.onGameChangerGenerated += SetGameChangerText;
     }
 
     /// <summary>
@@ -72,11 +69,8 @@ public class RoundTransition : MonoBehaviour
     private void OnDisable()
     {
         GameManager.onNextRound -= StartRoundTransition;
-        GameChangerManager.onOppositeDayActivated -= OppositeDayText;
-        GameChangerManager.onRhythmActivated -= RhythmText;
-        //GameChangerManager.onSupermarketSweepActivated -= SupermarketSweepText;
-        GameChangerManager.onRefundActivated -= RefundText;
         ScoreManager.SendPlayerScores -= SetScoreText;
+        GameChangerManager.onGameChangerGenerated -= SetGameChangerText;
     }
 
     /// <summary>
@@ -157,27 +151,22 @@ public class RoundTransition : MonoBehaviour
         scoreTextP2.text = "Player 2 Score: " + scoreP2.ToString();
     }
 
-    private void OppositeDayText()
+    private void SetGameChangerText(int gameChanger) // rhythm = 0, opposite = 1, refund = 2
     {
-        gameChangerText.text = null;
-        gameChangerText.text = "Opposite Day: Controls are reversed!";
-    }
-
-    private void RhythmText()
-    {
-        gameChangerText.text = null;
-        gameChangerText.text = "Rhythm: Accept/Decline objects in the hitbox for bonus points!";
-    }
-
-    private void SupermarketSweepText()
-    {
-        gameChangerText.text = null;
-        gameChangerText.text = "Supermarket Sweep: You have up to 100 items to go through!";
-    }
-
-    private void RefundText()
-    {
-        gameChangerText.text = null;
-        gameChangerText.text = "Refund: Decline items that do not belong here!";
+        switch(gameChanger)
+        {
+            case 0:
+                gameChangerText.text = null;
+                gameChangerText.text = "Rhythm: Accept/Decline objects in the hitbox for bonus points!";
+                break;
+            case 1:
+                gameChangerText.text = null;
+                gameChangerText.text = "Opposite Day: Controls are reversed!";
+                break;
+            case 2:
+                gameChangerText.text = null;
+                gameChangerText.text = "Refund: Decline items that do not belong here!";
+                break;
+        }
     }
 }

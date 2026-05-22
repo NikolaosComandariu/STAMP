@@ -84,17 +84,17 @@ public class ObjectSpawner : MonoBehaviour
         Orange,
         Yellow,
         Green,
-        NotRed,
-        NotOrange,
-        NotYellow,
-        NotGreen,
+       // NotRed,
+       // NotOrange,
+        //NotYellow,
+       // NotGreen,
         Fruit,
         Drink,
         Single,
-        NotFruit,
-        NotDrink,
-        NotSingle,
-        Glitched,
+       // NotFruit,
+       // NotDrink,
+       // NotSingle,
+        //Glitched,
         LessThan5, //options added by smriti
         MoreThan5,
         LessThan3,
@@ -318,7 +318,7 @@ public class ObjectSpawner : MonoBehaviour
                     case RoundCondition.Drink:
                         isMatch = proto.checkIsDrink();
                         break;
-                    case RoundCondition.NotFruit:
+                   /* case RoundCondition.NotFruit:
                         isMatch = !proto.checkIsFruit();
                         break;
                     case RoundCondition.NotRed:
@@ -339,10 +339,10 @@ public class ObjectSpawner : MonoBehaviour
                     case RoundCondition.NotDrink:
                         isMatch = !proto.checkIsDrink();
                         break;
-                    case RoundCondition.Glitched: //code by smriti
+                   /* case RoundCondition.Glitched: //code by smriti
                         isMatch = !proto.checkIsGlitched();
                         break; //end code by smriti
-                    //code added by smriti
+                    //code added by smriti */
                     case RoundCondition.LessThan5:
                         if (proto.GetPrice() < 5) { isMatch = true; }
                         else { isMatch = false; }
@@ -487,7 +487,7 @@ public class ObjectSpawner : MonoBehaviour
                     case RoundCondition.Drink:
                         isMatch = !proto.checkIsDrink();
                         break;
-                    case RoundCondition.NotFruit:
+                   /* case RoundCondition.NotFruit:
                         isMatch = proto.checkIsFruit();
                         break;
                     case RoundCondition.NotRed:
@@ -508,10 +508,10 @@ public class ObjectSpawner : MonoBehaviour
                     case RoundCondition.NotDrink:
                         isMatch = proto.checkIsDrink();
                         break;
-                    case RoundCondition.Glitched: //code added by smriti
+                    /*case RoundCondition.Glitched: //code added by smriti
                         isMatch = proto.checkIsGlitched();
                         break;
-                    //code added by smriti
+                    //code added by smriti */
                     case RoundCondition.LessThan5:
                         if(proto.GetPrice() < 5) { isMatch = false; }
                         else{ isMatch = true; }
@@ -657,7 +657,7 @@ public class ObjectSpawner : MonoBehaviour
         rhythmPoints = canAccept;
     }
     
-    private void SetCriteria(int crit1, int crit2)
+    private void SetCriteria(int crit1) //, int crit2)
     {
         criteriaList.Clear();
 
@@ -669,7 +669,7 @@ public class ObjectSpawner : MonoBehaviour
         else
         {
             criteriaList.Add(crit1);
-            criteriaList.Add(crit2);
+            //criteriaList.Add(crit2);
         }
     }
 
