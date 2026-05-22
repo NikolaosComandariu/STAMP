@@ -20,6 +20,7 @@ public class GameChangerManager : MonoBehaviour
     public static event Action onOppositeDayActivated;
     public static event Action onRhythmActivated;
     public static event Action onRefundActivated;
+    public static event Action<int> onGameChangerGenerated;
 
     private bool isActive;
     private bool onCooldown;
@@ -36,12 +37,14 @@ public class GameChangerManager : MonoBehaviour
     private void OnEnable()
     {
         GameManager.onGameChangerRound += StartGameChanger;
+        GameManager.onGenerateGameChanger += GenerateGameChanger;
         GameManager.onNextRound += Reset;
     }
 
     private void OnDisable()
     {
         GameManager.onGameChangerRound -= StartGameChanger;
+        GameManager.onGenerateGameChanger -= GenerateGameChanger;
         GameManager.onNextRound -= Reset;
     }
 
@@ -68,13 +71,17 @@ public class GameChangerManager : MonoBehaviour
         onGameChangerActivated.Invoke(); // To let game manager know.
     }
 
+    private void GenerateGameChanger()
+    {
+        activeCanvas = Random.Range(0, numOfGameChangers);
+        onGameChangerGenerated?.Invoke(activeCanvas);
+    }
+
     /// <summary>
     /// Starts a random game changer and sets its canvas to active.
     /// </summary>
     public void StartGameChanger()
     {
-        activeCanvas = Random.Range(0, numOfGameChangers);
-
         switch(activeCanvas)
         {
             case 0:
