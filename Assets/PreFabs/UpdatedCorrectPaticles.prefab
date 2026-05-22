@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 591503362918853423}
   - component: {fileID: 804134538548092981}
   - component: {fileID: 1321678060194609415}
+  - component: {fileID: -6321490753767096594}
   m_Layer: 0
   m_Name: UpdatedCorrectPaticles
   m_TagString: Untagged
@@ -1368,8 +1369,8 @@ ParticleSystem:
         m_NumAlphaKeys: 2
   UVModule:
     serializedVersion: 2
-    enabled: 0
-    mode: 0
+    enabled: 1
+    mode: 1
     timeMode: 0
     fps: 30
     frameOverTime:
@@ -1487,7 +1488,7 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 0}
+    - sprite: {fileID: 1071761410120863848, guid: d917bcdb51fafaa498d097818667496c, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -4836,3 +4837,16 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
+--- !u!114 &-6321490753767096594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5502886632352997373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 169f7e3044efd244cab70dbb8512492c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ParticleHandler
+  timer: 5

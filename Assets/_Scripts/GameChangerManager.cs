@@ -68,7 +68,7 @@ public class GameChangerManager : MonoBehaviour
         isActive = true;
         onCooldown = true;
 
-        onGameChangerActivated.Invoke(); // To let game manager know.
+         // To let game manager know.
     }
 
     private void GenerateGameChanger()
