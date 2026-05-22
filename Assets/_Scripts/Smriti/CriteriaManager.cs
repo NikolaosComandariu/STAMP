@@ -67,7 +67,7 @@ public class CriteriaManager : MonoBehaviour
 
     public enum SupermarketCondition
     {
-        SupermarketItems
+        Groceries
     }
 
     public void populateItemDict()
@@ -97,7 +97,7 @@ public class CriteriaManager : MonoBehaviour
     {
         SupermarketTextList.Clear();
 
-        SupermarketTextList.Add(0, SupermarketCondition.SupermarketItems);
+        SupermarketTextList.Add(0, SupermarketCondition.Groceries);
     }
 
     private string getPriceTitle(ItemCondition PC)
@@ -167,8 +167,8 @@ public class CriteriaManager : MonoBehaviour
    
         if (refundActive) // Nikolaos Comandariu.
         {
-            _criteriaP1_1.text = "Supermarket Items";
-            _criteriaP2_1.text = "Supermarket Items";
+            _criteriaP1_1.text = "Groceries";
+            _criteriaP2_1.text = "Groceries";
         }
 
         refundActive = false;
