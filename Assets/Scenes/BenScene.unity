@@ -544,6 +544,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoundTransitionCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 6431501451288591334, guid: 61a3ce1fd3ee1ab44917ee6e0e76f67f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.025
+      objectReference: {fileID: 0}
     - target: {fileID: 7476277553705925846, guid: 61a3ce1fd3ee1ab44917ee6e0e76f67f, type: 3}
       propertyPath: m_Camera
       value: 
