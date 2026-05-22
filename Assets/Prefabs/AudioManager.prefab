@@ -47,7 +47,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.7
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -441,3 +441,6 @@ MonoBehaviour:
   incorrectChoiceSFX: {fileID: 8300000, guid: ab7a998d02bd6f146a2c05f0c37f01d6, type: 3}
   gameStartSFX: {fileID: 8300000, guid: 042a3400cd8a9f142b01258881718b96, type: 3}
   backgroundButtonClickUISFX: {fileID: 8300000, guid: 8d7c976e5ce6dde4980c995e97cfbaed, type: 3}
+  defaultMusic: {fileID: 8300000, guid: 7b7ed715e86ce764a8b3a6768b7b2106, type: 3}
+  gameChangerMusic: {fileID: 8300000, guid: a2a51b0dd6eda8846abe2e4f7b4664ba, type: 3}
+  hitboxAcceptSFX: {fileID: 8300000, guid: 1b9a858801fac00499a1db0788f362cd, type: 3}

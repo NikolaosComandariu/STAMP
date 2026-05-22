@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     [Header("Variables")]
     [SerializeField] private int roundCountdownIncrease; // How many seconds a round increases by when difficulty increases.
     [SerializeField] private int roundItemsIncrease; // How many additional items spawn when difficulty increases.
+    [SerializeField] private int roundForGameChanger;
 
     // Delegates & Events.
     public delegate void OnGameOver();
@@ -131,7 +132,7 @@ public class GameManager : MonoBehaviour
 
         onNextRound?.Invoke();
 
-        if (currentRoundNumber % 1 == 0)
+        if (currentRoundNumber % roundForGameChanger == 0)
             onGenerateGameChanger?.Invoke();
 
         // Update text displaying current round number.
@@ -145,7 +146,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator StartRound()
     {
         // If round number is a multiple of 3, activate round changer.
-        if (currentRoundNumber % 1 == 0)
+        if (currentRoundNumber % roundForGameChanger == 0)
             onGameChangerRound?.Invoke();
 
         criteriaManager.displayCriteria(); // added by smriti
