@@ -15,6 +15,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip backgroundButtonClickUISFX;
     public AudioClip defaultMusic;
     public AudioClip gameChangerMusic;
+    public AudioClip hitboxAcceptSFX;
 
     private void OnEnable()
     {

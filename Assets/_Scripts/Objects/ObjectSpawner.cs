@@ -190,7 +190,7 @@ public class ObjectSpawner : MonoBehaviour
                     } 
 
                     productPrice.text = "£" + 
-                        currentObject.GetComponent<ObjectPrototype_>().GetPrice().ToString();
+                        currentObject.GetComponent<ObjectPrototype_>().GetPrice().ToString("N2");
 
                     ObjectsPool.RemoveAt(n);
                     NumOfObjToSpawn--;
@@ -387,6 +387,7 @@ public class ObjectSpawner : MonoBehaviour
                 {
                     IncrementPlayerScores();
                     DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+                    audioManager.PlaySFX(audioManager.hitboxAcceptSFX);
                 }
 
                 IncrementPlayerScores();
@@ -557,6 +558,7 @@ public class ObjectSpawner : MonoBehaviour
                 {
                     IncrementPlayerScores();
                     DisplayTextFeedback(+1, CurrentObjLoc, Color.green);
+                    audioManager.PlaySFX(audioManager.hitboxAcceptSFX);
                 }
                 isMatch = true;
 
