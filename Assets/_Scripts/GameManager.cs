@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public delegate void OnGameOver();
     public static OnGameOver onGameOver;
     public static event Action onGameChangerRound;
+    public static event Action onGenerateGameChanger;
     public static event Action onNextRound;
     public static event Action onRoundEnded;
 
@@ -147,13 +148,10 @@ public class GameManager : MonoBehaviour
             onGameOver?.Invoke();
         }
 
-        onNextRound?.Invoke();
-
-        // If round number is a multiple of 3, activate round changer.
         if (currentRoundNumber % 1 == 0)
-            onGameChangerRound?.Invoke();
+            onGenerateGameChanger?.Invoke();
 
-        criteriaManager.displayCriteria(); // added by smriti
+        onNextRound?.Invoke();
 
         // Update text displaying current round number.
         roundManager.UpdateRound(currentRoundNumber);
@@ -165,6 +163,12 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator StartRound()
     {
+        // If round number is a multiple of 3, activate round changer.
+        if (currentRoundNumber % 1 == 0)
+            onGameChangerRound?.Invoke();
+
+        criteriaManager.displayCriteria(); // added by smriti
+
         spawnCountdown = 3;
 
         p1Finished = false;
