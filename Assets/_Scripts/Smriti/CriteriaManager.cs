@@ -68,17 +68,17 @@ public class CriteriaManager : MonoBehaviour
         Fruit,
         Drink,
         Single,
-        NotFruit,
-        NotDrink,
-        NotSingle,
+        //NotFruit,
+        //NotDrink,
+       // NotSingle,
         Red,
         Orange,
         Yellow,
         Green,
-        NotRed,
-        NotOrange,
-        NotYellow,
-        NotGreen,
+       // NotRed,
+       // NotOrange,
+       // NotYellow,
+        //NotGreen,
         LessThan5Pounds,
         MoreThan5Pounds,
         LessThan3Pounds,
@@ -149,24 +149,24 @@ public class CriteriaManager : MonoBehaviour
         ItemList.Add(1, ItemCondition.Orange);
         ItemList.Add(2, ItemCondition.Yellow);
         ItemList.Add(3, ItemCondition.Green);
-        ItemList.Add(4, ItemCondition.NotRed);
-        ItemList.Add(5, ItemCondition.NotOrange);
-        ItemList.Add(6, ItemCondition.NotYellow);
-        ItemList.Add(7, ItemCondition.NotGreen);
-        ItemList.Add(8, ItemCondition.Fruit);
-        ItemList.Add(9, ItemCondition.Drink);
-        ItemList.Add(10, ItemCondition.Single);
-        ItemList.Add(11, ItemCondition.NotFruit);
-        ItemList.Add(12, ItemCondition.NotDrink);
-        ItemList.Add(13, ItemCondition.NotSingle);
-        ItemList.Add(14, ItemCondition.LessThan5Pounds);
-        ItemList.Add(15, ItemCondition.MoreThan5Pounds);
-        ItemList.Add(16, ItemCondition.LessThan3Pounds);
-        ItemList.Add(17, ItemCondition.MoreThan3Pounds);
-        ItemList.Add(18, ItemCondition.LessThan2Pounds);
-        ItemList.Add(19, ItemCondition.MoreThan2Pounds);
-        ItemList.Add(20, ItemCondition.LessThan1Pound);
-        ItemList.Add(21, ItemCondition.MoreThan1Pound);
+        //ItemList.Add(4, ItemCondition.NotRed);
+        //ItemList.Add(5, ItemCondition.NotOrange);
+       // ItemList.Add(6, ItemCondition.NotYellow);
+        //ItemList.Add(7, ItemCondition.NotGreen);
+        ItemList.Add(4, ItemCondition.Fruit);
+        ItemList.Add(5, ItemCondition.Drink);
+        ItemList.Add(6, ItemCondition.Single);
+        //ItemList.Add(11, ItemCondition.NotFruit);
+        //ItemList.Add(12, ItemCondition.NotDrink);
+        //ItemList.Add(13, ItemCondition.NotSingle);
+        ItemList.Add(7, ItemCondition.LessThan5Pounds);
+        ItemList.Add(8, ItemCondition.MoreThan5Pounds);
+        ItemList.Add(9, ItemCondition.LessThan3Pounds);
+        ItemList.Add(10, ItemCondition.MoreThan3Pounds);
+        ItemList.Add(11, ItemCondition.LessThan2Pounds);
+        ItemList.Add(12, ItemCondition.MoreThan2Pounds);
+        ItemList.Add(13, ItemCondition.LessThan1Pound);
+        ItemList.Add(14, ItemCondition.MoreThan1Pound);
 
     }
 
@@ -264,7 +264,7 @@ public class CriteriaManager : MonoBehaviour
         ConditionsList.Add(13, Conditions.NotSingle);
     }*/
 
-    public void IncreaseAmountOfCriteria() { criteriaNumber++; } // this is no longer needed :(
+    // public void IncreaseAmountOfCriteria() { criteriaNumber++; } // this is no longer needed :(
 
     public void selectCriteria()
     {
@@ -297,7 +297,7 @@ public class CriteriaManager : MonoBehaviour
 
         if (criteriaTextList[0] != 0)
         {
-            if (itemKey > 13)
+            if (itemKey > 6)
             {
                 _criteriaP1_1.text = getPriceTitle(ItemList[criteriaTextList[0]]).ToString() + "\n";
                 _criteriaP2_1.text = getPriceTitle(ItemList[criteriaTextList[0]]).ToString() + "\n";

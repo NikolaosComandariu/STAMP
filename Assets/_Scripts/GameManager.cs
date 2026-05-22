@@ -101,8 +101,8 @@ public class GameManager : MonoBehaviour
         objectSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
         rightObjSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
 
-        if(currentRoundNumber % 10 == 0)
-            criteriaManager.IncreaseAmountOfCriteria(); //smriti added this
+        //if(currentRoundNumber % 10 == 0)
+            //criteriaManager.IncreaseAmountOfCriteria(); //smriti added this
        // rightObjSpawner.IncreaseAmountOfCriteria(); //smriti added this
 
         // TODO: Increase criteria spawned once this functionality is in.

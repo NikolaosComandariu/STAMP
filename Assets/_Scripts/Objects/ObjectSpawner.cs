@@ -84,16 +84,16 @@ public class ObjectSpawner : MonoBehaviour
         Orange,
         Yellow,
         Green,
-        NotRed,
-        NotOrange,
-        NotYellow,
-        NotGreen,
+       // NotRed,
+       // NotOrange,
+        //NotYellow,
+       // NotGreen,
         Fruit,
         Drink,
         Single,
-        NotFruit,
-        NotDrink,
-        NotSingle,
+       // NotFruit,
+       // NotDrink,
+       // NotSingle,
         //Glitched,
         LessThan5, //options added by smriti
         MoreThan5,
@@ -318,7 +318,7 @@ public class ObjectSpawner : MonoBehaviour
                     case RoundCondition.Drink:
                         isMatch = proto.checkIsDrink();
                         break;
-                    case RoundCondition.NotFruit:
+                   /* case RoundCondition.NotFruit:
                         isMatch = !proto.checkIsFruit();
                         break;
                     case RoundCondition.NotRed:
@@ -487,7 +487,7 @@ public class ObjectSpawner : MonoBehaviour
                     case RoundCondition.Drink:
                         isMatch = !proto.checkIsDrink();
                         break;
-                    case RoundCondition.NotFruit:
+                   /* case RoundCondition.NotFruit:
                         isMatch = proto.checkIsFruit();
                         break;
                     case RoundCondition.NotRed:
