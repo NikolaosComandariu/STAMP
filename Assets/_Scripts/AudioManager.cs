@@ -1,5 +1,5 @@
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
@@ -13,8 +13,20 @@ public class AudioManager : MonoBehaviour
     public AudioClip incorrectChoiceSFX;
     public AudioClip gameStartSFX;
     public AudioClip backgroundButtonClickUISFX;
+    public AudioClip defaultMusic;
+    public AudioClip gameChangerMusic;
 
-    //AudioManager audioManager;
+    private void OnEnable()
+    {
+        GameChangerManager.onGameChangerGenerated += PlayGameChangerMusic;
+        GameManager.onNextRound += PlayOriginalMusic;
+    }
+
+    private void OnDisable()
+    {
+        GameChangerManager.onGameChangerGenerated -= PlayGameChangerMusic;
+        GameManager.onNextRound -= PlayOriginalMusic;
+    }
 
     private void Start()
     {
@@ -22,18 +34,24 @@ public class AudioManager : MonoBehaviour
         //musicSource.Play();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            //PlaySFX(audioManager.correctChoiceSFX);
-        }
-    }
-
     // Example of how to play sound effect -
     //audioManager.PlaySFX(audioManager.(nameofsound));
     public void PlaySFX(AudioClip clip)
     {
         SFXSource.PlayOneShot(clip);
+    }
+
+    private void PlayOriginalMusic()
+    {
+        Debug.Log("Playing og music");
+        musicSource.clip = defaultMusic;
+        musicSource.Play();
+    }
+
+    private void PlayGameChangerMusic(int nothing)
+    {
+        Debug.Log("Playing game changer music");
+        musicSource.clip = gameChangerMusic;
+        musicSource.Play();
     }
 }
