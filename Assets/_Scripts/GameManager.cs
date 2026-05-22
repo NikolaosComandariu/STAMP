@@ -94,14 +94,15 @@ public class GameManager : MonoBehaviour
     private void IncreaseDifficulty()
     {
         roundTimer += roundCountdownIncrease;
+        if(roundTimer > 30) { roundTimer = 30; } // smriti added this
         objectsToSpawn += roundItemsIncrease;
 
         countDownManager.SetCountdownTimer(roundTimer);
         objectSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
         rightObjSpawner.ChangeNumberOfObjectsSpawned(objectsToSpawn);
 
-        if(currentRoundNumber % 10 == 0)
-            criteriaManager.IncreaseAmountOfCriteria(); //smriti added this
+        //if(currentRoundNumber % 10 == 0)
+            //criteriaManager.IncreaseAmountOfCriteria(); //smriti added this
        // rightObjSpawner.IncreaseAmountOfCriteria(); //smriti added this
 
         // TODO: Increase criteria spawned once this functionality is in.
