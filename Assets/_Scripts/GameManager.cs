@@ -131,7 +131,7 @@ public class GameManager : MonoBehaviour
 
         onNextRound?.Invoke();
 
-        if (currentRoundNumber % 3 == 0)
+        if (currentRoundNumber % 1 == 0)
             onGenerateGameChanger?.Invoke();
 
         // Update text displaying current round number.
@@ -145,7 +145,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator StartRound()
     {
         // If round number is a multiple of 3, activate round changer.
-        if (currentRoundNumber % 3 == 0)
+        if (currentRoundNumber % 1 == 0)
             onGameChangerRound?.Invoke();
 
         criteriaManager.displayCriteria(); // added by smriti
