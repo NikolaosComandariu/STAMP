@@ -5,7 +5,9 @@ using TMPro;
 public class EndCanvas : MonoBehaviour
 {
     [Header("Text Game Objects")]
-    [SerializeField] private TextMeshProUGUI summary;
+    [SerializeField] private TextMeshProUGUI summaryP1;
+    [SerializeField] private TextMeshProUGUI summaryP2;
+    [SerializeField] private TextMeshProUGUI WinnerDeclaration;
 
     // Scores.
     private int p1Score;
@@ -89,9 +91,13 @@ public class EndCanvas : MonoBehaviour
             whoWon = "Players Tied!";
         }
 
-        summary.text = "Player 1 Score: " + p1Score + "\n"
-                        + "Player 2 Score: " + p2Score + "\n"
-                        + whoWon;
+        summaryP1.text = p1Score + "\n";
+        //summaryP1.text = "Player 1 Score: " + p1Score + "\n";
+        summaryP2.text = p2Score + "\n";
+        //summaryP2.text = "Player 2 Score: " + p2Score + "\n";
+        WinnerDeclaration.text += whoWon;
+
+
     }
 
     private void SetScores(int scoreP1, int scoreP2)
