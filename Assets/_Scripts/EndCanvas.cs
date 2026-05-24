@@ -44,16 +44,7 @@ public class EndCanvas : MonoBehaviour
         gameObject.GetComponent<Canvas>().enabled = false;
         p1ScoreText.enabled = false;
         p2ScoreText.enabled = false;
-    }
-
-    private void Update() // TODO: Remove after testing!
-    {
-        if(Input.GetKeyDown(KeyCode.W))
-        {
-            p1Receipt = true;
-            p2Receipt = true;
-            p1WantsReceipt(true);
-        }
+        whoWon.enabled = false;
     }
 
     /// <summary>
@@ -142,6 +133,8 @@ public class EndCanvas : MonoBehaviour
     {
         p1Receipt = hasPressed;
 
+        Debug.Log("P1 wants receipt");
+
         if (!p1Receipt || !p2Receipt || hasShownReceipt) return;
 
         StartCoroutine(HandleReceipts());
@@ -150,6 +143,8 @@ public class EndCanvas : MonoBehaviour
     private void p2WantsReceipt(bool hasPressed)
     {
         p2Receipt = hasPressed;
+
+        Debug.Log("P2 wants receipt");
 
         if (!p1Receipt || !p2Receipt || hasShownReceipt) return;
 
@@ -160,6 +155,8 @@ public class EndCanvas : MonoBehaviour
     {
         hasShownReceipt = true;
         anim.SetTrigger("Print");
+
+        Debug.Log("Handling receipts!");
 
         Instantiate(receiptParticleEffect, leftPos.transform.position, Quaternion.identity);
         Instantiate(receiptParticleEffect, rightPos.transform.position, Quaternion.identity);
@@ -172,6 +169,7 @@ public class EndCanvas : MonoBehaviour
 
         p1ScoreText.enabled = true;
         p2ScoreText.enabled = true;
+        whoWon.enabled = true;
 
         yield return null;
     }
