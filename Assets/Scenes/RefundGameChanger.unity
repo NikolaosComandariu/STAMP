@@ -119,41 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &89711293
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 89711294}
-  m_Layer: 5
-  m_Name: RightPos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &89711294
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 89711293}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1299083016}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 561, y: 149}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &257194563
 GameObject:
   m_ObjectHideFlags: 0
@@ -1215,10 +1180,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
-    - target: {fileID: 7436832744059345970, guid: 0cf7ee79c43725b4984178f79de7e01c, type: 3}
-      propertyPath: Loop
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1635,41 +1596,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ed883cbcdfc49345925ef89f0ae8af5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
---- !u!1 &1174339695
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1174339696}
-  m_Layer: 5
-  m_Name: LeftPos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1174339696
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1174339695}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1299083016}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -561, y: 149}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1189657447
 GameObject:
   m_ObjectHideFlags: 0
@@ -1901,37 +1827,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6488471744509555818, guid: 882b6ea02c638ee4f82e9a8bba8924e6, type: 3}
-      propertyPath: leftPos
+      propertyPath: audioManager
       value: 
-      objectReference: {fileID: 1174339696}
-    - target: {fileID: 6488471744509555818, guid: 882b6ea02c638ee4f82e9a8bba8924e6, type: 3}
-      propertyPath: rightPos
-      value: 
-      objectReference: {fileID: 89711294}
-    - target: {fileID: 6488471744509555818, guid: 882b6ea02c638ee4f82e9a8bba8924e6, type: 3}
-      propertyPath: receiptParticleEffect
-      value: 
-      objectReference: {fileID: 6792608202445685187, guid: b354443644c5cee47a62c001b6061e72, type: 3}
+      objectReference: {fileID: 2046175587}
     - target: {fileID: 6884663037462072639, guid: 882b6ea02c638ee4f82e9a8bba8924e6, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1967051820}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 3409902335399293697, guid: 882b6ea02c638ee4f82e9a8bba8924e6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1174339696}
-    - targetCorrespondingSourceObject: {fileID: 3409902335399293697, guid: 882b6ea02c638ee4f82e9a8bba8924e6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 89711294}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 882b6ea02c638ee4f82e9a8bba8924e6, type: 3}
---- !u!224 &1299083016 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3409902335399293697, guid: 882b6ea02c638ee4f82e9a8bba8924e6, type: 3}
-  m_PrefabInstance: {fileID: 1299083015}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1305086883
 GameObject:
   m_ObjectHideFlags: 0
@@ -3215,12 +3122,17 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2308971056412265451, guid: 0cf7ee79c43725b4984178f79de7e01c, type: 3}
   m_PrefabInstance: {fileID: 866817987}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2046175587}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f3fe877096d75914ca676ba8f428f203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+--- !u!1 &2046175587 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4510588032857772673, guid: 0cf7ee79c43725b4984178f79de7e01c, type: 3}
+  m_PrefabInstance: {fileID: 866817987}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2064939998
 GameObject:
   m_ObjectHideFlags: 0

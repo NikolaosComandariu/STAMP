@@ -23,6 +23,9 @@ public class EndCanvas : MonoBehaviour
     [Header("Particle Prefabs")]
     [SerializeField] private GameObject receiptParticleEffect;
 
+    [Header("Audio Manager")]
+    [SerializeField] private GameObject audioManager;
+
     // Scores.
     private int p1Score;
     private int p2Score;
@@ -159,6 +162,7 @@ public class EndCanvas : MonoBehaviour
 
         Instantiate(receiptParticleEffect, leftPos.transform.position, Quaternion.identity);
         Instantiate(receiptParticleEffect, rightPos.transform.position, Quaternion.identity);
+        //audioManager.PlaySFX();
 
         yield return new WaitForSeconds(waitTime);
 

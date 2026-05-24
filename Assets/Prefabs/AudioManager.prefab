@@ -444,3 +444,4 @@ MonoBehaviour:
   defaultMusic: {fileID: 8300000, guid: 7b7ed715e86ce764a8b3a6768b7b2106, type: 3}
   gameChangerMusic: {fileID: 8300000, guid: a2a51b0dd6eda8846abe2e4f7b4664ba, type: 3}
   hitboxAcceptSFX: {fileID: 8300000, guid: 1b9a858801fac00499a1db0788f362cd, type: 3}
+  printSFX: {fileID: 8300000, guid: bbd82d70462b4ce4d893de177cd05ec6, type: 3}
