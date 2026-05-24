@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class EndCanvas : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class EndCanvas : MonoBehaviour
     [SerializeField] private GameObject receiptParticleEffect;
 
     [Header("Audio Manager")]
-    [SerializeField] private GameObject audioManager;
+    [SerializeField] private AudioManager audioManager;
 
     // Scores.
     private int p1Score;
@@ -162,7 +163,7 @@ public class EndCanvas : MonoBehaviour
 
         Instantiate(receiptParticleEffect, leftPos.transform.position, Quaternion.identity);
         Instantiate(receiptParticleEffect, rightPos.transform.position, Quaternion.identity);
-        //audioManager.PlaySFX();
+        audioManager.PlaySFX(audioManager.printSFX);
 
         yield return new WaitForSeconds(waitTime);
 

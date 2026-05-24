@@ -1829,7 +1829,7 @@ PrefabInstance:
     - target: {fileID: 6488471744509555818, guid: 882b6ea02c638ee4f82e9a8bba8924e6, type: 3}
       propertyPath: audioManager
       value: 
-      objectReference: {fileID: 2046175587}
+      objectReference: {fileID: 2032119404}
     - target: {fileID: 6884663037462072639, guid: 882b6ea02c638ee4f82e9a8bba8924e6, type: 3}
       propertyPath: m_Camera
       value: 
@@ -3122,17 +3122,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2308971056412265451, guid: 0cf7ee79c43725b4984178f79de7e01c, type: 3}
   m_PrefabInstance: {fileID: 866817987}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2046175587}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f3fe877096d75914ca676ba8f428f203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
---- !u!1 &2046175587 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4510588032857772673, guid: 0cf7ee79c43725b4984178f79de7e01c, type: 3}
-  m_PrefabInstance: {fileID: 866817987}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2064939998
 GameObject:
   m_ObjectHideFlags: 0
