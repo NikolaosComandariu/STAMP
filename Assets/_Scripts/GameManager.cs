@@ -207,6 +207,7 @@ public class GameManager : MonoBehaviour
         objectSpawner.ResetObjects();
         rightObjSpawner.ResetObjects();
 
+
         onRoundEnded?.Invoke();
 
         StartCoroutine(NextRound());

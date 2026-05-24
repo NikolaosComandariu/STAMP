@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using static GameManager;
 
 public class ButtonClick : MonoBehaviour
 { 
@@ -20,17 +21,22 @@ public class ButtonClick : MonoBehaviour
     private bool oppositeDay;
     private bool inputAllowed;
     private bool isAccept = false;
+    private bool GameEnded = false;
 
     public static event Action onBothInputsPressed;
     public static event Action<bool, bool> onInputDetected;
+    public static event Action onPrintReceipt;
+    public static event Action onPrintReceiptP2;
 
     AudioManager audioManager;
 
     private void OnEnable()
     {
+        EndCanvas.onEndCanvasEnabled += EndCanvasEnabled;
+
         GameChangerManager.onOppositeDayActivated += OppositeDayActivated;
         GameManager.onNextRound += OppositeDayOver;
-
+        
         if (isPlayer1)
         {
             ObjectSpawner.onInputAllowedP1 += InputAllowed;
@@ -41,8 +47,14 @@ public class ButtonClick : MonoBehaviour
         }
     }
 
+    private void EndCanvasEnabled()
+    {
+        GameEnded = true;
+    }
+
     private void OnDisable()
     {
+        EndCanvas.onEndCanvasEnabled -= EndCanvasEnabled;
         GameChangerManager.onOppositeDayActivated -= OppositeDayActivated;
         GameManager.onNextRound -= OppositeDayOver;
 
@@ -73,6 +85,23 @@ public class ButtonClick : MonoBehaviour
         {
             Debug.Log("Decline - TEST");
             OnDeclinePressed();
+        }
+        if (GameEnded)
+        {
+            if (isPlayer1)
+            {
+                if (Input.GetKeyDown(acceptKey))
+                {
+                    onPrintReceipt?.Invoke();
+                }
+            }
+            if (!isPlayer1)
+            {
+                if (Input.GetKeyDown(acceptKey))
+                {
+                    onPrintReceiptP2?.Invoke();
+                }
+            }
         }
     } // End of Nikolaos Comandariu.
 
