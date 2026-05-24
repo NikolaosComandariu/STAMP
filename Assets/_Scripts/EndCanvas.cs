@@ -16,6 +16,13 @@ public class EndCanvas : MonoBehaviour
     [Header("Variables")]
     [SerializeField] private float waitTime;
 
+    [Header("Positions")]
+    [SerializeField] private Transform leftPos;
+    [SerializeField] private Transform rightPos;
+
+    [Header("Particle Prefabs")]
+    [SerializeField] private GameObject receiptParticleEffect;
+
     // Scores.
     private int p1Score;
     private int p2Score;
@@ -149,6 +156,9 @@ public class EndCanvas : MonoBehaviour
     {
         hasShownReceipt = true;
         anim.SetTrigger("Print");
+
+        Instantiate(receiptParticleEffect, leftPos.transform.position, Quaternion.identity);
+        Instantiate(receiptParticleEffect, rightPos.transform.position, Quaternion.identity);
 
         yield return new WaitForSeconds(waitTime);
 

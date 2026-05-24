@@ -4853,4 +4853,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 169f7e3044efd244cab70dbb8512492c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParticleHandler
-  timer: 5
+  timer: 10
