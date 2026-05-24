@@ -15,7 +15,7 @@ public class ButtonPress : MonoBehaviour
 
     [SerializeField] private float delay;
 
-    private void OnEnable()
+   /* private void OnEnable()
     {
         ButtonClick.onInputDetected += ChangeButtonColours;
     }
@@ -23,7 +23,7 @@ public class ButtonPress : MonoBehaviour
     private void OnDisable()
     {
         ButtonClick.onInputDetected -= ChangeButtonColours;
-    }
+    }*/
 
     private void ChangeButtonColours(bool isP1, bool isAccept)
     {

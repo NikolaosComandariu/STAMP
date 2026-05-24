@@ -8,13 +8,13 @@ public class MainMenu : MonoBehaviour
   /// </summary>
     public void PlayGame()
     {
-        SceneManager.LoadScene("RundownScene");
+        SceneManager.LoadScene("TutorialScene");
         
     }
 
     public void GoToMainGame()
     {
-        SceneManager.LoadScene("MainGame");
+        SceneManager.LoadScene("BenScene");
     }
 
     public void QuitGame()
