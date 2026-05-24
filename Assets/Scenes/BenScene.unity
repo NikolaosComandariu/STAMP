@@ -2542,10 +2542,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6488471744509555818, guid: 882b6ea02c638ee4f82e9a8bba8924e6, type: 3}
+      propertyPath: audioManager
+      value: 
+      objectReference: {fileID: 2032119404}
     - target: {fileID: 6884663037462072639, guid: 882b6ea02c638ee4f82e9a8bba8924e6, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1967051820}
+    - target: {fileID: 6884663037462072639, guid: 882b6ea02c638ee4f82e9a8bba8924e6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

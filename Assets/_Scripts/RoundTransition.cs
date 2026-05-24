@@ -33,6 +33,8 @@ public class RoundTransition : MonoBehaviour
 
     private int roundNum = 0;
 
+    private bool isGameOver = false;
+
     /// <summary>
     /// Get relevant components if they aren't there.
     /// </summary>
@@ -59,6 +61,7 @@ public class RoundTransition : MonoBehaviour
     private void OnEnable()
     {
         GameManager.onNextRound += StartRoundTransition;
+        GameManager.onGameOver += GameOver;
         ScoreManager.SendPlayerScores += SetScoreText;
         GameChangerManager.onGameChangerGenerated += SetGameChangerText;
     }
@@ -69,6 +72,7 @@ public class RoundTransition : MonoBehaviour
     private void OnDisable()
     {
         GameManager.onNextRound -= StartRoundTransition;
+        GameManager.onGameOver -= GameOver;
         ScoreManager.SendPlayerScores -= SetScoreText;
         GameChangerManager.onGameChangerGenerated -= SetGameChangerText;
     }
@@ -78,6 +82,7 @@ public class RoundTransition : MonoBehaviour
     /// </summary>
     private void StartRoundTransition()
     {
+        if (isGameOver) return;
         StartCoroutine(RoundTransitionCoroutine());
     }
 
@@ -168,5 +173,10 @@ public class RoundTransition : MonoBehaviour
                 gameChangerText.text = "Refund: Decline items that do not belong here!";
                 break;
         }
+    }
+
+    private void GameOver()
+    {
+        isGameOver = true;
     }
 }

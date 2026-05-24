@@ -74,7 +74,7 @@ public class EndCanvas : MonoBehaviour
     /// </summary>
     private void HandleGameOver()
     {
-        Time.timeScale = 0.0f;
+        //Time.timeScale = 0.0f;
         gameObject.GetComponent<Canvas>().enabled = true;
         CompareScores();
     }
