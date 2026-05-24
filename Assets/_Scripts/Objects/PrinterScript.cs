@@ -12,14 +12,14 @@ public class PrinterScript : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    public void OnEnable()
+   /* public void OnEnable()
     {
         ButtonClick.onPrintReceipt += PlayAnim;
     }
     public void OnDisable()
     {
         ButtonClick.onPrintReceipt -= PlayAnim;
-    }
+    }*/
 
     private void PlayAnim()
     {

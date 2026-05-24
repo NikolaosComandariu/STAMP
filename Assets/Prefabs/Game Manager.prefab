@@ -47,5 +47,9 @@ MonoBehaviour:
   currentRoundNumber: 0
   countDownManager: {fileID: 0}
   objectSpawner: {fileID: 0}
+  rightObjSpawner: {fileID: 0}
+  roundManager: {fileID: 0}
+  criteriaManager: {fileID: 0}
   roundCountdownIncrease: 10
   roundItemsIncrease: 3
+  roundForGameChanger: 3

@@ -1750,18 +1750,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: EndCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 3006521660409480977, guid: 882b6ea02c638ee4f82e9a8bba8924e6, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3006521660409480977, guid: 882b6ea02c638ee4f82e9a8bba8924e6, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3006521660409480977, guid: 882b6ea02c638ee4f82e9a8bba8924e6, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3409902335399293697, guid: 882b6ea02c638ee4f82e9a8bba8924e6, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1842,54 +1830,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6474270122218362676, guid: 882b6ea02c638ee4f82e9a8bba8924e6, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 6.1177
-      objectReference: {fileID: 0}
-    - target: {fileID: 6474270122218362676, guid: 882b6ea02c638ee4f82e9a8bba8924e6, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 6.1177
-      objectReference: {fileID: 0}
-    - target: {fileID: 6474270122218362676, guid: 882b6ea02c638ee4f82e9a8bba8924e6, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 6.1177
-      objectReference: {fileID: 0}
-    - target: {fileID: 6474270122218362676, guid: 882b6ea02c638ee4f82e9a8bba8924e6, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -9.9795
-      objectReference: {fileID: 0}
-    - target: {fileID: 6474270122218362676, guid: 882b6ea02c638ee4f82e9a8bba8924e6, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -246
-      objectReference: {fileID: 0}
     - target: {fileID: 6884663037462072639, guid: 882b6ea02c638ee4f82e9a8bba8924e6, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1967051820}
-    - target: {fileID: 6884663037462072639, guid: 882b6ea02c638ee4f82e9a8bba8924e6, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7394599231287895291, guid: 882b6ea02c638ee4f82e9a8bba8924e6, type: 3}
-      propertyPath: m_ReferenceResolution.x
-      value: 1920
-      objectReference: {fileID: 0}
-    - target: {fileID: 7394599231287895291, guid: 882b6ea02c638ee4f82e9a8bba8924e6, type: 3}
-      propertyPath: m_ReferenceResolution.y
-      value: 1080
-      objectReference: {fileID: 0}
-    - target: {fileID: 8666609229516983869, guid: 882b6ea02c638ee4f82e9a8bba8924e6, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8666609229516983869, guid: 882b6ea02c638ee4f82e9a8bba8924e6, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8666609229516983869, guid: 882b6ea02c638ee4f82e9a8bba8924e6, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

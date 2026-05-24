@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4002571719811699827}
   - component: {fileID: 3770684270005786125}
   - component: {fileID: 8166351201532539507}
+  - component: {fileID: 8290750723473185678}
   m_Layer: 5
   m_Name: Receipt Particles
   m_TagString: Untagged
@@ -45,14 +46,14 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6792608202445685187}
   serializedVersion: 8
-  lengthInSec: 4
+  lengthInSec: 3
   simulationSpeed: 0.75
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -4840,3 +4841,16 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
+--- !u!114 &8290750723473185678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6792608202445685187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 169f7e3044efd244cab70dbb8512492c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ParticleHandler
+  timer: 5

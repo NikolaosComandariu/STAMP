@@ -6,11 +6,6 @@ using static GameManager;
 public class ButtonClick : MonoBehaviour
 { 
     // Nikolaos Comandariu.
-
-    //[SerializeField] private char acceptKey;
-    //[SerializeField] private char declineKey;
-    //[SerializeField] private bool isPlayer1;
-
     [Header("Input")]
     [SerializeField] private KeyCode acceptKey;
     [SerializeField] private KeyCode declineKey;
@@ -25,17 +20,17 @@ public class ButtonClick : MonoBehaviour
 
     public static event Action onBothInputsPressed;
     public static event Action<bool, bool> onInputDetected;
-    public static event Action onPrintReceipt;
-    public static event Action onPrintReceiptP2;
+    public static event Action<bool> onP1PressedButton;
+    public static event Action<bool> onP2PressedButton;
 
-    AudioManager audioManager;
-
+    /// <summary>
+    /// Subscribe to events.
+    /// </summary>
     private void OnEnable()
     {
-        EndCanvas.onEndCanvasEnabled += EndCanvasEnabled;
-
         GameChangerManager.onOppositeDayActivated += OppositeDayActivated;
         GameManager.onNextRound += OppositeDayOver;
+        GameManager.onGameOver += GameOver;
         
         if (isPlayer1)
         {
@@ -47,16 +42,14 @@ public class ButtonClick : MonoBehaviour
         }
     }
 
-    private void EndCanvasEnabled()
-    {
-        GameEnded = true;
-    }
-
+    /// <summary>
+    /// Unsubscribe from events.
+    /// </summary>
     private void OnDisable()
     {
-        EndCanvas.onEndCanvasEnabled -= EndCanvasEnabled;
         GameChangerManager.onOppositeDayActivated -= OppositeDayActivated;
         GameManager.onNextRound -= OppositeDayOver;
+        GameManager.onGameOver -= GameOver;
 
         if (isPlayer1)
         {
@@ -74,39 +67,42 @@ public class ButtonClick : MonoBehaviour
         inputAllowed = true;
     }
 
+    /// <summary>
+    /// Check for player inputs.
+    /// </summary>
     private void Update()
     {
         if (Input.GetKeyDown(acceptKey))
         {
-            Debug.Log("Accept - TEST");
+            //Debug.Log("Accept - TEST");
             OnAcceptPressed();
         }
         if (Input.GetKeyDown(declineKey))
         {
-            Debug.Log("Decline - TEST");
+            //Debug.Log("Decline - TEST");
             OnDeclinePressed();
-        }
-        if (GameEnded)
-        {
-            if (isPlayer1)
-            {
-                if (Input.GetKeyDown(acceptKey))
-                {
-                    onPrintReceipt?.Invoke();
-                }
-            }
-            if (!isPlayer1)
-            {
-                if (Input.GetKeyDown(acceptKey))
-                {
-                    onPrintReceiptP2?.Invoke();
-                }
-            }
         }
     } // End of Nikolaos Comandariu.
 
+    /// <summary>
+    /// Checks if input is allowed, if it is, it checks if it's opposite day
+    /// and either accepts the object or declines the object. 
+    /// It also sends an event to the ButtonPress.cs script so it knows
+    /// which player has pressed a button and whether it was accept or decline.
+    /// </summary>
     public void OnAcceptPressed()
     {
+        // If game over, send bool event to EndCanvas.cs and return;
+        if(GameEnded)
+        {
+            if (isPlayer1)
+                onP1PressedButton?.Invoke(true);
+            else
+                onP2PressedButton?.Invoke(true);
+
+            return;
+        }
+
         isAccept = true;
         Debug.Log("accepted");
         ObjectSpawner spawner = GetComponent<ObjectSpawner>();
@@ -116,7 +112,6 @@ public class ButtonClick : MonoBehaviour
             if (oppositeDay)
             {
                 spawner.DeclineObject();
-                //Debug.Log("Declined! TEST");
             }
             else
             {
@@ -124,17 +119,30 @@ public class ButtonClick : MonoBehaviour
             }
         }
 
-        onInputDetected?.Invoke(isPlayer1, isAccept);
+        onInputDetected?.Invoke(isPlayer1, isAccept); // Tells ButtonPress.cs that an input
 
         Debug.Log("Input allowed: " + inputAllowed);
-
-        //audioManager.PlaySFX(audioManager.correctChoiceSFX);
-
-        // Trigger accept event for P1 if P1, else do P2 accept
     }
 
+    /// <summary>
+    /// Checks if input is allowed, if it is, it checks if it's opposite day
+    /// and either accepts the object or declines the object. 
+    /// It also sends an event to the ButtonPress.cs script so it knows
+    /// which player has pressed a button and whether it was accept or decline.
+    /// </summary>
     public void OnDeclinePressed() 
     {
+        // If game over, send bool event to EndCanvas.cs and return;
+        if (GameEnded)
+        {
+            if (isPlayer1)
+                onP1PressedButton?.Invoke(true);
+            else
+                onP2PressedButton?.Invoke(true);
+
+            return;
+        }
+
         isAccept = false;
         Debug.Log("Declined");
         ObjectSpawner spawner = GetComponent<ObjectSpawner>();
@@ -154,19 +162,24 @@ public class ButtonClick : MonoBehaviour
         onInputDetected?.Invoke(isPlayer1, isAccept);
     }
 
-    private void OppositeDayActivated()
+    private void OppositeDayActivated() // Nikolaos Comandariu.
     {
         oppositeDay = true;
     }
 
-    private void OppositeDayOver()
+    private void OppositeDayOver() // Nikolaos Comandariu.
     {
         oppositeDay = false;
     }
 
-    private void InputAllowed(bool allowed)
+    private void InputAllowed(bool allowed) // Josh
     {
         inputAllowed = allowed;
         Debug.Log("Input allowed was set to: " + inputAllowed);
+    }
+
+    private void GameOver()
+    {
+        GameEnded = true;
     }
 }
